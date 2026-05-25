@@ -1,613 +1,1149 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Poozzle | Goal-Driven Match-3 Boss Adventure</title>
-    <meta id="meta-description" name="description" content="Poozzle is a goal-driven match-3 puzzle adventure with chain reactions, obstacle challenges, and boss battles." />
-    <meta name="keywords" content="Poozzle, match 3, puzzle game, boss battle match 3, chain reaction, casual puzzle" />
-    <meta name="robots" content="index,follow,max-image-preview:large" />
-    <meta name="author" content="Poozzle Team" />
-    <meta name="theme-color" content="#ff9e2c" />
-    <link rel="canonical" href="https://www.poozzle.com/" />
-
-    <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="Poozzle" />
-    <meta property="og:locale" content="en_US" />
-    <meta id="og-title" property="og:title" content="Poozzle | Goal-Driven Match-3 Boss Adventure" />
-    <meta id="og-description" property="og:description" content="Clear goals, trigger combo chains, and defeat bosses in fast and strategic puzzle rounds." />
-    <meta property="og:url" content="https://www.poozzle.com/" />
-    <meta property="og:image" content="https://assets.poozzle.com/main.png" />
-
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta id="twitter-title" name="twitter:title" content="Poozzle | Goal-Driven Match-3 Boss Adventure" />
-    <meta id="twitter-description" name="twitter:description" content="A colorful match-3 adventure with obstacle puzzles and boss battles." />
-    <meta name="twitter:image" content="https://assets.poozzle.com/main.png" />
-
-    <link rel="icon" type="image/x-icon" href="https://assets.poozzle.com/icons/poozzle.ico" />
-    <link rel="apple-touch-icon" href="https://assets.poozzle.com/icons/1024.png" />
-
-    <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@type": "VideoGame",
-        "name": "Poozzle",
-        "description": "A goal-driven match-3 game with combo chains, blockers, and boss battles.",
-        "genre": ["Puzzle", "Casual", "Match-3"],
-        "gamePlatform": ["Windows", "Android", "iOS"],
-        "applicationCategory": "Game",
-        "operatingSystem": "Windows, Android, iOS",
-        "image": "https://assets.poozzle.com/main.png",
-        "url": "https://www.poozzle.com/",
-        "publisher": {
-          "@type": "Organization",
-          "name": "Poozzle Team"
-        }
-      }
-    </script>
-
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>POOZZLE — Not Just Match-3</title>
+    <!-- Fonts load when online; offline falls back to system fonts gracefully -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Fredoka+One&family=Nunito:wght@400;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
     <style>
+      /* ===== VARIABLES ===== */
       :root {
-        --bg: #fff8ef;
-        --card: #ffffff;
-        --ink: #1f2937;
-        --muted: #6b7280;
-        --line: #ffd5aa;
-        --primary: #ff9e2c;
-        --primary-deep: #f97316;
-        --soft: #fff2df;
-        --shadow: 0 10px 28px rgba(249, 115, 22, 0.14);
+        --color-wood-dark: #5c3a1e;
+        --color-wood-mid: #7a4f2d;
+        --color-wood-light: #a0652a;
+        --color-tile-green: #4a7c59;
+        --color-tile-dark: #2d5c3a;
+        --color-yellow: #f5c842;
+        --color-yellow-dark: #d4a010;
+        --color-poop-brown: #6b3a1f;
+        --color-dark-bg: #1a1020;
+        --color-accent: #e8f44a;
+        --font-display: "Bangers", "Impact", "Arial Black", cursive;
+        --font-body: "Fredoka One", "Trebuchet MS", sans-serif;
+        --font-ui: "Nunito", "Segoe UI", system-ui, sans-serif;
       }
 
-      * {
+      /* ===== RESET ===== */
+      *,
+      *::before,
+      *::after {
         box-sizing: border-box;
-      }
-
-      html,
-      body {
         margin: 0;
         padding: 0;
-        font-family: "Segoe UI", "SF Pro Text", Arial, sans-serif;
-        color: var(--ink);
-        background: radial-gradient(1200px 580px at -10% -10%, #ffe9cc 0, transparent 60%), radial-gradient(1100px 520px at 110% 0, #ffe2b8 0, transparent 62%), var(--bg);
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        font-family: var(--font-ui);
+        overflow-x: hidden;
+        background: #1a1a1a;
       }
 
-      .wrap {
-        width: min(1140px, 94vw);
-        margin: 20px auto 56px;
-      }
-
-      .top {
+      /* ===== NAV ===== */
+      #nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 100;
+        background: var(--color-wood-dark);
+        background-image:
+          repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.04) 0px, rgba(255, 255, 255, 0.04) 1px, transparent 1px, transparent 40px),
+          repeating-linear-gradient(180deg, rgba(0, 0, 0, 0.15) 0px, rgba(0, 0, 0, 0.15) 1px, transparent 1px, transparent 8px);
+        border-bottom: 3px solid var(--color-wood-light);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
         display: flex;
+        align-items: center;
         justify-content: space-between;
+        padding: 0 24px;
+        height: 52px;
+      }
+      #nav .nav-links {
+        display: flex;
+        gap: 8px;
         align-items: center;
-        gap: 10px;
-        margin-bottom: 12px;
       }
-
-      .logo {
-        display: inline-flex;
+      #nav .nav-links a {
+        color: var(--color-yellow);
+        font-family: var(--font-display);
+        font-size: 1.1rem;
+        letter-spacing: 1px;
+        text-decoration: none;
+        padding: 6px 14px;
+        border: 2px solid var(--color-wood-light);
+        border-radius: 4px;
+        background: rgba(0, 0, 0, 0.2);
+        transition:
+          background 0.2s,
+          color 0.2s;
+      }
+      #nav .nav-links a:hover {
+        background: var(--color-yellow);
+        color: var(--color-wood-dark);
+      }
+      #nav .nav-links a::before {
+        content: "[";
+        margin-right: 2px;
+      }
+      #nav .nav-links a::after {
+        content: "]";
+        margin-left: 2px;
+      }
+      .lang-toggle {
+        display: flex;
+        gap: 4px;
         align-items: center;
-        gap: 10px;
-        font-weight: 800;
-        color: #9a3412;
       }
-
-      .logo img {
-        width: 36px;
-        height: 36px;
-        border-radius: 8px;
+      .lang-btn {
+        cursor: pointer;
+        background: none;
+        border: 1px solid var(--color-wood-light);
+        color: #ccc;
+        font-family: var(--font-ui);
+        font-size: 0.85rem;
+        padding: 3px 10px;
+        border-radius: 3px;
+        transition: all 0.2s;
       }
-
-      .lang {
-        display: inline-flex;
-        border: 1px solid #fec89a;
-        border-radius: 12px;
-        overflow: hidden;
-        background: #fff;
-      }
-
-      .lang button {
-        border: 0;
-        background: transparent;
-        color: #9a3412;
-        min-width: 52px;
-        min-height: 34px;
+      .lang-btn.active {
+        background: var(--color-yellow);
+        color: var(--color-wood-dark);
+        border-color: var(--color-yellow);
         font-weight: 700;
+      }
+
+      /* ===== MAIN GRID ===== */
+      #main-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 100vh;
+        margin-top: 52px;
+      }
+
+      /* ===== LEFT: HERO ===== */
+      #hero {
+        position: relative;
+        overflow: hidden;
+        background-color: var(--color-tile-green);
+        background-image:
+        /* tile grout lines */
+          repeating-linear-gradient(0deg, transparent, transparent 79px, rgba(0, 0, 0, 0.25) 79px, rgba(0, 0, 0, 0.25) 80px),
+          repeating-linear-gradient(90deg, transparent, transparent 79px, rgba(0, 0, 0, 0.25) 79px, rgba(0, 0, 0, 0.25) 80px),
+          /* tile sheen */ repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.04) 0px, rgba(255, 255, 255, 0.04) 40px, transparent 40px, transparent 80px);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 24px;
+      }
+
+      /* pipe decorations (CSS-only placeholders) */
+      .pipe {
+        position: absolute;
+        background: #8b6914;
+        border-radius: 6px;
+      }
+      .pipe-h {
+        height: 28px;
+      }
+      .pipe-v {
+        width: 28px;
+      }
+      .pipe-top-left {
+        top: 60px;
+        left: 0;
+        width: 120px;
+      }
+      .pipe-top-right {
+        top: 100px;
+        right: 0;
+        width: 80px;
+      }
+      .pipe-mid-left {
+        top: 50%;
+        left: 0;
+        width: 60px;
+        transform: translateY(-50%);
+      }
+      .pipe-bot-left {
+        bottom: 80px;
+        left: 0;
+        width: 100px;
+      }
+      .pipe-side-left {
+        left: 30px;
+        top: 120px;
+        height: 160px;
+      }
+      /* pipe caps */
+      .pipe::after {
+        content: "";
+        position: absolute;
+        right: -10px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 18px;
+        height: 36px;
+        background: #6b5010;
+        border-radius: 4px;
+      }
+      .pipe-side-left::after {
+        display: none;
+      }
+
+      /* steam canvas */
+      #steam-canvas {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 1;
+      }
+
+      /* gear */
+      .gear {
+        position: absolute;
+        width: 64px;
+        height: 64px;
+        border-radius: 50%;
+        border: 8px solid #8b6914;
+        background: #6b5010;
+        animation: spin-gear 8s linear infinite;
+        z-index: 2;
+      }
+      .gear::before,
+      .gear::after {
+        content: "";
+        position: absolute;
+        background: #8b6914;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+      .gear::before {
+        width: 130%;
+        height: 16%;
+        border-radius: 2px;
+      }
+      .gear::after {
+        width: 16%;
+        height: 130%;
+        border-radius: 2px;
+      }
+      .gear-1 {
+        top: 80px;
+        right: 20px;
+      }
+      .gear-2 {
+        bottom: 120px;
+        right: 50px;
+        width: 44px;
+        height: 44px;
+        animation-direction: reverse;
+        animation-duration: 5s;
+      }
+      @keyframes spin-gear {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      /* logo wrapper */
+      #logo-wrap {
+        position: relative;
+        z-index: 5;
+        text-align: center;
+      }
+      #logo-img {
+        max-width: 320px;
+        width: 80%;
+        filter: drop-shadow(0 6px 18px rgba(0, 0, 0, 0.6));
+      }
+      /* placeholder logo (shown when img missing) */
+      .logo-placeholder {
+        font-family: var(--font-display);
+        font-size: 5rem;
+        color: var(--color-yellow);
+        text-shadow:
+          3px 3px 0 var(--color-yellow-dark),
+          6px 6px 0 var(--color-poop-brown),
+          0 0 40px rgba(245, 200, 66, 0.6);
+        line-height: 1;
+        letter-spacing: 4px;
+      }
+
+      /* toilet & plunger placeholder props */
+      .prop-toilet {
+        position: absolute;
+        bottom: 0;
+        left: 16px;
+        z-index: 3;
+        width: 90px;
+        height: 120px;
+        background: #e8e8d8;
+        border-radius: 12px 12px 0 0;
+        border: 3px solid #b0b098;
+      }
+      .prop-toilet::before {
+        content: "🚽";
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 60px;
+        line-height: 1;
+      }
+      .prop-plunger {
+        position: absolute;
+        bottom: 0;
+        left: 130px;
+        z-index: 3;
+        font-size: 64px;
+        line-height: 1;
+      }
+
+      /* CTA button */
+      #cta-btn {
+        position: relative;
+        z-index: 5;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 14px 32px;
+        background: linear-gradient(180deg, var(--color-wood-mid), var(--color-wood-dark));
+        border: 3px solid var(--color-wood-light);
+        border-radius: 8px;
+        color: #fff;
+        font-family: var(--font-display);
+        font-size: 1.5rem;
+        letter-spacing: 2px;
+        cursor: pointer;
+        text-decoration: none;
+        box-shadow:
+          0 6px 0 #3a2010,
+          0 8px 20px rgba(0, 0, 0, 0.4);
+        transition:
+          transform 0.1s,
+          box-shadow 0.1s;
+      }
+      #cta-btn:hover {
+        filter: brightness(1.15);
+      }
+      #cta-btn:active {
+        transform: translateY(4px);
+        box-shadow:
+          0 2px 0 #3a2010,
+          0 4px 10px rgba(0, 0, 0, 0.4);
+      }
+      #cta-btn .play-icon {
+        width: 0;
+        height: 0;
+        border-top: 10px solid transparent;
+        border-bottom: 10px solid transparent;
+        border-left: 18px solid var(--color-yellow);
+      }
+
+      /* store badges */
+      .badges {
+        position: relative;
+        z-index: 5;
+        display: flex;
+        gap: 16px;
+      }
+      .badge-btn {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 18px;
+        background: rgba(0, 0, 0, 0.55);
+        border: 2px solid rgba(255, 255, 255, 0.3);
+        border-radius: 8px;
+        color: #fff;
+        text-decoration: none;
+        transition: background 0.2s;
+      }
+      .badge-btn:hover {
+        background: rgba(0, 0, 0, 0.75);
+      }
+      .badge-btn img {
+        width: 28px;
+        height: 28px;
+        object-fit: contain;
+      }
+      .badge-btn .badge-text {
+        line-height: 1.2;
+      }
+      .badge-btn .badge-label {
+        font-size: 0.6rem;
+        color: #aaa;
+        display: block;
+      }
+      .badge-btn .badge-store {
+        font-family: var(--font-body);
+        font-size: 0.9rem;
+      }
+      /* emoji fallback */
+      .badge-icon {
+        font-size: 28px;
+        line-height: 1;
+      }
+
+      /* ===== RIGHT PANEL ===== */
+      #right-panel {
+        display: flex;
+        flex-direction: column;
+        height: calc(100vh - 52px);
+      }
+
+      /* ===== RIGHT TOP: GAMEPLAY ===== */
+      #gameplay {
+        flex: 1;
+        background-color: var(--color-tile-dark);
+        background-image:
+          repeating-linear-gradient(0deg, transparent, transparent 59px, rgba(0, 0, 0, 0.2) 59px, rgba(0, 0, 0, 0.2) 60px),
+          repeating-linear-gradient(90deg, transparent, transparent 59px, rgba(0, 0, 0, 0.2) 59px, rgba(0, 0, 0, 0.2) 60px);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+        gap: 12px;
+        position: relative;
+      }
+
+      /* HUD panel */
+      .hud-panel {
+        display: flex;
+        gap: 12px;
+        align-items: stretch;
+      }
+      .hud-item {
+        background: rgba(255, 255, 255, 0.12);
+        border: 2px solid rgba(255, 255, 255, 0.25);
+        border-radius: 8px;
+        padding: 6px 16px;
+        text-align: center;
+        color: #fff;
+      }
+      .hud-item .hud-label {
+        font-size: 0.65rem;
+        color: #bbb;
+        font-family: var(--font-ui);
+      }
+      .hud-item .hud-value {
+        font-family: var(--font-display);
+        font-size: 1.6rem;
+        color: var(--color-yellow);
+        letter-spacing: 1px;
+      }
+      .hud-item.goal-item .hud-value {
+        font-size: 1rem;
+        display: flex;
+        gap: 6px;
+        align-items: center;
+      }
+
+      /* game board frame */
+      .board-frame {
+        position: relative;
+        background: var(--color-wood-dark);
+        border: 6px solid var(--color-wood-light);
+        border-radius: 12px;
+        padding: 10px;
+        box-shadow:
+          0 8px 24px rgba(0, 0, 0, 0.5),
+          inset 0 2px 4px rgba(255, 255, 255, 0.1);
+      }
+      .board-screenshot {
+        width: 280px;
+        height: 220px;
+        background: #1a2a1a;
+        border-radius: 6px;
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        grid-template-rows: repeat(5, 1fr);
+        gap: 2px;
+        padding: 4px;
+        overflow: hidden;
+      }
+      .board-cell {
+        border-radius: 4px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.1rem;
+      }
+      .board-cell.c1 {
+        background: rgba(139, 90, 43, 0.4);
+      }
+      .board-cell.c2 {
+        background: rgba(80, 140, 80, 0.4);
+      }
+      .board-cell.c3 {
+        background: rgba(140, 80, 80, 0.4);
+      }
+      .board-cell.c4 {
+        background: rgba(80, 80, 140, 0.4);
+      }
+
+      /* Combo text */
+      #combo-text {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(0);
+        font-family: var(--font-display);
+        font-size: 2.8rem;
+        color: var(--color-accent);
+        text-shadow:
+          0 0 20px rgba(232, 244, 74, 0.8),
+          3px 3px 0 var(--color-wood-dark);
+        letter-spacing: 4px;
+        z-index: 10;
+        pointer-events: none;
+        white-space: nowrap;
+      }
+
+      /* tagline */
+      .tagline {
+        font-family: var(--font-display);
+        font-size: 1.1rem;
+        color: var(--color-yellow);
+        letter-spacing: 1.5px;
+        text-align: center;
+        text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.5);
+      }
+
+      /* ===== RIGHT BOTTOM: BUG DOSSIERS ===== */
+      #bugs {
+        flex: 1;
+        background: linear-gradient(180deg, #1a1020 0%, #0d0820 60%, #1a0a10 100%);
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 16px;
+        position: relative;
+        overflow: hidden;
+      }
+      /* atmospheric stars */
+      #bugs::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background-image:
+          radial-gradient(circle 1px at 20% 30%, rgba(255, 255, 255, 0.6) 0%, transparent 100%), radial-gradient(circle 1px at 70% 20%, rgba(255, 255, 255, 0.5) 0%, transparent 100%),
+          radial-gradient(circle 1px at 50% 70%, rgba(255, 255, 255, 0.4) 0%, transparent 100%), radial-gradient(circle 2px at 85% 55%, rgba(255, 200, 100, 0.5) 0%, transparent 100%),
+          radial-gradient(circle 1px at 10% 80%, rgba(255, 255, 255, 0.4) 0%, transparent 100%);
+        pointer-events: none;
+      }
+      .bugs-title {
+        font-family: var(--font-display);
+        font-size: 1.8rem;
+        color: #f0d090;
+        letter-spacing: 3px;
+        text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
+        position: relative;
+        z-index: 2;
+      }
+      .bug-cards {
+        display: flex;
+        gap: 16px;
+        position: relative;
+        z-index: 2;
+      }
+
+      /* 3D flip card */
+      .bug-card {
+        width: 130px;
+        perspective: 600px;
         cursor: pointer;
       }
-
-      .lang button.active {
-        color: #fff;
-        background: linear-gradient(135deg, var(--primary), var(--primary-deep));
-      }
-
-      .hero {
-        background: var(--card);
-        border: 1px solid var(--line);
-        border-radius: 18px;
-        box-shadow: var(--shadow);
-        padding: 16px;
-        display: grid;
-        grid-template-columns: 98px 1fr 300px;
-        gap: 14px;
-        align-items: center;
-      }
-
-      .icon {
-        width: 98px;
-        height: 98px;
-        border-radius: 24px;
-        border: 1px solid #ffd2a3;
-        box-shadow: 0 8px 18px rgba(249, 115, 22, 0.22);
-      }
-
-      .hero h1 {
-        margin: 0;
-        color: #7c2d12;
-        line-height: 1.12;
-        font-size: clamp(1.45rem, 3.4vw, 2.2rem);
-      }
-
-      .hero p {
-        margin: 8px 0 0;
-        color: var(--muted);
-      }
-
-      .cta {
-        display: grid;
-        gap: 8px;
-      }
-
-      .store {
-        border: 1px solid #ffd9b3;
-        border-radius: 12px;
-        padding: 9px 10px;
-        background: #fff;
-        text-decoration: none;
-        color: inherit;
-        transition: transform 0.16s ease;
-      }
-
-      .store:hover {
-        transform: translateY(-2px);
-      }
-
-      .store strong {
-        display: block;
-        color: #9a3412;
-        font-size: 0.95rem;
-      }
-
-      .store small {
-        color: var(--muted);
-      }
-
-      .stats {
-        margin-top: 10px;
-        display: grid;
-        grid-template-columns: repeat(4, minmax(0, 1fr));
-        gap: 8px;
-      }
-
-      .stat {
-        border: 1px solid #ffdcb7;
-        border-radius: 12px;
-        background: var(--soft);
-        padding: 8px;
-        text-align: center;
-      }
-
-      .stat strong {
-        display: block;
-        color: #9a3412;
-        font-size: 0.95rem;
-      }
-
-      .stat span {
-        color: var(--muted);
-        font-size: 0.78rem;
-      }
-
-      .section {
-        margin-top: 14px;
-        background: var(--card);
-        border: 1px solid var(--line);
-        border-radius: 16px;
-        box-shadow: var(--shadow);
-        padding: 14px;
-      }
-
-      .section h2 {
-        margin: 0;
-        color: #7c2d12;
-        font-size: 1.18rem;
-      }
-
-      .lead {
-        margin: 8px 0 0;
-        color: var(--muted);
-      }
-
-      .shots {
-        margin-top: 12px;
-        display: grid;
-        grid-auto-flow: column;
-        grid-auto-columns: minmax(210px, 230px);
-        gap: 10px;
-        overflow-x: auto;
-        padding-bottom: 4px;
-        scroll-snap-type: x mandatory;
-      }
-
-      .shot {
-        scroll-snap-align: start;
-        border: 1px solid #ffd9b5;
-        border-radius: 16px;
-        background: #fff;
-        padding: 6px;
-      }
-
-      .shot img {
+      .bug-card-inner {
+        position: relative;
         width: 100%;
-        height: 400px;
-        object-fit: cover;
-        border-radius: 12px;
+        height: 160px;
+        transform-style: preserve-3d;
+        transition: transform 0.55s cubic-bezier(0.4, 0, 0.2, 1);
       }
-
-      .split {
-        margin-top: 10px;
-        display: grid;
-        grid-template-columns: 1.2fr 0.8fr;
-        gap: 10px;
+      .bug-card:hover .bug-card-inner {
+        transform: rotateY(180deg);
       }
-
-      .list {
-        margin: 0;
-        padding-left: 18px;
-        color: #374151;
-      }
-
-      .list li {
-        margin: 6px 0;
-      }
-
-      .chips {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 8px;
-        align-content: flex-start;
-      }
-
-      .chip {
-        border: 1px solid #ffd8b4;
-        background: #fff4e9;
-        color: #9a3412;
-        border-radius: 999px;
-        padding: 4px 10px;
-        font-size: 0.8rem;
-        font-weight: 600;
-      }
-
-      .bosses {
-        margin-top: 10px;
-        display: grid;
-        grid-template-columns: repeat(5, minmax(0, 1fr));
-        gap: 8px;
-      }
-
-      .boss {
-        border: 1px solid #ffd9b7;
-        border-radius: 12px;
-        background: #fffaf4;
-        padding: 8px;
-        text-align: center;
-        font-weight: 700;
-        color: #7c2d12;
-        font-size: 0.8rem;
-      }
-
-      .boss img {
-        width: 100%;
-        aspect-ratio: 1/1;
-        object-fit: contain;
-        margin-bottom: 4px;
-      }
-
-      .links {
-        margin-top: 10px;
-        display: flex;
-        flex-wrap: wrap;
-        gap: 8px;
-      }
-
-      .links a {
-        border: 1px solid #ffd8b4;
-        background: #fff;
-        color: #9a3412;
+      .bug-card-front,
+      .bug-card-back {
+        position: absolute;
+        inset: 0;
+        backface-visibility: hidden;
         border-radius: 10px;
-        padding: 6px 10px;
-        text-decoration: none;
-        font-size: 0.85rem;
-        font-weight: 600;
+        overflow: hidden;
+        border: 2px solid rgba(255, 255, 255, 0.15);
       }
-
-      footer {
-        margin-top: 14px;
+      .bug-card-front {
+        background: rgba(30, 15, 40, 0.8);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        padding: 12px 8px;
+      }
+      .bug-card-back {
+        background: rgba(15, 5, 25, 0.9);
+        border-color: rgba(232, 244, 74, 0.4);
+        transform: rotateY(180deg);
+        padding: 10px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 6px;
+      }
+      .bug-emoji {
+        font-size: 3rem;
+        line-height: 1;
+      }
+      .bug-img {
+        width: 70px;
+        height: 70px;
+        object-fit: contain;
+      }
+      .bug-name-en {
+        font-family: var(--font-display);
+        font-size: 0.85rem;
+        color: #f0d090;
         text-align: center;
-        color: #9ca3af;
-        font-size: 0.85rem;
+        letter-spacing: 0.5px;
+      }
+      .bug-name-zh {
+        font-family: var(--font-ui);
+        font-size: 0.7rem;
+        color: #aaa;
+        text-align: center;
+      }
+      .bug-stat {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+      }
+      .stat-label {
+        font-size: 0.58rem;
+        color: var(--color-accent);
+        font-family: var(--font-ui);
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+      .stat-value {
+        font-size: 0.72rem;
+        color: #e0d0c0;
+        font-family: var(--font-ui);
+      }
+      .stat-sep {
+        height: 1px;
+        background: rgba(255, 255, 255, 0.1);
+        margin: 2px 0;
       }
 
-      @media (max-width: 980px) {
-        .hero {
+      /* ===== SECTIONS (scroll areas below fold) ===== */
+      /* Anchors for nav links — content within single page */
+      #how-to-play,
+      #boss-files,
+      #pre-register {
+        padding: 80px 40px;
+        text-align: center;
+        color: #fff;
+        min-height: 50vh;
+        background: #0f0f0f;
+        border-top: 3px solid var(--color-wood-dark);
+      }
+      .section-title {
+        font-family: var(--font-display);
+        font-size: 3rem;
+        color: var(--color-yellow);
+        letter-spacing: 3px;
+        margin-bottom: 24px;
+      }
+      .section-body {
+        font-size: 1.1rem;
+        color: #bbb;
+        max-width: 640px;
+        margin: 0 auto;
+      }
+      .coming-soon-badge {
+        display: inline-block;
+        margin-top: 16px;
+        padding: 8px 24px;
+        border: 2px dashed var(--color-wood-light);
+        border-radius: 8px;
+        color: var(--color-wood-light);
+        font-family: var(--font-body);
+      }
+
+      /* ===== RESPONSIVE ===== */
+      @media (max-width: 768px) {
+        #main-grid {
           grid-template-columns: 1fr;
+          grid-template-rows: auto;
         }
-        .stats {
-          grid-template-columns: repeat(2, minmax(0, 1fr));
+        #hero {
+          min-height: 80vh;
         }
-        .split {
-          grid-template-columns: 1fr;
+        #right-panel {
+          height: auto;
         }
-        .bosses {
-          grid-template-columns: repeat(2, minmax(0, 1fr));
+        #gameplay,
+        #bugs {
+          min-height: 60vh;
+        }
+        .bug-cards {
+          flex-wrap: wrap;
+          justify-content: center;
+        }
+        #nav .nav-links a {
+          font-size: 0.85rem;
+          padding: 4px 8px;
         }
       }
     </style>
   </head>
   <body>
-    <div class="wrap">
-      <div class="top">
-        <div class="logo">
-          <img src="https://assets.poozzle.com/icons/1024.png" alt="Poozzle icon" width="36" height="36" />
-          <span>Poozzle</span>
-        </div>
-        <div class="lang" aria-label="Language switcher">
-          <button type="button" data-lang="en" class="active">EN</button>
-          <button type="button" data-lang="zh">中文</button>
-        </div>
+    <!-- ===== NAV ===== -->
+    <nav id="nav">
+      <div class="nav-links">
+        <a href="#how-to-play" data-i18n="nav_how">HOW TO PLAY</a>
+        <a href="#boss-files" data-i18n="nav_boss">BOSS FILES</a>
+        <a href="#pre-register" data-i18n="nav_register">PRE-REGISTER</a>
       </div>
+      <div class="lang-toggle">
+        <button class="lang-btn active" data-lang="en">EN</button>
+        <button class="lang-btn" data-lang="zh">中文</button>
+      </div>
+    </nav>
 
-      <section class="hero">
-        <img class="icon" src="https://assets.poozzle.com/icons/1024.png" alt="Poozzle app icon" width="98" height="98" />
-        <div>
-          <h1 data-i18n="title">Poozzle: Goal-Driven Match-3 Adventure</h1>
-          <p data-i18n="subtitle">Classic match-3 comfort, then escalating boss pressure and chain-reaction payoffs.</p>
-          <div class="stats">
-            <div class="stat"><strong data-i18n="s1v">Goal-Driven</strong><span data-i18n="s1t">Puzzle Design</span></div>
-            <div class="stat"><strong data-i18n="s2v">Boss Tactics</strong><span data-i18n="s2t">Combat Flavor</span></div>
-            <div class="stat"><strong data-i18n="s3v">Short Session</strong><span data-i18n="s3t">Play Pace</span></div>
-            <div class="stat"><strong data-i18n="s4v">Goal-Based</strong><span data-i18n="s4t">Core Loop</span></div>
+    <!-- ===== MAIN GRID ===== -->
+    <div id="main-grid">
+      <!-- ===== LEFT: HERO ===== -->
+      <section id="hero">
+        <!-- pipe decorations -->
+        <div class="pipe pipe-h pipe-top-left"></div>
+        <div class="pipe pipe-h pipe-top-right"></div>
+        <div class="pipe pipe-h pipe-mid-left"></div>
+        <div class="pipe pipe-h pipe-bot-left"></div>
+        <div class="pipe pipe-v pipe-side-left"></div>
+        <!-- gears -->
+        <div class="gear gear-1"></div>
+        <div class="gear gear-2"></div>
+        <!-- steam canvas -->
+        <canvas id="steam-canvas"></canvas>
+
+        <!-- logo -->
+        <div id="logo-wrap">
+          <img
+            id="logo-img"
+            src="assets/logo/logo-poozzle.png"
+            alt="POOZZLE"
+            onerror="
+              this.style.display = 'none';
+              document.getElementById('logo-fallback').style.display = 'block';
+            "
+          />
+          <div class="logo-placeholder" id="logo-fallback" style="display: none">POO<br />ZZLE</div>
+        </div>
+
+        <!-- CTA -->
+        <a id="cta-btn" href="#pre-register">
+          <span class="play-icon"></span>
+          <span data-i18n="cta">BEGIN YOUR ASCENT!</span>
+        </a>
+
+        <!-- store badges -->
+        <div class="badges">
+          <a class="badge-btn" href="#" aria-label="App Store">
+            <img src="assets/badges/badge-appstore.png" alt="" onerror="this.outerHTML = '<span class=\'badge-icon\'>🍎</span>'" />
+            <div class="badge-text">
+              <span class="badge-label" data-i18n="badge_get">GET IT ON</span>
+              <span class="badge-store">App Store</span>
+            </div>
+          </a>
+          <a class="badge-btn" href="#" aria-label="Google Play">
+            <img src="assets/badges/badge-googleplay.png" alt="" onerror="this.outerHTML = '<span class=\'badge-icon\'>▶</span>'" />
+            <div class="badge-text">
+              <span class="badge-label" data-i18n="badge_get">GET IT ON</span>
+              <span class="badge-store">Google Play</span>
+            </div>
+          </a>
+        </div>
+
+        <!-- prop: toilet -->
+        <div class="prop-toilet" aria-hidden="true">
+          <img src="assets/props/prop-toilet.png" alt="" style="width: 100%; height: 100%; object-fit: contain" onerror="this.style.display = 'none'" />
+        </div>
+        <!-- prop: plunger -->
+        <div class="prop-plunger" aria-hidden="true">
+          <img
+            src="assets/props/prop-plunger.png"
+            alt=""
+            style="width: 64px; height: 80px; object-fit: contain"
+            onerror="this.outerHTML = '<div class=\'prop-plunger\' style=\'font-size:64px\'>🪠</div>'"
+          />
+        </div>
+      </section>
+
+      <!-- ===== RIGHT PANEL ===== -->
+      <div id="right-panel">
+        <!-- RIGHT TOP: GAMEPLAY -->
+        <section id="gameplay">
+          <!-- HUD -->
+          <div class="hud-panel">
+            <div class="hud-item">
+              <div class="hud-label" data-i18n="hud_score">Score</div>
+              <div class="hud-value">1250</div>
+            </div>
+            <div class="hud-item">
+              <div class="hud-label" data-i18n="hud_moves">Moves</div>
+              <div class="hud-value">15</div>
+            </div>
+            <div class="hud-item goal-item">
+              <div class="hud-label" data-i18n="hud_goal">Goal</div>
+              <div class="hud-value">💩×20 &nbsp; 🧻×10</div>
+            </div>
           </div>
-        </div>
-        <div class="cta" id="download">
-          <a class="store" href="#" aria-disabled="true"><strong data-i18n="dl1">Windows</strong><small data-i18n="dl1s">Executable version - Coming soon</small></a>
-          <a class="store" href="#" aria-disabled="true"><strong data-i18n="dl2">Android</strong><small data-i18n="dl2s">Google Play - Coming soon</small></a>
-          <a class="store" href="#" aria-disabled="true"><strong data-i18n="dl3">iOS</strong><small data-i18n="dl3s">App Store - Coming soon</small></a>
-        </div>
-      </section>
 
-      <section class="section">
-        <h2 data-i18n="shotsTitle">A Sweet Adventure In-Game</h2>
-        <p class="lead" data-i18n="shotsLead">Real in-game progression shots: board pressure, blockers, and boss encounters.</p>
-        <div class="shots">
-          <div class="shot"><img src="https://assets.poozzle.com/screenshot/IMG_7492.PNG" alt="Poozzle screenshot 1" /></div>
-          <div class="shot"><img src="https://assets.poozzle.com/screenshot/IMG_7493.PNG" alt="Poozzle screenshot 2" /></div>
-          <div class="shot"><img src="https://assets.poozzle.com/screenshot/IMG_7495.PNG" alt="Poozzle screenshot 3" /></div>
-          <div class="shot"><img src="https://assets.poozzle.com/screenshot/IMG_7496.PNG" alt="Poozzle screenshot 4" /></div>
-          <div class="shot"><img src="https://assets.poozzle.com/screenshot/IMG_7497.PNG" alt="Poozzle screenshot 5" /></div>
-          <div class="shot"><img src="https://assets.poozzle.com/screenshot/IMG_7498.PNG" alt="Poozzle screenshot 6" /></div>
-          <div class="shot"><img src="https://assets.poozzle.com/screenshot/IMG_7503.PNG" alt="Poozzle screenshot 7" /></div>
-          <div class="shot"><img src="https://assets.poozzle.com/screenshot/IMG_7504.PNG" alt="Poozzle screenshot 8" /></div>
-          <div class="shot"><img src="https://assets.poozzle.com/screenshot/IMG_7506.PNG" alt="Poozzle screenshot 9" /></div>
-          <div class="shot"><img src="https://assets.poozzle.com/screenshot/IMG_7507.PNG" alt="Poozzle screenshot 10" /></div>
-          <div class="shot"><img src="https://assets.poozzle.com/screenshot/IMG_7508.PNG" alt="Poozzle screenshot 11" /></div>
-          <div class="shot"><img src="https://assets.poozzle.com/screenshot/IMG_7510.PNG" alt="Poozzle screenshot 12" /></div>
-          <div class="shot"><img src="https://assets.poozzle.com/screenshot/IMG_7511.PNG" alt="Poozzle screenshot 13" /></div>
-        </div>
-      </section>
-
-      <section class="section" id="features">
-        <h2 data-i18n="aboutTitle">About This Game</h2>
-        <p class="lead" data-i18n="aboutLead">Poozzle combines classic objective match-3 with milestone boss battles and data-driven long-run progression.</p>
-        <div class="split">
-          <ul class="list">
-            <li data-i18n="f1">Objective-first rounds: collect colors, break blockers, and manage moves.</li>
-            <li data-i18n="f2">Special chains: line clears, bombs, and color clears for high-impact turns.</li>
-            <li data-i18n="f3">Boss battles with weakness colors and periodic pressure skills.</li>
-            <li data-i18n="f4">Campaign progression with irregular masks, layered blockers, and rising complexity.</li>
-            <li data-i18n="f5">Short-session pacing with low restart friction and steady progression.</li>
-            <li data-i18n="f6">Energy + rewarded refill loop built for free-to-play retention.</li>
-          </ul>
-          <div class="chips" aria-label="Game tags">
-            <span class="chip" data-i18n="tag1">Boss Battle Match-3</span>
-            <span class="chip" data-i18n="tag2">Chain Reaction</span>
-            <span class="chip" data-i18n="tag3">Obstacle Puzzle</span>
-            <span class="chip" data-i18n="tag4">Casual Progression</span>
-            <span class="chip" data-i18n="tag5">Single Player</span>
-            <span class="chip" data-i18n="tag6">Free to Play</span>
+          <!-- Game board -->
+          <div class="board-frame">
+            <img
+              src="assets/ui/gameplay-screenshot.png"
+              alt="Gameplay"
+              style="width: 280px; height: 220px; object-fit: cover; border-radius: 6px; display: block"
+              onerror="
+                this.style.display = 'none';
+                document.getElementById('board-fallback').style.display = 'grid';
+              "
+            />
+            <div id="board-fallback" class="board-screenshot" style="display: none" id="board-fallback" aria-hidden="true"></div>
+            <!-- Combo overlay -->
+            <div id="combo-text">Combo!</div>
           </div>
-        </div>
-      </section>
 
-      <section class="section" id="bosses">
-        <h2 data-i18n="bossTitle">Boss Lineup</h2>
-        <p class="lead" data-i18n="bossLead">Boss encounters shape the mid-to-late progression curve.</p>
-        <div class="bosses">
-          <div class="boss"><img src="https://assets.poozzle.com/guis/Boss01_Lo.png" alt="Frost Fang" /><span data-i18n="b1">Frost Fang</span></div>
-          <div class="boss"><img src="https://assets.poozzle.com/guis/Boss02_Lo.png" alt="Spark Beak" /><span data-i18n="b2">Spark Beak</span></div>
-          <div class="boss"><img src="https://assets.poozzle.com/guis/Boss03_Lo.png" alt="Mire Titan" /><span data-i18n="b3">Mire Titan</span></div>
-          <div class="boss"><img src="https://assets.poozzle.com/guis/Boss04_Lo.png" alt="Scrap Baron" /><span data-i18n="b4">Scrap Baron</span></div>
-          <div class="boss"><img src="https://assets.poozzle.com/guis/Boss05_Lo.png" alt="Blight Bloom" /><span data-i18n="b5">Blight Bloom</span></div>
-          <div class="boss"><img src="https://assets.poozzle.com/guis/Boss06_Lo.png" alt="Mold Matriarch" /><span data-i18n="b6">Mold Matriarch</span></div>
-          <div class="boss"><img src="https://assets.poozzle.com/guis/Boss07_Lo.png" alt="Swarm Creeper" /><span data-i18n="b7">Swarm Creeper</span></div>
-          <div class="boss"><img src="https://assets.poozzle.com/guis/Boss08_Lo.png" alt="Corrode Rex" /><span data-i18n="b8">Corrode Rex</span></div>
-          <div class="boss"><img src="https://assets.poozzle.com/guis/Boss09_Lo.png" alt="Termite Queen" /><span data-i18n="b9">Termite Queen</span></div>
-          <div class="boss"><img src="https://assets.poozzle.com/guis/Boss10_Lo.png" alt="Slug Sovereign" /><span data-i18n="b10">Slug Sovereign</span></div>
-        </div>
-      </section>
+          <!-- Tagline -->
+          <p class="tagline" data-i18n="tagline">NOT JUST MATCH-3. IT'S A STRATEGIC FLUSH!</p>
+        </section>
 
-      <section class="section">
-        <h2 data-i18n="linksTitle">Additional Links</h2>
-        <div class="links">
-          <a href="#top" data-i18n="l1">Home</a>
-          <a href="#features" data-i18n="l2">Gameplay</a>
-          <a href="#bosses" data-i18n="l3">Bosses</a>
-          <a href="#download" data-i18n="l4">Download</a>
-        </div>
-      </section>
+        <!-- RIGHT BOTTOM: BUG DOSSIERS -->
+        <section id="bugs">
+          <h2 class="bugs-title" data-i18n="bugs_title">The Bug Dossiers</h2>
+          <div class="bug-cards">
+            <!-- Bug 1: Flying Shadow -->
+            <div class="bug-card">
+              <div class="bug-card-inner">
+                <div class="bug-card-front">
+                  <img src="assets/bugs/bug-flying-shadow.png" class="bug-img" alt="Flying Shadow" onerror="this.outerHTML = '<div class=\'bug-emoji\'>🪰</div>'" />
+                  <div class="bug-name-en" data-i18n="bug1_en">THE FLYING SHADOW</div>
+                  <div class="bug-name-zh" data-i18n="bug1_zh">飞影</div>
+                </div>
+                <div class="bug-card-back">
+                  <div class="bug-stat">
+                    <span class="stat-label" data-i18n="stat_weakness">Weakness</span>
+                    <span class="stat-value" data-i18n="bug1_weakness">Wind Vortex</span>
+                  </div>
+                  <div class="stat-sep"></div>
+                  <div class="bug-stat">
+                    <span class="stat-label" data-i18n="stat_damage">Damage</span>
+                    <span class="stat-value" data-i18n="bug1_damage">Egg Spawns</span>
+                  </div>
+                  <div class="stat-sep"></div>
+                  <div class="bug-stat" style="font-size: 0.65rem; color: #aaa" data-i18n="bug1_note">Watch for flying egg drops! Best floor: 8.</div>
+                </div>
+              </div>
+            </div>
 
-      <footer>© <span id="year"></span> Poozzle. <span data-i18n="rights">All rights reserved.</span></footer>
+            <!-- Bug 2: Overstep Crawler -->
+            <div class="bug-card">
+              <div class="bug-card-inner">
+                <div class="bug-card-front">
+                  <img src="assets/bugs/bug-overstep-crawler.png" class="bug-img" alt="Overstep Crawler" onerror="this.outerHTML = '<div class=\'bug-emoji\'>🪳</div>'" />
+                  <div class="bug-name-en" data-i18n="bug2_en">OVERSTEP CRAWLER</div>
+                  <div class="bug-name-zh" data-i18n="bug2_zh">美洲大蠊</div>
+                </div>
+                <div class="bug-card-back">
+                  <div class="bug-stat">
+                    <span class="stat-label" data-i18n="stat_weakness">Weakness</span>
+                    <span class="stat-value" data-i18n="bug2_weakness">Sticky Traps</span>
+                  </div>
+                  <div class="stat-sep"></div>
+                  <div class="bug-stat">
+                    <span class="stat-label" data-i18n="stat_damage">Damage</span>
+                    <span class="stat-value" data-i18n="bug2_damage">Armor</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Bug 3: Invisible Mildew -->
+            <div class="bug-card">
+              <div class="bug-card-inner">
+                <div class="bug-card-front">
+                  <img src="assets/bugs/bug-invisible-mildew.png" class="bug-img" alt="Invisible Mildew" onerror="this.outerHTML = '<div class=\'bug-emoji\'>🧟</div>'" />
+                  <div class="bug-name-en" data-i18n="bug3_en">INVISIBLE MILDEW</div>
+                  <div class="bug-name-zh" data-i18n="bug3_zh">霉面怪</div>
+                </div>
+                <div class="bug-card-back">
+                  <div class="bug-stat">
+                    <span class="stat-label" data-i18n="stat_weakness">Weakness</span>
+                    <span class="stat-value" data-i18n="bug3_weakness">Cleanser Chain</span>
+                  </div>
+                  <div class="stat-sep"></div>
+                  <div class="bug-stat">
+                    <span class="stat-label" data-i18n="stat_damage">Damage</span>
+                    <span class="stat-value" data-i18n="bug3_damage">Blocks</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- .bug-cards -->
+        </section>
+      </div>
+      <!-- #right-panel -->
     </div>
+    <!-- #main-grid -->
+
+    <!-- ===== SCROLL SECTIONS ===== -->
+    <section id="how-to-play">
+      <h2 class="section-title" data-i18n="nav_how">HOW TO PLAY</h2>
+      <p class="section-body" data-i18n="howto_body">
+        Match poop tiles, chain combos, and strategically flush your way to the top! Face unique boss bugs on every floor with their own weaknesses and attack patterns.
+      </p>
+      <span class="coming-soon-badge" data-i18n="coming_soon">CONTENT COMING SOON</span>
+    </section>
+
+    <section id="boss-files">
+      <h2 class="section-title" data-i18n="nav_boss">BOSS FILES</h2>
+      <p class="section-body" data-i18n="boss_body">Every floor hides a terrifying bug boss. Study their dossiers, learn their weaknesses, and prepare your strategy before the flush.</p>
+      <span class="coming-soon-badge" data-i18n="coming_soon">CONTENT COMING SOON</span>
+    </section>
+
+    <section id="pre-register">
+      <h2 class="section-title" data-i18n="nav_register">PRE-REGISTER</h2>
+      <p class="section-body" data-i18n="register_body">Be the first to know when POOZZLE launches. Sign up for exclusive rewards!</p>
+      <span class="coming-soon-badge" data-i18n="coming_soon">CONTENT COMING SOON</span>
+    </section>
+
+    <!-- ===== GSAP CDN ===== -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 
     <script>
+      // ============================
+      // i18n
+      // ============================
       const i18n = {
         en: {
-          page_title: "Poozzle | Goal-Driven Match-3 Boss Adventure",
-          page_desc: "Poozzle is a goal-driven match-3 puzzle adventure with chain reactions, obstacle challenges, and boss battles.",
-          og_title: "Poozzle | Goal-Driven Match-3 Boss Adventure",
-          og_desc: "Clear goals, trigger combo chains, and defeat bosses in fast and strategic puzzle rounds.",
-          title: "Poozzle: Goal-Driven Match-3 Adventure",
-          subtitle: "Classic match-3 comfort, then escalating boss pressure and chain-reaction payoffs.",
-          s1v: "Goal-Driven",
-          s1t: "Puzzle Design",
-          s2v: "Boss Tactics",
-          s2t: "Combat Flavor",
-          s3v: "Short Session",
-          s3t: "Play Pace",
-          s4v: "Goal-Based",
-          s4t: "Core Loop",
-          dl1: "Windows",
-          dl1s: "Executable version - Coming soon",
-          dl2: "Android",
-          dl2s: "Google Play - Coming soon",
-          dl3: "iOS",
-          dl3s: "App Store - Coming soon",
-          shotsTitle: "A Sweet Adventure In-Game",
-          shotsLead: "Real in-game progression shots: board pressure, blockers, and boss encounters.",
-          aboutTitle: "About This Game",
-          aboutLead: "Poozzle combines classic objective match-3 with milestone boss battles and data-driven long-run progression.",
-          f1: "Objective-first rounds: collect colors, break blockers, and manage moves.",
-          f2: "Special chains: line clears, bombs, and color clears for high-impact turns.",
-          f3: "Boss battles with weakness colors and periodic pressure skills.",
-          f4: "Campaign progression with irregular masks, layered blockers, and rising complexity.",
-          f5: "Short-session pacing with low restart friction and steady progression.",
-          f6: "Energy + rewarded refill loop built for free-to-play retention.",
-          tag1: "Boss Battle Match-3",
-          tag2: "Chain Reaction",
-          tag3: "Obstacle Puzzle",
-          tag4: "Casual Progression",
-          tag5: "Single Player",
-          tag6: "Free to Play",
-          bossTitle: "Boss Lineup",
-          bossLead: "Boss encounters shape the mid-to-late progression curve.",
-          b1: "Frost Fang",
-          b2: "Spark Beak",
-          b3: "Mire Titan",
-          b4: "Scrap Baron",
-          b5: "Blight Bloom",
-          b6: "Mold Matriarch",
-          b7: "Swarm Creeper",
-          b8: "Corrode Rex",
-          b9: "Termite Queen",
-          b10: "Slug Sovereign",
-          linksTitle: "Additional Links",
-          l1: "Home",
-          l2: "Gameplay",
-          l3: "Bosses",
-          l4: "Download",
-          rights: "All rights reserved.",
+          nav_how: "HOW TO PLAY",
+          nav_boss: "BOSS FILES",
+          nav_register: "PRE-REGISTER",
+          cta: "BEGIN YOUR ASCENT!",
+          tagline: "NOT JUST MATCH-3. IT'S A STRATEGIC FLUSH!",
+          badge_get: "GET IT ON",
+          hud_score: "Score",
+          hud_moves: "Moves",
+          hud_goal: "Goal",
+          bugs_title: "The Bug Dossiers",
+          bug1_en: "THE FLYING SHADOW",
+          bug1_zh: "(飞影)",
+          bug1_weakness: "Wind Vortex",
+          bug1_damage: "Egg Spawns",
+          bug1_note: "Watch for flying egg drops! Best floor: 8.",
+          bug2_en: "OVERSTEP CRAWLER",
+          bug2_zh: "(美洲大蠊)",
+          bug2_weakness: "Sticky Traps",
+          bug2_damage: "Armor",
+          bug3_en: "INVISIBLE MILDEW",
+          bug3_zh: "(霉面怪)",
+          bug3_weakness: "Cleanser Chain",
+          bug3_damage: "Blocks",
+          stat_weakness: "WEAKNESS",
+          stat_damage: "DAMAGE",
+          howto_body: "Match poop tiles, chain combos, and strategically flush your way to the top! Face unique boss bugs on every floor with their own weaknesses and attack patterns.",
+          boss_body: "Every floor hides a terrifying bug boss. Study their dossiers, learn their weaknesses, and prepare your strategy before the flush.",
+          register_body: "Be the first to know when POOZZLE launches. Sign up for exclusive rewards!",
+          coming_soon: "CONTENT COMING SOON",
         },
         zh: {
-          page_title: "Poozzle | 目标制三消 Boss 冒险",
-          page_desc: "Poozzle 是一款目标制三消闯关游戏，融合连锁爆发、障碍解谜与 Boss 对抗。",
-          og_title: "Poozzle | 目标制三消 Boss 冒险",
-          og_desc: "完成目标、打出连锁、击败 Boss，在短局节奏中持续推进。",
-          title: "Poozzle：目标制三消冒险",
-          subtitle: "经典三消上手快，中后期 Boss 机制带来更强对抗感。",
-          s1v: "目标导向",
-          s1t: "关卡设计",
-          s2v: "Boss 对抗",
-          s2t: "战斗体验",
-          s3v: "短局制",
-          s3t: "对局节奏",
-          s4v: "目标制",
-          s4t: "核心循环",
-          dl1: "Windows",
-          dl1s: "可执行文件版本 - 即将上线",
-          dl2: "Android",
-          dl2s: "Google Play - 即将上线",
-          dl3: "iOS",
-          dl3s: "App Store - 即将上线",
-          shotsTitle: "游戏内甜蜜冒险",
-          shotsLead: "真实闯关截图：棋盘压力、障碍布局与 Boss 遭遇。",
-          aboutTitle: "游戏介绍",
-          aboutLead: "Poozzle 将经典目标制三消与 Boss 对抗融合，并具备数据驱动的长线扩展能力。",
-          f1: "目标优先回合：收集颜色、击破障碍、管理步数。",
-          f2: "特殊块连锁：横竖清除、炸弹与同色清屏打出高反馈。",
-          f3: "Boss 关机制：弱点颜色与周期技能构成策略压迫。",
-          f4: "闯关流程覆盖异形棋盘、耐久障碍与难度递进。",
-          f5: "短局重开成本低，适合碎片化时间反复挑战。",
-          f6: "体力与激励补给闭环完整，支持免费制持续推进。",
-          tag1: "Boss战三消",
-          tag2: "连锁消除",
-          tag3: "障碍解谜",
-          tag4: "休闲闯关",
-          tag5: "单人游玩",
-          tag6: "免费畅玩",
-          bossTitle: "Boss 阵容",
-          bossLead: "Boss 遭遇构成中后期核心挑战曲线。",
-          b1: "霜牙领主",
-          b2: "雷喙先驱",
-          b3: "泥沼巨像",
-          b4: "废铁男爵",
-          b5: "疫花之主",
-          b6: "霉菌女王",
-          b7: "虫群潜袭者",
-          b8: "腐蚀暴君",
-          b9: "白蚁蚁后",
-          b10: "蛞蝓君王",
-          linksTitle: "补充链接",
-          l1: "首页",
-          l2: "玩法",
-          l3: "Boss",
-          l4: "下载",
-          rights: "版权所有。",
+          nav_how: "游戏教程",
+          nav_boss: "BOSS 档案",
+          nav_register: "预注册",
+          cta: "开始你的攀升！",
+          tagline: "不只是消消乐，这是战略性冲水！",
+          badge_get: "下载",
+          hud_score: "分数",
+          hud_moves: "步数",
+          hud_goal: "目标",
+          bugs_title: "虫子档案馆",
+          bug1_en: "飞影",
+          bug1_zh: "THE FLYING SHADOW",
+          bug1_weakness: "风旋",
+          bug1_damage: "产卵袭击",
+          bug1_note: "小心飞行产卵！最佳出现楼层：8层。",
+          bug2_en: "美洲大蠊",
+          bug2_zh: "OVERSTEP CRAWLER",
+          bug2_weakness: "粘性陷阱",
+          bug2_damage: "护甲",
+          bug3_en: "霉面怪",
+          bug3_zh: "INVISIBLE MILDEW",
+          bug3_weakness: "清洁链",
+          bug3_damage: "障碍块",
+          stat_weakness: "弱点",
+          stat_damage: "伤害",
+          howto_body: "消除便便方块，连击组合，战略性冲水一路攀升！每层楼都有独特的 Boss 虫，各有弱点和攻击模式。",
+          boss_body: "每层楼都藏着恐怖的虫子 Boss。研究它们的档案，了解弱点，在冲水前做好策略。",
+          register_body: "第一时间获知 POOZZLE 上线消息，注册获取独家奖励！",
+          coming_soon: "内容即将上线",
         },
       };
 
+      let currentLang = "en";
       function setLang(lang) {
-        const next = i18n[lang] ? lang : "en";
-        const dict = i18n[next];
-
-        document.documentElement.lang = next === "zh" ? "zh-CN" : "en";
-        document.title = dict.page_title;
-        document.getElementById("meta-description").setAttribute("content", dict.page_desc);
-        document.getElementById("og-title").setAttribute("content", dict.og_title);
-        document.getElementById("og-description").setAttribute("content", dict.og_desc);
-        document.getElementById("twitter-title").setAttribute("content", dict.og_title);
-        document.getElementById("twitter-description").setAttribute("content", dict.og_desc);
-
-        document.querySelectorAll("[data-i18n]").forEach((node) => {
-          const key = node.getAttribute("data-i18n");
-          if (dict[key]) {
-            node.textContent = dict[key];
-          }
+        currentLang = lang;
+        const data = i18n[lang];
+        document.querySelectorAll("[data-i18n]").forEach((el) => {
+          const key = el.getAttribute("data-i18n");
+          if (data[key] !== undefined) el.textContent = data[key];
         });
-
-        document.querySelectorAll(".lang button").forEach((btn) => {
-          btn.classList.toggle("active", btn.getAttribute("data-lang") === next);
+        document.querySelectorAll(".lang-btn").forEach((btn) => {
+          btn.classList.toggle("active", btn.dataset.lang === lang);
         });
-
-        localStorage.setItem("poozzle-lang", next);
+        document.documentElement.lang = lang === "zh" ? "zh-CN" : "en";
       }
-
-      document.querySelectorAll(".lang button").forEach((btn) => {
-        btn.addEventListener("click", () => setLang(btn.getAttribute("data-lang")));
+      document.querySelectorAll(".lang-btn").forEach((btn) => {
+        btn.addEventListener("click", () => setLang(btn.dataset.lang));
       });
 
-      setLang(localStorage.getItem("poozzle-lang") || "en");
-      document.getElementById("year").textContent = new Date().getFullYear();
+      // ============================
+      // Board cell fallback grid
+      // ============================
+      const boardFallback = document.getElementById("board-fallback");
+      if (boardFallback) {
+        const emojis = ["💩", "💩", "💩", "🧻", "🧻", "💧", "💧"];
+        for (let i = 0; i < 35; i++) {
+          const cell = document.createElement("div");
+          const classes = ["c1", "c2", "c3", "c4"];
+          cell.className = "board-cell " + classes[Math.floor(Math.random() * 4)];
+          cell.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+          boardFallback.appendChild(cell);
+        }
+      }
+
+      // ============================
+      // Steam Particles (Canvas)
+      // ============================
+      const canvas = document.getElementById("steam-canvas");
+      const ctx = canvas.getContext("2d");
+      let particles = [];
+
+      function resizeCanvas() {
+        const hero = document.getElementById("hero");
+        canvas.width = hero.offsetWidth;
+        canvas.height = hero.offsetHeight;
+      }
+      resizeCanvas();
+      window.addEventListener("resize", resizeCanvas);
+
+      // pipe mouth positions (relative to hero)
+      const pipeMouths = [
+        { x: 0.28, y: 0.12 },
+        { x: 0.85, y: 0.18 },
+        { x: 0.15, y: 0.5 },
+        { x: 0.22, y: 0.8 },
+      ];
+
+      function spawnParticle() {
+        const src = pipeMouths[Math.floor(Math.random() * pipeMouths.length)];
+        particles.push({
+          x: canvas.width * src.x + (Math.random() - 0.5) * 20,
+          y: canvas.height * src.y,
+          vx: (Math.random() - 0.5) * 0.6,
+          vy: -(0.4 + Math.random() * 0.8),
+          r: 4 + Math.random() * 6,
+          alpha: 0.4 + Math.random() * 0.3,
+          life: 0,
+          maxLife: 80 + Math.random() * 60,
+        });
+      }
+
+      function updateParticles() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        particles.forEach((p, i) => {
+          p.x += p.vx;
+          p.y += p.vy;
+          p.r += 0.08;
+          p.life++;
+          const fade = 1 - p.life / p.maxLife;
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(220,220,240,${p.alpha * fade})`;
+          ctx.fill();
+        });
+        particles = particles.filter((p) => p.life < p.maxLife);
+        if (Math.random() < 0.18) spawnParticle();
+        requestAnimationFrame(updateParticles);
+      }
+      updateParticles();
+
+      // ============================
+      // GSAP Animations (after load)
+      // ============================
+      window.addEventListener('load', () => {
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Logo entrance
+        const logoEl = document.getElementById('logo-img').style.display === 'none'
+          ? document.getElementById('logo-fallback')
+          : document.getElementById('logo-img');
+
+        gsap.from(logoEl, {
+          duration: 0.9, y: -120, opacity: 0, scale: 0.7, ease: 'back.out(1.8)',
+        });
+        // logo shimmer loop
+        gsap.to(logoEl, {
+          filter: 'drop-shadow(0 6px 24px rgba(245,200,66,0.9)) brightness(1.15)',
+          duration: 1.2, repeat: -1, yoyo: true, ease: 'sine.inOut', delay: 0.9,
+        });
+
+        // CTA + badges entrance
+        gsap.from('#cta-btn', { duration: 0.6, y: 40, opacity: 0, delay: 0.5, ease: 'power2.out' });
+        gsap.from('.badges',  { duration: 0.6, y: 30, opacity: 0, delay: 0.7, ease: 'power2.out' });
+
+        // Combo animation loop
+        const comboTl = gsap.timeline({ repeat: -1, repeatDelay: 2.5 });
+        comboTl
+          .to('#combo-text', { scale: 1,   opacity: 1, duration: 0.35, ease: 'back.out(2)' })
+          .to('#combo-text', { scale: 1.1, duration: 0.2, ease: 'power1.inOut', yoyo: true, repeat: 1 })
+          .to('#combo-text', { scale: 0,   opacity: 0, duration: 0.3, delay: 0.6, ease: 'back.in(2)' });
+
+        // Bug cards stagger entrance on scroll
+        gsap.from('.bug-card', {
+          scrollTrigger: { trigger: '#bugs', start: 'top 80%' },
+          y: 60, opacity: 0, duration: 0.55, stagger: 0.15, ease: 'power2.out',
+        });
+
+        // Gameplay section entrance
+        gsap.from('.board-frame', {
+          scrollTrigger: { trigger: '#gameplay', start: 'top 80%' },
+          scale: 0.85, opacity: 0, duration: 0.6, ease: 'back.out(1.4)',
+        });
+
+        // HUD entrance
+        gsap.from('.hud-panel', {
+          scrollTrigger: { trigger: '#gameplay', start: 'top 80%' },
+          y: -20, opacity: 0, duration: 0.5, ease: 'power2.out',
+        });
+      });
     </script>
   </body>
 </html>
