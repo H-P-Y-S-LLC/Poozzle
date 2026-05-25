@@ -1,1 +1,1020 @@
-test hello
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Poozzle | Match-3 Puzzle With Boss Battles</title>
+    <meta
+      id="meta-description"
+      name="description"
+      content="Poozzle blends classic match-3 puzzle gameplay with boss battles, chain reactions, and fast satisfying rounds. Download on Windows, Android, and iOS."
+    />
+    <meta name="keywords" content="Poozzle, match 3, puzzle game, boss battle puzzle, casual game, Windows game, Android game, iOS game" />
+    <meta name="robots" content="index,follow,max-image-preview:large" />
+    <meta name="author" content="Poozzle Team" />
+    <meta name="theme-color" content="#191437" />
+    <link rel="canonical" href="https://www.poozzle.com/" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Poozzle" />
+    <meta property="og:locale" content="en_US" />
+    <meta id="og-title" property="og:title" content="Poozzle | Match-3 Puzzle With Boss Battles" />
+    <meta id="og-description" property="og:description" content="Swap, chain, blast, and defeat bosses in short and intense puzzle rounds." />
+    <meta property="og:url" content="https://www.poozzle.com/" />
+    <meta property="og:image" content="https://assets.poozzle.com/main.png" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta id="twitter-title" name="twitter:title" content="Poozzle | Match-3 Puzzle With Boss Battles" />
+    <meta id="twitter-description" name="twitter:description" content="Classic match-3 gameplay plus boss mechanics and chain-reaction thrill." />
+    <meta name="twitter:image" content="https://assets.poozzle.com/main.png" />
+
+    <link rel="icon" type="image/x-icon" href="https://assets.poozzle.com/icons/poozzle.ico" />
+    <link rel="shortcut icon" href="https://assets.poozzle.com/icons/poozzle.ico" />
+    <link rel="apple-touch-icon" href="https://assets.poozzle.com/icons/1024.png" />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "VideoGame",
+        "name": "Poozzle",
+        "description": "A match-3 puzzle game with boss battles, chain reactions, and strategic obstacle clearing.",
+        "genre": ["Puzzle", "Casual", "Match-3"],
+        "gamePlatform": ["Windows", "Android", "iOS"],
+        "applicationCategory": "Game",
+        "operatingSystem": "Windows, Android, iOS",
+        "image": "https://assets.poozzle.com/main.png",
+        "url": "https://www.poozzle.com/",
+        "publisher": {
+          "@type": "Organization",
+          "name": "Poozzle Team"
+        }
+      }
+    </script>
+
+    <style>
+      :root {
+        --bg-deep: #121033;
+        --bg-mid: #1e1a4d;
+        --panel: #211d5a;
+        --panel-soft: #2f2b76;
+        --line: #6ea8ff;
+        --ink: #f2f8ff;
+        --ink-soft: #b5c7ff;
+        --candy: #ff6f61;
+        --candy-2: #ffc658;
+        --mint: #34d399;
+        --blue: #60a5fa;
+        --shadow: 0 18px 36px rgba(0, 0, 0, 0.34);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        min-height: 100%;
+        color: var(--ink);
+        background:
+          radial-gradient(800px 520px at 10% 0%, rgba(255, 111, 97, 0.25), transparent 60%), radial-gradient(1000px 620px at 96% 8%, rgba(96, 165, 250, 0.25), transparent 62%),
+          linear-gradient(160deg, var(--bg-deep) 0%, var(--bg-mid) 100%);
+        font-family: "Trebuchet MS", "Segoe UI", "Verdana", sans-serif;
+        line-height: 1.5;
+        overflow-x: hidden;
+      }
+
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        background:
+          repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.06) 1px, transparent 1px, transparent 12px),
+          repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.04) 1px, transparent 1px, transparent 12px);
+        opacity: 0.35;
+        z-index: 0;
+      }
+
+      body::after {
+        content: "";
+        position: fixed;
+        inset: -20% -10%;
+        pointer-events: none;
+        z-index: 0;
+        opacity: 0.35;
+        background:
+          radial-gradient(circle at 20% 28%, rgba(255, 111, 97, 0.35) 0, transparent 35%), radial-gradient(circle at 75% 20%, rgba(52, 211, 153, 0.28) 0, transparent 32%),
+          radial-gradient(circle at 70% 76%, rgba(96, 165, 250, 0.3) 0, transparent 40%);
+        animation: auroraMove 16s ease-in-out infinite;
+      }
+
+      .site {
+        position: relative;
+        z-index: 1;
+        width: min(1140px, 92vw);
+        margin: 0 auto;
+        padding: 18px 0 56px;
+      }
+
+      .topbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 14px;
+        margin-bottom: 14px;
+      }
+
+      .event-strip {
+        border: 2px solid rgba(255, 198, 88, 0.55);
+        background: linear-gradient(90deg, rgba(255, 168, 85, 0.24), rgba(255, 111, 97, 0.18));
+        border-radius: 14px;
+        margin-bottom: 14px;
+        overflow: hidden;
+        white-space: nowrap;
+      }
+
+      .event-track {
+        display: inline-block;
+        min-width: 100%;
+        padding: 8px 0;
+        font-size: 0.88rem;
+        font-weight: 800;
+        color: #ffe9be;
+        animation: marquee 22s linear infinite;
+      }
+
+      .event-track span {
+        margin-right: 36px;
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        color: var(--ink);
+        text-decoration: none;
+        font-weight: 900;
+        letter-spacing: 0.03em;
+        text-transform: uppercase;
+      }
+
+      .brand img {
+        width: 36px;
+        height: 36px;
+        border-radius: 8px;
+        border: 2px solid #8bc5ff;
+        box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.16);
+      }
+
+      .top-actions {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+
+      .nav {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+
+      .nav a {
+        color: var(--ink-soft);
+        text-decoration: none;
+        border: 1px solid rgba(255, 255, 255, 0.16);
+        background: rgba(255, 255, 255, 0.06);
+        border-radius: 10px;
+        padding: 6px 10px;
+        font-weight: 700;
+        font-size: 0.92rem;
+        transition: 0.2s ease;
+      }
+
+      .nav a:hover {
+        color: var(--ink);
+        border-color: #8bc5ff;
+        transform: translateY(-1px);
+      }
+
+      .lang {
+        display: inline-flex;
+        border: 2px solid rgba(255, 255, 255, 0.24);
+        border-radius: 12px;
+        overflow: hidden;
+        background: rgba(0, 0, 0, 0.22);
+      }
+
+      .lang button {
+        border: 0;
+        min-width: 52px;
+        min-height: 34px;
+        padding: 0 10px;
+        color: var(--ink-soft);
+        background: transparent;
+        font-weight: 800;
+        cursor: pointer;
+      }
+
+      .lang button.active {
+        color: #081023;
+        background: linear-gradient(135deg, #7dd3fc, #60a5fa);
+      }
+
+      .hero {
+        border: 2px solid rgba(141, 185, 255, 0.55);
+        border-radius: 24px;
+        overflow: hidden;
+        background: linear-gradient(180deg, rgba(47, 43, 118, 0.95), rgba(33, 29, 90, 0.95));
+        box-shadow: var(--shadow);
+        position: relative;
+        isolation: isolate;
+      }
+
+      .hero::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        background: linear-gradient(180deg, transparent 55%, rgba(18, 16, 51, 0.72) 100%);
+      }
+
+      .hero::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        z-index: 1;
+        background: repeating-linear-gradient(-45deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.05) 7px, transparent 7px, transparent 14px);
+        opacity: 0.2;
+      }
+
+      .hero-layout {
+        display: grid;
+        grid-template-columns: 1.1fr 1fr;
+        gap: 0;
+        position: relative;
+        z-index: 1;
+      }
+
+      .fx-layer {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        z-index: 2;
+      }
+
+      .orb {
+        position: absolute;
+        width: 42px;
+        height: 42px;
+        border-radius: 12px;
+        border: 2px solid rgba(255, 255, 255, 0.55);
+        box-shadow:
+          0 0 0 3px rgba(255, 255, 255, 0.09),
+          0 10px 16px rgba(0, 0, 0, 0.28);
+        animation: orbFloat 6s ease-in-out infinite;
+      }
+
+      .orb.one {
+        top: 11%;
+        right: 42%;
+        background: linear-gradient(135deg, #fca5a5, #fb7185);
+      }
+
+      .orb.two {
+        top: 22%;
+        right: 8%;
+        background: linear-gradient(135deg, #fcd34d, #fb923c);
+        animation-delay: 1.1s;
+      }
+
+      .orb.three {
+        top: 58%;
+        right: 48%;
+        background: linear-gradient(135deg, #86efac, #34d399);
+        animation-delay: 2s;
+      }
+
+      .hero-copy {
+        padding: 30px;
+        animation: popIn 0.75s ease-out;
+      }
+
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: rgba(255, 198, 88, 0.14);
+        color: #ffe7ad;
+        border: 1px solid rgba(255, 198, 88, 0.5);
+        border-radius: 999px;
+        padding: 6px 12px;
+        font-size: 0.8rem;
+        font-weight: 900;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+      }
+
+      h1 {
+        margin: 16px 0 10px;
+        font-size: clamp(2rem, 4.7vw, 3.35rem);
+        line-height: 1.08;
+        text-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+      }
+
+      .hero-copy p {
+        margin: 0;
+        color: #d9e6ff;
+        max-width: 56ch;
+      }
+
+      .hero-cta {
+        margin-top: 20px;
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 12px;
+        min-height: 44px;
+        padding: 0 14px;
+        text-decoration: none;
+        font-weight: 900;
+        font-size: 0.94rem;
+        border: 2px solid transparent;
+        transition: 0.18s ease;
+      }
+
+      .btn:hover {
+        transform: translateY(-1px);
+      }
+
+      .btn-main {
+        color: #1a103a;
+        background: linear-gradient(135deg, var(--candy-2), #ff9b6e);
+        box-shadow: 0 12px 20px rgba(255, 123, 77, 0.3);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .btn-main::after {
+        content: "";
+        position: absolute;
+        inset: -30% auto -30% -120%;
+        width: 62%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.52), transparent);
+        transform: skewX(-20deg);
+        transition: left 0.45s ease;
+      }
+
+      .btn-main:hover::after {
+        left: 140%;
+      }
+
+      .btn-alt {
+        color: #dbecff;
+        border-color: rgba(180, 210, 255, 0.48);
+        background: rgba(255, 255, 255, 0.08);
+      }
+
+      .hero-panel {
+        position: relative;
+        min-height: 360px;
+        background: url("https://assets.poozzle.com/main.png") center center / cover no-repeat;
+        border-left: 2px solid rgba(141, 185, 255, 0.35);
+        transition: transform 0.35s ease;
+      }
+
+      .hero:hover .hero-panel {
+        transform: scale(1.02);
+      }
+
+      .hero-panel::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(140deg, rgba(28, 24, 75, 0.2), rgba(28, 24, 75, 0.56));
+      }
+
+      .hero-panel::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: repeating-linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.05) 2px, transparent 2px, transparent 6px);
+        opacity: 0.2;
+      }
+
+      .hero-stats {
+        position: absolute;
+        right: 12px;
+        bottom: 12px;
+        display: grid;
+        gap: 8px;
+        width: min(260px, 84%);
+        z-index: 1;
+      }
+
+      .stat {
+        border: 2px solid rgba(139, 197, 255, 0.5);
+        border-radius: 12px;
+        background: rgba(18, 16, 51, 0.82);
+        padding: 9px 11px;
+        display: flex;
+        justify-content: space-between;
+        gap: 8px;
+        font-size: 0.88rem;
+        backdrop-filter: blur(2px);
+      }
+
+      .stat strong {
+        color: #fef3c7;
+        font-weight: 800;
+      }
+
+      section.panel {
+        margin-top: 18px;
+        border: 2px solid rgba(141, 185, 255, 0.45);
+        border-radius: 20px;
+        background: rgba(33, 29, 90, 0.88);
+        box-shadow: var(--shadow);
+        padding: 22px;
+        position: relative;
+        overflow: hidden;
+      }
+
+      section.panel::before {
+        content: "";
+        position: absolute;
+        width: 120px;
+        height: 120px;
+        right: -35px;
+        top: -35px;
+        border: 2px solid rgba(255, 198, 88, 0.34);
+        transform: rotate(45deg);
+      }
+
+      h2 {
+        margin: 0 0 8px;
+        font-size: clamp(1.35rem, 2.8vw, 1.95rem);
+      }
+
+      .sub {
+        margin: 0;
+        color: var(--ink-soft);
+      }
+
+      .grid {
+        margin-top: 15px;
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 10px;
+      }
+
+      .flow-panel {
+        background: radial-gradient(circle at 10% 15%, rgba(52, 211, 153, 0.16), transparent 42%), rgba(33, 29, 90, 0.88);
+      }
+
+      .flow-grid {
+        margin-top: 15px;
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 10px;
+      }
+
+      .flow-step {
+        position: relative;
+        border: 2px solid rgba(255, 255, 255, 0.22);
+        border-radius: 14px;
+        background: rgba(14, 13, 42, 0.65);
+        padding: 14px;
+      }
+
+      .flow-step b {
+        display: inline-flex;
+        width: 28px;
+        height: 28px;
+        border-radius: 8px;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 8px;
+        background: linear-gradient(135deg, #7dd3fc, #60a5fa);
+        color: #081023;
+      }
+
+      .flow-step h3 {
+        margin: 0 0 6px;
+      }
+
+      .flow-step p {
+        margin: 0;
+        color: #dbeafe;
+        font-size: 0.92rem;
+      }
+
+      .card {
+        position: relative;
+        background: linear-gradient(180deg, rgba(52, 211, 153, 0.12), rgba(96, 165, 250, 0.08));
+        border: 2px solid rgba(110, 168, 255, 0.38);
+        border-radius: 14px;
+        padding: 14px;
+        min-height: 138px;
+        overflow: hidden;
+        transition:
+          transform 0.25s ease,
+          border-color 0.25s ease,
+          box-shadow 0.25s ease;
+      }
+
+      .card::after {
+        content: "";
+        position: absolute;
+        right: -16px;
+        top: -16px;
+        width: 56px;
+        height: 56px;
+        border: 2px solid rgba(255, 198, 88, 0.5);
+        transform: rotate(45deg);
+      }
+
+      .card:hover {
+        transform: translateY(-3px) scale(1.01);
+        border-color: rgba(255, 198, 88, 0.6);
+        box-shadow: 0 12px 22px rgba(0, 0, 0, 0.28);
+      }
+
+      .card h3 {
+        margin: 0 0 8px;
+        font-size: 1rem;
+      }
+
+      .card p {
+        margin: 0;
+        color: #d9e6ff;
+        font-size: 0.93rem;
+      }
+
+      .downloads {
+        margin-top: 15px;
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 10px;
+      }
+
+      .download-card {
+        border: 2px solid rgba(110, 168, 255, 0.38);
+        border-radius: 14px;
+        background: rgba(21, 18, 58, 0.8);
+        padding: 14px;
+        display: grid;
+        gap: 8px;
+        transition:
+          transform 0.22s ease,
+          border-color 0.22s ease;
+      }
+
+      .download-card:hover {
+        transform: translateY(-2px);
+        border-color: rgba(255, 198, 88, 0.5);
+      }
+
+      .status {
+        font-size: 0.82rem;
+        font-weight: 800;
+        color: #7cf0b8;
+      }
+
+      .placeholder {
+        margin: 0;
+        color: var(--ink-soft);
+        font-size: 0.9rem;
+      }
+
+      .btn-disabled {
+        background: rgba(255, 255, 255, 0.1);
+        border-color: rgba(255, 255, 255, 0.22);
+        color: #d1d5db;
+        cursor: not-allowed;
+        pointer-events: none;
+      }
+
+      .footer {
+        margin-top: 16px;
+        text-align: center;
+        color: #c7d2fe;
+        font-size: 0.9rem;
+        padding: 10px;
+      }
+
+      @keyframes marquee {
+        0% {
+          transform: translateX(0);
+        }
+        100% {
+          transform: translateX(-50%);
+        }
+      }
+
+      @keyframes orbFloat {
+        0%,
+        100% {
+          transform: translateY(0) rotate(0deg);
+        }
+        50% {
+          transform: translateY(-12px) rotate(6deg);
+        }
+      }
+
+      @keyframes popIn {
+        from {
+          opacity: 0;
+          transform: translateY(12px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes auroraMove {
+        0%,
+        100% {
+          transform: translate3d(0, 0, 0) scale(1);
+        }
+        50% {
+          transform: translate3d(2%, -2%, 0) scale(1.06);
+        }
+      }
+
+      @media (max-width: 980px) {
+        .hero-layout {
+          grid-template-columns: 1fr;
+        }
+
+        .hero-panel {
+          min-height: 300px;
+          border-left: 0;
+          border-top: 2px solid rgba(141, 185, 255, 0.35);
+        }
+
+        .grid,
+        .downloads,
+        .flow-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+      }
+
+      @media (max-width: 640px) {
+        .site {
+          width: min(1140px, 94vw);
+        }
+
+        .topbar {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+
+        .hero-copy,
+        section.panel {
+          padding: 16px;
+        }
+
+        .grid,
+        .downloads,
+        .flow-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .hero-stats {
+          width: calc(100% - 24px);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="site">
+      <header class="topbar">
+        <a href="#top" class="brand" aria-label="Poozzle Home">
+          <img src="https://assets.poozzle.com/icons/1024.png" alt="Poozzle Icon" width="36" height="36" />
+          <span>Poozzle</span>
+        </a>
+
+        <div class="top-actions">
+          <nav class="nav" aria-label="Main navigation">
+            <a href="#features" data-i18n="nav_features">Features</a>
+            <a href="#download" data-i18n="nav_download">Download</a>
+            <a href="#about" data-i18n="nav_about">About</a>
+          </nav>
+
+          <div class="lang" aria-label="Language switcher">
+            <button type="button" data-lang="en" class="active">EN</button>
+            <button type="button" data-lang="zh">中文</button>
+          </div>
+        </div>
+      </header>
+
+      <div class="event-strip" aria-hidden="true">
+        <div class="event-track">
+          <span data-i18n="ticker_1">Boss Rush Levels Online</span>
+          <span data-i18n="ticker_2">Chain Reaction Bonus Active</span>
+          <span data-i18n="ticker_3">New Puzzle Chapters Coming</span>
+          <span data-i18n="ticker_1">Boss Rush Levels Online</span>
+          <span data-i18n="ticker_2">Chain Reaction Bonus Active</span>
+          <span data-i18n="ticker_3">New Puzzle Chapters Coming</span>
+        </div>
+      </div>
+
+      <main id="top">
+        <section class="hero" aria-label="Hero section">
+          <div class="fx-layer" aria-hidden="true">
+            <span class="orb one"></span>
+            <span class="orb two"></span>
+            <span class="orb three"></span>
+          </div>
+
+          <div class="hero-layout">
+            <div class="hero-copy">
+              <span class="badge" data-i18n="hero_badge">Match-3 x Boss Battle</span>
+              <h1 data-i18n="hero_title">Chain, Blast, Defeat the Boss.</h1>
+              <p data-i18n="hero_desc">
+                Poozzle turns every move into a tactical decision. Build huge chain reactions, crack layered blockers, and finish off powerful bosses in short, high-impact rounds.
+              </p>
+              <div class="hero-cta">
+                <a class="btn btn-main" href="#download" data-i18n="hero_cta_primary">Pre-register Now</a>
+                <a class="btn btn-alt" href="#features" data-i18n="hero_cta_secondary">See Gameplay Highlights</a>
+              </div>
+            </div>
+
+            <div class="hero-panel" role="img" aria-label="Poozzle gameplay theme image">
+              <div class="hero-stats">
+                <div class="stat"><span data-i18n="stat_1_label">Play Pace</span><strong data-i18n="stat_1_value">Fast and Satisfying</strong></div>
+                <div class="stat"><span data-i18n="stat_2_label">Core Loop</span><strong data-i18n="stat_2_value">Match + Chain + Boss</strong></div>
+                <div class="stat"><span data-i18n="stat_3_label">Content</span><strong data-i18n="stat_3_value">100+ Challenge Levels</strong></div>
+                <div class="stat"><span data-i18n="stat_4_label">Platforms</span><strong data-i18n="stat_4_value">Windows / Android / iOS</strong></div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel flow-panel" aria-labelledby="flow-title">
+          <h2 id="flow-title" data-i18n="flow_title">Battle Loop</h2>
+          <p class="sub" data-i18n="flow_sub">A compact gameplay rhythm that keeps each round exciting from the first swap to the final hit.</p>
+          <div class="flow-grid">
+            <article class="flow-step">
+              <b>1</b>
+              <h3 data-i18n="flow_1_title">Match and Build</h3>
+              <p data-i18n="flow_1_desc">Create lines and set up special tiles for bigger board control.</p>
+            </article>
+            <article class="flow-step">
+              <b>2</b>
+              <h3 data-i18n="flow_2_title">Chain and Burst</h3>
+              <p data-i18n="flow_2_desc">Trigger combos, clear blockers, and swing impossible boards back.</p>
+            </article>
+            <article class="flow-step">
+              <b>3</b>
+              <h3 data-i18n="flow_3_title">Punish the Boss</h3>
+              <p data-i18n="flow_3_desc">Convert momentum into damage and finish the fight in style.</p>
+            </article>
+          </div>
+        </section>
+
+        <section id="features" class="panel" aria-labelledby="features-title">
+          <h2 id="features-title" data-i18n="features_title">Gameplay Features</h2>
+          <p class="sub" data-i18n="features_sub">Simple to start, deep to master. Poozzle stacks mechanics to keep every chapter fresh and strategic.</p>
+
+          <div class="grid">
+            <article class="card">
+              <h3 data-i18n="f1_title">Instant Match-3 Fun</h3>
+              <p data-i18n="f1_desc">Swap and clear with familiar rules, then quickly ramp into richer tactical choices.</p>
+            </article>
+            <article class="card">
+              <h3 data-i18n="f2_title">Chain-Reaction Thrill</h3>
+              <p data-i18n="f2_desc">Line clears, bombs, and color nukes combine into board-wide comeback moments.</p>
+            </article>
+            <article class="card">
+              <h3 data-i18n="f3_title">Boss Battle Pressure</h3>
+              <p data-i18n="f3_desc">In boss stages, every clear can become damage. Read mechanics, then strike at the right time.</p>
+            </article>
+            <article class="card">
+              <h3 data-i18n="f4_title">Obstacle Puzzle Layers</h3>
+              <p data-i18n="f4_desc">Break through varied blockers and irregular boards that reshape your plan each round.</p>
+            </article>
+            <article class="card">
+              <h3 data-i18n="f5_title">Short Session Friendly</h3>
+              <p data-i18n="f5_desc">Clear goals and compact rounds make it ideal for quick play throughout the day.</p>
+            </article>
+            <article class="card">
+              <h3 data-i18n="f6_title">Progressive Challenge Curve</h3>
+              <p data-i18n="f6_desc">From onboarding stages to milestone boss fights, difficulty grows with your skill.</p>
+            </article>
+          </div>
+        </section>
+
+        <section id="download" class="panel" aria-labelledby="download-title">
+          <h2 id="download-title" data-i18n="download_title">Download</h2>
+          <p class="sub" data-i18n="download_sub">Store links are being prepared. Bookmark this page and grab the build when links go live.</p>
+
+          <div class="downloads">
+            <article class="download-card" aria-label="Windows Download">
+              <h3 data-i18n="d1_title">Windows (Executable)</h3>
+              <span class="status" data-i18n="status_preparing">Preparing</span>
+              <p class="placeholder" data-i18n="d1_placeholder">Download URL placeholder: TBD</p>
+              <a class="btn btn-disabled" href="#" aria-disabled="true" data-i18n="coming_soon">Coming Soon</a>
+            </article>
+
+            <article class="download-card" aria-label="Android Download">
+              <h3 data-i18n="d2_title">Android Store</h3>
+              <span class="status" data-i18n="status_preparing">Preparing</span>
+              <p class="placeholder" data-i18n="d2_placeholder">Store URL placeholder: TBD</p>
+              <a class="btn btn-disabled" href="#" aria-disabled="true" data-i18n="coming_soon">Coming Soon</a>
+            </article>
+
+            <article class="download-card" aria-label="iOS Download">
+              <h3 data-i18n="d3_title">iOS App Store</h3>
+              <span class="status" data-i18n="status_preparing">Preparing</span>
+              <p class="placeholder" data-i18n="d3_placeholder">Store URL placeholder: TBD</p>
+              <a class="btn btn-disabled" href="#" aria-disabled="true" data-i18n="coming_soon">Coming Soon</a>
+            </article>
+          </div>
+        </section>
+
+        <section id="about" class="panel" aria-labelledby="about-title">
+          <h2 id="about-title" data-i18n="about_title">About Poozzle</h2>
+          <p class="sub" data-i18n="about_sub">
+            Poozzle is built for players who want easy onboarding without losing strategic depth. It is a puzzle game where every smart move can become a dramatic turnaround.
+          </p>
+        </section>
+      </main>
+
+      <footer class="footer">
+        <span>© <span id="year"></span> Poozzle. </span>
+        <span data-i18n="footer_rights">All rights reserved.</span>
+      </footer>
+    </div>
+
+    <script>
+      const i18n = {
+        en: {
+          page_title: "Poozzle | Match-3 Puzzle With Boss Battles",
+          page_desc: "Poozzle blends classic match-3 puzzle gameplay with boss battles, chain reactions, and fast satisfying rounds. Download on Windows, Android, and iOS.",
+          og_title: "Poozzle | Match-3 Puzzle With Boss Battles",
+          og_desc: "Swap, chain, blast, and defeat bosses in short and intense puzzle rounds.",
+          nav_features: "Features",
+          nav_download: "Download",
+          nav_about: "About",
+          ticker_1: "Boss Rush Levels Online",
+          ticker_2: "Chain Reaction Bonus Active",
+          ticker_3: "New Puzzle Chapters Coming",
+          hero_badge: "Match-3 x Boss Battle",
+          hero_title: "Chain, Blast, Defeat the Boss.",
+          hero_desc: "Poozzle turns every move into a tactical decision. Build huge chain reactions, crack layered blockers, and finish off powerful bosses in short, high-impact rounds.",
+          hero_cta_primary: "Pre-register Now",
+          hero_cta_secondary: "See Gameplay Highlights",
+          stat_1_label: "Play Pace",
+          stat_1_value: "Fast and Satisfying",
+          stat_2_label: "Core Loop",
+          stat_2_value: "Match + Chain + Boss",
+          stat_3_label: "Content",
+          stat_3_value: "100+ Challenge Levels",
+          stat_4_label: "Platforms",
+          stat_4_value: "Windows / Android / iOS",
+          flow_title: "Battle Loop",
+          flow_sub: "A compact gameplay rhythm that keeps each round exciting from the first swap to the final hit.",
+          flow_1_title: "Match and Build",
+          flow_1_desc: "Create lines and set up special tiles for bigger board control.",
+          flow_2_title: "Chain and Burst",
+          flow_2_desc: "Trigger combos, clear blockers, and swing impossible boards back.",
+          flow_3_title: "Punish the Boss",
+          flow_3_desc: "Convert momentum into damage and finish the fight in style.",
+          features_title: "Gameplay Features",
+          features_sub: "Simple to start, deep to master. Poozzle stacks mechanics to keep every chapter fresh and strategic.",
+          f1_title: "Instant Match-3 Fun",
+          f1_desc: "Swap and clear with familiar rules, then quickly ramp into richer tactical choices.",
+          f2_title: "Chain-Reaction Thrill",
+          f2_desc: "Line clears, bombs, and color nukes combine into board-wide comeback moments.",
+          f3_title: "Boss Battle Pressure",
+          f3_desc: "In boss stages, every clear can become damage. Read mechanics, then strike at the right time.",
+          f4_title: "Obstacle Puzzle Layers",
+          f4_desc: "Break through varied blockers and irregular boards that reshape your plan each round.",
+          f5_title: "Short Session Friendly",
+          f5_desc: "Clear goals and compact rounds make it ideal for quick play throughout the day.",
+          f6_title: "Progressive Challenge Curve",
+          f6_desc: "From onboarding stages to milestone boss fights, difficulty grows with your skill.",
+          download_title: "Download",
+          download_sub: "Store links are being prepared. Bookmark this page and grab the build when links go live.",
+          d1_title: "Windows (Executable)",
+          d1_placeholder: "Download URL placeholder: TBD",
+          d2_title: "Android Store",
+          d2_placeholder: "Store URL placeholder: TBD",
+          d3_title: "iOS App Store",
+          d3_placeholder: "Store URL placeholder: TBD",
+          status_preparing: "Preparing",
+          coming_soon: "Coming Soon",
+          about_title: "About Poozzle",
+          about_sub: "Poozzle is built for players who want easy onboarding without losing strategic depth. It is a puzzle game where every smart move can become a dramatic turnaround.",
+          footer_rights: "All rights reserved.",
+        },
+        zh: {
+          page_title: "Poozzle | 三消与 Boss 对战益智游戏",
+          page_desc: "Poozzle 将经典三消与 Boss 对抗结合，带来连锁爆发、障碍破解与高反馈短局体验。支持 Windows、Android、iOS 下载。",
+          og_title: "Poozzle | 三消与 Boss 对战益智游戏",
+          og_desc: "交换、连锁、爆发，在紧凑关卡中击败 Boss。",
+          nav_features: "玩法特色",
+          nav_download: "下载",
+          nav_about: "关于",
+          ticker_1: "Boss 冲刺关卡已上线",
+          ticker_2: "连锁爆发加成进行中",
+          ticker_3: "全新章节即将登场",
+          hero_badge: "三消 x Boss 对战",
+          hero_title: "连锁爆发，击破 Boss。",
+          hero_desc: "Poozzle 让每一步都变成策略选择。通过连锁反应、障碍破解和关键回合输出，在短局中打出高能逆转。",
+          hero_cta_primary: "立即预约",
+          hero_cta_secondary: "查看玩法亮点",
+          stat_1_label: "对局节奏",
+          stat_1_value: "短局高反馈",
+          stat_2_label: "核心循环",
+          stat_2_value: "消除 + 连锁 + Boss",
+          stat_3_label: "内容规模",
+          stat_3_value: "100+ 挑战关卡",
+          stat_4_label: "支持平台",
+          stat_4_value: "Windows / Android / iOS",
+          flow_title: "战斗循环",
+          flow_sub: "从第一步交换到最后一击，每局都保持紧凑、爽快、充满反转。",
+          flow_1_title: "消除与蓄力",
+          flow_1_desc: "通过基础匹配铺垫特殊块，抢占棋盘主动权。",
+          flow_2_title: "连锁与爆发",
+          flow_2_desc: "触发连击、清除障碍，把劣势局面重新拉回。",
+          flow_3_title: "压制 Boss",
+          flow_3_desc: "把节奏转化为输出，在关键回合完成终结。",
+          features_title: "玩法特色",
+          features_sub: "容易上手，值得精通。Poozzle 通过机制叠加让每个阶段都保持新鲜感与策略深度。",
+          f1_title: "经典三消，快速上手",
+          f1_desc: "交换与消除规则直观，同时逐步加入更有深度的策略选择。",
+          f2_title: "连锁爆发，爽感拉满",
+          f2_desc: "直线、炸弹、同色清盘等组合能触发整盘逆转。",
+          f3_title: "Boss 关卡，更强压迫",
+          f3_desc: "Boss 关中每次消除都可能转化为伤害，读懂机制才能打出关键斩杀。",
+          f4_title: "障碍与异形棋盘",
+          f4_desc: "多类障碍与不规则棋盘持续改变解题路径。",
+          f5_title: "碎片时间也能玩",
+          f5_desc: "目标清晰、局时紧凑，适合随时来一局。",
+          f6_title: "难度递进，持续成长",
+          f6_desc: "从新手关到里程碑 Boss，挑战强度随进度稳步提升。",
+          download_title: "多平台下载",
+          download_sub: "商店链接正在整理中。你可以先收藏页面，链接开放后将第一时间更新。",
+          d1_title: "Windows 版（可执行文件）",
+          d1_placeholder: "下载地址占位：待填充",
+          d2_title: "Android 商店",
+          d2_placeholder: "商店地址占位：待填充",
+          d3_title: "iOS App Store",
+          d3_placeholder: "商店地址占位：待填充",
+          status_preparing: "准备中",
+          coming_soon: "即将开放",
+          about_title: "关于 Poozzle",
+          about_sub: "Poozzle 面向希望轻松上手但不失策略深度的玩家。你可以在每一次聪明交换中打出戏剧性的翻盘。",
+          footer_rights: "版权所有。",
+        },
+      };
+
+      const setLang = (lang) => {
+        const next = i18n[lang] ? lang : "en";
+        const dict = i18n[next];
+
+        document.documentElement.lang = next === "zh" ? "zh-CN" : "en";
+        document.title = dict.page_title;
+        document.getElementById("meta-description").setAttribute("content", dict.page_desc);
+        document.getElementById("og-title").setAttribute("content", dict.og_title);
+        document.getElementById("og-description").setAttribute("content", dict.og_desc);
+        document.getElementById("twitter-title").setAttribute("content", dict.og_title);
+        document.getElementById("twitter-description").setAttribute("content", dict.og_desc);
+
+        document.querySelectorAll("[data-i18n]").forEach((node) => {
+          const key = node.getAttribute("data-i18n");
+          if (dict[key]) {
+            node.textContent = dict[key];
+          }
+        });
+
+        document.querySelectorAll(".lang button").forEach((btn) => {
+          btn.classList.toggle("active", btn.getAttribute("data-lang") === next);
+        });
+
+        localStorage.setItem("poozzle-lang", next);
+      };
+
+      document.querySelectorAll(".lang button").forEach((btn) => {
+        btn.addEventListener("click", () => setLang(btn.getAttribute("data-lang")));
+      });
+
+      const savedLang = localStorage.getItem("poozzle-lang") || "en";
+      setLang(savedLang);
+      document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
+  </body>
+</html>

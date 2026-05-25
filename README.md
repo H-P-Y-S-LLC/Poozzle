@@ -1,2 +1,1 @@
-# Poozzle
-Poozzle Match3 Games
+这是一个三消游戏Poozzle的官方网站.
