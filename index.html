@@ -156,6 +156,10 @@
 
             <!-- Board Frame -->
             <div class="board-frame" id="board-el">
+              <div class="board-loading-overlay" id="board-loading">
+                <div class="board-loading-spinner"></div>
+                <div class="board-loading-text">LOADING...</div>
+              </div>
               <div class="game-grid" id="game-grid">
                 <!-- Tiles injected by JS -->
               </div>
@@ -1356,6 +1360,11 @@
         // Build interactive match-3 board
         const game = new window.Match3Game({ gridId: "game-grid", scoreId: "score-display", rows: 6, cols: 6 });
         game.init();
+        const boardLoadingEl = document.getElementById("board-loading");
+        if (boardLoadingEl) {
+          boardLoadingEl.classList.add("is-hidden");
+          boardLoadingEl.addEventListener("transitionend", () => boardLoadingEl.remove(), { once: true });
+        }
         initBugPreviewAuto();
         renderBugPreview(currentLang);
         renderBlockerCodex(currentLang);

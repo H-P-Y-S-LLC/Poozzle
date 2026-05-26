@@ -440,6 +440,47 @@ nav {
   animation: boardShufflePulse 0.36s ease-in-out;
 }
 
+/* Board Loading Overlay */
+.board-loading-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  background: rgba(13, 26, 20, 0.88);
+  border-radius: 6px;
+  backdrop-filter: blur(2px);
+  pointer-events: none;
+}
+.board-loading-overlay.is-hidden {
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  pointer-events: none;
+}
+@keyframes boardLoadSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.board-loading-spinner {
+  width: 44px;
+  height: 44px;
+  border: 4px solid rgba(245, 200, 66, 0.18);
+  border-top-color: var(--gold, #f5c842);
+  border-radius: 50%;
+  animation: boardLoadSpin 0.85s linear infinite;
+}
+.board-loading-text {
+  font-family: "Oswald", sans-serif;
+  font-size: 0.85rem;
+  letter-spacing: 0.18em;
+  color: var(--gold, #f5c842);
+  opacity: 0.9;
+}
+
 .game-grid {
   --tile-gap: 4px;
   --grid-pad: 6px;
