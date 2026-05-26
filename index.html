@@ -27,6 +27,8 @@
       <div class="nav-links">
         <a href="#how-to-play" data-i18n="nav_how">HOW TO PLAY</a>
         <a href="#boss-files" data-i18n="nav_bugs">BUG FILES</a>
+        <a href="#blocker-files" data-i18n="nav_codex">BLOCKER CODEX</a>
+        <a href="#device-shots" data-i18n="nav_shots">SCREENSHOTS</a>
         <a href="#pre-register" data-i18n="nav_register">PRE-REGISTER</a>
         <div class="lang-toggle">
           <button class="lang-btn active" onclick="setLang('en')">EN</button>
@@ -276,6 +278,15 @@
       </div>
     </section>
 
+    <!-- ===== SCREENSHOTS ===== -->
+    <section id="device-shots">
+      <h2 class="section-title" data-i18n="shots_title">真机截图</h2>
+      <p class="section-sub" data-i18n="shots_sub">来自真实设备的实机画面，直接展示关卡节奏、Boss 战和障碍反馈</p>
+      <div class="screenshot-gallery" id="screenshot-gallery">
+        <!-- Screenshot cards injected by JS -->
+      </div>
+    </section>
+
     <!-- ===== PRE-REGISTER ===== -->
     <section id="pre-register">
       <h2 class="section-title" data-i18n="prereg_title">PRE-REGISTER</h2>
@@ -309,6 +320,8 @@
         en: {
           nav_how: "HOW TO PLAY",
           nav_bugs: "BUG FILES",
+          nav_codex: "BLOCKER CODEX",
+          nav_shots: "SCREENSHOTS",
           nav_register: "PRE-REGISTER",
           hero_title_1: "SCRUB. MATCH. FLUSH.",
           hero_title_2: 'The <span style="color:var(--gold)">ULTIMATE</span> Bathroom Battle',
@@ -334,6 +347,8 @@
           bugs_next: "NEXT",
           blocker_title: "BLOCKER CODEX",
           blocker_sub: "Know every obstacle and how it messes with your plans",
+          shots_title: "REAL DEVICE SCREENSHOTS",
+          shots_sub: "Captured on real devices to show the pacing, boss fights, and blocker interactions as they actually feel",
           boss1_name: "Earwig",
           boss1_role: "THREAT PROFILE",
           boss1_desc: "The bathroom's warm-up tyrant. It may be the opening act, but it already knows how to turn a neat board into an awkward silence.",
@@ -385,6 +400,8 @@
         zh: {
           nav_how: "玩法介绍",
           nav_bugs: "虫子档案",
+          nav_codex: "障碍图鉴",
+          nav_shots: "真机截图",
           nav_register: "预先注册",
           hero_title_1: "刷洗。消除。冲水。",
           hero_title_2: '终极<span style="color:var(--gold)">浴室</span>大战',
@@ -410,6 +427,8 @@
           bugs_next: "下一页",
           blocker_title: "障碍图鉴",
           blocker_sub: "认识所有障碍，以及它们如何让你的盘面变得更麻烦",
+          shots_title: "真机截图",
+          shots_sub: "来自真实设备的实机画面，直接展示关卡节奏、Boss 战和障碍反馈",
           boss1_name: "蠼螋",
           boss1_role: "威胁档案",
           boss1_desc: "浴室里的开场小霸王。虽然只是序章 Boss，却已经很会把原本顺手的盘面搅成一场尴尬沉默。",
@@ -759,6 +778,22 @@
         bubble_status_01: "level_085",
       };
 
+      const deviceScreenshots = [
+        "IMG_7493.PNG",
+        "IMG_7492.PNG",
+        "IMG_7495.PNG",
+        "IMG_7496.PNG",
+        "IMG_7497.PNG",
+        "IMG_7498.PNG",
+        "IMG_7503.PNG",
+        "IMG_7504.PNG",
+        "IMG_7506.PNG",
+        "IMG_7507.PNG",
+        "IMG_7508.PNG",
+        "IMG_7510.PNG",
+        "IMG_7511.PNG",
+      ];
+
       function formatFirstLevelLabel(firstLevelId, lang) {
         if (!firstLevelId) {
           return lang === "zh" ? "首次出现：未找到" : "First appears: N/A";
@@ -922,7 +957,6 @@
           back.className = "blocker-card-face blocker-card-back";
 
           const assetUrl = getBlockerAssetUrl(entry.id);
-          const assetFileStem = getBlockerAssetFileStem(entry.id);
           const firstLevelId = BLOCKER_FIRST_LEVEL_BY_ID[entry.id];
           if (assetUrl) {
             const image = document.createElement("img");
@@ -969,6 +1003,98 @@
 
         grid.innerHTML = "";
         grid.appendChild(frag);
+      }
+
+      function renderDeviceScreenshots(lang = currentLang) {
+        const gallery = document.getElementById("screenshot-gallery");
+        if (!gallery) return;
+
+        const frag = document.createDocumentFragment();
+        deviceScreenshots.forEach((fileName, index) => {
+          const card = document.createElement("article");
+          card.className = "screenshot-card";
+          card.setAttribute("role", "button");
+          card.setAttribute("tabindex", "0");
+          card.setAttribute("aria-label", lang === "zh" ? `查看第 ${index + 1} 张真机截图` : `Open screenshot ${index + 1}`);
+          card.dataset.shotUrl = `https://assets.poozzle.com/screenshot/${fileName}`;
+
+          const frame = document.createElement("div");
+          frame.className = "screenshot-frame";
+
+          const ribbon = document.createElement("div");
+          ribbon.className = "screenshot-ribbon";
+          ribbon.textContent = lang === "zh" ? "真机截图" : "REAL DEVICE";
+
+          const image = document.createElement("img");
+          image.className = "screenshot-image";
+          image.src = card.dataset.shotUrl;
+          image.alt = lang === "zh" ? `真机截图 ${index + 1}` : `Real device screenshot ${index + 1}`;
+          image.loading = "lazy";
+          image.decoding = "async";
+
+          frame.appendChild(ribbon);
+          frame.appendChild(image);
+          card.appendChild(frame);
+
+          card.addEventListener("click", () => {
+            openScreenshotLightbox(card.dataset.shotUrl, image.alt);
+          });
+          card.addEventListener("keydown", (event) => {
+            if (event.key === "Enter" || event.key === " ") {
+              event.preventDefault();
+              openScreenshotLightbox(card.dataset.shotUrl, image.alt);
+            }
+          });
+
+          frag.appendChild(card);
+        });
+
+        gallery.innerHTML = "";
+        gallery.appendChild(frag);
+      }
+
+      function ensureScreenshotLightbox() {
+        let overlay = document.getElementById("screenshot-lightbox");
+        if (overlay) return overlay;
+
+        overlay = document.createElement("div");
+        overlay.id = "screenshot-lightbox";
+        overlay.className = "screenshot-lightbox";
+        overlay.innerHTML = '<div class="screenshot-lightbox-content"><img class="screenshot-lightbox-image" alt="" /></div>';
+
+        overlay.addEventListener("click", (event) => {
+          if (event.target === overlay) {
+            closeScreenshotLightbox();
+          }
+        });
+
+        const content = overlay.querySelector(".screenshot-lightbox-content");
+        content.addEventListener("click", (event) => {
+          event.stopPropagation();
+        });
+
+        document.addEventListener("keydown", (event) => {
+          if (event.key === "Escape" && overlay.classList.contains("is-open")) {
+            closeScreenshotLightbox();
+          }
+        });
+
+        document.body.appendChild(overlay);
+        return overlay;
+      }
+
+      function openScreenshotLightbox(src, alt) {
+        const overlay = ensureScreenshotLightbox();
+        const image = overlay.querySelector(".screenshot-lightbox-image");
+        image.src = src;
+        image.alt = alt;
+        overlay.classList.add("is-open");
+      }
+
+      function closeScreenshotLightbox() {
+        const overlay = document.getElementById("screenshot-lightbox");
+        if (!overlay) return;
+        overlay.classList.remove("is-open");
       }
 
       function initBossDossierFlips(lang = currentLang) {
@@ -1056,6 +1182,7 @@
         });
         document.documentElement.lang = lang;
         renderBlockerCodex(lang);
+        renderDeviceScreenshots(lang);
         renderBugPreview(lang);
         initBossDossierFlips(lang);
       }
@@ -1135,6 +1262,7 @@
         initBugPreviewAuto();
         renderBugPreview(currentLang);
         renderBlockerCodex(currentLang);
+        renderDeviceScreenshots(currentLang);
         initBossDossierFlips(currentLang);
         initSteam();
 
@@ -1226,6 +1354,21 @@
             stagger: 0.06,
             ease: "power2.out",
             scrollTrigger: { trigger: "#blocker-files", start: "top 82%" },
+          },
+        );
+
+        // Scroll-triggered: Real device screenshots
+        gsap.fromTo(
+          "#device-shots .screenshot-card",
+          { opacity: 0, y: 28, scale: 0.96 },
+          {
+            opacity: 1,
+            y: 0,
+            scale: 1,
+            duration: 0.7,
+            stagger: 0.08,
+            ease: "power2.out",
+            scrollTrigger: { trigger: "#device-shots", start: "top 82%" },
           },
         );
 
