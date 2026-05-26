@@ -130,13 +130,14 @@ nav {
 
 /* ===== LEFT COLUMN ===== */
 .hero-left {
-  width: 50%;
+  width: 56%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   padding: 3rem 2.5rem;
   position: relative;
+  transform: translateY(-88px);
 }
 .logo-wrap {
   margin-bottom: 1.5rem;
@@ -308,7 +309,7 @@ nav {
 
 /* ===== RIGHT COLUMN ===== */
 .hero-right {
-  width: 50%;
+  width: 44%;
   display: flex;
   flex-direction: column;
   padding: 3rem 2rem;
@@ -365,7 +366,7 @@ nav {
   border: 6px solid #2a1a0f;
   border-radius: 12px;
   padding: 14px;
-  width: min(88%, 680px);
+  width: min(82%, 620px);
   margin: 0 auto;
   box-shadow:
     0 0 0 3px #5c3d22,
@@ -2177,6 +2178,9 @@ footer a:hover {
   .hero-left,
   .hero-right {
     width: 100%;
+  }
+  .hero-left {
+    transform: none;
   }
   #bugs {
     gap: 0.65rem;
