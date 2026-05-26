@@ -626,11 +626,30 @@ nav {
 }
 
 .bugs-carousel {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  position: relative;
+  overflow: hidden;
+  padding: 0.1rem 0;
+}
+.bugs-marquee-track {
+  display: flex;
+  align-items: stretch;
   gap: 0.8rem;
+  width: max-content;
+  animation: bugsMarqueeScroll var(--bugs-marquee-duration, 36s) linear infinite;
+}
+.bugs-carousel:hover .bugs-marquee-track {
+  animation-play-state: paused;
+}
+@keyframes bugsMarqueeScroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
 }
 .bug-flip-card {
+  flex: 0 0 clamp(220px, 24vw, 290px);
   perspective: 1000px;
   min-height: 220px;
 }
@@ -2162,8 +2181,8 @@ footer a:hover {
   #bugs {
     gap: 0.65rem;
   }
-  .bugs-carousel {
-    grid-template-columns: 1fr;
+  .bug-flip-card {
+    flex-basis: min(78vw, 286px);
   }
   .bug-flip-card,
   .bug-flip-inner {

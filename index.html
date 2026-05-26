@@ -166,25 +166,25 @@
     <!-- ===== HOW TO PLAY ===== -->
     <section id="how-to-play">
       <h2 class="section-title" data-i18n="htp_title">HOW TO PLAY</h2>
-      <p class="section-sub" data-i18n="htp_sub">Three steps to bathroom glory</p>
+      <p class="section-sub" data-i18n="htp_sub">Build chains, break blockers, and finish with style</p>
       <div class="steps">
         <div class="step-card" id="step-1">
           <div class="step-num">01</div>
           <span class="step-icon">🔀</span>
-          <div class="step-title" data-i18n="step1_title">Match 3 or More</div>
-          <p class="step-desc" data-i18n="step1_desc">Swap adjacent bathroom items to create matches of 3 or more. Bigger combos = bigger points!</p>
+          <div class="step-title" data-i18n="step1_title">Build Combo Pressure</div>
+          <p class="step-desc" data-i18n="step1_desc">Match 3+ to start chains, then stack line and bomb specials to explode the board and seize tempo.</p>
         </div>
         <div class="step-card" id="step-2">
           <div class="step-num">02</div>
           <span class="step-icon">🐛</span>
-          <div class="step-title" data-i18n="step2_title">Battle the Bugs</div>
-          <p class="step-desc" data-i18n="step2_desc">Use power tiles to defeat the creepy bathroom bugs before they overflow your pipes!</p>
+          <div class="step-title" data-i18n="step2_title">Crack Every Obstacle</div>
+          <p class="step-desc" data-i18n="step2_desc">Read each blocker mechanic, clear key lanes first, and stop spread effects like larvae, slime, and bubbles before they snowball.</p>
         </div>
         <div class="step-card" id="step-3">
           <div class="step-num">03</div>
           <span class="step-icon">🏆</span>
-          <div class="step-title" data-i18n="step3_title">Flush to Victory</div>
-          <p class="step-desc" data-i18n="step3_desc">Clear the board, earn stars, and unlock the next level. Can you beat all 200 stages?</p>
+          <div class="step-title" data-i18n="step3_title">Close the Match Cleanly</div>
+          <p class="step-desc" data-i18n="step3_desc">In normal stages, finish collect and blocker goals within moves. In boss stages, push boss HP to zero for the win.</p>
         </div>
       </div>
     </section>
@@ -321,13 +321,13 @@
           hud_target: "TARGET",
           hud_level: "LEVEL",
           htp_title: "HOW TO PLAY",
-          htp_sub: "Three steps to bathroom glory",
-          step1_title: "Match 3 or More",
-          step1_desc: "Swap adjacent bathroom items to create matches of 3 or more. Bigger combos = bigger points!",
-          step2_title: "Battle the Bugs",
-          step2_desc: "Use power tiles to defeat the creepy bathroom bugs before they overflow your pipes!",
-          step3_title: "Flush to Victory",
-          step3_desc: "Clear the board, earn stars, and unlock the next level. Can you beat all 200 stages?",
+          htp_sub: "Build chains, break blockers, and finish with style",
+          step1_title: "Build Combo Pressure",
+          step1_desc: "Match 3+ to start chains, then stack line and bomb specials to explode the board and seize tempo.",
+          step2_title: "Crack Every Obstacle",
+          step2_desc: "Read each blocker mechanic, clear key lanes first, and stop spread effects like larvae, slime, and bubbles before they snowball.",
+          step3_title: "Close the Match Cleanly",
+          step3_desc: "In normal stages, finish collect and blocker goals within moves. In boss stages, push boss HP to zero for the win.",
           boss_title: "BUG DOSSIERS",
           boss_sub: "Know your enemies",
           bugs_preview_title: "BOSS PREVIEW",
@@ -397,13 +397,13 @@
           hud_target: "目标",
           hud_level: "关卡",
           htp_title: "游戏玩法",
-          htp_sub: "三步走向卫生间荣耀",
-          step1_title: "匹配3个或更多",
-          step1_desc: "交换相邻的浴室物品，创建3个或更多的匹配。更大的连击 = 更多积分！",
-          step2_title: "与虫子战斗",
-          step2_desc: "使用特殊方块击败令人毛骨悚然的浴室虫子，不让它们溢出你的管道！",
-          step3_title: "一冲到底",
-          step3_desc: "清空棋盘，赢得星星，解锁下一关。你能打败所有200个关卡吗？",
+          htp_sub: "连消起势、破障控盘、干净收官",
+          step1_title: "先把连锁打起来",
+          step1_desc: "先做 3 连起手，再叠直线与炸弹特效，把盘面节奏抢到自己手里。",
+          step2_title: "读机制破障碍",
+          step2_desc: "先清关键通道，再针对障碍机制下手，孑孓、粘液、气泡这类扩散压力必须尽早压住。",
+          step3_title: "按规则拿下胜利",
+          step3_desc: "普通关在步数内完成收集与障碍目标；Boss 关以打空 Boss 血量为胜利条件。",
           boss_title: "虫子档案",
           boss_sub: "了解你的敌人",
           bugs_preview_title: "BOSS 预览",
@@ -703,7 +703,6 @@
         { nameKey: "boss9_name", descKey: "boss9_desc", artClass: "boss-termite", fullClass: "boss-full-termite" },
         { nameKey: "boss10_name", descKey: "boss10_desc", artClass: "boss-slug", fullClass: "boss-full-slug" },
       ];
-      const BUG_PREVIEW_INTERVAL_MS = 3600;
       const BOSS_ASSET_BASE_URL = "https://assets.poozzle.com/guis";
       const BLOCK_ASSET_BASE_URL = "https://assets.poozzle.com/guis";
       const BLOCKER_ASSET_FILE_STEM_BY_ID = {
@@ -733,8 +732,6 @@
         sticky_status_01: "TileAtt01",
         bubble_status_01: "TileAtt03",
       };
-      let bugPreviewPage = 0;
-      let bugPreviewAutoplayId = null;
 
       function getBossDossierImageUrl(cardId) {
         const match = /^boss-(\d+)$/.exec(cardId || "");
@@ -760,30 +757,21 @@
         return BLOCKER_ASSET_FILE_STEM_BY_ID[entryId] || null;
       }
 
-      function getBugPreviewPageSize() {
-        if (window.innerWidth <= 780) return 1;
-        if (window.innerWidth <= 1120) return 2;
-        return 3;
-      }
-
-      function getBugPreviewMaxPage() {
-        const pageSize = getBugPreviewPageSize();
-        return Math.max(0, Math.ceil(bugPreviewBosses.length / pageSize) - 1);
-      }
-
       function renderBugPreview(lang = currentLang) {
         const carousel = document.getElementById("bugs-carousel");
         if (!carousel) return;
-
-        const pageSize = getBugPreviewPageSize();
-        const maxPage = getBugPreviewMaxPage();
-        bugPreviewPage = Math.min(bugPreviewPage, maxPage);
-
-        const start = bugPreviewPage * pageSize;
-        const items = bugPreviewBosses.slice(start, start + pageSize);
         carousel.innerHTML = "";
 
-        items.forEach((item, itemIndex) => {
+        if (!bugPreviewBosses.length) return;
+
+        const track = document.createElement("div");
+        track.className = "bugs-marquee-track";
+        const durationSeconds = Math.max(26, bugPreviewBosses.length * 4.2);
+        track.style.setProperty("--bugs-marquee-duration", `${durationSeconds}s`);
+
+        const marqueeItems = [...bugPreviewBosses, ...bugPreviewBosses];
+        marqueeItems.forEach((item, itemIndex) => {
+          const bossIndex = (itemIndex % bugPreviewBosses.length) + 1;
           const card = document.createElement("article");
           card.className = "bug-flip-card";
 
@@ -821,7 +809,7 @@
 
           const bossImage = document.createElement("img");
           bossImage.className = "bug-back-image";
-          bossImage.src = getBossDossierImageUrl(`boss-${start + itemIndex + 1}`);
+          bossImage.src = getBossDossierImageUrl(`boss-${bossIndex}`);
           bossImage.alt = lang === "zh" ? "Boss 造型图" : "Boss visual";
           bossImage.loading = "lazy";
           bossImage.decoding = "async";
@@ -841,48 +829,16 @@
             card.classList.toggle("is-flipped");
           });
 
-          carousel.appendChild(card);
+          track.appendChild(card);
         });
-      }
 
-      function stopBugPreviewAutoplay() {
-        if (bugPreviewAutoplayId) {
-          window.clearInterval(bugPreviewAutoplayId);
-          bugPreviewAutoplayId = null;
-        }
-      }
-
-      function startBugPreviewAutoplay() {
-        stopBugPreviewAutoplay();
-        bugPreviewAutoplayId = window.setInterval(() => {
-          const maxPage = getBugPreviewMaxPage();
-          if (maxPage <= 0) return;
-          bugPreviewPage = (bugPreviewPage + 1) % (maxPage + 1);
-          renderBugPreview(currentLang);
-        }, BUG_PREVIEW_INTERVAL_MS);
+        carousel.appendChild(track);
       }
 
       function initBugPreviewAuto() {
-        const carousel = document.getElementById("bugs-carousel");
-        if (!carousel) return;
-
         window.addEventListener("resize", () => {
-          bugPreviewPage = Math.min(bugPreviewPage, getBugPreviewMaxPage());
           renderBugPreview(currentLang);
-          startBugPreviewAutoplay();
         });
-
-        document.addEventListener("visibilitychange", () => {
-          if (document.hidden) {
-            stopBugPreviewAutoplay();
-          } else {
-            startBugPreviewAutoplay();
-          }
-        });
-
-        carousel.addEventListener("mouseenter", stopBugPreviewAutoplay);
-        carousel.addEventListener("mouseleave", startBugPreviewAutoplay);
-        startBugPreviewAutoplay();
       }
 
       function renderBlockerCodex(lang = currentLang) {
