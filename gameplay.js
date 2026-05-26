@@ -1,11 +1,13 @@
 (function () {
+  const TILE_ICON_BASE_URL = "https://assets.poozzle.com/guis";
+
   const TILE_TYPES = [
-    { cls: "tile-fly", emoji: "🪰", name: "苍蝇" },
-    { cls: "tile-poop", emoji: "💩", name: "屎" },
-    { cls: "tile-plunger", emoji: "🪠", name: "皮搋子" },
-    { cls: "tile-maggot", emoji: "🐛", name: "肉虫子" },
-    { cls: "tile-paper", emoji: "🧻", name: "卫生纸" },
-    { cls: "tile-slipper", emoji: "🩴", name: "拖鞋" },
+    { cls: "tile-fly", iconFile: "Tile1.png", name: "苍蝇" },
+    { cls: "tile-poop", iconFile: "Tile2.png", name: "屎" },
+    { cls: "tile-plunger", iconFile: "Tile3.png", name: "皮搋子" },
+    { cls: "tile-maggot", iconFile: "Tile4.png", name: "肉虫子" },
+    { cls: "tile-paper", iconFile: "Tile5.png", name: "卫生纸" },
+    { cls: "tile-slipper", iconFile: "Tile6.png", name: "拖鞋" },
   ];
 
   const SPECIAL = {
@@ -272,6 +274,10 @@
             this.board[r][c] = this.makeNormal(this.getSafeRandomType(r, c));
           }
         }
+      }
+
+      if (!this.hasAnyPlayableAction(this.board)) {
+        this.reshuffleBoardUntilPlayable();
       }
     }
 
@@ -581,7 +587,38 @@
         await this.playOutOfMoves();
         this.setupLevel(1, { keepScore: false });
         this.levelTransitioning = false;
+        return;
       }
+
+      await this.ensurePlayableBoard();
+    }
+
+    async ensurePlayableBoard() {
+      if (this.hasAnyPlayableAction(this.board)) return;
+      await this.playDeadlockShuffle();
+    }
+
+    async playDeadlockShuffle() {
+      this.selected = null;
+      this.clearSet.clear();
+      this.gridEl.classList.add("is-busy", "is-shuffling");
+      if (this.boardEl) this.boardEl.classList.add("is-board-shuffling");
+      this.render();
+
+      await this.delay(360);
+
+      this.reshuffleBoardUntilPlayable();
+      this.sfx.playFall();
+
+      this.gridEl.classList.remove("is-shuffling");
+      this.gridEl.classList.add("is-shuffling-in");
+      this.render();
+
+      await this.delay(380);
+
+      this.gridEl.classList.remove("is-shuffling-in", "is-busy");
+      if (this.boardEl) this.boardEl.classList.remove("is-board-shuffling");
+      this.render();
     }
 
     async playLevelWin() {
@@ -598,7 +635,7 @@
       if (this.boardEl) this.boardEl.classList.remove("is-level-fail");
     }
 
-    findMatchInfo() {
+    findMatchInfo(board = this.board) {
       const groups = [];
       const matchSet = new Set();
       const cellMeta = new Map();
@@ -611,8 +648,8 @@
       for (let r = 0; r < this.rows; r++) {
         let start = 0;
         for (let c = 1; c <= this.cols; c++) {
-          const leftType = this.getTileTypeForMatch(this.board[r][start]);
-          const currType = c < this.cols ? this.getTileTypeForMatch(this.board[r][c]) : null;
+          const leftType = this.getTileTypeForMatch(board[r][start]);
+          const currType = c < this.cols ? this.getTileTypeForMatch(board[r][c]) : null;
           const same = currType !== null && currType === leftType;
 
           if (!same) {
@@ -635,8 +672,8 @@
       for (let c = 0; c < this.cols; c++) {
         let start = 0;
         for (let r = 1; r <= this.rows; r++) {
-          const topType = this.getTileTypeForMatch(this.board[start][c]);
-          const currType = r < this.rows ? this.getTileTypeForMatch(this.board[r][c]) : null;
+          const topType = this.getTileTypeForMatch(board[start][c]);
+          const currType = r < this.rows ? this.getTileTypeForMatch(board[r][c]) : null;
           const same = currType !== null && currType === topType;
 
           if (!same) {
@@ -657,6 +694,121 @@
       }
 
       return { groups, matchSet, cellMeta };
+    }
+
+    hasAnyClickableSpecial(board = this.board) {
+      for (let r = 0; r < this.rows; r++) {
+        for (let c = 0; c < this.cols; c++) {
+          const tile = board[r][c];
+          if (!tile) continue;
+          if (tile.special === SPECIAL.LINE_H || tile.special === SPECIAL.LINE_V || tile.special === SPECIAL.BOMB) {
+            return true;
+          }
+        }
+      }
+      return false;
+    }
+
+    canSwapCreateMatch(board, a, b) {
+      const tileA = board[a.row][a.col];
+      const tileB = board[b.row][b.col];
+      if (!tileA || !tileB) return false;
+
+      const aRainbow = tileA.special === SPECIAL.RAINBOW;
+      const bRainbow = tileB.special === SPECIAL.RAINBOW;
+      if ((aRainbow && !bRainbow) || (bRainbow && !aRainbow)) return true;
+
+      board[a.row][a.col] = tileB;
+      board[b.row][b.col] = tileA;
+      const hasMatch = this.findMatchInfo(board).matchSet.size > 0;
+      board[a.row][a.col] = tileA;
+      board[b.row][b.col] = tileB;
+      return hasMatch;
+    }
+
+    hasAnyPlayableAction(board = this.board) {
+      if (this.hasAnyClickableSpecial(board)) return true;
+
+      for (let r = 0; r < this.rows; r++) {
+        for (let c = 0; c < this.cols; c++) {
+          const current = { row: r, col: c };
+
+          if (c + 1 < this.cols) {
+            const right = { row: r, col: c + 1 };
+            if (this.canSwapCreateMatch(board, current, right)) return true;
+          }
+
+          if (r + 1 < this.rows) {
+            const down = { row: r + 1, col: c };
+            if (this.canSwapCreateMatch(board, current, down)) return true;
+          }
+        }
+      }
+
+      return false;
+    }
+
+    cloneTile(tile) {
+      if (!tile) return null;
+      return { type: tile.type, special: tile.special || null };
+    }
+
+    buildBoardFromFlatTiles(flatTiles) {
+      const nextBoard = Array.from({ length: this.rows }, () => Array(this.cols).fill(null));
+      let idx = 0;
+      for (let r = 0; r < this.rows; r++) {
+        for (let c = 0; c < this.cols; c++) {
+          nextBoard[r][c] = flatTiles[idx++];
+        }
+      }
+      return nextBoard;
+    }
+
+    shuffleArrayInPlace(arr) {
+      for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        const tmp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = tmp;
+      }
+      return arr;
+    }
+
+    reshuffleBoardUntilPlayable() {
+      const originalTiles = [];
+      for (let r = 0; r < this.rows; r++) {
+        for (let c = 0; c < this.cols; c++) {
+          originalTiles.push(this.cloneTile(this.board[r][c]));
+        }
+      }
+
+      const maxAttempts = 220;
+      for (let attempt = 0; attempt < maxAttempts; attempt++) {
+        const candidateTiles = this.shuffleArrayInPlace(originalTiles.map((tile) => this.cloneTile(tile)));
+        const candidateBoard = this.buildBoardFromFlatTiles(candidateTiles);
+
+        if (this.findMatchInfo(candidateBoard).matchSet.size > 0) continue;
+        if (!this.hasAnyPlayableAction(candidateBoard)) continue;
+
+        this.board = candidateBoard;
+        return;
+      }
+
+      // Fallback: generate a brand-new clean board that guarantees at least one playable action.
+      for (let attempt = 0; attempt < maxAttempts; attempt++) {
+        const candidateBoard = Array.from({ length: this.rows }, () => Array(this.cols).fill(null));
+        for (let r = 0; r < this.rows; r++) {
+          for (let c = 0; c < this.cols; c++) {
+            candidateBoard[r][c] = this.makeNormal(Math.floor(Math.random() * this.getActiveTileCount()));
+          }
+        }
+
+        if (this.findMatchInfo(candidateBoard).matchSet.size > 0) continue;
+        if (!this.hasAnyPlayableAction(candidateBoard)) continue;
+
+        this.board = candidateBoard;
+        return;
+      }
     }
 
     buildSpecialSpawns(matchInfo, swapPair) {
@@ -762,13 +914,17 @@
       this.board[b.row][b.col] = temp;
     }
 
-    getDisplayEmoji(tile, typeDef) {
-      if (!tile.special) return typeDef.emoji;
-      if (tile.special === SPECIAL.RAINBOW) return "🌈";
-      if (tile.special === SPECIAL.BOMB) return "💣";
-      if (tile.special === SPECIAL.LINE_H) return "↔";
-      if (tile.special === SPECIAL.LINE_V) return "↕";
-      return typeDef.emoji;
+    getTileIconUrl(typeDef) {
+      return `${TILE_ICON_BASE_URL}/${typeDef.iconFile}`;
+    }
+
+    getSpecialMarker(tile) {
+      if (!tile.special) return "";
+      if (tile.special === SPECIAL.RAINBOW) return "RAINBOW";
+      if (tile.special === SPECIAL.BOMB) return "BOMB";
+      if (tile.special === SPECIAL.LINE_H) return "LINE-H";
+      if (tile.special === SPECIAL.LINE_V) return "LINE-V";
+      return "";
     }
 
     render(dropMap) {
@@ -787,7 +943,22 @@
           el.dataset.row = String(r);
           el.dataset.col = String(c);
           el.title = cell.special ? `${typeDef.name} (${cell.special})` : typeDef.name;
-          el.textContent = this.getDisplayEmoji(cell, typeDef);
+
+          const icon = document.createElement("img");
+          icon.className = "tile-icon";
+          icon.src = this.getTileIconUrl(typeDef);
+          icon.alt = typeDef.name;
+          icon.loading = "lazy";
+          icon.decoding = "async";
+          el.appendChild(icon);
+
+          const specialMarker = this.getSpecialMarker(cell);
+          if (specialMarker) {
+            const marker = document.createElement("span");
+            marker.className = "tile-special-marker";
+            marker.textContent = specialMarker;
+            el.appendChild(marker);
+          }
 
           if (this.selected && this.selected.row === r && this.selected.col === c) {
             el.classList.add("is-selected");
@@ -826,7 +997,8 @@
       }
       if (this.targetEl) {
         const goalType = TILE_TYPES[this.goal.type];
-        this.targetEl.textContent = `${goalType.emoji} ${this.goal.collected}/${this.goal.target}`;
+        const iconUrl = this.getTileIconUrl(goalType);
+        this.targetEl.innerHTML = `<img class="hud-target-icon" src="${iconUrl}" alt="${goalType.name}" /> ${this.goal.collected}/${this.goal.target}`;
       }
     }
 

@@ -29,7 +29,6 @@
         <a href="#boss-files" data-i18n="nav_bugs">BUG FILES</a>
         <a href="#blocker-files" data-i18n="nav_codex">BLOCKER CODEX</a>
         <a href="#device-shots" data-i18n="nav_shots">SCREENSHOTS</a>
-        <a href="#pre-register" data-i18n="nav_register">PRE-REGISTER</a>
         <div class="lang-toggle">
           <button class="lang-btn active" onclick="setLang('en')">EN</button>
           <button class="lang-btn" onclick="setLang('zh')">中文</button>
@@ -82,11 +81,9 @@
             <span data-i18n="hero_title_1">SCRUB. MATCH. FLUSH.</span>
           </p>
 
-          <a href="#pre-register" class="cta-btn" id="cta-el" data-i18n="hero_cta">⚡ PRE-REGISTER NOW</a>
-
           <div class="badges" id="badges-el">
             <!-- Apple Badge -->
-            <a href="#pre-register" class="badge-btn" id="apple-badge">
+            <a href="#device-shots" class="badge-btn" id="apple-badge">
               <span class="badge-icon">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
                   <path
@@ -95,12 +92,12 @@
                 </svg>
               </span>
               <span class="badge-text">
-                <span class="badge-sub" data-i18n="badge_available">Available on the</span>
-                <span class="badge-name">App Store</span>
+                <span class="badge-sub" data-i18n="badge_download">Download for</span>
+                <span class="badge-name" data-i18n="badge_ios_name">iOS</span>
               </span>
             </a>
             <!-- Google Play Badge -->
-            <a href="#pre-register" class="badge-btn" id="gplay-badge">
+            <a href="#device-shots" class="badge-btn" id="gplay-badge">
               <span class="badge-icon">
                 <svg width="24" height="24" viewBox="0 0 24 24">
                   <path d="M3 20.5v-17c0-.83 1-.83 1.5-.5l15 8.5-15 8.5c-.5.33-1.5.33-1.5-.5z" fill="#34A853" />
@@ -110,8 +107,23 @@
                 </svg>
               </span>
               <span class="badge-text">
-                <span class="badge-sub" data-i18n="badge_get_on">Get it on</span>
-                <span class="badge-name">Google Play</span>
+                <span class="badge-sub" data-i18n="badge_download">Download for</span>
+                <span class="badge-name" data-i18n="badge_android_name">Android</span>
+              </span>
+            </a>
+            <!-- Windows Badge -->
+            <a href="#device-shots" class="badge-btn" id="windows-badge">
+              <span class="badge-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M2 4.4l8.8-1.2v8.4H2V4.4z" fill="#00A4EF" />
+                  <path d="M12.2 3l9.8-1.4v10h-9.8V3z" fill="#7FBA00" />
+                  <path d="M2 12.8h8.8v8.4L2 20v-7.2z" fill="#FFB900" />
+                  <path d="M12.2 12.8H22v10l-9.8-1.4v-8.6z" fill="#F25022" />
+                </svg>
+              </span>
+              <span class="badge-text">
+                <span class="badge-sub" data-i18n="badge_download">Download for</span>
+                <span class="badge-name" data-i18n="badge_windows_name">Windows</span>
               </span>
             </a>
           </div>
@@ -287,17 +299,6 @@
       </div>
     </section>
 
-    <!-- ===== PRE-REGISTER ===== -->
-    <section id="pre-register">
-      <h2 class="section-title" data-i18n="prereg_title">PRE-REGISTER</h2>
-      <p class="section-sub" data-i18n="prereg_sub">Be the first to flush the bugs. Get exclusive rewards!</p>
-      <div class="prereg-form">
-        <input class="prereg-input" type="email" placeholder="your@email.com" data-i18n-ph="prereg_ph" />
-        <button class="prereg-btn" data-i18n="prereg_btn">NOTIFY ME</button>
-      </div>
-      <p class="prereg-note" data-i18n="prereg_note">No spam. Just launch day alerts. Unsubscribe anytime.</p>
-    </section>
-
     <!-- ===== FOOTER ===== -->
     <footer>
       <div class="footer-inner">
@@ -311,6 +312,7 @@
           <a href="support.html" target="_blank" rel="noopener noreferrer" data-i18n="footer_contact">Contact</a>
         </div>
       </div>
+      <div style="margin-top: 0.7rem; opacity: 0.75; font-size: 0.72rem; letter-spacing: 0.04em" data-i18n="footer_signature">QZQ Studio工作室出品</div>
     </footer>
 
     <!-- ===== SCRIPTS ===== -->
@@ -325,7 +327,11 @@
           nav_register: "PRE-REGISTER",
           hero_title_1: "SCRUB. MATCH. FLUSH.",
           hero_title_2: 'The <span style="color:var(--gold)">ULTIMATE</span> Bathroom Battle',
-          hero_cta: "⚡ PRE-REGISTER NOW",
+          hero_cta: "📱 VIEW SCREENSHOTS",
+          badge_download: "Download for",
+          badge_ios_name: "iOS",
+          badge_android_name: "Android",
+          badge_windows_name: "Windows",
           badge_available: "Available on the",
           badge_get_on: "Get it on",
           hud_score: "SCORE",
@@ -396,6 +402,7 @@
           footer_privacy: "Privacy Policy",
           footer_terms: "Terms of Service",
           footer_contact: "Contact",
+          footer_signature: "Produced by QZQ Studio",
         },
         zh: {
           nav_how: "玩法介绍",
@@ -405,7 +412,11 @@
           nav_register: "预先注册",
           hero_title_1: "刷洗。消除。冲水。",
           hero_title_2: '终极<span style="color:var(--gold)">浴室</span>大战',
-          hero_cta: "⚡ 立即预先注册",
+          hero_cta: "📱 查看真机截图",
+          badge_download: "下载版本",
+          badge_ios_name: "iOS 版",
+          badge_android_name: "安卓版",
+          badge_windows_name: "Windows 版",
           badge_available: "下载于",
           badge_get_on: "获取",
           hud_score: "分数",
@@ -476,6 +487,7 @@
           footer_privacy: "隐私政策",
           footer_terms: "服务条款",
           footer_contact: "联系我们",
+          footer_signature: "QZQ Studio工作室出品",
         },
       };
 
@@ -1281,18 +1293,6 @@
         // Tagline
         gsap.fromTo("#tagline-el", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.9, delay: 0.4, ease: "power2.out" });
 
-        // CTA button
-        gsap.fromTo("#cta-el", { opacity: 0, scale: 0.85 }, { opacity: 1, scale: 1, duration: 0.7, delay: 0.8, ease: "back.out(1.7)" });
-        // CTA pulse
-        gsap.to("#cta-el", {
-          boxShadow: "0 6px 32px rgba(245,200,66,0.8), inset 0 1px 0 rgba(255,255,255,0.3)",
-          duration: 1.2,
-          yoyo: true,
-          repeat: -1,
-          ease: "sine.inOut",
-          delay: 1.5,
-        });
-
         // Badges
         gsap.fromTo("#badges-el", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.7, delay: 1.1, ease: "power2.out" });
 
@@ -1369,19 +1369,6 @@
             stagger: 0.08,
             ease: "power2.out",
             scrollTrigger: { trigger: "#device-shots", start: "top 82%" },
-          },
-        );
-
-        // Scroll-triggered: Pre-register
-        gsap.fromTo(
-          "#pre-register .prereg-form",
-          { opacity: 0, y: 30 },
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.8,
-            ease: "power2.out",
-            scrollTrigger: { trigger: "#pre-register", start: "top 80%" },
           },
         );
       });
