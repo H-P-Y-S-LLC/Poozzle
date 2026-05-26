@@ -353,10 +353,9 @@ nav {
   color: var(--gold);
   text-shadow: 0 0 10px rgba(245, 200, 66, 0.6);
 }
-.hud-lives {
-  font-size: 1.2rem;
-  color: #e74c3c;
-  letter-spacing: 0.1em;
+.hud-target {
+  font-size: 1rem;
+  letter-spacing: 0.02em;
 }
 
 /* Board Frame */
@@ -387,6 +386,12 @@ nav {
 }
 .board-frame::after {
   right: 8px;
+}
+.board-frame.is-level-win {
+  animation: boardWinPulse 0.75s ease-out;
+}
+.board-frame.is-level-fail {
+  animation: boardFailShake 0.6s ease-in-out;
 }
 
 .game-grid {
@@ -530,6 +535,40 @@ nav {
   }
   100% {
     transform: translateY(0);
+  }
+}
+
+@keyframes boardWinPulse {
+  0% {
+    transform: scale(1);
+    filter: brightness(1);
+  }
+  35% {
+    transform: scale(1.03);
+    filter: brightness(1.35) saturate(1.2);
+  }
+  100% {
+    transform: scale(1);
+    filter: brightness(1);
+  }
+}
+
+@keyframes boardFailShake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  20% {
+    transform: translateX(-8px);
+  }
+  40% {
+    transform: translateX(7px);
+  }
+  60% {
+    transform: translateX(-5px);
+  }
+  80% {
+    transform: translateX(4px);
   }
 }
 

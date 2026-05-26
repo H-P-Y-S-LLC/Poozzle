@@ -14,18 +14,145 @@
     RAINBOW: "rainbow",
   };
 
+  class SoundEngine {
+    constructor() {
+      this.ctx = null;
+      this.masterGain = null;
+    }
+
+    ensureCtx() {
+      if (!this.ctx) {
+        const Ctx = window.AudioContext || window.webkitAudioContext;
+        if (!Ctx) return false;
+        this.ctx = new Ctx();
+        this.masterGain = this.ctx.createGain();
+        this.masterGain.gain.value = 0.16;
+        this.masterGain.connect(this.ctx.destination);
+      }
+      return true;
+    }
+
+    unlock() {
+      if (!this.ensureCtx()) return;
+      if (this.ctx.state === "suspended") {
+        this.ctx.resume();
+      }
+    }
+
+    tone({ freq = 440, duration = 0.08, type = "sine", volume = 0.25, slideTo = null }) {
+      if (!this.ensureCtx()) return;
+      const now = this.ctx.currentTime;
+
+      const osc = this.ctx.createOscillator();
+      const gain = this.ctx.createGain();
+
+      osc.type = type;
+      osc.frequency.setValueAtTime(freq, now);
+      if (slideTo) {
+        osc.frequency.exponentialRampToValueAtTime(slideTo, now + duration);
+      }
+
+      gain.gain.setValueAtTime(0.0001, now);
+      gain.gain.exponentialRampToValueAtTime(volume, now + 0.01);
+      gain.gain.exponentialRampToValueAtTime(0.0001, now + duration);
+
+      osc.connect(gain);
+      gain.connect(this.masterGain);
+
+      osc.start(now);
+      osc.stop(now + duration + 0.02);
+    }
+
+    noise({ duration = 0.08, volume = 0.2 }) {
+      if (!this.ensureCtx()) return;
+      const sampleRate = this.ctx.sampleRate;
+      const length = Math.max(1, Math.floor(sampleRate * duration));
+      const buffer = this.ctx.createBuffer(1, length, sampleRate);
+      const data = buffer.getChannelData(0);
+      for (let i = 0; i < length; i++) {
+        data[i] = (Math.random() * 2 - 1) * (1 - i / length);
+      }
+
+      const source = this.ctx.createBufferSource();
+      const gain = this.ctx.createGain();
+      const biquad = this.ctx.createBiquadFilter();
+
+      biquad.type = "highpass";
+      biquad.frequency.value = 600;
+
+      const now = this.ctx.currentTime;
+      gain.gain.setValueAtTime(volume, now);
+      gain.gain.exponentialRampToValueAtTime(0.0001, now + duration);
+
+      source.buffer = buffer;
+      source.connect(biquad);
+      biquad.connect(gain);
+      gain.connect(this.masterGain);
+      source.start(now);
+      source.stop(now + duration + 0.01);
+    }
+
+    playSwap() {
+      this.tone({ freq: 440, slideTo: 520, duration: 0.07, type: "triangle", volume: 0.18 });
+    }
+
+    playInvalid() {
+      this.tone({ freq: 250, slideTo: 180, duration: 0.1, type: "sawtooth", volume: 0.15 });
+    }
+
+    playClear(count) {
+      this.noise({ duration: 0.06 + Math.min(0.06, count * 0.003), volume: 0.18 });
+      this.tone({ freq: 620, slideTo: 300, duration: 0.09, type: "square", volume: 0.1 });
+    }
+
+    playSpecial() {
+      this.tone({ freq: 780, slideTo: 980, duration: 0.09, type: "square", volume: 0.17 });
+      this.tone({ freq: 980, slideTo: 640, duration: 0.1, type: "triangle", volume: 0.14 });
+    }
+
+    playFall() {
+      this.tone({ freq: 260, slideTo: 220, duration: 0.08, type: "sine", volume: 0.08 });
+    }
+
+    playLevelStart() {
+      this.tone({ freq: 520, duration: 0.07, type: "triangle", volume: 0.12 });
+      window.setTimeout(() => this.tone({ freq: 660, duration: 0.08, type: "triangle", volume: 0.12 }), 60);
+    }
+
+    playWin() {
+      this.tone({ freq: 660, duration: 0.1, type: "triangle", volume: 0.15 });
+      window.setTimeout(() => this.tone({ freq: 880, duration: 0.12, type: "triangle", volume: 0.15 }), 90);
+      window.setTimeout(() => this.tone({ freq: 1100, duration: 0.14, type: "triangle", volume: 0.15 }), 200);
+    }
+
+    playOutOfMoves() {
+      this.tone({ freq: 280, duration: 0.1, slideTo: 220, type: "sawtooth", volume: 0.14 });
+      window.setTimeout(() => this.tone({ freq: 220, duration: 0.12, slideTo: 180, type: "sawtooth", volume: 0.14 }), 90);
+    }
+  }
+
   class Match3Game {
     constructor(options) {
       this.rows = options.rows || 6;
       this.cols = options.cols || 6;
       this.gridEl = document.getElementById(options.gridId || "game-grid");
+      this.boardEl = document.getElementById(options.boardId || "board-el");
       this.scoreEl = document.getElementById(options.scoreId || "score-display");
+      this.movesEl = document.getElementById(options.movesId || "moves-display");
+      this.levelEl = document.getElementById(options.levelId || "level-display");
+      this.targetEl = document.getElementById(options.targetId || "target-display");
 
       this.board = [];
       this.score = 0;
+      this.level = 1;
+      this.moves = 0;
+      this.goal = { type: 0, target: 0, collected: 0 };
       this.isResolving = false;
       this.selected = null;
       this.clearSet = new Set();
+      this.levelTransitioning = false;
+
+      this.sfx = new SoundEngine();
 
       this.clearAnimMs = 220;
       this.fallAnimMs = 260;
@@ -36,10 +163,37 @@
 
     init() {
       if (!this.gridEl) return;
+      this.setupLevel(1, { keepScore: false });
+      this.gridEl.addEventListener("click", this.onGridClick);
+    }
+
+    getGoalTypeForLevel(level) {
+      return (level - 1) % TILE_TYPES.length;
+    }
+
+    getGoalCountForLevel(level) {
+      return Math.min(30, 8 + level * 2);
+    }
+
+    getMovesForLevel(level) {
+      return Math.max(12, 18 - Math.floor((level - 1) / 3));
+    }
+
+    setupLevel(level, { keepScore = true } = {}) {
+      this.level = level;
+      this.moves = this.getMovesForLevel(level);
+      this.goal = {
+        type: this.getGoalTypeForLevel(level),
+        target: this.getGoalCountForLevel(level),
+        collected: 0,
+      };
+      this.selected = null;
+      this.clearSet.clear();
+      if (!keepScore) this.score = 0;
       this.buildInitialBoard();
       this.render();
-      this.updateScore(0);
-      this.gridEl.addEventListener("click", this.onGridClick);
+      this.updateHud();
+      this.sfx.playLevelStart();
     }
 
     makeNormal(type) {
@@ -101,6 +255,7 @@
 
     onGridClick(event) {
       if (this.isResolving) return;
+      this.sfx.unlock();
 
       const tileEl = event.target.closest(".tile");
       if (!tileEl || !this.gridEl.contains(tileEl)) return;
@@ -144,6 +299,7 @@
     async trySwap(a, b) {
       this.isResolving = true;
       this.gridEl.classList.add("is-busy");
+      this.sfx.playSwap();
 
       this.swap(a, b);
       this.selected = null;
@@ -156,7 +312,9 @@
       const rainbowPair = this.getRainbowSwapPair(a, b, tileA, tileB);
 
       if (rainbowPair) {
+        this.consumeMove();
         await this.resolveRainbowSwap(rainbowPair);
+        await this.handlePostAction();
         this.isResolving = false;
         this.gridEl.classList.remove("is-busy");
         return;
@@ -166,12 +324,15 @@
       if (matchInfo.matchSet.size === 0) {
         this.swap(a, b);
         this.render();
+        this.sfx.playInvalid();
         this.isResolving = false;
         this.gridEl.classList.remove("is-busy");
         return;
       }
 
+      this.consumeMove();
       await this.resolveCascades({ swapPair: [a, b] });
+      await this.handlePostAction();
 
       this.isResolving = false;
       this.gridEl.classList.remove("is-busy");
@@ -199,8 +360,12 @@
       this.gridEl.classList.add("is-busy");
       this.selected = null;
 
+      this.consumeMove();
+      this.sfx.playSpecial();
+
       const clearSet = this.getSpecialClearSet(pos, tile.special);
       await this.resolveForcedClear(clearSet, 25);
+      await this.handlePostAction();
 
       this.isResolving = false;
       this.gridEl.classList.remove("is-busy");
@@ -243,7 +408,9 @@
     async resolveForcedClear(clearSet, pointPerCell) {
       this.clearSet = clearSet;
       this.render();
+      this.applyGoalProgressFromSet(clearSet);
       this.updateScore(clearSet.size * pointPerCell);
+      this.sfx.playClear(clearSet.size);
 
       await this.delay(this.clearAnimMs);
 
@@ -252,6 +419,7 @@
 
       this.clearSet.clear();
       this.render(dropMap);
+      this.sfx.playFall();
       await this.delay(this.fallAnimMs + this.fallColumnDelayMs * (this.cols - 1));
 
       await this.resolveCascades({ swapPair: null });
@@ -278,7 +446,9 @@
 
         this.clearSet = clearSet;
         this.render();
+        this.applyGoalProgressFromSet(clearSet);
         this.updateScore(matchInfo.matchSet.size * 20 * chain);
+        this.sfx.playClear(clearSet.size);
 
         await this.delay(this.clearAnimMs);
 
@@ -288,9 +458,63 @@
         const dropMap = this.applyGravityAndRefillWithDropMap();
         this.clearSet.clear();
         this.render(dropMap);
+        this.sfx.playFall();
 
         await this.delay(this.fallAnimMs + this.fallColumnDelayMs * (this.cols - 1));
       }
+    }
+
+    consumeMove() {
+      this.moves = Math.max(0, this.moves - 1);
+      this.updateHud();
+    }
+
+    applyGoalProgressFromSet(clearSet) {
+      let gained = 0;
+      for (const key of clearSet) {
+        const { row, col } = this.parseKey(key);
+        const tile = this.board[row][col];
+        if (tile && tile.type === this.goal.type) {
+          gained += 1;
+        }
+      }
+      if (gained > 0) {
+        this.goal.collected = Math.min(this.goal.target, this.goal.collected + gained);
+        this.updateHud();
+      }
+    }
+
+    async handlePostAction() {
+      if (this.levelTransitioning) return;
+
+      if (this.goal.collected >= this.goal.target) {
+        this.levelTransitioning = true;
+        await this.playLevelWin();
+        this.setupLevel(this.level + 1, { keepScore: true });
+        this.levelTransitioning = false;
+        return;
+      }
+
+      if (this.moves <= 0) {
+        this.levelTransitioning = true;
+        await this.playOutOfMoves();
+        this.setupLevel(this.level, { keepScore: true });
+        this.levelTransitioning = false;
+      }
+    }
+
+    async playLevelWin() {
+      if (this.boardEl) this.boardEl.classList.add("is-level-win");
+      this.sfx.playWin();
+      await this.delay(760);
+      if (this.boardEl) this.boardEl.classList.remove("is-level-win");
+    }
+
+    async playOutOfMoves() {
+      if (this.boardEl) this.boardEl.classList.add("is-level-fail");
+      this.sfx.playOutOfMoves();
+      await this.delay(620);
+      if (this.boardEl) this.boardEl.classList.remove("is-level-fail");
     }
 
     findMatchInfo() {
@@ -506,8 +730,22 @@
 
     updateScore(add) {
       this.score += add;
+      this.updateHud();
+    }
+
+    updateHud() {
       if (this.scoreEl) {
         this.scoreEl.textContent = String(this.score).padStart(6, "0");
+      }
+      if (this.movesEl) {
+        this.movesEl.textContent = String(this.moves).padStart(2, "0");
+      }
+      if (this.levelEl) {
+        this.levelEl.textContent = String(this.level).padStart(2, "0");
+      }
+      if (this.targetEl) {
+        const goalType = TILE_TYPES[this.goal.type];
+        this.targetEl.textContent = `${goalType.emoji} ${this.goal.collected}/${this.goal.target}`;
       }
     }
 
