@@ -535,6 +535,20 @@
       };
 
       let currentLang = "en";
+      const LANG_STORAGE_KEY = "poozzle_lang";
+
+      function normalizeLang(lang) {
+        if (!lang) return "en";
+        return String(lang).toLowerCase().startsWith("zh") ? "zh" : "en";
+      }
+
+      function resolveInitialLang() {
+        const savedLang = normalizeLang(localStorage.getItem(LANG_STORAGE_KEY));
+        if (savedLang === "en" || savedLang === "zh") return savedLang;
+
+        const browserLang = (navigator.languages && navigator.languages[0]) || navigator.language || "en";
+        return normalizeLang(browserLang);
+      }
 
       const blockerCodex = [
         {
@@ -1231,30 +1245,44 @@
         demoIframeEl.src = embedUrl;
       }
 
-      function setLang(lang) {
-        currentLang = lang;
+      function setLang(lang, { persist = true } = {}) {
+        const safeLang = normalizeLang(lang);
+        currentLang = safeLang;
+
+        if (persist) {
+          localStorage.setItem(LANG_STORAGE_KEY, safeLang);
+        }
+
         document.querySelectorAll("[data-i18n]").forEach((el) => {
           const key = el.getAttribute("data-i18n");
-          if (i18n[lang][key] !== undefined) {
-            el.innerHTML = i18n[lang][key];
+          if (i18n[safeLang][key] !== undefined) {
+            el.innerHTML = i18n[safeLang][key];
           }
         });
         document.querySelectorAll("[data-i18n-ph]").forEach((el) => {
           const key = el.getAttribute("data-i18n-ph");
-          if (i18n[lang][key] !== undefined) {
-            el.placeholder = i18n[lang][key];
+          if (i18n[safeLang][key] !== undefined) {
+            el.placeholder = i18n[safeLang][key];
           }
         });
         document.querySelectorAll(".lang-btn").forEach((btn) => {
-          btn.classList.toggle("active", btn.textContent.trim().toLowerCase() === lang || (lang === "zh" && btn.textContent.trim() === "中文"));
+          btn.classList.toggle("active", btn.textContent.trim().toLowerCase() === safeLang || (safeLang === "zh" && btn.textContent.trim() === "中文"));
         });
-        document.documentElement.lang = lang;
-        renderBlockerCodex(lang);
-        renderDeviceScreenshots(lang);
-        renderBugPreview(lang);
-        initBossDossierFlips(lang);
-        syncDemoVideoByLang(lang);
+        document.documentElement.lang = safeLang;
+        renderBlockerCodex(safeLang);
+        renderDeviceScreenshots(safeLang);
+        renderBugPreview(safeLang);
+        initBossDossierFlips(safeLang);
+        syncDemoVideoByLang(safeLang);
+
+        window.dispatchEvent(
+          new CustomEvent("poozzle:lang-change", {
+            detail: { lang: safeLang },
+          }),
+        );
       }
+
+      setLang(resolveInitialLang(), { persist: false });
 
       /* ===== STEAM PARTICLES ===== */
       function initSteam() {

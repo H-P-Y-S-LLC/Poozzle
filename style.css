@@ -493,6 +493,12 @@ nav {
 .tile.is-clearing {
   animation: tileShatter 0.22s cubic-bezier(0.3, 0.1, 0.8, 0.2) forwards;
 }
+.tile.is-clearing.is-goal-fly-source {
+  animation: none;
+  opacity: 0.24;
+  transform: scale(0.9);
+  filter: brightness(1.2) saturate(1.15);
+}
 .tile.is-clearing::before {
   content: "";
   position: absolute;
@@ -503,10 +509,24 @@ nav {
   animation: crackFlash 0.22s ease-out forwards;
   pointer-events: none;
 }
+.tile.is-clearing.is-goal-fly-source::before {
+  opacity: 0.45;
+  animation: crackFlash 0.2s ease-out forwards;
+}
 .tile.is-falling {
   animation: tileFall 0.26s cubic-bezier(0.2, 0.8, 0.25, 1) both;
   animation-delay: var(--fall-delay, 0ms);
   transform: translateY(calc(var(--drop-rows, 0) * -100%));
+}
+.goal-fly-token {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 1200;
+  object-fit: contain;
+  pointer-events: none;
+  filter: drop-shadow(0 3px 8px rgba(0, 0, 0, 0.35));
+  will-change: transform, opacity;
 }
 .game-grid.is-shuffling .tile {
   animation: tileShuffleOut 0.34s ease-in both;

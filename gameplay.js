@@ -2,12 +2,12 @@
   const TILE_ICON_BASE_URL = "https://assets.poozzle.com/guis";
 
   const TILE_TYPES = [
-    { cls: "tile-fly", iconFile: "Tile1.png", name: "苍蝇" },
-    { cls: "tile-poop", iconFile: "Tile2.png", name: "屎" },
-    { cls: "tile-plunger", iconFile: "Tile3.png", name: "皮搋子" },
-    { cls: "tile-maggot", iconFile: "Tile4.png", name: "肉虫子" },
-    { cls: "tile-paper", iconFile: "Tile5.png", name: "卫生纸" },
-    { cls: "tile-slipper", iconFile: "Tile6.png", name: "拖鞋" },
+    { cls: "tile-fly", iconFile: "Tile1.png", enName: "Fly", zhName: "苍蝇" },
+    { cls: "tile-poop", iconFile: "Tile2.png", enName: "Poop", zhName: "屎" },
+    { cls: "tile-plunger", iconFile: "Tile3.png", enName: "Plunger", zhName: "皮搋子" },
+    { cls: "tile-maggot", iconFile: "Tile4.png", enName: "Maggot", zhName: "肉虫子" },
+    { cls: "tile-paper", iconFile: "Tile5.png", enName: "Toilet Paper", zhName: "卫生纸" },
+    { cls: "tile-slipper", iconFile: "Tile6.png", enName: "Slipper", zhName: "拖鞋" },
   ];
 
   const SPECIAL = {
@@ -177,13 +177,17 @@
       this.isResolving = false;
       this.selected = null;
       this.clearSet = new Set();
+      this.goalFlySet = new Set();
       this.levelTransitioning = false;
 
       this.sfx = new SoundEngine();
 
       this.clearAnimMs = 220;
+      this.goalFlyAnimMs = 320;
       this.fallAnimMs = 260;
       this.fallColumnDelayMs = 26;
+
+      this.uiLang = this.normalizeLang(document.documentElement.lang || navigator.language || "en");
 
       this.onGridClick = this.onGridClick.bind(this);
     }
@@ -191,8 +195,39 @@
     init() {
       if (!this.gridEl) return;
       this.bindAudioUnlock();
+      this.bindLangSync();
       this.setupLevel(1, { keepScore: false });
       this.gridEl.addEventListener("click", this.onGridClick);
+    }
+
+    normalizeLang(lang) {
+      return String(lang || "en")
+        .toLowerCase()
+        .startsWith("zh")
+        ? "zh"
+        : "en";
+    }
+
+    bindLangSync() {
+      window.addEventListener("poozzle:lang-change", (event) => {
+        this.setLanguage(event?.detail?.lang);
+      });
+      this.setLanguage(document.documentElement.lang || navigator.language || "en");
+    }
+
+    setLanguage(lang) {
+      const nextLang = this.normalizeLang(lang);
+      if (nextLang === this.uiLang) return;
+      this.uiLang = nextLang;
+      if (this.board.length) {
+        this.render();
+        this.updateHud();
+      }
+    }
+
+    getTileName(typeDef) {
+      if (!typeDef) return "";
+      return this.uiLang === "zh" ? typeDef.zhName : typeDef.enName;
     }
 
     bindAudioUnlock() {
@@ -235,6 +270,7 @@
       };
       this.selected = null;
       this.clearSet.clear();
+      this.goalFlySet.clear();
       if (!keepScore) this.score = 0;
       this.buildInitialBoard();
       this.render();
@@ -493,15 +529,18 @@
     }
 
     async resolveForcedClear(clearSet, pointPerCell) {
+      this.syncGoalFlySet(clearSet);
       this.clearSet = clearSet;
       this.render();
       this.applyGoalProgressFromSet(clearSet);
       this.updateScore(clearSet.size * pointPerCell);
       this.sfx.playClear(clearSet.size);
 
+      await this.playGoalFlyToTarget();
       await this.delay(this.clearAnimMs);
 
       this.clearMatches(clearSet);
+      this.goalFlySet.clear();
       const dropMap = this.applyGravityAndRefillWithDropMap();
 
       this.clearSet.clear();
@@ -531,15 +570,18 @@
         const clearSet = new Set(matchInfo.matchSet);
         specialSpawns.forEach((_, key) => clearSet.delete(key));
 
+        this.syncGoalFlySet(clearSet);
         this.clearSet = clearSet;
         this.render();
         this.applyGoalProgressFromSet(clearSet);
         this.updateScore(matchInfo.matchSet.size * 20 * chain);
         this.sfx.playClear(clearSet.size);
 
+        await this.playGoalFlyToTarget();
         await this.delay(this.clearAnimMs);
 
         this.clearMatches(clearSet);
+        this.goalFlySet.clear();
         this.applySpecialSpawns(specialSpawns);
 
         const dropMap = this.applyGravityAndRefillWithDropMap();
@@ -569,6 +611,84 @@
         this.goal.collected = Math.min(this.goal.target, this.goal.collected + gained);
         this.updateHud();
       }
+    }
+
+    syncGoalFlySet(clearSet) {
+      this.goalFlySet.clear();
+      for (const key of clearSet) {
+        const { row, col } = this.parseKey(key);
+        const tile = this.board[row][col];
+        if (tile && tile.type === this.goal.type) {
+          this.goalFlySet.add(key);
+        }
+      }
+    }
+
+    async playGoalFlyToTarget() {
+      if (!this.goalFlySet.size || !this.targetEl) return;
+
+      const targetIcon = this.targetEl.querySelector(".hud-target-icon");
+      if (!targetIcon) return;
+
+      const targetRect = targetIcon.getBoundingClientRect();
+      const targetX = targetRect.left + targetRect.width * 0.5;
+      const targetY = targetRect.top + targetRect.height * 0.5;
+
+      const goalType = TILE_TYPES[this.goal.type];
+      if (!goalType) return;
+      const iconUrl = this.getTileIconUrl(goalType);
+
+      const animations = [];
+      for (const key of this.goalFlySet) {
+        const { row, col } = this.parseKey(key);
+        const tileEl = this.gridEl.querySelector(`.tile[data-row="${row}"][data-col="${col}"]`);
+        if (!tileEl) continue;
+
+        const rect = tileEl.getBoundingClientRect();
+        const startX = rect.left + rect.width * 0.5;
+        const startY = rect.top + rect.height * 0.5;
+        const dx = targetX - startX;
+        const dy = targetY - startY;
+
+        const token = document.createElement("img");
+        token.className = "goal-fly-token";
+        token.src = iconUrl;
+        token.alt = "";
+        token.setAttribute("aria-hidden", "true");
+        token.style.left = `${startX}px`;
+        token.style.top = `${startY}px`;
+        token.style.width = `${Math.max(20, rect.width * 0.7)}px`;
+        token.style.height = `${Math.max(20, rect.height * 0.7)}px`;
+
+        document.body.appendChild(token);
+
+        const delay = Math.random() * 80;
+        const anim = token.animate(
+          [
+            { transform: "translate(-50%, -50%) translate(0px, 0px) scale(1)", opacity: 1, offset: 0 },
+            { transform: `translate(-50%, -50%) translate(${dx * 0.82}px, ${dy * 0.82}px) scale(1)`, opacity: 0.96, offset: 0.86 },
+            { transform: `translate(-50%, -50%) translate(${dx * 0.94}px, ${dy * 0.94}px) scale(0.74)`, opacity: 0.72, offset: 0.96 },
+            { transform: `translate(-50%, -50%) translate(${dx}px, ${dy}px) scale(0.26)`, opacity: 0.06, offset: 1 },
+          ],
+          {
+            duration: this.goalFlyAnimMs,
+            delay,
+            easing: "cubic-bezier(0.2, 0.85, 0.32, 1)",
+            fill: "forwards",
+          },
+        );
+
+        const done = anim.finished
+          .catch(() => {})
+          .then(() => {
+            token.remove();
+          });
+
+        animations.push(done);
+      }
+
+      if (!animations.length) return;
+      await Promise.all(animations);
     }
 
     async handlePostAction() {
@@ -601,6 +721,7 @@
     async playDeadlockShuffle() {
       this.selected = null;
       this.clearSet.clear();
+      this.goalFlySet.clear();
       this.gridEl.classList.add("is-busy", "is-shuffling");
       if (this.boardEl) this.boardEl.classList.add("is-board-shuffling");
       this.render();
@@ -940,9 +1061,11 @@
           el.className = `tile ${typeDef.cls}`;
           if (cell.special) el.classList.add(`special-${cell.special}`);
 
+          const tileName = this.getTileName(typeDef);
+
           el.dataset.row = String(r);
           el.dataset.col = String(c);
-          el.title = cell.special ? `${typeDef.name} (${cell.special})` : typeDef.name;
+          el.title = cell.special ? `${tileName} (${cell.special})` : tileName;
 
           const specialMarker = this.getSpecialMarker(cell);
           if (specialMarker) {
@@ -955,7 +1078,7 @@
             const icon = document.createElement("img");
             icon.className = "tile-icon";
             icon.src = this.getTileIconUrl(typeDef);
-            icon.alt = typeDef.name;
+            icon.alt = tileName;
             icon.loading = "lazy";
             icon.decoding = "async";
             el.appendChild(icon);
@@ -966,6 +1089,9 @@
           }
           if (this.clearSet.has(`${r},${c}`)) {
             el.classList.add("is-clearing");
+          }
+          if (this.goalFlySet.has(`${r},${c}`)) {
+            el.classList.add("is-goal-fly-source");
           }
           if (dropMap && dropMap[r] && dropMap[r][c] > 0) {
             el.classList.add("is-falling");
@@ -999,7 +1125,8 @@
       if (this.targetEl) {
         const goalType = TILE_TYPES[this.goal.type];
         const iconUrl = this.getTileIconUrl(goalType);
-        this.targetEl.innerHTML = `<img class="hud-target-icon" src="${iconUrl}" alt="${goalType.name}" /> ${this.goal.collected}/${this.goal.target}`;
+        const goalName = this.getTileName(goalType);
+        this.targetEl.innerHTML = `<img class="hud-target-icon" src="${iconUrl}" alt="${goalName}" /> ${this.goal.collected}/${this.goal.target}`;
       }
     }
 
