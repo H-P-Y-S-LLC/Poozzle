@@ -3,1146 +3,692 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>POOZZLE — Not Just Match-3</title>
-    <!-- Fonts load when online; offline falls back to system fonts gracefully -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Fredoka+One&family=Nunito:wght@400;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
-    <style>
-      /* ===== VARIABLES ===== */
-      :root {
-        --color-wood-dark: #5c3a1e;
-        --color-wood-mid: #7a4f2d;
-        --color-wood-light: #a0652a;
-        --color-tile-green: #4a7c59;
-        --color-tile-dark: #2d5c3a;
-        --color-yellow: #f5c842;
-        --color-yellow-dark: #d4a010;
-        --color-poop-brown: #6b3a1f;
-        --color-dark-bg: #1a1020;
-        --color-accent: #e8f44a;
-        --font-display: "Bangers", "Impact", "Arial Black", cursive;
-        --font-body: "Fredoka One", "Trebuchet MS", sans-serif;
-        --font-ui: "Nunito", "Segoe UI", system-ui, sans-serif;
-      }
-
-      /* ===== RESET ===== */
-      *,
-      *::before,
-      *::after {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-      }
-      html {
-        scroll-behavior: smooth;
-      }
-      body {
-        font-family: var(--font-ui);
-        overflow-x: hidden;
-        background: #1a1a1a;
-      }
-
-      /* ===== NAV ===== */
-      #nav {
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        z-index: 100;
-        background: var(--color-wood-dark);
-        background-image:
-          repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.04) 0px, rgba(255, 255, 255, 0.04) 1px, transparent 1px, transparent 40px),
-          repeating-linear-gradient(180deg, rgba(0, 0, 0, 0.15) 0px, rgba(0, 0, 0, 0.15) 1px, transparent 1px, transparent 8px);
-        border-bottom: 3px solid var(--color-wood-light);
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 0 24px;
-        height: 52px;
-      }
-      #nav .nav-links {
-        display: flex;
-        gap: 8px;
-        align-items: center;
-      }
-      #nav .nav-links a {
-        color: var(--color-yellow);
-        font-family: var(--font-display);
-        font-size: 1.1rem;
-        letter-spacing: 1px;
-        text-decoration: none;
-        padding: 6px 14px;
-        border: 2px solid var(--color-wood-light);
-        border-radius: 4px;
-        background: rgba(0, 0, 0, 0.2);
-        transition:
-          background 0.2s,
-          color 0.2s;
-      }
-      #nav .nav-links a:hover {
-        background: var(--color-yellow);
-        color: var(--color-wood-dark);
-      }
-      #nav .nav-links a::before {
-        content: "[";
-        margin-right: 2px;
-      }
-      #nav .nav-links a::after {
-        content: "]";
-        margin-left: 2px;
-      }
-      .lang-toggle {
-        display: flex;
-        gap: 4px;
-        align-items: center;
-      }
-      .lang-btn {
-        cursor: pointer;
-        background: none;
-        border: 1px solid var(--color-wood-light);
-        color: #ccc;
-        font-family: var(--font-ui);
-        font-size: 0.85rem;
-        padding: 3px 10px;
-        border-radius: 3px;
-        transition: all 0.2s;
-      }
-      .lang-btn.active {
-        background: var(--color-yellow);
-        color: var(--color-wood-dark);
-        border-color: var(--color-yellow);
-        font-weight: 700;
-      }
-
-      /* ===== MAIN GRID ===== */
-      #main-grid {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        grid-template-rows: 100vh;
-        margin-top: 52px;
-      }
-
-      /* ===== LEFT: HERO ===== */
-      #hero {
-        position: relative;
-        overflow: hidden;
-        background-color: var(--color-tile-green);
-        background-image:
-        /* tile grout lines */
-          repeating-linear-gradient(0deg, transparent, transparent 79px, rgba(0, 0, 0, 0.25) 79px, rgba(0, 0, 0, 0.25) 80px),
-          repeating-linear-gradient(90deg, transparent, transparent 79px, rgba(0, 0, 0, 0.25) 79px, rgba(0, 0, 0, 0.25) 80px),
-          /* tile sheen */ repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.04) 0px, rgba(255, 255, 255, 0.04) 40px, transparent 40px, transparent 80px);
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        gap: 24px;
-      }
-
-      /* pipe decorations (CSS-only placeholders) */
-      .pipe {
-        position: absolute;
-        background: #8b6914;
-        border-radius: 6px;
-      }
-      .pipe-h {
-        height: 28px;
-      }
-      .pipe-v {
-        width: 28px;
-      }
-      .pipe-top-left {
-        top: 60px;
-        left: 0;
-        width: 120px;
-      }
-      .pipe-top-right {
-        top: 100px;
-        right: 0;
-        width: 80px;
-      }
-      .pipe-mid-left {
-        top: 50%;
-        left: 0;
-        width: 60px;
-        transform: translateY(-50%);
-      }
-      .pipe-bot-left {
-        bottom: 80px;
-        left: 0;
-        width: 100px;
-      }
-      .pipe-side-left {
-        left: 30px;
-        top: 120px;
-        height: 160px;
-      }
-      /* pipe caps */
-      .pipe::after {
-        content: "";
-        position: absolute;
-        right: -10px;
-        top: 50%;
-        transform: translateY(-50%);
-        width: 18px;
-        height: 36px;
-        background: #6b5010;
-        border-radius: 4px;
-      }
-      .pipe-side-left::after {
-        display: none;
-      }
-
-      /* steam canvas */
-      #steam-canvas {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        pointer-events: none;
-        z-index: 1;
-      }
-
-      /* gear */
-      .gear {
-        position: absolute;
-        width: 64px;
-        height: 64px;
-        border-radius: 50%;
-        border: 8px solid #8b6914;
-        background: #6b5010;
-        animation: spin-gear 8s linear infinite;
-        z-index: 2;
-      }
-      .gear::before,
-      .gear::after {
-        content: "";
-        position: absolute;
-        background: #8b6914;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-      }
-      .gear::before {
-        width: 130%;
-        height: 16%;
-        border-radius: 2px;
-      }
-      .gear::after {
-        width: 16%;
-        height: 130%;
-        border-radius: 2px;
-      }
-      .gear-1 {
-        top: 80px;
-        right: 20px;
-      }
-      .gear-2 {
-        bottom: 120px;
-        right: 50px;
-        width: 44px;
-        height: 44px;
-        animation-direction: reverse;
-        animation-duration: 5s;
-      }
-      @keyframes spin-gear {
-        to {
-          transform: rotate(360deg);
-        }
-      }
-
-      /* logo wrapper */
-      #logo-wrap {
-        position: relative;
-        z-index: 5;
-        text-align: center;
-      }
-      #logo-img {
-        max-width: 320px;
-        width: 80%;
-        filter: drop-shadow(0 6px 18px rgba(0, 0, 0, 0.6));
-      }
-      /* placeholder logo (shown when img missing) */
-      .logo-placeholder {
-        font-family: var(--font-display);
-        font-size: 5rem;
-        color: var(--color-yellow);
-        text-shadow:
-          3px 3px 0 var(--color-yellow-dark),
-          6px 6px 0 var(--color-poop-brown),
-          0 0 40px rgba(245, 200, 66, 0.6);
-        line-height: 1;
-        letter-spacing: 4px;
-      }
-
-      /* toilet & plunger placeholder props */
-      .prop-toilet {
-        position: absolute;
-        bottom: 0;
-        left: 16px;
-        z-index: 3;
-        width: 90px;
-        height: 120px;
-        background: #e8e8d8;
-        border-radius: 12px 12px 0 0;
-        border: 3px solid #b0b098;
-      }
-      .prop-toilet::before {
-        content: "🚽";
-        position: absolute;
-        bottom: 0;
-        left: 50%;
-        transform: translateX(-50%);
-        font-size: 60px;
-        line-height: 1;
-      }
-      .prop-plunger {
-        position: absolute;
-        bottom: 0;
-        left: 130px;
-        z-index: 3;
-        font-size: 64px;
-        line-height: 1;
-      }
-
-      /* CTA button */
-      #cta-btn {
-        position: relative;
-        z-index: 5;
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        padding: 14px 32px;
-        background: linear-gradient(180deg, var(--color-wood-mid), var(--color-wood-dark));
-        border: 3px solid var(--color-wood-light);
-        border-radius: 8px;
-        color: #fff;
-        font-family: var(--font-display);
-        font-size: 1.5rem;
-        letter-spacing: 2px;
-        cursor: pointer;
-        text-decoration: none;
-        box-shadow:
-          0 6px 0 #3a2010,
-          0 8px 20px rgba(0, 0, 0, 0.4);
-        transition:
-          transform 0.1s,
-          box-shadow 0.1s;
-      }
-      #cta-btn:hover {
-        filter: brightness(1.15);
-      }
-      #cta-btn:active {
-        transform: translateY(4px);
-        box-shadow:
-          0 2px 0 #3a2010,
-          0 4px 10px rgba(0, 0, 0, 0.4);
-      }
-      #cta-btn .play-icon {
-        width: 0;
-        height: 0;
-        border-top: 10px solid transparent;
-        border-bottom: 10px solid transparent;
-        border-left: 18px solid var(--color-yellow);
-      }
-
-      /* store badges */
-      .badges {
-        position: relative;
-        z-index: 5;
-        display: flex;
-        gap: 16px;
-      }
-      .badge-btn {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        padding: 10px 18px;
-        background: rgba(0, 0, 0, 0.55);
-        border: 2px solid rgba(255, 255, 255, 0.3);
-        border-radius: 8px;
-        color: #fff;
-        text-decoration: none;
-        transition: background 0.2s;
-      }
-      .badge-btn:hover {
-        background: rgba(0, 0, 0, 0.75);
-      }
-      .badge-btn img {
-        width: 28px;
-        height: 28px;
-        object-fit: contain;
-      }
-      .badge-btn .badge-text {
-        line-height: 1.2;
-      }
-      .badge-btn .badge-label {
-        font-size: 0.6rem;
-        color: #aaa;
-        display: block;
-      }
-      .badge-btn .badge-store {
-        font-family: var(--font-body);
-        font-size: 0.9rem;
-      }
-      /* emoji fallback */
-      .badge-icon {
-        font-size: 28px;
-        line-height: 1;
-      }
-
-      /* ===== RIGHT PANEL ===== */
-      #right-panel {
-        display: flex;
-        flex-direction: column;
-        height: calc(100vh - 52px);
-      }
-
-      /* ===== RIGHT TOP: GAMEPLAY ===== */
-      #gameplay {
-        flex: 1;
-        background-color: var(--color-tile-dark);
-        background-image:
-          repeating-linear-gradient(0deg, transparent, transparent 59px, rgba(0, 0, 0, 0.2) 59px, rgba(0, 0, 0, 0.2) 60px),
-          repeating-linear-gradient(90deg, transparent, transparent 59px, rgba(0, 0, 0, 0.2) 59px, rgba(0, 0, 0, 0.2) 60px);
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        padding: 20px;
-        gap: 12px;
-        position: relative;
-      }
-
-      /* HUD panel */
-      .hud-panel {
-        display: flex;
-        gap: 12px;
-        align-items: stretch;
-      }
-      .hud-item {
-        background: rgba(255, 255, 255, 0.12);
-        border: 2px solid rgba(255, 255, 255, 0.25);
-        border-radius: 8px;
-        padding: 6px 16px;
-        text-align: center;
-        color: #fff;
-      }
-      .hud-item .hud-label {
-        font-size: 0.65rem;
-        color: #bbb;
-        font-family: var(--font-ui);
-      }
-      .hud-item .hud-value {
-        font-family: var(--font-display);
-        font-size: 1.6rem;
-        color: var(--color-yellow);
-        letter-spacing: 1px;
-      }
-      .hud-item.goal-item .hud-value {
-        font-size: 1rem;
-        display: flex;
-        gap: 6px;
-        align-items: center;
-      }
-
-      /* game board frame */
-      .board-frame {
-        position: relative;
-        background: var(--color-wood-dark);
-        border: 6px solid var(--color-wood-light);
-        border-radius: 12px;
-        padding: 10px;
-        box-shadow:
-          0 8px 24px rgba(0, 0, 0, 0.5),
-          inset 0 2px 4px rgba(255, 255, 255, 0.1);
-      }
-      .board-screenshot {
-        width: 280px;
-        height: 220px;
-        background: #1a2a1a;
-        border-radius: 6px;
-        display: grid;
-        grid-template-columns: repeat(7, 1fr);
-        grid-template-rows: repeat(5, 1fr);
-        gap: 2px;
-        padding: 4px;
-        overflow: hidden;
-      }
-      .board-cell {
-        border-radius: 4px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 1.1rem;
-      }
-      .board-cell.c1 {
-        background: rgba(139, 90, 43, 0.4);
-      }
-      .board-cell.c2 {
-        background: rgba(80, 140, 80, 0.4);
-      }
-      .board-cell.c3 {
-        background: rgba(140, 80, 80, 0.4);
-      }
-      .board-cell.c4 {
-        background: rgba(80, 80, 140, 0.4);
-      }
-
-      /* Combo text */
-      #combo-text {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%) scale(0);
-        font-family: var(--font-display);
-        font-size: 2.8rem;
-        color: var(--color-accent);
-        text-shadow:
-          0 0 20px rgba(232, 244, 74, 0.8),
-          3px 3px 0 var(--color-wood-dark);
-        letter-spacing: 4px;
-        z-index: 10;
-        pointer-events: none;
-        white-space: nowrap;
-      }
-
-      /* tagline */
-      .tagline {
-        font-family: var(--font-display);
-        font-size: 1.1rem;
-        color: var(--color-yellow);
-        letter-spacing: 1.5px;
-        text-align: center;
-        text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.5);
-      }
-
-      /* ===== RIGHT BOTTOM: BUG DOSSIERS ===== */
-      #bugs {
-        flex: 1;
-        background: linear-gradient(180deg, #1a1020 0%, #0d0820 60%, #1a0a10 100%);
-        padding: 20px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        gap: 16px;
-        position: relative;
-        overflow: hidden;
-      }
-      /* atmospheric stars */
-      #bugs::before {
-        content: "";
-        position: absolute;
-        inset: 0;
-        background-image:
-          radial-gradient(circle 1px at 20% 30%, rgba(255, 255, 255, 0.6) 0%, transparent 100%), radial-gradient(circle 1px at 70% 20%, rgba(255, 255, 255, 0.5) 0%, transparent 100%),
-          radial-gradient(circle 1px at 50% 70%, rgba(255, 255, 255, 0.4) 0%, transparent 100%), radial-gradient(circle 2px at 85% 55%, rgba(255, 200, 100, 0.5) 0%, transparent 100%),
-          radial-gradient(circle 1px at 10% 80%, rgba(255, 255, 255, 0.4) 0%, transparent 100%);
-        pointer-events: none;
-      }
-      .bugs-title {
-        font-family: var(--font-display);
-        font-size: 1.8rem;
-        color: #f0d090;
-        letter-spacing: 3px;
-        text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
-        position: relative;
-        z-index: 2;
-      }
-      .bug-cards {
-        display: flex;
-        gap: 16px;
-        position: relative;
-        z-index: 2;
-      }
-
-      /* 3D flip card */
-      .bug-card {
-        width: 130px;
-        perspective: 600px;
-        cursor: pointer;
-      }
-      .bug-card-inner {
-        position: relative;
-        width: 100%;
-        height: 160px;
-        transform-style: preserve-3d;
-        transition: transform 0.55s cubic-bezier(0.4, 0, 0.2, 1);
-      }
-      .bug-card:hover .bug-card-inner {
-        transform: rotateY(180deg);
-      }
-      .bug-card-front,
-      .bug-card-back {
-        position: absolute;
-        inset: 0;
-        backface-visibility: hidden;
-        border-radius: 10px;
-        overflow: hidden;
-        border: 2px solid rgba(255, 255, 255, 0.15);
-      }
-      .bug-card-front {
-        background: rgba(30, 15, 40, 0.8);
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        gap: 8px;
-        padding: 12px 8px;
-      }
-      .bug-card-back {
-        background: rgba(15, 5, 25, 0.9);
-        border-color: rgba(232, 244, 74, 0.4);
-        transform: rotateY(180deg);
-        padding: 10px;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        gap: 6px;
-      }
-      .bug-emoji {
-        font-size: 3rem;
-        line-height: 1;
-      }
-      .bug-img {
-        width: 70px;
-        height: 70px;
-        object-fit: contain;
-      }
-      .bug-name-en {
-        font-family: var(--font-display);
-        font-size: 0.85rem;
-        color: #f0d090;
-        text-align: center;
-        letter-spacing: 0.5px;
-      }
-      .bug-name-zh {
-        font-family: var(--font-ui);
-        font-size: 0.7rem;
-        color: #aaa;
-        text-align: center;
-      }
-      .bug-stat {
-        display: flex;
-        flex-direction: column;
-        gap: 2px;
-      }
-      .stat-label {
-        font-size: 0.58rem;
-        color: var(--color-accent);
-        font-family: var(--font-ui);
-        font-weight: 700;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-      }
-      .stat-value {
-        font-size: 0.72rem;
-        color: #e0d0c0;
-        font-family: var(--font-ui);
-      }
-      .stat-sep {
-        height: 1px;
-        background: rgba(255, 255, 255, 0.1);
-        margin: 2px 0;
-      }
-
-      /* ===== SECTIONS (scroll areas below fold) ===== */
-      /* Anchors for nav links — content within single page */
-      #how-to-play,
-      #boss-files,
-      #pre-register {
-        padding: 80px 40px;
-        text-align: center;
-        color: #fff;
-        min-height: 50vh;
-        background: #0f0f0f;
-        border-top: 3px solid var(--color-wood-dark);
-      }
-      .section-title {
-        font-family: var(--font-display);
-        font-size: 3rem;
-        color: var(--color-yellow);
-        letter-spacing: 3px;
-        margin-bottom: 24px;
-      }
-      .section-body {
-        font-size: 1.1rem;
-        color: #bbb;
-        max-width: 640px;
-        margin: 0 auto;
-      }
-      .coming-soon-badge {
-        display: inline-block;
-        margin-top: 16px;
-        padding: 8px 24px;
-        border: 2px dashed var(--color-wood-light);
-        border-radius: 8px;
-        color: var(--color-wood-light);
-        font-family: var(--font-body);
-      }
-
-      /* ===== RESPONSIVE ===== */
-      @media (max-width: 768px) {
-        #main-grid {
-          grid-template-columns: 1fr;
-          grid-template-rows: auto;
-        }
-        #hero {
-          min-height: 80vh;
-        }
-        #right-panel {
-          height: auto;
-        }
-        #gameplay,
-        #bugs {
-          min-height: 60vh;
-        }
-        .bug-cards {
-          flex-wrap: wrap;
-          justify-content: center;
-        }
-        #nav .nav-links a {
-          font-size: 0.85rem;
-          padding: 4px 8px;
-        }
-      }
-    </style>
+    <title>POOZZLE – Match-3 Bathroom Puzzle Adventure</title>
+    <meta name="description" content="POOZZLE is a match-3 puzzle game with a steampunk bathroom twist. Fight bathroom bugs, unclog drains, and become the ultimate plumbing hero!" />
+    <link rel="icon" href="https://assets.poozzle.com/icons/poozzle.ico" type="image/x-icon" />
+    <link rel="apple-touch-icon" href="https://assets.poozzle.com/icons/Gemer.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet" media="print" onload="this.media = 'all'" />
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
   </head>
   <body>
+    <!-- Steam particle canvas -->
+    <canvas id="steam-canvas"></canvas>
+
     <!-- ===== NAV ===== -->
-    <nav id="nav">
+    <nav>
+      <div class="nav-logo">
+        <img src="https://assets.poozzle.com/icons/Gemer.png" alt="Poozzle Logo" onerror="this.style.display = 'none'" />
+        <span style="font-family: &quot;Oswald&quot;, sans-serif; color: var(--gold); font-size: 1.3rem; letter-spacing: 0.1em">POOZZLE</span>
+      </div>
       <div class="nav-links">
         <a href="#how-to-play" data-i18n="nav_how">HOW TO PLAY</a>
-        <a href="#boss-files" data-i18n="nav_boss">BOSS FILES</a>
+        <a href="#boss-files" data-i18n="nav_bugs">BUG FILES</a>
         <a href="#pre-register" data-i18n="nav_register">PRE-REGISTER</a>
-      </div>
-      <div class="lang-toggle">
-        <button class="lang-btn active" data-lang="en">EN</button>
-        <button class="lang-btn" data-lang="zh">中文</button>
+        <div class="lang-toggle">
+          <button class="lang-btn active" onclick="setLang('en')">EN</button>
+          <button class="lang-btn" onclick="setLang('zh')">中文</button>
+        </div>
       </div>
     </nav>
 
-    <!-- ===== MAIN GRID ===== -->
-    <div id="main-grid">
-      <!-- ===== LEFT: HERO ===== -->
-      <section id="hero">
-        <!-- pipe decorations -->
-        <div class="pipe pipe-h pipe-top-left"></div>
-        <div class="pipe pipe-h pipe-top-right"></div>
-        <div class="pipe pipe-h pipe-mid-left"></div>
-        <div class="pipe pipe-h pipe-bot-left"></div>
-        <div class="pipe pipe-v pipe-side-left"></div>
-        <!-- gears -->
-        <div class="gear gear-1"></div>
-        <div class="gear gear-2"></div>
-        <!-- steam canvas -->
-        <canvas id="steam-canvas"></canvas>
+    <!-- ===== HERO ===== -->
+    <section id="hero">
+      <div class="tile-bg"></div>
 
-        <!-- logo -->
-        <div id="logo-wrap">
-          <img
-            id="logo-img"
-            src="assets/logo/logo-poozzle.png"
-            alt="POOZZLE"
-            onerror="
-              this.style.display = 'none';
-              document.getElementById('logo-fallback').style.display = 'block';
-            "
-          />
-          <div class="logo-placeholder" id="logo-fallback" style="display: none">POO<br />ZZLE</div>
-        </div>
-
-        <!-- CTA -->
-        <a id="cta-btn" href="#pre-register">
-          <span class="play-icon"></span>
-          <span data-i18n="cta">BEGIN YOUR ASCENT!</span>
-        </a>
-
-        <!-- store badges -->
-        <div class="badges">
-          <a class="badge-btn" href="#" aria-label="App Store">
-            <img src="assets/badges/badge-appstore.png" alt="" onerror="this.outerHTML = '<span class=\'badge-icon\'>🍎</span>'" />
-            <div class="badge-text">
-              <span class="badge-label" data-i18n="badge_get">GET IT ON</span>
-              <span class="badge-store">App Store</span>
-            </div>
-          </a>
-          <a class="badge-btn" href="#" aria-label="Google Play">
-            <img src="assets/badges/badge-googleplay.png" alt="" onerror="this.outerHTML = '<span class=\'badge-icon\'>▶</span>'" />
-            <div class="badge-text">
-              <span class="badge-label" data-i18n="badge_get">GET IT ON</span>
-              <span class="badge-store">Google Play</span>
-            </div>
-          </a>
-        </div>
-
-        <!-- prop: toilet -->
-        <div class="prop-toilet" aria-hidden="true">
-          <img src="assets/props/prop-toilet.png" alt="" style="width: 100%; height: 100%; object-fit: contain" onerror="this.style.display = 'none'" />
-        </div>
-        <!-- prop: plunger -->
-        <div class="prop-plunger" aria-hidden="true">
-          <img
-            src="assets/props/prop-plunger.png"
-            alt=""
-            style="width: 64px; height: 80px; object-fit: contain"
-            onerror="this.outerHTML = '<div class=\'prop-plunger\' style=\'font-size:64px\'>🪠</div>'"
-          />
-        </div>
-      </section>
-
-      <!-- ===== RIGHT PANEL ===== -->
-      <div id="right-panel">
-        <!-- RIGHT TOP: GAMEPLAY -->
-        <section id="gameplay">
-          <!-- HUD -->
-          <div class="hud-panel">
-            <div class="hud-item">
-              <div class="hud-label" data-i18n="hud_score">Score</div>
-              <div class="hud-value">1250</div>
-            </div>
-            <div class="hud-item">
-              <div class="hud-label" data-i18n="hud_moves">Moves</div>
-              <div class="hud-value">15</div>
-            </div>
-            <div class="hud-item goal-item">
-              <div class="hud-label" data-i18n="hud_goal">Goal</div>
-              <div class="hud-value">💩×20 &nbsp; 🧻×10</div>
-            </div>
-          </div>
-
-          <!-- Game board -->
-          <div class="board-frame">
-            <img
-              src="assets/ui/gameplay-screenshot.png"
-              alt="Gameplay"
-              style="width: 280px; height: 220px; object-fit: cover; border-radius: 6px; display: block"
-              onerror="
-                this.style.display = 'none';
-                document.getElementById('board-fallback').style.display = 'grid';
-              "
-            />
-            <div id="board-fallback" class="board-screenshot" style="display: none" id="board-fallback" aria-hidden="true"></div>
-            <!-- Combo overlay -->
-            <div id="combo-text">Combo!</div>
-          </div>
-
-          <!-- Tagline -->
-          <p class="tagline" data-i18n="tagline">NOT JUST MATCH-3. IT'S A STRATEGIC FLUSH!</p>
-        </section>
-
-        <!-- RIGHT BOTTOM: BUG DOSSIERS -->
-        <section id="bugs">
-          <h2 class="bugs-title" data-i18n="bugs_title">The Bug Dossiers</h2>
-          <div class="bug-cards">
-            <!-- Bug 1: Flying Shadow -->
-            <div class="bug-card">
-              <div class="bug-card-inner">
-                <div class="bug-card-front">
-                  <img src="assets/bugs/bug-flying-shadow.png" class="bug-img" alt="Flying Shadow" onerror="this.outerHTML = '<div class=\'bug-emoji\'>🪰</div>'" />
-                  <div class="bug-name-en" data-i18n="bug1_en">THE FLYING SHADOW</div>
-                  <div class="bug-name-zh" data-i18n="bug1_zh">飞影</div>
-                </div>
-                <div class="bug-card-back">
-                  <div class="bug-stat">
-                    <span class="stat-label" data-i18n="stat_weakness">Weakness</span>
-                    <span class="stat-value" data-i18n="bug1_weakness">Wind Vortex</span>
-                  </div>
-                  <div class="stat-sep"></div>
-                  <div class="bug-stat">
-                    <span class="stat-label" data-i18n="stat_damage">Damage</span>
-                    <span class="stat-value" data-i18n="bug1_damage">Egg Spawns</span>
-                  </div>
-                  <div class="stat-sep"></div>
-                  <div class="bug-stat" style="font-size: 0.65rem; color: #aaa" data-i18n="bug1_note">Watch for flying egg drops! Best floor: 8.</div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Bug 2: Overstep Crawler -->
-            <div class="bug-card">
-              <div class="bug-card-inner">
-                <div class="bug-card-front">
-                  <img src="assets/bugs/bug-overstep-crawler.png" class="bug-img" alt="Overstep Crawler" onerror="this.outerHTML = '<div class=\'bug-emoji\'>🪳</div>'" />
-                  <div class="bug-name-en" data-i18n="bug2_en">OVERSTEP CRAWLER</div>
-                  <div class="bug-name-zh" data-i18n="bug2_zh">美洲大蠊</div>
-                </div>
-                <div class="bug-card-back">
-                  <div class="bug-stat">
-                    <span class="stat-label" data-i18n="stat_weakness">Weakness</span>
-                    <span class="stat-value" data-i18n="bug2_weakness">Sticky Traps</span>
-                  </div>
-                  <div class="stat-sep"></div>
-                  <div class="bug-stat">
-                    <span class="stat-label" data-i18n="stat_damage">Damage</span>
-                    <span class="stat-value" data-i18n="bug2_damage">Armor</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Bug 3: Invisible Mildew -->
-            <div class="bug-card">
-              <div class="bug-card-inner">
-                <div class="bug-card-front">
-                  <img src="assets/bugs/bug-invisible-mildew.png" class="bug-img" alt="Invisible Mildew" onerror="this.outerHTML = '<div class=\'bug-emoji\'>🧟</div>'" />
-                  <div class="bug-name-en" data-i18n="bug3_en">INVISIBLE MILDEW</div>
-                  <div class="bug-name-zh" data-i18n="bug3_zh">霉面怪</div>
-                </div>
-                <div class="bug-card-back">
-                  <div class="bug-stat">
-                    <span class="stat-label" data-i18n="stat_weakness">Weakness</span>
-                    <span class="stat-value" data-i18n="bug3_weakness">Cleanser Chain</span>
-                  </div>
-                  <div class="stat-sep"></div>
-                  <div class="bug-stat">
-                    <span class="stat-label" data-i18n="stat_damage">Damage</span>
-                    <span class="stat-value" data-i18n="bug3_damage">Blocks</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- .bug-cards -->
-        </section>
+      <!-- Pipe Layer -->
+      <div class="pipe-layer">
+        <div class="pipe pipe-h" style="width: 160px; top: 120px; left: -10px"></div>
+        <div class="pipe pipe-v" style="height: 100px; top: 90px; left: 148px"></div>
+        <div class="pipe pipe-h" style="width: 80px; top: 168px; left: 120px"></div>
+        <div class="pipe pipe-h" style="width: 120px; top: 72%; right: -10px"></div>
+        <div class="pipe pipe-v" style="height: 90px; top: 68%; right: 108px"></div>
+        <div class="pipe pipe-h" style="width: 60px; bottom: 80px; left: 40%"></div>
       </div>
-      <!-- #right-panel -->
-    </div>
-    <!-- #main-grid -->
 
-    <!-- ===== SCROLL SECTIONS ===== -->
+      <!-- Gears -->
+      <div class="gear-wrap" style="top: 60px; left: 140px">
+        <svg class="gear-spin" width="60" height="60" viewBox="0 0 60 60">
+          <polygon points="30,2 34,12 44,10 43,20 52,25 43,30 44,40 34,38 30,48 26,38 16,40 17,30 8,25 17,20 16,10 26,12" fill="#7A8FA6" stroke="#4A5A6A" stroke-width="1.5" />
+          <circle cx="30" cy="25" r="9" fill="#5A6A7A" stroke="#3A4A5A" stroke-width="2" />
+        </svg>
+      </div>
+      <div class="gear-wrap" style="top: 96px; left: 190px">
+        <svg class="gear-spin-rev" width="40" height="40" viewBox="0 0 40 40">
+          <polygon points="20,2 23,9 30,7 29,14 36,18 29,22 30,28 23,26 20,33 17,26 10,28 11,22 4,18 11,14 10,7 17,9" fill="#8B7355" stroke="#5C4A2A" stroke-width="1.5" />
+          <circle cx="20" cy="18" r="6" fill="#6B5535" stroke="#3C2A0A" stroke-width="2" />
+        </svg>
+      </div>
+      <div class="gear-wrap" style="bottom: 120px; right: 52%">
+        <svg class="gear-spin" width="50" height="50" viewBox="0 0 50 50">
+          <polygon points="25,2 29,10 38,8 37,17 45,22 37,27 38,35 29,33 25,41 21,33 12,35 13,27 5,22 13,17 12,8 21,10" fill="#7A8FA6" stroke="#4A5A6A" stroke-width="1.5" />
+          <circle cx="25" cy="22" r="8" fill="#5A6A7A" stroke="#3A4A5A" stroke-width="2" />
+        </svg>
+      </div>
+
+      <div class="hero-inner">
+        <!-- Left Column -->
+        <div class="hero-left">
+          <div class="logo-wrap" id="logo-el">
+            <img src="https://assets.poozzle.com/icons/logo-poozzle.png" alt="POOZZLE" id="main-logo" />
+          </div>
+
+          <p class="tagline" id="tagline-el">
+            <span data-i18n="hero_title_1">SCRUB. MATCH. FLUSH.</span><br />
+            <span data-i18n="hero_title_2">The <span style="color: var(--gold)">ULTIMATE</span> Bathroom Battle</span>
+          </p>
+
+          <a href="#pre-register" class="cta-btn" id="cta-el" data-i18n="hero_cta">⚡ PRE-REGISTER NOW</a>
+
+          <div class="badges" id="badges-el">
+            <!-- Apple Badge -->
+            <a href="#pre-register" class="badge-btn" id="apple-badge">
+              <span class="badge-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
+                  <path
+                    d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"
+                  />
+                </svg>
+              </span>
+              <span class="badge-text">
+                <span class="badge-sub" data-i18n="badge_available">Available on the</span>
+                <span class="badge-name">App Store</span>
+              </span>
+            </a>
+            <!-- Google Play Badge -->
+            <a href="#pre-register" class="badge-btn" id="gplay-badge">
+              <span class="badge-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24">
+                  <path d="M3 20.5v-17c0-.83 1-.83 1.5-.5l15 8.5-15 8.5c-.5.33-1.5.33-1.5-.5z" fill="#34A853" />
+                  <path d="M3 3.5l9 9-9 9V3.5z" fill="#EA4335" />
+                  <path d="M3 3.5l10.5 5.5-1.5 1.5L3 3.5z" fill="#FBBC05" />
+                  <path d="M3 20.5l9-9 1.5 1.5L3 20.5z" fill="#4285F4" />
+                </svg>
+              </span>
+              <span class="badge-text">
+                <span class="badge-sub" data-i18n="badge_get_on">Get it on</span>
+                <span class="badge-name">Google Play</span>
+              </span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Right Column -->
+        <div class="hero-right">
+          <!-- Gameplay Preview -->
+          <div id="gameplay">
+            <!-- HUD Panel -->
+            <div class="hud-panel" id="hud-el">
+              <div class="hud-item">
+                <span class="hud-label" data-i18n="hud_score">SCORE</span>
+                <span class="hud-value" id="score-display">012480</span>
+              </div>
+              <div class="hud-item">
+                <span class="hud-label" data-i18n="hud_moves">⏱ MOVES</span>
+                <span class="hud-value">18</span>
+              </div>
+              <div class="hud-item">
+                <span class="hud-label" data-i18n="hud_lives">LIVES</span>
+                <span class="hud-lives">♥ ♥ ♥</span>
+              </div>
+              <div class="hud-item">
+                <span class="hud-label" data-i18n="hud_level">LEVEL</span>
+                <span class="hud-value">07</span>
+              </div>
+            </div>
+
+            <!-- Board Frame -->
+            <div class="board-frame" id="board-el">
+              <div class="game-grid" id="game-grid">
+                <!-- Tiles injected by JS -->
+              </div>
+            </div>
+          </div>
+
+          <!-- Bug Cards -->
+          <div id="bugs">
+            <!-- Bug 1: The Clogger -->
+            <div class="bug-card" id="bug-card-1">
+              <div class="bug-art bug-clogger">
+                <div class="ant ant-l"></div>
+                <div class="ant ant-r"></div>
+                <div class="head"></div>
+                <div class="eye eye-l"></div>
+                <div class="eye eye-r"></div>
+                <div class="body"></div>
+                <div class="leg leg-1"></div>
+                <div class="leg leg-2"></div>
+                <div class="leg leg-3"></div>
+                <div class="leg leg-4"></div>
+                <div class="leg leg-5"></div>
+                <div class="leg leg-6"></div>
+              </div>
+              <div class="bug-name" data-i18n="bug1_name">The Clogger</div>
+              <div class="bug-desc" data-i18n="bug1_desc">Blocks your pipes. Clogs your drains. Very rude.</div>
+            </div>
+
+            <!-- Bug 2: Soap Scum Sally -->
+            <div class="bug-card" id="bug-card-2">
+              <div class="bug-art bug-sally">
+                <div class="body"></div>
+                <div class="eye eye-l"></div>
+                <div class="eye eye-r"></div>
+                <div class="spot spot-1"></div>
+                <div class="spot spot-2"></div>
+                <div class="spot spot-3"></div>
+              </div>
+              <div class="bug-name" data-i18n="bug2_name">Soap Scum Sally</div>
+              <div class="bug-desc" data-i18n="bug2_desc">Slippery. Slimy. Surprisingly stylish.</div>
+            </div>
+
+            <!-- Bug 3: Rusty the Drainer -->
+            <div class="bug-card" id="bug-card-3">
+              <div class="bug-art bug-rusty">
+                <div class="body"></div>
+                <div class="eye eye-l"></div>
+                <div class="eye eye-r"></div>
+                <div class="rivet rivet-1"></div>
+                <div class="rivet rivet-2"></div>
+                <div class="rivet rivet-3"></div>
+                <div class="rivet rivet-4"></div>
+              </div>
+              <div class="bug-name" data-i18n="bug3_name">Rusty the Drainer</div>
+              <div class="bug-desc" data-i18n="bug3_desc">Mechanical menace. Rust never sleeps.</div>
+            </div>
+          </div>
+        </div>
+        <!-- /hero-right -->
+      </div>
+      <!-- /hero-inner -->
+    </section>
+
+    <!-- ===== HOW TO PLAY ===== -->
     <section id="how-to-play">
-      <h2 class="section-title" data-i18n="nav_how">HOW TO PLAY</h2>
-      <p class="section-body" data-i18n="howto_body">
-        Match poop tiles, chain combos, and strategically flush your way to the top! Face unique boss bugs on every floor with their own weaknesses and attack patterns.
-      </p>
-      <span class="coming-soon-badge" data-i18n="coming_soon">CONTENT COMING SOON</span>
+      <h2 class="section-title" data-i18n="htp_title">HOW TO PLAY</h2>
+      <p class="section-sub" data-i18n="htp_sub">Three steps to bathroom glory</p>
+      <div class="steps">
+        <div class="step-card" id="step-1">
+          <div class="step-num">01</div>
+          <span class="step-icon">🔀</span>
+          <div class="step-title" data-i18n="step1_title">Match 3 or More</div>
+          <p class="step-desc" data-i18n="step1_desc">Swap adjacent bathroom items to create matches of 3 or more. Bigger combos = bigger points!</p>
+        </div>
+        <div class="step-card" id="step-2">
+          <div class="step-num">02</div>
+          <span class="step-icon">🐛</span>
+          <div class="step-title" data-i18n="step2_title">Battle the Bugs</div>
+          <p class="step-desc" data-i18n="step2_desc">Use power tiles to defeat the creepy bathroom bugs before they overflow your pipes!</p>
+        </div>
+        <div class="step-card" id="step-3">
+          <div class="step-num">03</div>
+          <span class="step-icon">🏆</span>
+          <div class="step-title" data-i18n="step3_title">Flush to Victory</div>
+          <p class="step-desc" data-i18n="step3_desc">Clear the board, earn stars, and unlock the next level. Can you beat all 200 stages?</p>
+        </div>
+      </div>
     </section>
 
+    <!-- ===== BOSS FILES ===== -->
     <section id="boss-files">
-      <h2 class="section-title" data-i18n="nav_boss">BOSS FILES</h2>
-      <p class="section-body" data-i18n="boss_body">Every floor hides a terrifying bug boss. Study their dossiers, learn their weaknesses, and prepare your strategy before the flush.</p>
-      <span class="coming-soon-badge" data-i18n="coming_soon">CONTENT COMING SOON</span>
+      <h2 class="section-title" data-i18n="boss_title">BUG DOSSIERS</h2>
+      <p class="section-sub" data-i18n="boss_sub">Know your enemies</p>
+      <div class="boss-grid">
+        <div class="boss-card" id="boss-1">
+          <div class="boss-art-wrap">
+            <div class="boss-art bug-clogger" style="transform: scale(1.3)">
+              <div class="ant ant-l"></div>
+              <div class="ant ant-r"></div>
+              <div class="head"></div>
+              <div class="eye eye-l"></div>
+              <div class="eye eye-r"></div>
+              <div class="body"></div>
+              <div class="leg leg-1"></div>
+              <div class="leg leg-2"></div>
+              <div class="leg leg-3"></div>
+              <div class="leg leg-4"></div>
+              <div class="leg leg-5"></div>
+              <div class="leg leg-6"></div>
+            </div>
+          </div>
+          <div class="boss-name" data-i18n="bug1_name">The Clogger</div>
+          <div class="boss-title" data-i18n="boss1_role">DRAIN BOSS • STAGE 10</div>
+          <div class="boss-stats">
+            <div class="boss-stat">
+              <span class="boss-stat-label" data-i18n="stat_hp">HP</span>
+              <div class="boss-stat-bar"><div class="boss-stat-fill" style="width: 80%"></div></div>
+              <span class="boss-stat-val">800</span>
+            </div>
+            <div class="boss-stat">
+              <span class="boss-stat-label" data-i18n="stat_speed">SPD</span>
+              <div class="boss-stat-bar"><div class="boss-stat-fill" style="width: 45%; background: linear-gradient(90deg, #3498db, #2ecc71)"></div></div>
+              <span class="boss-stat-val">45</span>
+            </div>
+            <div class="boss-stat">
+              <span class="boss-stat-label" data-i18n="stat_threat">THREAT</span>
+              <div class="boss-stat-bar"><div class="boss-stat-fill" style="width: 70%"></div></div>
+              <span class="boss-stat-val">HIGH</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="boss-card" id="boss-2">
+          <div class="boss-art-wrap">
+            <div class="boss-art bug-sally" style="transform: scale(1.3)">
+              <div class="body"></div>
+              <div class="eye eye-l"></div>
+              <div class="eye eye-r"></div>
+              <div class="spot spot-1"></div>
+              <div class="spot spot-2"></div>
+              <div class="spot spot-3"></div>
+            </div>
+          </div>
+          <div class="boss-name" data-i18n="bug2_name">Soap Scum Sally</div>
+          <div class="boss-title" data-i18n="boss2_role">SLIME BOSS • STAGE 25</div>
+          <div class="boss-stats">
+            <div class="boss-stat">
+              <span class="boss-stat-label" data-i18n="stat_hp">HP</span>
+              <div class="boss-stat-bar"><div class="boss-stat-fill" style="width: 60%"></div></div>
+              <span class="boss-stat-val">600</span>
+            </div>
+            <div class="boss-stat">
+              <span class="boss-stat-label" data-i18n="stat_speed">SPD</span>
+              <div class="boss-stat-bar"><div class="boss-stat-fill" style="width: 75%; background: linear-gradient(90deg, #3498db, #2ecc71)"></div></div>
+              <span class="boss-stat-val">75</span>
+            </div>
+            <div class="boss-stat">
+              <span class="boss-stat-label" data-i18n="stat_threat">THREAT</span>
+              <div class="boss-stat-bar"><div class="boss-stat-fill" style="width: 55%"></div></div>
+              <span class="boss-stat-val">MED</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="boss-card" id="boss-3">
+          <div class="boss-art-wrap">
+            <div class="boss-art bug-rusty" style="transform: scale(1.3)">
+              <div class="body"></div>
+              <div class="eye eye-l"></div>
+              <div class="eye eye-r"></div>
+              <div class="rivet rivet-1"></div>
+              <div class="rivet rivet-2"></div>
+              <div class="rivet rivet-3"></div>
+              <div class="rivet rivet-4"></div>
+            </div>
+          </div>
+          <div class="boss-name" data-i18n="bug3_name">Rusty the Drainer</div>
+          <div class="boss-title" data-i18n="boss3_role">MECH BOSS • STAGE 50</div>
+          <div class="boss-stats">
+            <div class="boss-stat">
+              <span class="boss-stat-label" data-i18n="stat_hp">HP</span>
+              <div class="boss-stat-bar"><div class="boss-stat-fill" style="width: 95%"></div></div>
+              <span class="boss-stat-val">950</span>
+            </div>
+            <div class="boss-stat">
+              <span class="boss-stat-label" data-i18n="stat_speed">SPD</span>
+              <div class="boss-stat-bar"><div class="boss-stat-fill" style="width: 60%; background: linear-gradient(90deg, #3498db, #2ecc71)"></div></div>
+              <span class="boss-stat-val">60</span>
+            </div>
+            <div class="boss-stat">
+              <span class="boss-stat-label" data-i18n="stat_threat">THREAT</span>
+              <div class="boss-stat-bar"><div class="boss-stat-fill" style="width: 98%"></div></div>
+              <span class="boss-stat-val">EXTREME</span>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
 
+    <!-- ===== PRE-REGISTER ===== -->
     <section id="pre-register">
-      <h2 class="section-title" data-i18n="nav_register">PRE-REGISTER</h2>
-      <p class="section-body" data-i18n="register_body">Be the first to know when POOZZLE launches. Sign up for exclusive rewards!</p>
-      <span class="coming-soon-badge" data-i18n="coming_soon">CONTENT COMING SOON</span>
+      <h2 class="section-title" data-i18n="prereg_title">PRE-REGISTER</h2>
+      <p class="section-sub" data-i18n="prereg_sub">Be the first to flush the bugs. Get exclusive rewards!</p>
+      <div class="prereg-form">
+        <input class="prereg-input" type="email" placeholder="your@email.com" data-i18n-ph="prereg_ph" />
+        <button class="prereg-btn" data-i18n="prereg_btn">NOTIFY ME</button>
+      </div>
+      <p class="prereg-note" data-i18n="prereg_note">No spam. Just launch day alerts. Unsubscribe anytime.</p>
     </section>
 
-    <!-- ===== GSAP CDN ===== -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <!-- ===== FOOTER ===== -->
+    <footer>
+      <div class="footer-inner">
+        <div>
+          <strong style="color: var(--gold); font-family: &quot;Oswald&quot;, sans-serif">POOZZLE</strong>
+          &nbsp;© 2025 Casualer Games. All rights reserved.
+        </div>
+        <div style="display: flex; gap: 1.2rem">
+          <a href="#" data-i18n="footer_privacy">Privacy Policy</a>
+          <a href="#" data-i18n="footer_terms">Terms of Service</a>
+          <a href="#" data-i18n="footer_contact">Contact</a>
+        </div>
+      </div>
+    </footer>
 
+    <!-- ===== SCRIPTS ===== -->
     <script>
-      // ============================
-      // i18n
-      // ============================
+      /* ===== i18n ===== */
       const i18n = {
         en: {
           nav_how: "HOW TO PLAY",
-          nav_boss: "BOSS FILES",
+          nav_bugs: "BUG FILES",
           nav_register: "PRE-REGISTER",
-          cta: "BEGIN YOUR ASCENT!",
-          tagline: "NOT JUST MATCH-3. IT'S A STRATEGIC FLUSH!",
-          badge_get: "GET IT ON",
-          hud_score: "Score",
-          hud_moves: "Moves",
-          hud_goal: "Goal",
-          bugs_title: "The Bug Dossiers",
-          bug1_en: "THE FLYING SHADOW",
-          bug1_zh: "(飞影)",
-          bug1_weakness: "Wind Vortex",
-          bug1_damage: "Egg Spawns",
-          bug1_note: "Watch for flying egg drops! Best floor: 8.",
-          bug2_en: "OVERSTEP CRAWLER",
-          bug2_zh: "(美洲大蠊)",
-          bug2_weakness: "Sticky Traps",
-          bug2_damage: "Armor",
-          bug3_en: "INVISIBLE MILDEW",
-          bug3_zh: "(霉面怪)",
-          bug3_weakness: "Cleanser Chain",
-          bug3_damage: "Blocks",
-          stat_weakness: "WEAKNESS",
-          stat_damage: "DAMAGE",
-          howto_body: "Match poop tiles, chain combos, and strategically flush your way to the top! Face unique boss bugs on every floor with their own weaknesses and attack patterns.",
-          boss_body: "Every floor hides a terrifying bug boss. Study their dossiers, learn their weaknesses, and prepare your strategy before the flush.",
-          register_body: "Be the first to know when POOZZLE launches. Sign up for exclusive rewards!",
-          coming_soon: "CONTENT COMING SOON",
+          hero_title_1: "SCRUB. MATCH. FLUSH.",
+          hero_title_2: 'The <span style="color:var(--gold)">ULTIMATE</span> Bathroom Battle',
+          hero_cta: "⚡ PRE-REGISTER NOW",
+          badge_available: "Available on the",
+          badge_get_on: "Get it on",
+          hud_score: "SCORE",
+          hud_moves: "⏱ MOVES",
+          hud_lives: "LIVES",
+          hud_level: "LEVEL",
+          htp_title: "HOW TO PLAY",
+          htp_sub: "Three steps to bathroom glory",
+          step1_title: "Match 3 or More",
+          step1_desc: "Swap adjacent bathroom items to create matches of 3 or more. Bigger combos = bigger points!",
+          step2_title: "Battle the Bugs",
+          step2_desc: "Use power tiles to defeat the creepy bathroom bugs before they overflow your pipes!",
+          step3_title: "Flush to Victory",
+          step3_desc: "Clear the board, earn stars, and unlock the next level. Can you beat all 200 stages?",
+          boss_title: "BUG DOSSIERS",
+          boss_sub: "Know your enemies",
+          bug1_name: "The Clogger",
+          bug1_desc: "Blocks your pipes. Clogs your drains. Very rude.",
+          bug2_name: "Soap Scum Sally",
+          bug2_desc: "Slippery. Slimy. Surprisingly stylish.",
+          bug3_name: "Rusty the Drainer",
+          bug3_desc: "Mechanical menace. Rust never sleeps.",
+          boss1_role: "DRAIN BOSS • STAGE 10",
+          boss2_role: "SLIME BOSS • STAGE 25",
+          boss3_role: "MECH BOSS • STAGE 50",
+          stat_hp: "HP",
+          stat_speed: "SPD",
+          stat_threat: "THREAT",
+          prereg_title: "PRE-REGISTER",
+          prereg_sub: "Be the first to flush the bugs. Get exclusive rewards!",
+          prereg_btn: "NOTIFY ME",
+          prereg_ph: "your@email.com",
+          prereg_note: "No spam. Just launch day alerts. Unsubscribe anytime.",
+          footer_privacy: "Privacy Policy",
+          footer_terms: "Terms of Service",
+          footer_contact: "Contact",
         },
         zh: {
-          nav_how: "游戏教程",
-          nav_boss: "BOSS 档案",
-          nav_register: "预注册",
-          cta: "开始你的攀升！",
-          tagline: "不只是消消乐，这是战略性冲水！",
-          badge_get: "下载",
+          nav_how: "玩法介绍",
+          nav_bugs: "虫子档案",
+          nav_register: "预先注册",
+          hero_title_1: "刷洗。消除。冲水。",
+          hero_title_2: '终极<span style="color:var(--gold)">浴室</span>大战',
+          hero_cta: "⚡ 立即预先注册",
+          badge_available: "下载于",
+          badge_get_on: "获取",
           hud_score: "分数",
-          hud_moves: "步数",
-          hud_goal: "目标",
-          bugs_title: "虫子档案馆",
-          bug1_en: "飞影",
-          bug1_zh: "THE FLYING SHADOW",
-          bug1_weakness: "风旋",
-          bug1_damage: "产卵袭击",
-          bug1_note: "小心飞行产卵！最佳出现楼层：8层。",
-          bug2_en: "美洲大蠊",
-          bug2_zh: "OVERSTEP CRAWLER",
-          bug2_weakness: "粘性陷阱",
-          bug2_damage: "护甲",
-          bug3_en: "霉面怪",
-          bug3_zh: "INVISIBLE MILDEW",
-          bug3_weakness: "清洁链",
-          bug3_damage: "障碍块",
-          stat_weakness: "弱点",
-          stat_damage: "伤害",
-          howto_body: "消除便便方块，连击组合，战略性冲水一路攀升！每层楼都有独特的 Boss 虫，各有弱点和攻击模式。",
-          boss_body: "每层楼都藏着恐怖的虫子 Boss。研究它们的档案，了解弱点，在冲水前做好策略。",
-          register_body: "第一时间获知 POOZZLE 上线消息，注册获取独家奖励！",
-          coming_soon: "内容即将上线",
+          hud_moves: "⏱ 步数",
+          hud_lives: "生命",
+          hud_level: "关卡",
+          htp_title: "游戏玩法",
+          htp_sub: "三步走向卫生间荣耀",
+          step1_title: "匹配3个或更多",
+          step1_desc: "交换相邻的浴室物品，创建3个或更多的匹配。更大的连击 = 更多积分！",
+          step2_title: "与虫子战斗",
+          step2_desc: "使用特殊方块击败令人毛骨悚然的浴室虫子，不让它们溢出你的管道！",
+          step3_title: "一冲到底",
+          step3_desc: "清空棋盘，赢得星星，解锁下一关。你能打败所有200个关卡吗？",
+          boss_title: "虫子档案",
+          boss_sub: "了解你的敌人",
+          bug1_name: "堵塞者",
+          bug1_desc: "堵塞你的管道。堵住你的排水口。非常粗鲁。",
+          bug2_name: "皂垢莎莉",
+          bug2_desc: "滑溜。黏腻。出人意料地时髦。",
+          bug3_name: "锈斑排水工",
+          bug3_desc: "机械威胁。锈迹从不休眠。",
+          boss1_role: "排水管BOSS • 第10关",
+          boss2_role: "粘液BOSS • 第25关",
+          boss3_role: "机械BOSS • 第50关",
+          stat_hp: "生命",
+          stat_speed: "速度",
+          stat_threat: "威胁",
+          prereg_title: "预先注册",
+          prereg_sub: "率先消灭虫子，获得专属奖励！",
+          prereg_btn: "通知我",
+          prereg_ph: "您的邮箱",
+          prereg_note: "无垃圾邮件。仅发送上线日期通知。随时取消订阅。",
+          footer_privacy: "隐私政策",
+          footer_terms: "服务条款",
+          footer_contact: "联系我们",
         },
       };
 
       let currentLang = "en";
       function setLang(lang) {
         currentLang = lang;
-        const data = i18n[lang];
         document.querySelectorAll("[data-i18n]").forEach((el) => {
           const key = el.getAttribute("data-i18n");
-          if (data[key] !== undefined) el.textContent = data[key];
+          if (i18n[lang][key] !== undefined) {
+            el.innerHTML = i18n[lang][key];
+          }
+        });
+        document.querySelectorAll("[data-i18n-ph]").forEach((el) => {
+          const key = el.getAttribute("data-i18n-ph");
+          if (i18n[lang][key] !== undefined) {
+            el.placeholder = i18n[lang][key];
+          }
         });
         document.querySelectorAll(".lang-btn").forEach((btn) => {
-          btn.classList.toggle("active", btn.dataset.lang === lang);
+          btn.classList.toggle("active", btn.textContent.trim().toLowerCase() === lang || (lang === "zh" && btn.textContent.trim() === "中文"));
         });
-        document.documentElement.lang = lang === "zh" ? "zh-CN" : "en";
-      }
-      document.querySelectorAll(".lang-btn").forEach((btn) => {
-        btn.addEventListener("click", () => setLang(btn.dataset.lang));
-      });
-
-      // ============================
-      // Board cell fallback grid
-      // ============================
-      const boardFallback = document.getElementById("board-fallback");
-      if (boardFallback) {
-        const emojis = ["💩", "💩", "💩", "🧻", "🧻", "💧", "💧"];
-        for (let i = 0; i < 35; i++) {
-          const cell = document.createElement("div");
-          const classes = ["c1", "c2", "c3", "c4"];
-          cell.className = "board-cell " + classes[Math.floor(Math.random() * 4)];
-          cell.textContent = emojis[Math.floor(Math.random() * emojis.length)];
-          boardFallback.appendChild(cell);
-        }
+        document.documentElement.lang = lang;
       }
 
-      // ============================
-      // Steam Particles (Canvas)
-      // ============================
-      const canvas = document.getElementById("steam-canvas");
-      const ctx = canvas.getContext("2d");
-      let particles = [];
-
-      function resizeCanvas() {
-        const hero = document.getElementById("hero");
-        canvas.width = hero.offsetWidth;
-        canvas.height = hero.offsetHeight;
-      }
-      resizeCanvas();
-      window.addEventListener("resize", resizeCanvas);
-
-      // pipe mouth positions (relative to hero)
-      const pipeMouths = [
-        { x: 0.28, y: 0.12 },
-        { x: 0.85, y: 0.18 },
-        { x: 0.15, y: 0.5 },
-        { x: 0.22, y: 0.8 },
+      /* ===== GAME GRID BUILDER ===== */
+      const tileTypes = [
+        { cls: "tile-soap", emoji: "🧼" },
+        { cls: "tile-duck", emoji: "🦆" },
+        { cls: "tile-plunger", emoji: "🪠" },
+        { cls: "tile-paper", emoji: "🧻" },
+        { cls: "tile-brush", emoji: "🪥" },
+        { cls: "tile-shampoo", emoji: "🧴" },
+        { cls: "tile-toothbrush", emoji: "🪥" },
       ];
 
-      function spawnParticle() {
-        const src = pipeMouths[Math.floor(Math.random() * pipeMouths.length)];
-        particles.push({
-          x: canvas.width * src.x + (Math.random() - 0.5) * 20,
-          y: canvas.height * src.y,
-          vx: (Math.random() - 0.5) * 0.6,
-          vy: -(0.4 + Math.random() * 0.8),
-          r: 4 + Math.random() * 6,
-          alpha: 0.4 + Math.random() * 0.3,
-          life: 0,
-          maxLife: 80 + Math.random() * 60,
+      function buildGrid() {
+        const grid = document.getElementById("game-grid");
+        if (!grid) return;
+        // Seeded layout for visual appeal
+        const layout = [0, 1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 6, 2, 0, 4, 1, 6, 3, 5, 3, 1, 6, 0, 2, 4, 6, 0, 5, 2, 1, 3, 5, 6, 2, 1, 4];
+        grid.innerHTML = "";
+        layout.forEach((t, i) => {
+          const type = tileTypes[t];
+          const div = document.createElement("div");
+          div.className = `tile ${type.cls}`;
+          div.textContent = type.emoji;
+          div.title = type.cls.replace("tile-", "");
+          grid.appendChild(div);
         });
       }
 
-      function updateParticles() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        particles.forEach((p, i) => {
-          p.x += p.vx;
-          p.y += p.vy;
-          p.r += 0.08;
-          p.life++;
-          const fade = 1 - p.life / p.maxLife;
-          ctx.beginPath();
-          ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-          ctx.fillStyle = `rgba(220,220,240,${p.alpha * fade})`;
-          ctx.fill();
-        });
-        particles = particles.filter((p) => p.life < p.maxLife);
-        if (Math.random() < 0.18) spawnParticle();
-        requestAnimationFrame(updateParticles);
-      }
-      updateParticles();
+      /* ===== STEAM PARTICLES ===== */
+      function initSteam() {
+        const canvas = document.getElementById("steam-canvas");
+        if (!canvas) return;
+        const ctx = canvas.getContext("2d");
+        let W,
+          H,
+          particles = [];
 
-      // ============================
-      // GSAP Animations (after load)
-      // ============================
-      window.addEventListener('load', () => {
+        function resize() {
+          W = canvas.width = window.innerWidth;
+          H = canvas.height = window.innerHeight;
+        }
+        resize();
+        window.addEventListener("resize", resize);
+
+        class Particle {
+          constructor() {
+            this.reset();
+          }
+          reset() {
+            this.x = Math.random() * W;
+            this.y = H + 20;
+            this.vx = (Math.random() - 0.5) * 0.4;
+            this.vy = -(0.3 + Math.random() * 0.7);
+            this.r = 4 + Math.random() * 20;
+            this.alpha = 0;
+            this.maxAlpha = 0.06 + Math.random() * 0.14;
+            this.life = 0;
+            this.maxLife = 200 + Math.random() * 300;
+          }
+          update() {
+            this.life++;
+            this.x += this.vx;
+            this.y += this.vy;
+            this.r += 0.05;
+            const t = this.life / this.maxLife;
+            this.alpha = t < 0.3 ? (t / 0.3) * this.maxAlpha : (1 - (t - 0.3) / 0.7) * this.maxAlpha;
+            if (this.life >= this.maxLife || this.y < -50) this.reset();
+          }
+          draw() {
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+            ctx.fillStyle = `rgba(200,220,240,${this.alpha})`;
+            ctx.fill();
+          }
+        }
+
+        for (let i = 0; i < 60; i++) {
+          const p = new Particle();
+          p.life = Math.random() * p.maxLife;
+          particles.push(p);
+        }
+
+        function loop() {
+          ctx.clearRect(0, 0, W, H);
+          particles.forEach((p) => {
+            p.update();
+            p.draw();
+          });
+          requestAnimationFrame(loop);
+        }
+        loop();
+      }
+
+      /* ===== SCORE COUNTER ANIMATION ===== */
+      function animateScore() {
+        const el = document.getElementById("score-display");
+        if (!el) return;
+        let val = 0;
+        const target = 12480;
+        const dur = 2000;
+        const start = performance.now();
+        function tick(now) {
+          const t = Math.min((now - start) / dur, 1);
+          val = Math.round(t * t * target);
+          el.textContent = String(val).padStart(6, "0");
+          if (t < 1) requestAnimationFrame(tick);
+        }
+        requestAnimationFrame(tick);
+      }
+
+      /* ===== GSAP ANIMATIONS ===== */
+      window.addEventListener("load", () => {
         gsap.registerPlugin(ScrollTrigger);
 
+        // Build grid
+        buildGrid();
+        initSteam();
+
         // Logo entrance
-        const logoEl = document.getElementById('logo-img').style.display === 'none'
-          ? document.getElementById('logo-fallback')
-          : document.getElementById('logo-img');
+        gsap.fromTo("#logo-el", { opacity: 0, y: -40, scale: 0.8 }, { opacity: 1, y: 0, scale: 1, duration: 1.2, ease: "back.out(1.4)" });
 
-        gsap.from(logoEl, {
-          duration: 0.9, y: -120, opacity: 0, scale: 0.7, ease: 'back.out(1.8)',
-        });
-        // logo shimmer loop
-        gsap.to(logoEl, {
-          filter: 'drop-shadow(0 6px 24px rgba(245,200,66,0.9)) brightness(1.15)',
-          duration: 1.2, repeat: -1, yoyo: true, ease: 'sine.inOut', delay: 0.9,
+        // Logo shimmer loop
+        gsap.to("#main-logo", {
+          filter: "drop-shadow(0 4px 32px rgba(245,200,66,0.9)) drop-shadow(0 0 12px rgba(245,200,66,0.5))",
+          duration: 2,
+          yoyo: true,
+          repeat: -1,
+          ease: "sine.inOut",
         });
 
-        // CTA + badges entrance
-        gsap.from('#cta-btn', { duration: 0.6, y: 40, opacity: 0, delay: 0.5, ease: 'power2.out' });
-        gsap.from('.badges',  { duration: 0.6, y: 30, opacity: 0, delay: 0.7, ease: 'power2.out' });
+        // Tagline
+        gsap.fromTo("#tagline-el", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.9, delay: 0.4, ease: "power2.out" });
 
-        // Combo animation loop
-        const comboTl = gsap.timeline({ repeat: -1, repeatDelay: 2.5 });
-        comboTl
-          .to('#combo-text', { scale: 1,   opacity: 1, duration: 0.35, ease: 'back.out(2)' })
-          .to('#combo-text', { scale: 1.1, duration: 0.2, ease: 'power1.inOut', yoyo: true, repeat: 1 })
-          .to('#combo-text', { scale: 0,   opacity: 0, duration: 0.3, delay: 0.6, ease: 'back.in(2)' });
-
-        // Bug cards stagger entrance on scroll
-        gsap.from('.bug-card', {
-          scrollTrigger: { trigger: '#bugs', start: 'top 80%' },
-          y: 60, opacity: 0, duration: 0.55, stagger: 0.15, ease: 'power2.out',
+        // CTA button
+        gsap.fromTo("#cta-el", { opacity: 0, scale: 0.85 }, { opacity: 1, scale: 1, duration: 0.7, delay: 0.8, ease: "back.out(1.7)" });
+        // CTA pulse
+        gsap.to("#cta-el", {
+          boxShadow: "0 6px 32px rgba(245,200,66,0.8), inset 0 1px 0 rgba(255,255,255,0.3)",
+          duration: 1.2,
+          yoyo: true,
+          repeat: -1,
+          ease: "sine.inOut",
+          delay: 1.5,
         });
 
-        // Gameplay section entrance
-        gsap.from('.board-frame', {
-          scrollTrigger: { trigger: '#gameplay', start: 'top 80%' },
-          scale: 0.85, opacity: 0, duration: 0.6, ease: 'back.out(1.4)',
-        });
+        // Badges
+        gsap.fromTo("#badges-el", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.7, delay: 1.1, ease: "power2.out" });
 
-        // HUD entrance
-        gsap.from('.hud-panel', {
-          scrollTrigger: { trigger: '#gameplay', start: 'top 80%' },
-          y: -20, opacity: 0, duration: 0.5, ease: 'power2.out',
-        });
+        // HUD panel
+        gsap.fromTo("#hud-el", { opacity: 0, x: 30 }, { opacity: 1, x: 0, duration: 0.8, delay: 0.3, ease: "power2.out" });
+
+        // Board frame
+        gsap.fromTo("#board-el", { opacity: 0, scale: 0.92 }, { opacity: 1, scale: 1, duration: 1, delay: 0.6, ease: "back.out(1.2)" });
+
+        // Tiles stagger
+        gsap.fromTo(".tile", { opacity: 0, scale: 0 }, { opacity: 1, scale: 1, duration: 0.4, stagger: { each: 0.04, from: "start" }, delay: 0.9, ease: "back.out(1.5)" });
+
+        // Animate tiles combo effect
+        const comboTL = gsap.timeline({ repeat: -1, repeatDelay: 3, delay: 3 });
+        comboTL
+          .to(".tile-soap", { scale: 1.15, brightness: 1.3, duration: 0.2, stagger: 0.08, ease: "power1.out" })
+          .to(".tile-soap", { scale: 1, brightness: 1, duration: 0.2, stagger: 0.08, ease: "power1.in" });
+
+        // Score counter on load
+        setTimeout(animateScore, 1200);
+
+        // Bug cards entrance
+        gsap.fromTo(["#bug-card-1", "#bug-card-2", "#bug-card-3"], { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.7, stagger: 0.15, delay: 1.4, ease: "power2.out" });
+
+        // Scroll-triggered: How to play steps
+        gsap.fromTo(
+          "#step-1, #step-2, #step-3",
+          { opacity: 0, y: 40 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.7,
+            stagger: 0.2,
+            ease: "power2.out",
+            scrollTrigger: { trigger: "#how-to-play", start: "top 80%" },
+          },
+        );
+
+        // Scroll-triggered: Boss cards
+        gsap.fromTo(
+          "#boss-1, #boss-2, #boss-3",
+          { opacity: 0, scale: 0.88 },
+          {
+            opacity: 1,
+            scale: 1,
+            duration: 0.8,
+            stagger: 0.2,
+            ease: "back.out(1.3)",
+            scrollTrigger: { trigger: "#boss-files", start: "top 80%" },
+          },
+        );
+
+        // Scroll-triggered: Pre-register
+        gsap.fromTo(
+          "#pre-register .prereg-form",
+          { opacity: 0, y: 30 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.8,
+            ease: "power2.out",
+            scrollTrigger: { trigger: "#pre-register", start: "top 80%" },
+          },
+        );
       });
     </script>
   </body>
