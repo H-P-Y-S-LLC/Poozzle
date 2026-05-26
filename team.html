@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>POOZZLE Team</title>
+    <meta name="description" content="POOZZLE team page for app review and partner verification." />
+    <style>
+      :root {
+        --bg: #11131c;
+        --card: #1c2131;
+        --line: #323b57;
+        --text: #e8ecff;
+        --muted: #b1bddf;
+        --accent: #f5c842;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        color: var(--text);
+        background: radial-gradient(circle at 12% 0%, #24304d 0%, transparent 42%), radial-gradient(circle at 85% 100%, #1f2b48 0%, transparent 40%), var(--bg);
+        line-height: 1.65;
+      }
+
+      .wrap {
+        width: min(920px, 92vw);
+        margin: 48px auto;
+      }
+
+      h1 {
+        margin: 0 0 10px;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+      }
+
+      .subtitle {
+        color: var(--muted);
+        margin-bottom: 28px;
+      }
+
+      .card {
+        background: var(--card);
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        padding: 22px;
+        margin-bottom: 16px;
+      }
+
+      .team-head {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        flex-wrap: wrap;
+      }
+
+      .team-icon {
+        width: 88px;
+        height: 88px;
+        border-radius: 18px;
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        background: rgba(255, 255, 255, 0.04);
+        object-fit: cover;
+        box-shadow: 0 10px 24px rgba(0, 0, 0, 0.35);
+      }
+
+      .team-name {
+        font-size: 1.42rem;
+        font-weight: 700;
+        color: var(--accent);
+        letter-spacing: 0.04em;
+      }
+
+      .meta {
+        color: var(--muted);
+      }
+
+      footer {
+        margin-top: 26px;
+        color: #95a0c7;
+        font-size: 0.9rem;
+      }
+
+      @media (max-width: 640px) {
+        .team-icon {
+          width: 74px;
+          height: 74px;
+          border-radius: 14px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="wrap">
+      <h1>POOZZLE Team</h1>
+      <p class="subtitle">Independent team information page for App Store review.</p>
+
+      <section class="card">
+        <div class="team-head">
+          <img class="team-icon" src="https://assets.poozzle.com/icons/QZQ.png" alt="QZQ Studio icon" />
+          <div>
+            <div class="team-name">QZQ Studio</div>
+            <div class="meta">Game Development Team</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="card">
+        <p><strong>Project:</strong> POOZZLE</p>
+        <p><strong>Role:</strong> Game development and production</p>
+      </section>
+
+      <footer>
+        <p>&copy; 2026 QZQ Studio. All rights reserved.</p>
+      </footer>
+    </main>
+  </body>
+</html>
