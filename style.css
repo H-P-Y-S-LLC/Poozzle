@@ -219,6 +219,15 @@ nav {
   transform: translateY(-2px);
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
 }
+.badge-btn.badge-disabled {
+  cursor: not-allowed;
+  opacity: 0.72;
+  filter: grayscale(0.3);
+}
+.badge-btn.badge-disabled:hover {
+  transform: none;
+  box-shadow: none;
+}
 .badge-icon {
   flex-shrink: 0;
 }
