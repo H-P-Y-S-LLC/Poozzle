@@ -18,30 +18,44 @@
     constructor() {
       this.ctx = null;
       this.masterGain = null;
+      this.enabled = true;
+      this.isUnlocked = false;
     }
 
     ensureCtx() {
       if (!this.ctx) {
         const Ctx = window.AudioContext || window.webkitAudioContext;
-        if (!Ctx) return false;
+        if (!Ctx) {
+          this.enabled = false;
+          return false;
+        }
         this.ctx = new Ctx();
         this.masterGain = this.ctx.createGain();
-        this.masterGain.gain.value = 0.16;
+        this.masterGain.gain.value = 1;
         this.masterGain.connect(this.ctx.destination);
       }
-      return true;
+      return this.enabled;
     }
 
     unlock() {
       if (!this.ensureCtx()) return;
-      if (this.ctx.state === "suspended") {
-        this.ctx.resume();
+      if (this.ctx.state !== "running") {
+        this.ctx.resume().catch(() => {});
       }
+      this.isUnlocked = true;
     }
 
-    tone({ freq = 440, duration = 0.08, type = "sine", volume = 0.25, slideTo = null }) {
-      if (!this.ensureCtx()) return;
+    getStartTime() {
+      if (!this.ensureCtx()) return null;
       const now = this.ctx.currentTime;
+      return this.ctx.state === "running" ? now : now + 0.03;
+    }
+
+    tone({ freq = 440, duration = 0.08, type = "sine", volume = 1, slideTo = null }) {
+      if (!this.ensureCtx()) return;
+      if (this.ctx.state !== "running") this.unlock();
+      const now = this.getStartTime();
+      if (now === null) return;
 
       const osc = this.ctx.createOscillator();
       const gain = this.ctx.createGain();
@@ -63,8 +77,9 @@
       osc.stop(now + duration + 0.02);
     }
 
-    noise({ duration = 0.08, volume = 0.2 }) {
+    noise({ duration = 0.08, volume = 1 }) {
       if (!this.ensureCtx()) return;
+      if (this.ctx.state !== "running") this.unlock();
       const sampleRate = this.ctx.sampleRate;
       const length = Math.max(1, Math.floor(sampleRate * duration));
       const buffer = this.ctx.createBuffer(1, length, sampleRate);
@@ -80,7 +95,8 @@
       biquad.type = "highpass";
       biquad.frequency.value = 600;
 
-      const now = this.ctx.currentTime;
+      const now = this.getStartTime();
+      if (now === null) return;
       gain.gain.setValueAtTime(volume, now);
       gain.gain.exponentialRampToValueAtTime(0.0001, now + duration);
 
@@ -93,41 +109,49 @@
     }
 
     playSwap() {
-      this.tone({ freq: 440, slideTo: 520, duration: 0.07, type: "triangle", volume: 0.18 });
+      this.tone({ freq: 440, slideTo: 520, duration: 0.07, type: "triangle", volume: 1 });
+    }
+
+    playSelect() {
+      this.tone({ freq: 560, slideTo: 640, duration: 0.05, type: "triangle", volume: 1 });
     }
 
     playInvalid() {
-      this.tone({ freq: 250, slideTo: 180, duration: 0.1, type: "sawtooth", volume: 0.15 });
+      this.tone({ freq: 250, slideTo: 180, duration: 0.1, type: "sawtooth", volume: 1 });
     }
 
     playClear(count) {
-      this.noise({ duration: 0.06 + Math.min(0.06, count * 0.003), volume: 0.18 });
-      this.tone({ freq: 620, slideTo: 300, duration: 0.09, type: "square", volume: 0.1 });
+      this.noise({ duration: 0.06 + Math.min(0.06, count * 0.003), volume: 1 });
+      this.tone({ freq: 620, slideTo: 300, duration: 0.09, type: "square", volume: 1 });
     }
 
     playSpecial() {
-      this.tone({ freq: 780, slideTo: 980, duration: 0.09, type: "square", volume: 0.17 });
-      this.tone({ freq: 980, slideTo: 640, duration: 0.1, type: "triangle", volume: 0.14 });
+      this.tone({ freq: 780, slideTo: 980, duration: 0.09, type: "square", volume: 1 });
+      this.tone({ freq: 980, slideTo: 640, duration: 0.1, type: "triangle", volume: 1 });
     }
 
     playFall() {
-      this.tone({ freq: 260, slideTo: 220, duration: 0.08, type: "sine", volume: 0.08 });
+      this.tone({ freq: 260, slideTo: 220, duration: 0.08, type: "sine", volume: 1 });
     }
 
     playLevelStart() {
-      this.tone({ freq: 520, duration: 0.07, type: "triangle", volume: 0.12 });
-      window.setTimeout(() => this.tone({ freq: 660, duration: 0.08, type: "triangle", volume: 0.12 }), 60);
+      this.tone({ freq: 520, duration: 0.07, type: "triangle", volume: 1 });
+      window.setTimeout(() => this.tone({ freq: 660, duration: 0.08, type: "triangle", volume: 1 }), 60);
     }
 
     playWin() {
-      this.tone({ freq: 660, duration: 0.1, type: "triangle", volume: 0.15 });
-      window.setTimeout(() => this.tone({ freq: 880, duration: 0.12, type: "triangle", volume: 0.15 }), 90);
-      window.setTimeout(() => this.tone({ freq: 1100, duration: 0.14, type: "triangle", volume: 0.15 }), 200);
+      this.tone({ freq: 660, duration: 0.1, type: "triangle", volume: 1 });
+      window.setTimeout(() => this.tone({ freq: 880, duration: 0.12, type: "triangle", volume: 1 }), 90);
+      window.setTimeout(() => this.tone({ freq: 1100, duration: 0.14, type: "triangle", volume: 1 }), 200);
     }
 
     playOutOfMoves() {
-      this.tone({ freq: 280, duration: 0.1, slideTo: 220, type: "sawtooth", volume: 0.14 });
-      window.setTimeout(() => this.tone({ freq: 220, duration: 0.12, slideTo: 180, type: "sawtooth", volume: 0.14 }), 90);
+      this.tone({ freq: 280, duration: 0.1, slideTo: 220, type: "sawtooth", volume: 1 });
+      window.setTimeout(() => this.tone({ freq: 220, duration: 0.12, slideTo: 180, type: "sawtooth", volume: 1 }), 90);
+    }
+
+    playUnlockPing() {
+      this.tone({ freq: 740, duration: 0.06, slideTo: 860, type: "triangle", volume: 1 });
     }
   }
 
@@ -163,8 +187,23 @@
 
     init() {
       if (!this.gridEl) return;
+      this.bindAudioUnlock();
       this.setupLevel(1, { keepScore: false });
       this.gridEl.addEventListener("click", this.onGridClick);
+    }
+
+    bindAudioUnlock() {
+      const unlockOnce = () => {
+        this.sfx.unlock();
+        this.sfx.playUnlockPing();
+        document.removeEventListener("pointerdown", unlockOnce);
+        document.removeEventListener("keydown", unlockOnce);
+        document.removeEventListener("touchstart", unlockOnce);
+      };
+
+      document.addEventListener("pointerdown", unlockOnce, { passive: true });
+      document.addEventListener("keydown", unlockOnce, { passive: true });
+      document.addEventListener("touchstart", unlockOnce, { passive: true });
     }
 
     getGoalTypeForLevel(level) {
@@ -273,6 +312,7 @@
 
       if (!this.selected) {
         this.selected = point;
+        this.sfx.playSelect();
         this.render();
         return;
       }
@@ -285,6 +325,7 @@
 
       if (!this.isAdjacent(this.selected, point)) {
         this.selected = point;
+        this.sfx.playSelect();
         this.render();
         return;
       }
