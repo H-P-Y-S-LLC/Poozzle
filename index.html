@@ -310,6 +310,15 @@
       </div>
     </section>
 
+    <!-- ===== BLOCKER FILES ===== -->
+    <section id="blocker-files">
+      <h2 class="section-title" data-i18n="blocker_title">BLOCKER CODEX</h2>
+      <p class="section-sub" data-i18n="blocker_sub">Know every obstacle and how it messes with your plans</p>
+      <div class="blocker-grid" id="blocker-grid">
+        <!-- Blocker cards injected by JS -->
+      </div>
+    </section>
+
     <!-- ===== PRE-REGISTER ===== -->
     <section id="pre-register">
       <h2 class="section-title" data-i18n="prereg_title">PRE-REGISTER</h2>
@@ -363,6 +372,8 @@
           step3_desc: "Clear the board, earn stars, and unlock the next level. Can you beat all 200 stages?",
           boss_title: "BUG DOSSIERS",
           boss_sub: "Know your enemies",
+          blocker_title: "BLOCKER CODEX",
+          blocker_sub: "Know every obstacle and how it messes with your plans",
           boss1_name: "Earwig",
           boss1_role: "BOSS 01",
           boss1_desc: "The bathroom's warm-up tyrant. It may be the opening act, but it already knows how to turn a neat board into an awkward silence.",
@@ -399,9 +410,6 @@
           bug2_desc: "Slippery. Slimy. Surprisingly stylish.",
           bug3_name: "Rusty the Drainer",
           bug3_desc: "Mechanical menace. Rust never sleeps.",
-          boss1_role: "DRAIN BOSS • STAGE 10",
-          boss2_role: "SLIME BOSS • STAGE 25",
-          boss3_role: "MECH BOSS • STAGE 50",
           stat_hp: "HP",
           stat_speed: "SPD",
           stat_threat: "THREAT",
@@ -437,6 +445,8 @@
           step3_desc: "清空棋盘，赢得星星，解锁下一关。你能打败所有200个关卡吗？",
           boss_title: "虫子档案",
           boss_sub: "了解你的敌人",
+          blocker_title: "障碍图鉴",
+          blocker_sub: "认识所有障碍，以及它们如何让你的盘面变得更麻烦",
           boss1_name: "蠼螋",
           boss1_role: "BOSS 01",
           boss1_desc: "浴室里的开场小霸王。虽然只是序章 Boss，却已经很会把原本顺手的盘面搅成一场尴尬沉默。",
@@ -473,9 +483,6 @@
           bug2_desc: "滑溜。黏腻。出人意料地时髦。",
           bug3_name: "锈斑排水工",
           bug3_desc: "机械威胁。锈迹从不休眠。",
-          boss1_role: "排水管BOSS • 第10关",
-          boss2_role: "粘液BOSS • 第25关",
-          boss3_role: "机械BOSS • 第50关",
           stat_hp: "生命",
           stat_speed: "速度",
           stat_threat: "威胁",
@@ -491,6 +498,274 @@
       };
 
       let currentLang = "en";
+
+      const blockerCodex = [
+        {
+          id: "blocker_type_1",
+          slug: "valve",
+          symbol: "🚰",
+          enName: "Rusty Water Valve",
+          zhName: "生锈水阀",
+          enDesc: "A relic-grade valve that shrugs off normal clears. Bring specials if you want it gone.",
+          zhDesc: "古董级硬骨头，普通消除几乎不疼不痒。请用特效正面硬拆。",
+        },
+        {
+          id: "blocker_type_2",
+          slug: "cracked-floor",
+          symbol: "🧱",
+          enName: "Cracked Floor Tile",
+          zhName: "碎裂地砖",
+          enDesc: "Permanent blocked tile. It cannot be cleared, so route around it.",
+          zhDesc: "永久阻塞格，无法清除。请围绕它重新规划路线。",
+        },
+        {
+          id: "blocker_type_3",
+          slug: "bulb",
+          symbol: "💡",
+          enName: "Bright Light Bulb",
+          zhName: "高亮灯泡",
+          enDesc: "Needs repeated adjacent clears. Specials burn it out much faster.",
+          zhDesc: "需要反复旁消，特效命中会更快让它报废。",
+        },
+        {
+          id: "blocker_type_4",
+          slug: "paperball",
+          symbol: "📄",
+          enName: "Discarded Paper Ball",
+          zhName: "废弃纸团",
+          enDesc: "Basic blocker with low durability. Great for chain setup.",
+          zhDesc: "最基础障碍，耐久很低，适合拿来铺连锁节奏。",
+        },
+        {
+          id: "blocker_type_5",
+          slug: "bacteria",
+          symbol: "🦠",
+          enName: "Spreading Bacteria",
+          zhName: "扩张细菌",
+          enDesc: "Spreads into empty tiles every turn. Remove the source early.",
+          zhDesc: "每回合向空位扩散。越早清源头越好。",
+        },
+        {
+          id: "blocker_type_6",
+          slug: "mold",
+          symbol: "🍄",
+          enName: "Moody Mold",
+          zhName: "忧郁霉菌",
+          enDesc: "Can burst spores when cleared. Prepare for follow-up blockers.",
+          zhDesc: "清除后可能喷出孢子，先预留后续处理空间。",
+        },
+        {
+          id: "blocker_type_7",
+          slug: "spore",
+          symbol: "🫧",
+          enName: "Wandering Spore",
+          zhName: "漫游孢子",
+          enDesc: "Fragile but highly contagious in numbers.",
+          zhDesc: "单体脆弱，但数量一多扩散非常快。",
+        },
+        {
+          id: "blocker_type_8",
+          slug: "corrosion",
+          symbol: "☣",
+          enName: "Deep Corrosion",
+          zhName: "深度腐蚀",
+          enDesc: "A timed threat. Miss the window and the tile is lost.",
+          zhDesc: "倒计时型威胁。没及时清理就会永久损坏格子。",
+        },
+        {
+          id: "blocker_type_9",
+          slug: "soap",
+          symbol: "🧼",
+          enName: "Slippery Soap",
+          zhName: "滑头肥皂",
+          enDesc: "Keeps trying to escape the board. Block paths early.",
+          zhDesc: "会不断尝试溜走，必须尽早封住路线。",
+        },
+        {
+          id: "blocker_type_10",
+          slug: "eye",
+          symbol: "👁",
+          enName: "Peering Eye",
+          zhName: "窥视之眼",
+          enDesc: "A chunky 2x2 watcher. Area damage is especially effective.",
+          zhDesc: "占位 2x2 的巨眼，范围特效对它尤其克制。",
+        },
+        {
+          id: "blocker_type_11",
+          slug: "nose",
+          symbol: "👃",
+          enName: "Sensitive Nose",
+          zhName: "敏感大鼻",
+          enDesc: "Tall 1x3 blocker. Vertical precision clears work best.",
+          zhDesc: "竖向 1x3 障碍，适合用精准纵向手段处理。",
+        },
+        {
+          id: "blocker_type_12",
+          slug: "duck",
+          symbol: "🦆",
+          enName: "Tsundere Rubber Duck",
+          zhName: "傲娇小黄鸭",
+          enDesc: "A special transport target. Guide it to its destination.",
+          zhDesc: "可被护送的目标单位，关键在引导而不是硬清。",
+        },
+        {
+          id: "blocker_type_13",
+          slug: "mouth",
+          symbol: "👄",
+          enName: "Greedy Giant Mouth",
+          zhName: "贪婪巨口",
+          enDesc: "2x2 pressure blocker that punishes fly overload.",
+          zhDesc: "2x2 压力点，苍蝇过多会触发额外反制。",
+        },
+        {
+          id: "blocker_type_14",
+          slug: "bathtub",
+          symbol: "🛁",
+          enName: "Full Bathtub",
+          zhName: "满员浴缸",
+          enDesc: "Collector endpoint. Nearby ducks can be absorbed instantly.",
+          zhDesc: "收集终点站，小黄鸭靠近时会被快速收纳。",
+        },
+        {
+          id: "blocker_type_15",
+          slug: "waterpit",
+          symbol: "💧",
+          enName: "Messy Water Pit",
+          zhName: "黏滑水坑",
+          enDesc: "Occupies tiles until wiped by the right element combo.",
+          zhDesc: "会持续占位，需使用特定元素旁消才能擦除。",
+        },
+        {
+          id: "blocker_type_16",
+          slug: "insecticide",
+          symbol: "🧴",
+          enName: "Insecticide Canister",
+          zhName: "杀虫剂",
+          enDesc: "Segmented durability blocker with repeated-trigger pressure.",
+          zhDesc: "分段耐久障碍，需要连续触发压制。",
+        },
+        {
+          id: "blocker_type_17",
+          slug: "blindbox",
+          symbol: "🎁",
+          enName: "Mystery Blind Box",
+          zhName: "神秘盲盒",
+          enDesc: "Direct hits fail. Adjacent clears or nearby specials can crack it.",
+          zhDesc: "直击无效，需旁消或邻近特效引爆来打开。",
+        },
+        {
+          id: "blocker_type_18",
+          slug: "drain",
+          symbol: "🕳",
+          enName: "Floor Drain",
+          zhName: "地漏",
+          enDesc: "Indestructible hazard. Seal it by clearing Plunger nearby.",
+          zhDesc: "不可击破，但可通过旁边清除皮搋子来永久封住。",
+        },
+        {
+          id: "blocker_type_19",
+          slug: "roachling",
+          symbol: "🪳",
+          enName: "Little Cockroach",
+          zhName: "小蟑螂",
+          enDesc: "Moves each turn and intercepts specials into blind boxes.",
+          zhDesc: "每回合移动，还会把特效块拦截成盲盒。",
+        },
+        {
+          id: "blocker_type_20",
+          slug: "antqueen",
+          symbol: "🐜",
+          enName: "Ant Queen Nest",
+          zhName: "蚁后",
+          enDesc: "Shared-HP weak-point blocker linked with boss damage.",
+          zhDesc: "共享血量的弱点障碍，与 Boss 伤害节奏绑定。",
+        },
+        {
+          id: "blocker_type_21",
+          slug: "dirt",
+          symbol: "⛰",
+          enName: "Dirt Mound",
+          zhName: "土堆",
+          enDesc: "Straightforward durability blocker. Repeated pressure clears it.",
+          zhDesc: "纯耐久障碍，持续施压即可击破。",
+        },
+        {
+          id: "blocker_type_22",
+          slug: "mossfungus",
+          symbol: "🌿",
+          enName: "Moss Fungus",
+          zhName: "苔藓菇",
+          enDesc: "Six-stage damage blocker. Keep adjacent clears steady.",
+          zhDesc: "六段受击模型，稳定旁消是关键。",
+        },
+        {
+          id: "larvae_status_01",
+          slug: "larvae",
+          symbol: "🪱",
+          enName: "Mosquito Larvae",
+          zhName: "孑孓",
+          enDesc: "Clearing under it can convert the tile into fresh trouble.",
+          zhDesc: "清掉脚下格子后可能会转化成新的麻烦。",
+        },
+        {
+          id: "sticky_status_01",
+          slug: "sticky",
+          symbol: "🫠",
+          enName: "Sticky Slime",
+          zhName: "粘液",
+          enDesc: "Sticks to tiles and disrupts your normal board rhythm.",
+          zhDesc: "附着格子后会扰乱棋盘节奏与可操作性。",
+        },
+        {
+          id: "bubble_status_01",
+          slug: "bubble",
+          symbol: "🫧",
+          enName: "Rising Bubble",
+          zhName: "上浮气泡",
+          enDesc: "Floats upward and stacks pressure along upper lanes.",
+          zhDesc: "会持续上浮并向上方通道堆叠压力。",
+        },
+      ];
+
+      function renderBlockerCodex(lang = currentLang) {
+        const grid = document.getElementById("blocker-grid");
+        if (!grid) return;
+
+        const frag = document.createDocumentFragment();
+        blockerCodex.forEach((entry) => {
+          const card = document.createElement("article");
+          card.className = "blocker-card";
+
+          const artWrap = document.createElement("div");
+          artWrap.className = "blocker-art-wrap";
+          const art = document.createElement("div");
+          art.className = `blocker-art blocker-${entry.slug}`;
+          art.setAttribute("data-symbol", entry.symbol);
+          artWrap.appendChild(art);
+
+          const name = document.createElement("h3");
+          name.className = "blocker-name";
+          name.textContent = lang === "zh" ? entry.zhName : entry.enName;
+
+          const id = document.createElement("div");
+          id.className = "blocker-id";
+          id.textContent = entry.id;
+
+          const desc = document.createElement("p");
+          desc.className = "blocker-desc";
+          desc.textContent = lang === "zh" ? entry.zhDesc : entry.enDesc;
+
+          card.appendChild(artWrap);
+          card.appendChild(name);
+          card.appendChild(id);
+          card.appendChild(desc);
+          frag.appendChild(card);
+        });
+
+        grid.innerHTML = "";
+        grid.appendChild(frag);
+      }
+
       function setLang(lang) {
         currentLang = lang;
         document.querySelectorAll("[data-i18n]").forEach((el) => {
@@ -509,6 +784,7 @@
           btn.classList.toggle("active", btn.textContent.trim().toLowerCase() === lang || (lang === "zh" && btn.textContent.trim() === "中文"));
         });
         document.documentElement.lang = lang;
+        renderBlockerCodex(lang);
       }
 
       /* ===== STEAM PARTICLES ===== */
@@ -583,6 +859,7 @@
         // Build interactive match-3 board
         const game = new window.Match3Game({ gridId: "game-grid", scoreId: "score-display", rows: 6, cols: 6 });
         game.init();
+        renderBlockerCodex(currentLang);
         initSteam();
 
         // Logo entrance
@@ -658,6 +935,21 @@
             stagger: 0.2,
             ease: "back.out(1.3)",
             scrollTrigger: { trigger: "#boss-files", start: "top 80%" },
+          },
+        );
+
+        // Scroll-triggered: Blocker cards
+        gsap.fromTo(
+          "#blocker-files .blocker-card",
+          { opacity: 0, y: 26, scale: 0.95 },
+          {
+            opacity: 1,
+            y: 0,
+            scale: 1,
+            duration: 0.6,
+            stagger: 0.06,
+            ease: "power2.out",
+            scrollTrigger: { trigger: "#blocker-files", start: "top 82%" },
           },
         );
 

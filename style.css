@@ -1223,6 +1223,161 @@ section {
   line-height: 1.45;
   text-align: left;
 }
+
+/* ===== BLOCKER FILES ===== */
+#blocker-files {
+  background: linear-gradient(180deg, #0f1322 0%, #0b0d18 100%);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+.blocker-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 1rem;
+  max-width: 1260px;
+  margin: 0 auto;
+}
+.blocker-card {
+  background: rgba(20, 20, 36, 0.95);
+  border: 1px solid rgba(143, 152, 183, 0.35);
+  border-radius: 12px;
+  padding: 0.9rem 0.9rem 1rem;
+  min-height: 255px;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.06),
+    0 10px 24px rgba(0, 0, 0, 0.35);
+}
+.blocker-art-wrap {
+  width: 94px;
+  height: 94px;
+  margin: 0 auto 0.7rem;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.03);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.blocker-art {
+  width: 82px;
+  height: 82px;
+  border-radius: 16px;
+  position: relative;
+  overflow: hidden;
+}
+.blocker-art::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.22), rgba(255, 255, 255, 0));
+}
+.blocker-art::after {
+  content: attr(data-symbol);
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  text-shadow: 0 2px 7px rgba(0, 0, 0, 0.42);
+}
+.blocker-name {
+  font-family: "Oswald", sans-serif;
+  letter-spacing: 0.04em;
+  color: var(--gold);
+  text-align: center;
+  font-size: 0.95rem;
+  margin-bottom: 0.18rem;
+}
+.blocker-id {
+  font-size: 0.62rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #8f9bb7;
+  text-align: center;
+  margin-bottom: 0.45rem;
+}
+.blocker-desc {
+  font-size: 0.73rem;
+  line-height: 1.4;
+  color: #d0d7ec;
+  text-align: left;
+}
+
+.blocker-valve {
+  background: radial-gradient(circle at 50% 50%, #8da2b8 0 38%, #4f6071 70%);
+}
+.blocker-cracked-floor {
+  background: repeating-linear-gradient(45deg, #4d5161 0 8px, #393c4b 8px 16px);
+}
+.blocker-bulb {
+  background: radial-gradient(circle at 50% 40%, #ffe46d 0 30%, #be8d1a 72%);
+}
+.blocker-paperball {
+  background: radial-gradient(circle at 50% 44%, #e7eaf1 0 32%, #9ba7bc 74%);
+}
+.blocker-bacteria {
+  background: radial-gradient(circle at 50% 50%, #64d57e 0 35%, #1f6e37 78%);
+}
+.blocker-mold {
+  background: radial-gradient(circle at 50% 50%, #77b39d 0 35%, #335a4d 78%);
+}
+.blocker-spore {
+  background: radial-gradient(circle at 50% 50%, #8cd5ff 0 30%, #366f94 78%);
+}
+.blocker-corrosion {
+  background: radial-gradient(circle at 50% 50%, #d78a5b 0 30%, #6c2e1f 80%);
+}
+.blocker-soap {
+  background: linear-gradient(145deg, #8edcff 0%, #2c7fb2 70%);
+}
+.blocker-eye {
+  background: radial-gradient(circle at 50% 50%, #f6d4a8 0 24%, #64463a 55%, #2a2020 85%);
+}
+.blocker-nose {
+  background: linear-gradient(180deg, #d79f88 0%, #9a644f 78%);
+}
+.blocker-duck {
+  background: radial-gradient(circle at 50% 50%, #ffe564 0 34%, #cc8f18 76%);
+}
+.blocker-mouth {
+  background: radial-gradient(circle at 50% 50%, #ff7487 0 34%, #84233a 78%);
+}
+.blocker-bathtub {
+  background: linear-gradient(180deg, #cfe8ff 0%, #5f7ea0 80%);
+}
+.blocker-waterpit {
+  background: radial-gradient(circle at 50% 50%, #82c8ff 0 30%, #2f527d 80%);
+}
+.blocker-insecticide {
+  background: linear-gradient(180deg, #b8ffb8 0%, #2d8c48 80%);
+}
+.blocker-blindbox {
+  background: linear-gradient(135deg, #f8a2c8 0%, #7640a7 78%);
+}
+.blocker-drain {
+  background: radial-gradient(circle at 50% 50%, #30343e 0 28%, #111319 82%);
+}
+.blocker-roachling {
+  background: radial-gradient(circle at 50% 50%, #a16d41 0 30%, #45280f 80%);
+}
+.blocker-antqueen {
+  background: radial-gradient(circle at 50% 50%, #f0df8a 0 32%, #6c5420 80%);
+}
+.blocker-dirt {
+  background: radial-gradient(circle at 50% 50%, #bc9467 0 32%, #5a3f27 80%);
+}
+.blocker-mossfungus {
+  background: radial-gradient(circle at 50% 50%, #96d08b 0 32%, #325734 80%);
+}
+.blocker-larvae {
+  background: linear-gradient(145deg, #f0b45e 0%, #94501a 80%);
+}
+.blocker-sticky {
+  background: radial-gradient(circle at 50% 50%, #b785ea 0 30%, #4c276f 80%);
+}
+.blocker-bubble {
+  background: radial-gradient(circle at 50% 50%, #9be4ff 0 30%, #3e75a2 80%);
+}
 .boss-stats {
   display: flex;
   flex-direction: column;
