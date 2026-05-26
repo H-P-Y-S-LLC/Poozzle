@@ -457,6 +457,30 @@ nav {
   animation-delay: var(--fall-delay, 0ms);
   transform: translateY(calc(var(--drop-rows, 0) * -100%));
 }
+.tile.special-line-h,
+.tile.special-line-v,
+.tile.special-bomb,
+.tile.special-rainbow {
+  box-shadow:
+    inset 0 2px 4px rgba(255, 255, 255, 0.45),
+    0 0 0 2px rgba(255, 255, 255, 0.22),
+    0 4px 10px rgba(0, 0, 0, 0.55);
+}
+.tile.special-line-h,
+.tile.special-line-v {
+  font-weight: 700;
+  color: #ffffff;
+  text-shadow: 0 0 6px rgba(255, 255, 255, 0.7);
+}
+.tile.special-bomb {
+  color: #ffe18f;
+  text-shadow: 0 0 8px rgba(255, 180, 70, 0.9);
+}
+.tile.special-rainbow {
+  background: conic-gradient(from 0deg, #ff6b6b, #f7d154, #5ecf8d, #49a8ff, #aa72ff, #ff6b6b);
+  color: #ffffff;
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.9);
+}
 .tile::after {
   content: "";
   position: absolute;
@@ -509,26 +533,20 @@ nav {
   }
 }
 
-.tile-soap {
-  background: linear-gradient(135deg, #5b9bd5 0%, #3a7dbf 60%, #5b9bd5 100%);
+.tile-fly {
+  background: linear-gradient(135deg, #7f8c8d 0%, #4b5356 60%, #7f8c8d 100%);
 }
-.tile-duck {
-  background: linear-gradient(135deg, #f5c842 0%, #e0a820 60%, #f5cd50 100%);
+.tile-poop {
+  background: linear-gradient(135deg, #8d6e63 0%, #5d4037 60%, #8d6e63 100%);
 }
 .tile-plunger {
   background: linear-gradient(135deg, #c0392b 0%, #922b21 60%, #c0392b 100%);
 }
-.tile-paper {
-  background: linear-gradient(135deg, #eceff1 0%, #b0bec5 60%, #eceff1 100%);
-}
-.tile-brush {
-  background: linear-gradient(135deg, #95a5a6 0%, #707b7c 60%, #95a5a6 100%);
-}
-.tile-shampoo {
+.tile-maggot {
   background: linear-gradient(135deg, #27ae60 0%, #1e8449 60%, #27ae60 100%);
 }
-.tile-toothbrush {
-  background: linear-gradient(135deg, #9b59b6 0%, #6c3483 60%, #9b59b6 100%);
+.tile-paper {
+  background: linear-gradient(135deg, #eceff1 0%, #b0bec5 60%, #eceff1 100%);
 }
 
 /* ===== BUG CARDS ===== */
