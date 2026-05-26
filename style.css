@@ -937,19 +937,18 @@ section {
   background: var(--bug-dark);
 }
 .boss-grid {
-  display: flex;
-  gap: 2rem;
-  justify-content: center;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.4rem;
+  max-width: 1220px;
+  margin: 0 auto;
 }
 .boss-card {
   background: #12122a;
   border: 1px solid #2a2a5a;
   border-radius: 10px;
-  padding: 2rem;
-  max-width: 280px;
-  flex: 1;
-  min-width: 220px;
+  padding: 1.2rem 1.05rem 1rem;
+  min-height: 300px;
   position: relative;
   overflow: hidden;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
@@ -984,6 +983,223 @@ section {
   height: 90px;
   position: relative;
 }
+.boss-art::before,
+.boss-art::after {
+  content: "";
+  position: absolute;
+}
+
+.boss-earwig {
+  background: radial-gradient(circle at 50% 42%, #b3835a 0 38%, #5d3b22 72%);
+  border-radius: 48% 52% 44% 56% / 42% 43% 57% 58%;
+}
+.boss-earwig::before {
+  inset: 10px 22px 16px;
+  border-radius: 20px;
+  border: 2px dashed rgba(255, 230, 200, 0.5);
+}
+.boss-earwig::after {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  left: 22px;
+  top: 28px;
+  background: #f45b49;
+  box-shadow: 34px 0 0 #f45b49;
+}
+
+.boss-spider {
+  background: radial-gradient(circle at 50% 42%, #36353f 0 38%, #15141a 70%);
+  border-radius: 50%;
+}
+.boss-spider::before {
+  width: 72px;
+  height: 2px;
+  left: 9px;
+  top: 22px;
+  background: #3f3e49;
+  box-shadow:
+    0 14px 0 #3f3e49,
+    0 28px 0 #3f3e49,
+    0 42px 0 #3f3e49;
+  transform: rotate(-18deg);
+}
+.boss-spider::after {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  left: 24px;
+  top: 34px;
+  background: #ffce4d;
+  box-shadow: 32px 0 0 #ffce4d;
+}
+
+.boss-redworm {
+  background: linear-gradient(165deg, #ff5c63 0%, #c1172f 60%, #7d0f24 100%);
+  border-radius: 62% 38% 68% 32% / 45% 63% 37% 55%;
+}
+.boss-redworm::before {
+  inset: 12px;
+  border-radius: 999px;
+  border: 2px solid rgba(255, 170, 180, 0.55);
+}
+.boss-redworm::after {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  left: 18px;
+  top: 22px;
+  background: #ffd57e;
+  box-shadow: 40px 12px 0 #ffd57e;
+}
+
+.boss-sowbug {
+  background: radial-gradient(circle at 50% 35%, #9da4b8 0 35%, #59607c 75%);
+  border-radius: 47% 53% 61% 39% / 42% 45% 55% 58%;
+}
+.boss-sowbug::before {
+  inset: 8px 12px;
+  border-radius: 36px;
+  background: repeating-linear-gradient(90deg, rgba(220, 227, 255, 0.32) 0 6px, rgba(70, 76, 104, 0.2) 6px 12px);
+}
+.boss-sowbug::after {
+  width: 40px;
+  height: 8px;
+  left: 25px;
+  top: 22px;
+  border-radius: 50%;
+  background: #f06a6a;
+}
+
+.boss-mothfly {
+  background: radial-gradient(circle at 50% 45%, #f2e8ca 0 30%, #9e8764 70%);
+  border-radius: 50% 50% 40% 40%;
+}
+.boss-mothfly::before {
+  width: 68px;
+  height: 42px;
+  left: 11px;
+  top: 18px;
+  border-radius: 100% 100% 100% 100%;
+  background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.75) 0 40%, rgba(199, 178, 138, 0.8) 62%, rgba(124, 95, 68, 0.85) 100%);
+}
+.boss-mothfly::after {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  left: 26px;
+  top: 38px;
+  background: #1e1d22;
+  box-shadow: 28px 0 0 #1e1d22;
+}
+
+.boss-mosquito {
+  background: radial-gradient(circle at 52% 45%, #9f6d42 0 28%, #432918 70%);
+  border-radius: 50%;
+}
+.boss-mosquito::before {
+  width: 76px;
+  height: 28px;
+  left: 7px;
+  top: 16px;
+  border-radius: 50%;
+  background: linear-gradient(90deg, rgba(205, 230, 255, 0.2), rgba(220, 240, 255, 0.7), rgba(205, 230, 255, 0.2));
+  transform: rotate(-14deg);
+}
+.boss-mosquito::after {
+  width: 42px;
+  height: 2px;
+  left: 24px;
+  top: 44px;
+  background: #1f1410;
+  box-shadow: 0 10px 0 #1f1410;
+}
+
+.boss-gecko {
+  background: radial-gradient(circle at 50% 38%, #58c674 0 34%, #246c3a 75%);
+  border-radius: 58% 42% 50% 50% / 52% 48% 52% 48%;
+}
+.boss-gecko::before {
+  inset: 16px 10px;
+  border-radius: 22px;
+  background:
+    radial-gradient(circle at 20% 40%, rgba(255, 255, 255, 0.35) 0 12%, transparent 13%), radial-gradient(circle at 50% 60%, rgba(255, 255, 255, 0.35) 0 10%, transparent 11%),
+    radial-gradient(circle at 78% 36%, rgba(255, 255, 255, 0.35) 0 12%, transparent 13%);
+}
+.boss-gecko::after {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  left: 27px;
+  top: 29px;
+  background: #ffe978;
+  box-shadow: 26px 0 0 #ffe978;
+}
+
+.boss-cockroach {
+  background: radial-gradient(circle at 50% 44%, #8d5f32 0 37%, #40250f 75%);
+  border-radius: 49% 51% 56% 44% / 45% 48% 52% 55%;
+}
+.boss-cockroach::before {
+  inset: 12px 22px 18px;
+  border-radius: 20px;
+  border: 2px solid rgba(255, 215, 145, 0.4);
+  border-left: none;
+  border-right: none;
+}
+.boss-cockroach::after {
+  width: 54px;
+  height: 2px;
+  left: 18px;
+  top: 24px;
+  background: #3c250f;
+  box-shadow:
+    0 10px 0 #3c250f,
+    0 20px 0 #3c250f,
+    0 30px 0 #3c250f;
+}
+
+.boss-termite {
+  background: radial-gradient(circle at 50% 42%, #f0d9a8 0 36%, #9b7e52 76%);
+  border-radius: 56% 44% 52% 48% / 44% 56% 44% 56%;
+}
+.boss-termite::before {
+  inset: 15px;
+  border-radius: 22px;
+  background: repeating-linear-gradient(180deg, rgba(120, 84, 44, 0.55) 0 4px, transparent 4px 8px);
+}
+.boss-termite::after {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  left: 30px;
+  top: 30px;
+  background: #4d2d1e;
+  box-shadow: 22px 0 0 #4d2d1e;
+}
+
+.boss-slug {
+  background: radial-gradient(circle at 50% 46%, #97c975 0 36%, #47683b 75%);
+  border-radius: 62% 38% 58% 42% / 55% 42% 58% 45%;
+}
+.boss-slug::before {
+  width: 14px;
+  height: 32px;
+  left: 22px;
+  top: 6px;
+  border-radius: 12px;
+  background: #6cbf7d;
+  box-shadow: 32px 0 0 #6cbf7d;
+}
+.boss-slug::after {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  left: 25px;
+  top: 9px;
+  background: #171617;
+  box-shadow: 32px 0 0 #171617;
+}
 
 .boss-name {
   font-family: "Oswald", sans-serif;
@@ -1000,6 +1216,12 @@ section {
   text-align: center;
   font-style: italic;
   margin-bottom: 0.8rem;
+}
+.boss-desc {
+  font-size: 0.76rem;
+  color: var(--tile-grout);
+  line-height: 1.45;
+  text-align: left;
 }
 .boss-stats {
   display: flex;

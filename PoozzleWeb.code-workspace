@@ -1,11 +1,14 @@
 {
-	"folders": [
-		{
-			"path": "."
-		},
-		{
-			"path": "../Gemer/Documents"
-		}
-	],
-	"settings": {}
+  "folders": [
+    {
+      "path": ".",
+    },
+    {
+      "path": "../Gemer/Documents",
+    },
+    {
+      "path": "../Gemer/Content/Match3Json",
+    },
+  ],
+  "settings": {},
 }
