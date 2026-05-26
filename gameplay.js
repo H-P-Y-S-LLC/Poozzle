@@ -944,20 +944,21 @@
           el.dataset.col = String(c);
           el.title = cell.special ? `${typeDef.name} (${cell.special})` : typeDef.name;
 
-          const icon = document.createElement("img");
-          icon.className = "tile-icon";
-          icon.src = this.getTileIconUrl(typeDef);
-          icon.alt = typeDef.name;
-          icon.loading = "lazy";
-          icon.decoding = "async";
-          el.appendChild(icon);
-
           const specialMarker = this.getSpecialMarker(cell);
           if (specialMarker) {
-            const marker = document.createElement("span");
-            marker.className = "tile-special-marker";
-            marker.textContent = specialMarker;
-            el.appendChild(marker);
+            const specialEmoji = document.createElement("span");
+            specialEmoji.className = "tile-special-emoji";
+            specialEmoji.textContent = specialMarker;
+            specialEmoji.setAttribute("aria-label", `${cell.special} special`);
+            el.appendChild(specialEmoji);
+          } else {
+            const icon = document.createElement("img");
+            icon.className = "tile-icon";
+            icon.src = this.getTileIconUrl(typeDef);
+            icon.alt = typeDef.name;
+            icon.loading = "lazy";
+            icon.decoding = "async";
+            el.appendChild(icon);
           }
 
           if (this.selected && this.selected.row === r && this.selected.col === c) {
