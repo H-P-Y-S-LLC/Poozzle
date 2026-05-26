@@ -920,10 +920,10 @@
 
     getSpecialMarker(tile) {
       if (!tile.special) return "";
-      if (tile.special === SPECIAL.RAINBOW) return "RAINBOW";
-      if (tile.special === SPECIAL.BOMB) return "BOMB";
-      if (tile.special === SPECIAL.LINE_H) return "LINE-H";
-      if (tile.special === SPECIAL.LINE_V) return "LINE-V";
+      if (tile.special === SPECIAL.RAINBOW) return "🌈";
+      if (tile.special === SPECIAL.BOMB) return "💣";
+      if (tile.special === SPECIAL.LINE_H) return "↔";
+      if (tile.special === SPECIAL.LINE_V) return "↕";
       return "";
     }
 
