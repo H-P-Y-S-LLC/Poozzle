@@ -29,6 +29,7 @@
         <a href="#boss-files" data-i18n="nav_bugs">BUG FILES</a>
         <a href="#blocker-files" data-i18n="nav_codex">BLOCKER CODEX</a>
         <a href="#device-shots" data-i18n="nav_shots">SCREENSHOTS</a>
+        <a href="#demo-video" data-i18n="nav_demo">DEMO VIDEO</a>
         <div class="lang-toggle">
           <button class="lang-btn active" onclick="setLang('en')">EN</button>
           <button class="lang-btn" onclick="setLang('zh')">中文</button>
@@ -174,6 +175,34 @@
         <!-- /hero-right -->
       </div>
       <!-- /hero-inner -->
+    </section>
+
+    <!-- ===== DEMO VIDEO ===== -->
+    <section id="demo-video">
+      <div class="demo-window">
+        <div class="demo-window-head">
+          <span class="demo-dot demo-dot-close"></span>
+          <span class="demo-dot demo-dot-min"></span>
+          <span class="demo-dot demo-dot-max"></span>
+          <span class="demo-window-label" data-i18n="demo_window_label">Gameplay Live Window</span>
+        </div>
+        <div class="demo-window-body">
+          <div class="demo-copy">
+            <h2 class="section-title" data-i18n="demo_title">Watch The Gameplay In Action</h2>
+            <p class="section-sub" data-i18n="demo_sub">A quick look at the real match pace, effects, and boss pressure from our latest build.</p>
+            <a class="demo-youtube-link" href="https://youtube.com/shorts/DIy8XvIfGCw" target="_blank" rel="noopener noreferrer" data-i18n="demo_cta">Open on YouTube Shorts</a>
+          </div>
+          <div class="demo-frame-wrap">
+            <iframe
+              src="https://www.youtube.com/embed/DIy8XvIfGCw?rel=0"
+              title="POOZZLE Gameplay Demo"
+              loading="lazy"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen
+            ></iframe>
+          </div>
+        </div>
+      </div>
     </section>
 
     <!-- ===== HOW TO PLAY ===== -->
@@ -324,7 +353,12 @@
           nav_bugs: "BUG FILES",
           nav_codex: "BLOCKER CODEX",
           nav_shots: "SCREENSHOTS",
+          nav_demo: "DEMO VIDEO",
           nav_register: "PRE-REGISTER",
+          demo_window_label: "Gameplay Live Window",
+          demo_title: "Watch The Gameplay In Action",
+          demo_sub: "A quick look at the real match pace, effects, and boss pressure from our latest build.",
+          demo_cta: "Open on YouTube Shorts",
           hero_title_1: "SCRUB. MATCH. FLUSH.",
           hero_title_2: 'The <span style="color:var(--gold)">ULTIMATE</span> Bathroom Battle',
           hero_cta: "📱 VIEW SCREENSHOTS",
@@ -411,7 +445,12 @@
           nav_bugs: "虫子档案",
           nav_codex: "障碍图鉴",
           nav_shots: "真机截图",
+          nav_demo: "演示视频",
           nav_register: "预先注册",
+          demo_window_label: "实机演示窗口",
+          demo_title: "先看一分钟实机演示",
+          demo_sub: "这里是最新版本的战斗节奏展示，直接感受消除反馈、特效手感和 Boss 压迫感。",
+          demo_cta: "前往 YouTube Shorts 观看",
           hero_title_1: "刷洗。消除。冲水。",
           hero_title_2: '终极<span style="color:var(--gold)">浴室</span>大战',
           hero_cta: "📱 查看真机截图",
@@ -1179,6 +1218,19 @@
         });
       }
 
+      function syncDemoVideoByLang(lang = currentLang) {
+        const demoLinkEl = document.querySelector(".demo-youtube-link");
+        const demoIframeEl = document.querySelector("#demo-video iframe");
+        if (!demoLinkEl || !demoIframeEl) return;
+
+        const isZh = lang === "zh";
+        const linkUrl = isZh ? "https://www.bilibili.com/video/BV1ec9jBNEuy?t=5.7" : "https://youtube.com/shorts/DIy8XvIfGCw";
+        const embedUrl = isZh ? "https://player.bilibili.com/player.html?bvid=BV1ec9jBNEuy&page=1&as_wide=1" : "https://www.youtube.com/embed/DIy8XvIfGCw?rel=0";
+
+        demoLinkEl.href = linkUrl;
+        demoIframeEl.src = embedUrl;
+      }
+
       function setLang(lang) {
         currentLang = lang;
         document.querySelectorAll("[data-i18n]").forEach((el) => {
@@ -1201,6 +1253,7 @@
         renderDeviceScreenshots(lang);
         renderBugPreview(lang);
         initBossDossierFlips(lang);
+        syncDemoVideoByLang(lang);
       }
 
       /* ===== STEAM PARTICLES ===== */
@@ -1280,6 +1333,7 @@
         renderBlockerCodex(currentLang);
         renderDeviceScreenshots(currentLang);
         initBossDossierFlips(currentLang);
+        syncDemoVideoByLang(currentLang);
         initSteam();
 
         // Logo entrance
