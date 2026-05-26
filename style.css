@@ -587,6 +587,9 @@ nav {
 .tile-paper {
   background: linear-gradient(135deg, #eceff1 0%, #b0bec5 60%, #eceff1 100%);
 }
+.tile-slipper {
+  background: linear-gradient(135deg, #ff8a65 0%, #ef5350 60%, #ff8a65 100%);
+}
 
 /* ===== BUG CARDS ===== */
 #bugs {

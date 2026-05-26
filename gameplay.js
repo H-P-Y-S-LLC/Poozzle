@@ -5,6 +5,7 @@
     { cls: "tile-plunger", emoji: "🪠", name: "皮搋子" },
     { cls: "tile-maggot", emoji: "🐛", name: "肉虫子" },
     { cls: "tile-paper", emoji: "🧻", name: "卫生纸" },
+    { cls: "tile-slipper", emoji: "🩴", name: "拖鞋" },
   ];
 
   const SPECIAL = {
@@ -207,7 +208,11 @@
     }
 
     getGoalTypeForLevel(level) {
-      return (level - 1) % TILE_TYPES.length;
+      return (level - 1) % this.getActiveTileCount(level);
+    }
+
+    getActiveTileCount(level = this.level) {
+      return level > 20 ? TILE_TYPES.length : TILE_TYPES.length - 1;
     }
 
     getGoalCountForLevel(level) {
@@ -285,7 +290,7 @@
       }
 
       const candidates = [];
-      for (let i = 0; i < TILE_TYPES.length; i++) {
+      for (let i = 0; i < this.getActiveTileCount(); i++) {
         if (!banned.has(i)) candidates.push(i);
       }
 
@@ -404,7 +409,7 @@
       this.consumeMove();
       this.sfx.playSpecial();
 
-      const clearSet = this.getSpecialClearSet(pos, tile.special);
+      const clearSet = this.getSpecialChainClearSet(pos, tile.special);
       await this.resolveForcedClear(clearSet, 25);
       await this.handlePostAction();
 
@@ -412,9 +417,8 @@
       this.gridEl.classList.remove("is-busy");
     }
 
-    getSpecialClearSet(pos, special) {
+    getSpecialClearSetByKind(pos, special) {
       const clearSet = new Set();
-
       if (special === SPECIAL.LINE_H) {
         for (let c = 0; c < this.cols; c++) clearSet.add(`${pos.row},${c}`);
       } else if (special === SPECIAL.LINE_V) {
@@ -424,6 +428,42 @@
           for (let c = pos.col - 1; c <= pos.col + 1; c++) {
             if (r >= 0 && r < this.rows && c >= 0 && c < this.cols) clearSet.add(`${r},${c}`);
           }
+        }
+      }
+      return clearSet;
+    }
+
+    getTriggeredSpecial(sourceSpecial, targetSpecial) {
+      if (sourceSpecial === SPECIAL.LINE_H && targetSpecial === SPECIAL.LINE_H) return SPECIAL.LINE_V;
+      if (sourceSpecial === SPECIAL.LINE_V && targetSpecial === SPECIAL.LINE_V) return SPECIAL.LINE_H;
+      return targetSpecial;
+    }
+
+    getSpecialChainClearSet(startPos, startSpecial) {
+      const clearSet = new Set();
+      const queue = [{ pos: startPos, special: startSpecial }];
+      const processed = new Set();
+
+      while (queue.length > 0) {
+        const { pos, special } = queue.shift();
+        const nodeKey = `${this.keyOf(pos)}|${special}`;
+        if (processed.has(nodeKey)) continue;
+        processed.add(nodeKey);
+
+        const local = this.getSpecialClearSetByKind(pos, special);
+        local.forEach((key) => clearSet.add(key));
+
+        for (const key of local) {
+          const { row, col } = this.parseKey(key);
+          const tile = this.board[row][col];
+          if (!tile || !tile.special) continue;
+          if (tile.special === SPECIAL.RAINBOW) continue;
+          if (row === pos.row && col === pos.col) continue;
+
+          queue.push({
+            pos: { row, col },
+            special: this.getTriggeredSpecial(special, tile.special),
+          });
         }
       }
 
@@ -539,7 +579,7 @@
       if (this.moves <= 0) {
         this.levelTransitioning = true;
         await this.playOutOfMoves();
-        this.setupLevel(this.level, { keepScore: true });
+        this.setupLevel(1, { keepScore: false });
         this.levelTransitioning = false;
       }
     }
@@ -700,7 +740,7 @@
           let fromRow;
 
           if (r < missing) {
-            tile = this.makeNormal(Math.floor(Math.random() * TILE_TYPES.length));
+            tile = this.makeNormal(Math.floor(Math.random() * this.getActiveTileCount()));
             fromRow = r - missing;
           } else {
             const keptItem = kept[r - missing];
