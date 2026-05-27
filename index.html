@@ -29,6 +29,7 @@
         <a href="#boss-files" data-i18n="nav_bugs">BUG FILES</a>
         <a href="#blocker-files" data-i18n="nav_codex">BLOCKER CODEX</a>
         <a href="#device-shots" data-i18n="nav_shots">SCREENSHOTS</a>
+        <a href="#gameplay-videos" data-i18n="nav_videos">GAMEPLAY VIDEOS</a>
         <a href="#demo-video" data-i18n="nav_demo">DEMO VIDEO</a>
         <div class="lang-toggle">
           <button class="lang-btn active" onclick="setLang('en')">EN</button>
@@ -332,6 +333,69 @@
       </div>
     </section>
 
+    <!-- ===== GAMEPLAY VIDEOS ===== -->
+    <section id="gameplay-videos">
+      <h2 class="section-title" data-i18n="videos_title">GAMEPLAY VIDEOS</h2>
+      <p class="section-sub" data-i18n="videos_sub">Real gameplay clips from the latest build</p>
+      <div class="video-gallery">
+        <div class="video-card">
+          <div class="video-frame-wrap">
+            <iframe
+              src="https://www.youtube.com/embed/wxanTFMDEhU"
+              title="Gameplay Video 1"
+              loading="lazy"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen
+            ></iframe>
+          </div>
+        </div>
+        <div class="video-card">
+          <div class="video-frame-wrap">
+            <iframe
+              src="https://www.youtube.com/embed/Vo1AcWDrn6Y"
+              title="Gameplay Video 2"
+              loading="lazy"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen
+            ></iframe>
+          </div>
+        </div>
+        <div class="video-card">
+          <div class="video-frame-wrap">
+            <iframe
+              src="https://www.youtube.com/embed/CoqGTk0rdUI"
+              title="Gameplay Video 3"
+              loading="lazy"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen
+            ></iframe>
+          </div>
+        </div>
+        <div class="video-card">
+          <div class="video-frame-wrap">
+            <iframe
+              src="https://www.youtube.com/embed/zhNgrt9Md0o"
+              title="Gameplay Video 4"
+              loading="lazy"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen
+            ></iframe>
+          </div>
+        </div>
+        <div class="video-card">
+          <div class="video-frame-wrap">
+            <iframe
+              src="https://www.youtube.com/embed/ddO6F0uBGPo"
+              title="Gameplay Video 5"
+              loading="lazy"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen
+            ></iframe>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- ===== FOOTER ===== -->
     <footer>
       <div class="footer-inner">
@@ -357,6 +421,7 @@
           nav_bugs: "BUG FILES",
           nav_codex: "BLOCKER CODEX",
           nav_shots: "SCREENSHOTS",
+          nav_videos: "GAMEPLAY VIDEOS",
           nav_demo: "DEMO VIDEO",
           nav_register: "PRE-REGISTER",
           demo_window_label: "Gameplay Live Window",
@@ -395,6 +460,8 @@
           blocker_sub: "Know every obstacle and how it messes with your plans",
           shots_title: "REAL DEVICE SCREENSHOTS",
           shots_sub: "Captured on real devices to show the pacing, boss fights, and blocker interactions as they actually feel",
+          videos_title: "GAMEPLAY VIDEOS",
+          videos_sub: "Real gameplay clips from the latest build",
           boss1_name: "Earwig",
           boss1_role: "THREAT PROFILE",
           boss1_desc: "The bathroom's warm-up tyrant. It may be the opening act, but it already knows how to turn a neat board into an awkward silence.",
@@ -449,6 +516,7 @@
           nav_bugs: "虫子档案",
           nav_codex: "障碍图鉴",
           nav_shots: "真机截图",
+          nav_videos: "游玩视频",
           nav_demo: "演示视频",
           nav_register: "预先注册",
           demo_window_label: "实机演示窗口",
@@ -487,6 +555,8 @@
           blocker_sub: "认识所有障碍，以及它们如何让你的盘面变得更麻烦",
           shots_title: "真机截图",
           shots_sub: "来自真实设备的实机画面，直接展示关卡节奏、Boss 战和障碍反馈",
+          videos_title: "游玩视频",
+          videos_sub: "来自最新版本的实机游玩片段",
           boss1_name: "蠼螋",
           boss1_role: "威胁档案",
           boss1_desc: "浴室里的开场小霸王。虽然只是序章 Boss，却已经很会把原本顺手的盘面搅成一场尴尬沉默。",
@@ -1464,6 +1534,21 @@
             stagger: 0.08,
             ease: "power2.out",
             scrollTrigger: { trigger: "#device-shots", start: "top 82%" },
+          },
+        );
+
+        // Scroll-triggered: Gameplay videos
+        gsap.fromTo(
+          "#gameplay-videos .video-card",
+          { opacity: 0, y: 28, scale: 0.96 },
+          {
+            opacity: 1,
+            y: 0,
+            scale: 1,
+            duration: 0.7,
+            stagger: 0.1,
+            ease: "power2.out",
+            scrollTrigger: { trigger: "#gameplay-videos", start: "top 82%" },
           },
         );
       });

@@ -2242,6 +2242,55 @@ section {
   background: #03050b;
 }
 
+/* ===== GAMEPLAY VIDEOS ===== */
+#gameplay-videos {
+  background: linear-gradient(180deg, #0c1120 0%, #080b16 100%);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+.video-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.2rem;
+  max-width: 1260px;
+  margin: 0 auto;
+}
+.video-card {
+  background: rgba(10, 12, 22, 0.96);
+  border: 1px solid rgba(143, 152, 183, 0.3);
+  border-radius: 14px;
+  padding: 0.75rem;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.06),
+    0 12px 28px rgba(0, 0, 0, 0.35);
+  transition:
+    transform 0.22s ease,
+    border-color 0.22s ease,
+    box-shadow 0.22s ease;
+}
+.video-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(245, 200, 66, 0.38);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 18px 36px rgba(0, 0, 0, 0.42);
+}
+.video-frame-wrap {
+  position: relative;
+  aspect-ratio: 9 / 16;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #000;
+}
+.video-frame-wrap iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+  display: block;
+}
+
 .blocker-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
@@ -2689,5 +2738,8 @@ footer a:hover {
   }
   .screenshot-gallery {
     grid-template-columns: repeat(auto-fit, minmax(148px, 1fr));
+  }
+  .video-gallery {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
   }
 }
