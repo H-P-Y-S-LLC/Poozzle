@@ -158,11 +158,30 @@ nav {
 }
 .logo-wrap {
   margin-bottom: 1.5rem;
+  display: flex;
+  justify-content: center;
 }
-.logo-wrap img {
-  max-width: 320px;
+#main-logo {
+  max-width: 240px;
   width: 100%;
-  filter: drop-shadow(0 4px 24px rgba(255, 217, 61, 0.65));
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: 20px;
+  border: 3px solid rgba(255, 217, 61, 0.45);
+  box-shadow:
+    0 0 30px rgba(255, 217, 61, 0.25),
+    0 8px 32px rgba(0, 0, 0, 0.4),
+    inset 0 0 20px rgba(255, 217, 61, 0.08);
+  background: linear-gradient(135deg, #0c2d6b, #071840);
+  padding: 5px;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+#main-logo:hover {
+  transform: scale(1.03);
+  box-shadow:
+    0 0 40px rgba(255, 217, 61, 0.35),
+    0 10px 40px rgba(0, 0, 0, 0.5),
+    inset 0 0 20px rgba(255, 217, 61, 0.12);
 }
 .tagline {
   font-family: "Oswald", "Impact", sans-serif;
@@ -554,6 +573,11 @@ nav {
   opacity: 0.24;
   transform: scale(0.9);
 }
+.tile.is-clearing .tile-icon-blink,
+.tile.is-selected .tile-icon-blink {
+  animation: none;
+  opacity: 0 !important;
+}
 .tile.is-falling {
   animation: tileFall 0.26s cubic-bezier(0.2, 0.8, 0.25, 1) both;
   animation-delay: var(--fall-delay, 0ms);
@@ -584,6 +608,30 @@ nav {
   filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.35));
   pointer-events: none;
   transition: transform 0.12s, filter 0.12s;
+}
+.tile-icon-wrap {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: grid;
+}
+.tile-icon-wrap > * {
+  grid-area: 1 / 1;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  pointer-events: none;
+}
+.tile-icon-blink {
+  opacity: 0;
+  animation: tileBlink 5s ease-in-out infinite;
+  animation-delay: var(--blink-delay, 0s);
+}
+@keyframes tileBlink {
+  0%, 97% { opacity: 0; }
+  98% { opacity: 1; }
+  99.5% { opacity: 0; }
+  100% { opacity: 0; }
 }
 .tile-special-emoji {
   width: 100%;

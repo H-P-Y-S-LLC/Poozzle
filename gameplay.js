@@ -2,12 +2,12 @@
   const TILE_ICON_BASE_URL = "https://assets.poozzle.com/guis";
 
   const TILE_TYPES = [
-    { cls: "tile-fly", iconFile: "Tile1.png", enName: "Fly", zhName: "苍蝇" },
-    { cls: "tile-poop", iconFile: "Tile2.png", enName: "Poop", zhName: "屎" },
-    { cls: "tile-plunger", iconFile: "Tile3.png", enName: "Plunger", zhName: "皮搋子" },
-    { cls: "tile-maggot", iconFile: "Tile4.png", enName: "Maggot", zhName: "肉虫子" },
-    { cls: "tile-paper", iconFile: "Tile5.png", enName: "Toilet Paper", zhName: "卫生纸" },
-    { cls: "tile-slipper", iconFile: "Tile6.png", enName: "Slipper", zhName: "拖鞋" },
+    { cls: "tile-fly", iconFile: "Tile1.png", blinkFile: "Tile1b.png", enName: "Fly", zhName: "苍蝇" },
+    { cls: "tile-poop", iconFile: "Tile2.png", blinkFile: "Tile2b.png", enName: "Poop", zhName: "屎" },
+    { cls: "tile-plunger", iconFile: "Tile3.png", blinkFile: "Tile3b.png", enName: "Plunger", zhName: "皮搋子" },
+    { cls: "tile-maggot", iconFile: "Tile4.png", blinkFile: "Tile4b.png", enName: "Maggot", zhName: "肉虫子" },
+    { cls: "tile-paper", iconFile: "Tile5.png", blinkFile: "Tile5b.png", enName: "Toilet Paper", zhName: "卫生纸" },
+    { cls: "tile-slipper", iconFile: "Tile6.png", blinkFile: "Tile6b.png", enName: "Slipper", zhName: "拖鞋" },
   ];
 
   const SPECIAL = {
@@ -1039,6 +1039,10 @@
       return `${TILE_ICON_BASE_URL}/${typeDef.iconFile}`;
     }
 
+    getTileBlinkUrl(typeDef) {
+      return `${TILE_ICON_BASE_URL}/${typeDef.blinkFile}`;
+    }
+
     getSpecialMarker(tile) {
       if (!tile.special) return "";
       if (tile.special === SPECIAL.RAINBOW) return "🌈";
@@ -1075,13 +1079,27 @@
             specialEmoji.setAttribute("aria-label", `${cell.special} special`);
             el.appendChild(specialEmoji);
           } else {
-            const icon = document.createElement("img");
-            icon.className = "tile-icon";
-            icon.src = this.getTileIconUrl(typeDef);
-            icon.alt = tileName;
-            icon.loading = "lazy";
-            icon.decoding = "async";
-            el.appendChild(icon);
+            const wrap = document.createElement("div");
+            wrap.className = "tile-icon-wrap";
+
+            const openIcon = document.createElement("img");
+            openIcon.className = "tile-icon tile-icon-open";
+            openIcon.src = this.getTileIconUrl(typeDef);
+            openIcon.alt = tileName;
+            openIcon.loading = "lazy";
+            openIcon.decoding = "async";
+
+            const blinkIcon = document.createElement("img");
+            blinkIcon.className = "tile-icon tile-icon-blink";
+            blinkIcon.src = this.getTileBlinkUrl(typeDef);
+            blinkIcon.alt = "";
+            blinkIcon.setAttribute("aria-hidden", "true");
+            blinkIcon.loading = "lazy";
+            blinkIcon.decoding = "async";
+
+            wrap.appendChild(openIcon);
+            wrap.appendChild(blinkIcon);
+            el.appendChild(wrap);
           }
 
           if (this.selected && this.selected.row === r && this.selected.col === c) {
@@ -1097,6 +1115,10 @@
             el.classList.add("is-falling");
             el.style.setProperty("--drop-rows", String(dropMap[r][c]));
             el.style.setProperty("--fall-delay", `${c * this.fallColumnDelayMs}ms`);
+          }
+
+          if (!cell.special) {
+            el.style.setProperty("--blink-delay", `${(Math.random() * 8).toFixed(3)}s`);
           }
 
           frag.appendChild(el);
