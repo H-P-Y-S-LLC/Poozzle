@@ -3,8 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>POOZZLE – Match-3 Bathroom Puzzle Adventure</title>
-    <meta name="description" content="POOZZLE is a match-3 puzzle game with a steampunk bathroom twist. Fight bathroom bugs, unclog drains, and become the ultimate plumbing hero!" />
+    <title>POOZZLE – Custom Match-3: Put Your Own Face on the Board</title>
+    <meta name="description" content="POOZZLE lets you replace match-3 pieces with your own photos — your boss, your crush, your cat, anything. Match 'em away. Free. Offline." />
     <link rel="icon" href="https://assets.poozzle.com/icons/poozzle.ico" type="image/x-icon" />
     <link rel="apple-touch-icon" href="https://assets.poozzle.com/icons/Gemer.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -25,11 +25,10 @@
         <span style="font-family: &quot;Oswald&quot;, sans-serif; color: var(--gold); font-size: 1.3rem; letter-spacing: 0.1em">POOZZLE</span>
       </div>
       <div class="nav-links">
-        <a href="#how-to-play" data-i18n="nav_how">HOW TO PLAY</a>
+        <a href="#how-to-play" data-i18n="nav_how">HOW IT WORKS</a>
         <a href="#boss-files" data-i18n="nav_bugs">BUG FILES</a>
-        <a href="#blocker-files" data-i18n="nav_codex">BLOCKER CODEX</a>
         <a href="#device-shots" data-i18n="nav_shots">SCREENSHOTS</a>
-        <a href="#demo-video" data-i18n="nav_demo">DEMO VIDEO</a>
+        <a href="#demo-video" data-i18n="nav_demo">DEMO</a>
         <div class="lang-toggle">
           <button class="lang-btn active" onclick="setLang('en')">EN</button>
           <button class="lang-btn" onclick="setLang('zh')">中文</button>
@@ -79,7 +78,7 @@
           </div>
 
           <p class="tagline" id="tagline-el">
-            <span data-i18n="hero_title_1">SCRUB. MATCH. FLUSH.</span>
+            <span data-i18n="hero_title_1">CUSTOM ELEMENTS. MATCH WHOEVER YOU WANT.</span>
           </p>
 
           <div class="badges" id="badges-el">
@@ -211,26 +210,26 @@
 
     <!-- ===== HOW TO PLAY ===== -->
     <section id="how-to-play">
-      <h2 class="section-title" data-i18n="htp_title">HOW TO PLAY</h2>
-      <p class="section-sub" data-i18n="htp_sub">Build chains, break blockers, and finish with style</p>
+      <h2 class="section-title" data-i18n="htp_title">HOW IT WORKS</h2>
+      <p class="section-sub" data-i18n="htp_sub">Pick your targets, drop 'em on the board, match 'em away</p>
       <div class="steps">
         <div class="step-card" id="step-1">
           <div class="step-num">01</div>
-          <span class="step-icon">🔀</span>
-          <div class="step-title" data-i18n="step1_title">Build Combo Pressure</div>
-          <p class="step-desc" data-i18n="step1_desc">Match 3+ to start chains, then stack line and bomb specials to explode the board and seize tempo.</p>
+          <span class="step-icon">🖼️</span>
+          <div class="step-title" data-i18n="step1_title">Pick Your Targets</div>
+          <p class="step-desc" data-i18n="step1_desc">Choose any image from your gallery — your boss's face, your crush, your pet, a meme, anything. The game automatically turns it into a match-3 piece.</p>
         </div>
         <div class="step-card" id="step-2">
           <div class="step-num">02</div>
-          <span class="step-icon">🐛</span>
-          <div class="step-title" data-i18n="step2_title">Crack Every Obstacle</div>
-          <p class="step-desc" data-i18n="step2_desc">Read each blocker mechanic, clear key lanes first, and stop spread effects like larvae, slime, and bubbles before they snowball.</p>
+          <span class="step-icon">🎮</span>
+          <div class="step-title" data-i18n="step2_title">Drop 'Em on the Board</div>
+          <p class="step-desc" data-i18n="step2_desc">Your custom images instantly appear on tiles and even boss sprites. Every match you make is personal. No one else has your board.</p>
         </div>
         <div class="step-card" id="step-3">
           <div class="step-num">03</div>
-          <span class="step-icon">🏆</span>
-          <div class="step-title" data-i18n="step3_title">Close the Match Cleanly</div>
-          <p class="step-desc" data-i18n="step3_desc">In normal stages, finish collect and blocker goals within moves. In boss stages, push boss HP to zero for the win.</p>
+          <span class="step-icon">💥</span>
+          <div class="step-title" data-i18n="step3_title">Match 'Em Away</div>
+          <p class="step-desc" data-i18n="step3_desc">Classic match-3 rules, infinitely personal stakes. Build chains, trigger specials, fight bosses — and watch your custom pieces disappear with satisfaction.</p>
         </div>
       </div>
     </section>
@@ -355,18 +354,17 @@
       /* ===== i18n ===== */
       const i18n = {
         en: {
-          nav_how: "HOW TO PLAY",
+          nav_how: "HOW IT WORKS",
           nav_bugs: "BUG FILES",
-          nav_codex: "BLOCKER CODEX",
           nav_shots: "SCREENSHOTS",
-          nav_demo: "DEMO VIDEO",
+          nav_demo: "DEMO",
           nav_register: "PRE-REGISTER",
           demo_window_label: "Gameplay Live Window",
           demo_title: "Watch The Gameplay In Action",
           demo_sub: "A quick look at the real match pace, effects, and boss pressure from our latest build.",
           demo_cta: "Open on YouTube Shorts",
-          hero_title_1: "SCRUB. MATCH. FLUSH.",
-          hero_title_2: 'The <span style="color:var(--gold)">ULTIMATE</span> Bathroom Battle',
+          hero_title_1: "CUSTOM ELEMENTS. MATCH WHOEVER YOU WANT.",
+          hero_title_2: 'Your <span style="color:var(--gold)">FACE</span> on Every Tile',
           hero_cta: "📱 VIEW SCREENSHOTS",
           badge_download: "Coming soon",
           badge_coming_soon: "Coming soon",
@@ -381,14 +379,14 @@
           hud_moves: "⏱ MOVES",
           hud_target: "TARGET",
           hud_level: "LEVEL",
-          htp_title: "HOW TO PLAY",
-          htp_sub: "Build chains, break blockers, and finish with style",
-          step1_title: "Build Combo Pressure",
-          step1_desc: "Match 3+ to start chains, then stack line and bomb specials to explode the board and seize tempo.",
-          step2_title: "Crack Every Obstacle",
-          step2_desc: "Read each blocker mechanic, clear key lanes first, and stop spread effects like larvae, slime, and bubbles before they snowball.",
-          step3_title: "Close the Match Cleanly",
-          step3_desc: "In normal stages, finish collect and blocker goals within moves. In boss stages, push boss HP to zero for the win.",
+          htp_title: "HOW IT WORKS",
+          htp_sub: "Pick your targets, drop 'em on the board, match 'em away",
+          step1_title: "Pick Your Targets",
+          step1_desc: "Choose any image from your gallery — your boss's face, your crush, your pet, a meme, anything. The game automatically turns it into a match-3 piece.",
+          step2_title: "Drop 'Em on the Board",
+          step2_desc: "Your custom images instantly appear on tiles and even boss sprites. Every match you make is personal. No one else has your board.",
+          step3_title: "Match 'Em Away",
+          step3_desc: "Classic match-3 rules, infinitely personal stakes. Build chains, trigger specials, fight bosses — and watch your custom pieces disappear with satisfaction.",
           boss_title: "BUG DOSSIERS",
           boss_sub: "Know your enemies",
           bugs_preview_title: "BOSS PREVIEW",
@@ -397,10 +395,10 @@
           blocker_title: "BLOCKER CODEX",
           blocker_sub: "Know every obstacle and how it messes with your plans",
           shots_title: "REAL DEVICE SCREENSHOTS",
-          shots_sub: "Captured on real devices to show the pacing, boss fights, and blocker interactions as they actually feel",
+          shots_sub: "Captured on real devices showing custom elements in action",
           boss1_name: "Earwig",
           boss1_role: "THREAT PROFILE",
-          boss1_desc: "The bathroom's warm-up tyrant. It may be the opening act, but it already knows how to turn a neat board into an awkward silence.",
+          boss1_desc: "A warm-up tyrant. It may be the opening act, but it already knows how to turn a neat board into an awkward silence.",
           boss2_name: "Spider",
           boss2_role: "THREAT PROFILE",
           boss2_desc: "A control freak with eight legs and zero patience. Whenever the board looks too lively, it starts redecorating with fresh trouble.",
@@ -412,7 +410,7 @@
           boss4_desc: "A tiny armored pessimist. It curls up, changes its weakness, and rolls through your plans like your confidence owed it money.",
           boss5_name: "Moth Fly",
           boss5_role: "THREAT PROFILE",
-          boss5_desc: "A buzzing thief with the manners of a drainpipe goblin. It steals your rhythm and splashes puddles onto the board.",
+          boss5_desc: "A buzzing thief with no manners. It steals your rhythm and splashes puddles onto the board.",
           boss6_name: "Mosquito",
           boss6_role: "THREAT PROFILE",
           boss6_desc: "A high-pressure mosquito boss that dives onto tiles and infests them with larvae, forcing you to fight control and timing at once.",
@@ -421,7 +419,7 @@
           boss7_desc: "A sticky-footed prowler that coats tiles with adhesive slime wherever it crawls. Every move makes the board messier.",
           boss8_name: "Cockroach",
           boss8_role: "THREAT PROFILE",
-          boss8_desc: "The roach boss never fights fair. It freezes tiles and keeps returning with fresh minions like the worst encore in bathroom history.",
+          boss8_desc: "The roach boss never fights fair. It freezes tiles and keeps returning with fresh minions like the worst encore ever.",
           boss9_name: "White Ant",
           boss9_role: "THREAT PROFILE",
           boss9_desc: "A white-ant foreman with a full moving crew. Hit it once, and the whole team starts hauling tiles off like a construction site.",
@@ -438,7 +436,7 @@
           stat_speed: "SPD",
           stat_threat: "THREAT",
           prereg_title: "PRE-REGISTER",
-          prereg_sub: "Be the first to flush the bugs. Get exclusive rewards!",
+          prereg_sub: "Be the first to play. Get exclusive rewards!",
           prereg_btn: "NOTIFY ME",
           prereg_ph: "your@email.com",
           prereg_note: "No spam. Just launch day alerts. Unsubscribe anytime.",
@@ -448,18 +446,17 @@
           footer_signature: "Produced by QZQ Studio",
         },
         zh: {
-          nav_how: "玩法介绍",
+          nav_how: "怎么玩",
           nav_bugs: "虫子档案",
-          nav_codex: "障碍图鉴",
           nav_shots: "真机截图",
-          nav_demo: "演示视频",
+          nav_demo: "演示",
           nav_register: "预先注册",
           demo_window_label: "实机演示窗口",
           demo_title: "先看一分钟实机演示",
-          demo_sub: "这里是最新版本的战斗节奏展示，直接感受消除反馈、特效手感和 Boss 压迫感。",
+          demo_sub: "最新版本的战斗节奏展示，直接感受消除反馈、特效手感和 Boss 压迫感。",
           demo_cta: "前往 YouTube Shorts 观看",
-          hero_title_1: "刷洗。消除。冲水。",
-          hero_title_2: '终极<span style="color:var(--gold)">浴室</span>大战',
+          hero_title_1: "自定义消除元素。看谁不爽就消谁。",
+          hero_title_2: '你的<span style="color:var(--gold)">表情包</span>，就是你的武器',
           hero_cta: "📱 查看真机截图",
           badge_download: "敬请期待",
           badge_coming_soon: "敬请期待",
@@ -474,14 +471,14 @@
           hud_moves: "⏱ 步数",
           hud_target: "目标",
           hud_level: "关卡",
-          htp_title: "游戏玩法",
-          htp_sub: "连消起势、破障控盘、干净收官",
-          step1_title: "先把连锁打起来",
-          step1_desc: "先做 3 连起手，再叠直线与炸弹特效，把盘面节奏抢到自己手里。",
-          step2_title: "读机制破障碍",
-          step2_desc: "先清关键通道，再针对障碍机制下手，孑孓、粘液、气泡这类扩散压力必须尽早压住。",
-          step3_title: "按规则拿下胜利",
-          step3_desc: "普通关在步数内完成收集与障碍目标；Boss 关以打空 Boss 血量为胜利条件。",
+          htp_title: "怎么玩",
+          htp_sub: "选目标、放进去、消掉它——三步搞定",
+          step1_title: "选目标",
+          step1_desc: "从相册选一张照片——老板的脸、暗恋对象、宠物、表情包都行。游戏会自动把它变成消除元素。",
+          step2_title: "放进棋盘",
+          step2_desc: "你选的图片会立刻出现在方块甚至 Boss 身上。你的棋盘全世界独一无二。",
+          step3_title: "消掉它",
+          step3_desc: "经典三消规则，每个人都是自己的主题。构建连锁、触发特效、挑战 Boss——看着自定义方块消失的那一瞬间，爽。",
           boss_title: "虫子档案",
           boss_sub: "了解你的敌人",
           bugs_preview_title: "BOSS 预览",
@@ -490,37 +487,37 @@
           blocker_title: "障碍图鉴",
           blocker_sub: "认识所有障碍，以及它们如何让你的盘面变得更麻烦",
           shots_title: "真机截图",
-          shots_sub: "来自真实设备的实机画面，直接展示关卡节奏、Boss 战和障碍反馈",
+          shots_sub: "在真实设备上拍摄的自定义消除元素实机画面",
           boss1_name: "蠼螋",
           boss1_role: "威胁档案",
-          boss1_desc: "浴室里的开场小霸王。虽然只是序章 Boss，却已经很会把原本顺手的盘面搅成一场尴尬沉默。",
+          boss1_desc: "开场小霸王。虽然只是序章，却已经很会把你的盘面搅成尴尬沉默。",
           boss2_name: "蜘蛛",
           boss2_role: "威胁档案",
-          boss2_desc: "一位有八条腿的强迫症患者，最见不得棋盘太热闹。你一旦打得顺手，它就会立刻出手重新装修麻烦。",
+          boss2_desc: "八条腿的强迫症患者。等你打得顺手了，它就会出手重新装修你的棋盘。",
           boss3_name: "红虫",
           boss3_role: "威胁档案",
-          boss3_desc: "一个脾气暴躁、偏爱乱战的家伙。要是你觉得盘面还不够难受，它就会主动补上腐蚀和封印。",
+          boss3_desc: "脾气暴躁、偏爱乱战的家伙。你一觉得盘面还行，它就补上腐蚀和封印。",
           boss4_name: "鼠妇",
           boss4_role: "威胁档案",
-          boss4_desc: "一个披着盔甲的小悲观主义者。它会缩壳、换弱点、再顺便把你的计划滚个稀碎。",
+          boss4_desc: "披着盔甲的小悲观主义者。缩壳、换弱点、再把你的计划滚个稀碎。",
           boss5_name: "蛾蚋",
           boss5_role: "威胁档案",
-          boss5_desc: "一个嗡嗡作响、礼貌全无的小偷。它一边偷你的节奏，一边往盘面泼水坑。",
+          boss5_desc: "嗡嗡作响、毫无礼貌的小偷。一边偷节奏，一边往棋盘泼水坑。",
           boss6_name: "蚊子",
           boss6_role: "威胁档案",
-          boss6_desc: "高压型蚊子 Boss，会俯冲感染格子并施加孑孓，让你同时面对盘面控制和生存节奏的双重压力。",
+          boss6_desc: "高压型蚊子 Boss，俯冲感染格子施加孑孓，让你同时面对盘面控制和生存压力。",
           boss7_name: "壁虎",
           boss7_role: "威胁档案",
-          boss7_desc: "脚底带胶的偷溜高手，爬到哪儿就把黏液抹到哪儿。它一动起来，盘面每一回合都更难受。",
+          boss7_desc: "脚底带胶，爬到哪儿就把黏液抹到哪儿。它越动，棋盘越难受。",
           boss8_name: "大蟑螂",
           boss8_role: "威胁档案",
-          boss8_desc: "这位蟑螂 Boss 从不讲武德。前面先冻你几格，后面再带着新一批小弟返场。",
+          boss8_desc: "从不讲武德。前面冻你格子，后面带着新小弟返场。",
           boss9_name: "白蚁",
           boss9_role: "威胁档案",
-          boss9_desc: "一个自带搬运队的白蚁工头。你一打它，它就立刻招呼全员上工搬运方块。",
+          boss9_desc: "自带搬运队的工头。你一打它，它就立刻招呼全员搬走方块。",
           boss10_name: "蛞蝓",
           boss10_role: "威胁档案",
-          boss10_desc: "一个行动缓慢、脑子却很清醒的家伙，热爱种苔藓，也擅长下毒。它最喜欢把战斗拖长。",
+          boss10_desc: "行动缓慢、脑子清醒。热爱种苔藓和种毒，最喜欢把战斗拖长。",
           bug1_name: "堵塞者",
           bug1_desc: "堵塞你的管道。堵住你的排水口。非常粗鲁。",
           bug2_name: "皂垢莎莉",
@@ -531,7 +528,7 @@
           stat_speed: "速度",
           stat_threat: "威胁",
           prereg_title: "预先注册",
-          prereg_sub: "率先消灭虫子，获得专属奖励！",
+          prereg_sub: "率先开玩，获得专属奖励！",
           prereg_btn: "通知我",
           prereg_ph: "您的邮箱",
           prereg_note: "无垃圾邮件。仅发送上线日期通知。随时取消订阅。",
@@ -855,7 +852,13 @@
         bubble_status_01: "level_085",
       };
 
+      const SCREENSHOT_BASE_URL = "https://assets.poozzle.com/screenshot";
+
       const deviceScreenshots = [
+        "Screenshot_2026-07-15-19-35-31-68_167aae7d33d5b33ba250980fefd1f159.jpg",
+        "Screenshot_2026-07-15-19-37-58-63_167aae7d33d5b33ba250980fefd1f159.jpg",
+        "Screenshot_2026-07-15-19-39-28-66_167aae7d33d5b33ba250980fefd1f159.jpg",
+        "a1.png",
         "Screenshot_2026-07-05-10-49-38-59_167aae7d33d5b33ba250980fefd1f159.jpg",
         "Screenshot_2026-07-05-10-50-16-12_167aae7d33d5b33ba250980fefd1f159.jpg",
         "Screenshot_2026-07-05-10-53-41-14_167aae7d33d5b33ba250980fefd1f159.jpg",
@@ -1103,7 +1106,7 @@
           card.setAttribute("role", "button");
           card.setAttribute("tabindex", "0");
           card.setAttribute("aria-label", lang === "zh" ? `查看第 ${index + 1} 张真机截图` : `Open screenshot ${index + 1}`);
-          card.dataset.shotUrl = `https://assets.poozzle.com/screenshot/${fileName}`;
+          card.dataset.shotUrl = `${SCREENSHOT_BASE_URL}/${fileName}`;
 
           const frame = document.createElement("div");
           frame.className = "screenshot-frame";
