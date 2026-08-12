@@ -131,6 +131,8 @@ nav {
 #hero {
   position: relative;
   min-height: 100vh;
+  min-height: 100svh;
+  min-height: 100dvh;
   padding-top: 70px;
   display: flex;
   align-items: stretch;
@@ -553,6 +555,7 @@ nav {
   border-radius: 6px;
   width: 100%;
   aspect-ratio: 1 / 1;
+  touch-action: none;
 }
 
 /* Tiles */
@@ -2974,15 +2977,35 @@ footer a:hover {
   opacity: 0.42;
 }
 
+/* ===== TOUCH ===== */
+a,
+button,
+.lang-btn,
+.badge-btn,
+.bug-flip-card,
+.boss-card,
+.blocker-card,
+.screenshot-card {
+  touch-action: manipulation;
+}
+
 /* ===== RESPONSIVE ===== */
 @media (max-width: 800px) {
   nav {
     padding: 0.6rem 0.9rem;
   }
   .nav-links {
+    flex: 1 1 auto;
+    min-width: 0;
     gap: 0.6rem;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     justify-content: flex-end;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .nav-links::-webkit-scrollbar {
+    display: none;
   }
   .nav-links a {
     font-size: 0.68rem;
@@ -3077,5 +3100,155 @@ footer a:hover {
   }
   .video-gallery {
     grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  }
+}
+
+/* ===== RESPONSIVE: SMALL PHONES ===== */
+@media (max-width: 480px) {
+  section {
+    padding: 3.5rem 1.15rem;
+  }
+  nav {
+    padding: 0.5rem 0.75rem;
+  }
+  .nav-logo {
+    height: 32px;
+  }
+  .nav-logo img {
+    height: 28px;
+  }
+  .nav-logo span {
+    font-size: 1.05rem !important;
+  }
+  .nav-links {
+    gap: 0.45rem;
+  }
+  .nav-links a {
+    font-size: 0.6rem;
+    letter-spacing: 0.03em;
+  }
+  .lang-btn {
+    font-size: 0.6rem;
+    padding: 0.16rem 0.4rem;
+  }
+  #hero {
+    padding-top: 56px;
+  }
+  .hero-left {
+    padding: 2rem 0.9rem 1rem;
+    transform: none;
+  }
+  #main-logo {
+    max-width: 168px;
+  }
+  .tagline {
+    font-size: 1rem;
+  }
+  .hero-sub {
+    font-size: 0.85rem;
+  }
+  .badges {
+    gap: 0.6rem;
+  }
+  .badge-btn {
+    padding: 0.55rem 0.6rem;
+    gap: 0.45rem;
+  }
+  .badge-icon svg {
+    width: 20px;
+    height: 20px;
+  }
+  .badge-name {
+    font-size: 0.82rem;
+  }
+  .badge-sub {
+    font-size: 0.52rem;
+  }
+  .hero-right {
+    padding: 1rem 0.7rem 1.5rem;
+    gap: 1.2rem;
+  }
+  .hud-panel {
+    padding: 0.6rem 0.35rem;
+    gap: 0.3rem;
+  }
+  .hud-label {
+    font-size: 0.54rem;
+  }
+  .hud-value {
+    font-size: 1.1rem;
+  }
+  .board-frame {
+    padding: 9px;
+    border-width: 3px;
+  }
+  .board-frame::before,
+  .board-frame::after {
+    font-size: 1rem;
+    top: -11px;
+  }
+  .game-grid {
+    --tile-gap: 3px;
+    --grid-pad: 2px;
+  }
+  .tile-special-emoji {
+    font-size: 1.4rem;
+  }
+  .section-title {
+    font-size: 1.5rem;
+  }
+  .section-sub {
+    font-size: 0.9rem;
+    margin-bottom: 2rem;
+  }
+  .demo-window-body {
+    padding: 1rem 0.9rem 1.2rem;
+  }
+  .demo-frame-wrap {
+    width: min(88vw, 320px);
+  }
+  .pvp-skills li {
+    padding: 0.7rem 0.8rem;
+    gap: 0.7rem;
+  }
+  .pvp-skill-icon img {
+    width: 34px;
+    height: 34px;
+  }
+  .duel-frame {
+    padding: 1.2rem 0.8rem;
+  }
+  .duel-avatar img {
+    width: 56px;
+    height: 56px;
+  }
+  .mode-card {
+    padding: 1.3rem 1rem;
+  }
+  .step-card {
+    padding: 1.5rem 1.1rem;
+  }
+  .boss-grid,
+  .modes-grid,
+  .blocker-grid,
+  .screenshot-gallery,
+  .video-gallery {
+    gap: 0.9rem;
+  }
+  .boss-card,
+  .boss-card-inner {
+    min-height: 300px;
+  }
+  .blocker-card,
+  .blocker-card-inner {
+    min-height: 250px;
+  }
+  .footer-inner {
+    flex-direction: column;
+    gap: 0.6rem;
+    text-align: center;
+  }
+  #steam-canvas {
+    opacity: 0.3;
   }
 }

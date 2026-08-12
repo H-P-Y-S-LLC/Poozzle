@@ -189,7 +189,13 @@
 
       this.uiLang = this.normalizeLang(document.documentElement.lang || navigator.language || "en");
 
+      this.drag = null;
+      this.suppressClick = false;
+
       this.onGridClick = this.onGridClick.bind(this);
+      this.onPointerDown = this.onPointerDown.bind(this);
+      this.onPointerMove = this.onPointerMove.bind(this);
+      this.onPointerUp = this.onPointerUp.bind(this);
     }
 
     init() {
@@ -198,6 +204,7 @@
       this.bindLangSync();
       this.setupLevel(1, { keepScore: false });
       this.gridEl.addEventListener("click", this.onGridClick);
+      this.gridEl.addEventListener("pointerdown", this.onPointerDown);
     }
 
     normalizeLang(lang) {
@@ -340,6 +347,10 @@
     }
 
     onGridClick(event) {
+      if (this.suppressClick) {
+        this.suppressClick = false;
+        return;
+      }
       if (this.isResolving) return;
       this.sfx.unlock();
 
@@ -382,6 +393,73 @@
 
     isAdjacent(a, b) {
       return Math.abs(a.row - b.row) + Math.abs(a.col - b.col) === 1;
+    }
+
+    onPointerDown(event) {
+      if (this.isResolving) return;
+      if (event.pointerType === "mouse" && event.button !== 0) return;
+
+      const tileEl = event.target.closest(".tile");
+      if (!tileEl || !this.gridEl.contains(tileEl)) return;
+
+      const row = Number(tileEl.dataset.row);
+      const col = Number(tileEl.dataset.col);
+      if (row < 0 || col < 0) return;
+      const tile = this.board[row] && this.board[row][col];
+      if (!tile) return;
+
+      this.drag = {
+        pointerId: event.pointerId,
+        startX: event.clientX,
+        startY: event.clientY,
+        startPoint: { row, col },
+        swapped: false,
+      };
+
+      window.addEventListener("pointermove", this.onPointerMove, { passive: false });
+      window.addEventListener("pointerup", this.onPointerUp);
+      window.addEventListener("pointercancel", this.onPointerUp);
+    }
+
+    onPointerMove(event) {
+      if (!this.drag || event.pointerId !== this.drag.pointerId) return;
+      if (this.drag.swapped) return;
+
+      const dx = event.clientX - this.drag.startX;
+      const dy = event.clientY - this.drag.startY;
+      if (Math.max(Math.abs(dx), Math.abs(dy)) < 14) return;
+
+      let targetRow = this.drag.startPoint.row;
+      let targetCol = this.drag.startPoint.col;
+      if (Math.abs(dx) > Math.abs(dy)) {
+        targetCol += dx > 0 ? 1 : -1;
+      } else {
+        targetRow += dy > 0 ? 1 : -1;
+      }
+
+      if (targetRow < 0 || targetRow >= this.rows || targetCol < 0 || targetCol >= this.cols) {
+        this.drag.swapped = true;
+        return;
+      }
+
+      this.drag.swapped = true;
+      this.suppressClick = true;
+      this.selected = null;
+      this.trySwap(this.drag.startPoint, { row: targetRow, col: targetCol });
+    }
+
+    onPointerUp(event) {
+      if (!this.drag || event.pointerId !== this.drag.pointerId) return;
+      const wasSwap = this.drag.swapped;
+      this.drag = null;
+      window.removeEventListener("pointermove", this.onPointerMove);
+      window.removeEventListener("pointerup", this.onPointerUp);
+      window.removeEventListener("pointercancel", this.onPointerUp);
+      if (wasSwap && this.suppressClick) {
+        window.setTimeout(() => {
+          this.suppressClick = false;
+        }, 350);
+      }
     }
 
     async trySwap(a, b) {
