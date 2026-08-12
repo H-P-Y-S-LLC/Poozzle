@@ -3,8 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>POOZZLE – Custom Match-3: Put Your Own Face on the Board</title>
-    <meta name="description" content="POOZZLE lets you replace match-3 pieces with your own photos — your boss, your crush, your cat, anything. Match 'em away. Free. Offline." />
+    <title>POOZZLE – Real-Time PVP Match-3: Duel, Loot &amp; Customize</title>
+    <meta name="description" content="Real-time PVP duels — loot their coins &amp; gems. Custom elements. Boss Brawl, Vessel Run, Death Drop &amp; Endless Ascent. Free." />
     <link rel="icon" href="https://assets.poozzle.com/icons/poozzle.ico" type="image/x-icon" />
     <link rel="apple-touch-icon" href="https://assets.poozzle.com/icons/Gemer.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -13,6 +13,19 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
     <script src="gameplay.js"></script>
+    <!-- TikTok Pixel Code Start -->
+    <script>
+      !function (w, d, t) {
+        w.TiktokAnalyticsObject=t;var ttq=w[t]=w[t]||[];ttq.methods=["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie","holdConsent","revokeConsent","grantConsent"],ttq.setAndDefer=function(t,e){t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}};for(var i=0;i<ttq.methods.length;i++)ttq.setAndDefer(ttq,ttq.methods[i]);ttq.instance=function(t){for(
+        var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n]);return e},ttq.load=function(e,n){var r="https://analytics.tiktok.com/i18n/pixel/events.js",o=n&&n.partner;ttq._i=ttq._i||{},ttq._i[e]=[],ttq._i[e]._u=r,ttq._t=ttq._t||{},ttq._t[e]=+new Date,ttq._o=ttq._o||{},ttq._o[e]=n||{};n=document.createElement("script")
+        ;n.type="text/javascript",n.async=!0,n.src=r+"?sdkid="+e+"&lib="+t;e=document.getElementsByTagName("script")[0];e.parentNode.insertBefore(n,e)};
+
+
+        ttq.load('D9U1OTRC77U31VPN346G');
+        ttq.page();
+      }(window, document, 'ttq');
+    </script>
+    <!-- TikTok Pixel Code End -->
   </head>
   <body>
     <!-- Steam particle canvas -->
@@ -25,10 +38,11 @@
         <span style="font-family: &quot;Oswald&quot;, sans-serif; color: var(--gold); font-size: 1.3rem; letter-spacing: 0.1em">POOZZLE</span>
       </div>
       <div class="nav-links">
+        <a href="#pvp" data-i18n="nav_pvp">PVP DUEL</a>
+        <a href="#game-modes" data-i18n="nav_modes">GAME MODES</a>
         <a href="#how-to-play" data-i18n="nav_how">HOW IT WORKS</a>
         <a href="#boss-files" data-i18n="nav_bugs">BUG FILES</a>
         <a href="#device-shots" data-i18n="nav_shots">SCREENSHOTS</a>
-        <a href="#demo-video" data-i18n="nav_demo">DEMO</a>
         <div class="lang-toggle">
           <button class="lang-btn active" onclick="setLang('en')">EN</button>
           <button class="lang-btn" onclick="setLang('zh')">中文</button>
@@ -78,8 +92,9 @@
           </div>
 
           <p class="tagline" id="tagline-el">
-            <span data-i18n="hero_title_1">CUSTOM ELEMENTS. MATCH WHOEVER YOU WANT.</span>
+            <span data-i18n="hero_title_1">REAL-TIME PVP DUELS. LOOT THEIR COINS &amp; GEMS.</span>
           </p>
+          <p class="hero-sub" id="hero-sub-el" data-i18n="hero_sub_1">Custom elements. Boss battles. Four classic modes. Free.</p>
 
           <div class="badges" id="badges-el">
             <!-- Apple Badge -->
@@ -180,6 +195,74 @@
       <!-- /hero-inner -->
     </section>
 
+    <!-- ===== PVP DUEL ===== -->
+    <section id="pvp">
+      <div class="pvp-badge">
+        <span data-i18n="pvp_badge">⚔️ NEW IN 1.0.1</span>
+      </div>
+      <h2 class="section-title" data-i18n="pvp_title">REAL-TIME PVP DUEL</h2>
+      <p class="section-sub" data-i18n="pvp_sub">Match a real player online, or send your room code and invite a friend. Fight them like a boss.</p>
+
+      <div class="pvp-layout">
+        <div class="pvp-copy">
+          <p class="pvp-lead" data-i18n="pvp_lead">Your rival stands right below your board. Whoever drains the other's HP bar first wins the round.</p>
+          <p class="pvp-body" data-i18n="pvp_body">Charge <strong>mana</strong> as you match, then unleash skills straight onto their board:</p>
+          <ul class="pvp-skills">
+            <li>
+              <span class="pvp-skill-icon"><img src="https://assets.poozzle.com/resources/freeze_random_5.png" alt="Random Freeze" /></span>
+              <div>
+                <div class="pvp-skill-name" data-i18n="pvp_skill1_name">Random Freeze</div>
+                <p class="pvp-skill-desc" data-i18n="pvp_skill1_desc">Freeze 5 random tiles on your rival's board — specials included — for 3 turns.</p>
+                <div class="pvp-skill-cost" data-i18n="pvp_skill1_cost">80 mana</div>
+              </div>
+            </li>
+            <li>
+              <span class="pvp-skill-icon"><img src="https://assets.poozzle.com/resources/convert_random_blocker_3_4.png" alt="Random Blockers" /></span>
+              <div>
+                <div class="pvp-skill-name" data-i18n="pvp_skill2_name">Random Blockers</div>
+                <p class="pvp-skill-desc" data-i18n="pvp_skill2_desc">Convert 1–3 normal tiles into blockers from the PvP obstacle pool.</p>
+                <div class="pvp-skill-cost" data-i18n="pvp_skill2_cost">99 mana</div>
+              </div>
+            </li>
+            <li>
+              <span class="pvp-skill-icon">🔄</span>
+              <div>
+                <div class="pvp-skill-name" data-i18n="pvp_skill3_name">Weakness Shift</div>
+                <p class="pvp-skill-desc" data-i18n="pvp_skill3_desc">Immediately reroll your rival's weakness color and throw their plan off.</p>
+                <div class="pvp-skill-cost" data-i18n="pvp_skill3_cost">15 mana</div>
+              </div>
+            </li>
+            <li>
+              <span class="pvp-skill-icon">🌀</span>
+              <div>
+                <div class="pvp-skill-name" data-i18n="pvp_skill4_name">Rolling Impact</div>
+                <p class="pvp-skill-desc" data-i18n="pvp_skill4_desc">Clear all specials and reshuffle their board in one hit.</p>
+                <div class="pvp-skill-cost" data-i18n="pvp_skill4_cost">80 mana</div>
+              </div>
+            </li>
+          </ul>
+          <p class="pvp-loot" data-i18n="pvp_loot">Win and you don't just take the rewards — <strong>loot their coins &amp; gems</strong> straight from their pocket.</p>
+        </div>
+
+        <div class="pvp-panel">
+          <div class="duel-frame">
+            <div class="duel-avatar">
+              <img src="https://assets.poozzle.com/icons/Gemer.png" alt="You" onerror="this.style.display='none'" />
+              <span class="duel-label" data-i18n="duel_you">YOU</span>
+              <div class="duel-hp"><div class="duel-hp-fill" style="width: 100%"></div></div>
+            </div>
+            <div class="duel-vs">VS</div>
+            <div class="duel-avatar">
+              <img src="https://assets.poozzle.com/resources/PvPBossFace.png" alt="Rival" onerror="this.style.display='none'" />
+              <span class="duel-label" data-i18n="duel_rival">RIVAL</span>
+              <div class="duel-hp"><div class="duel-hp-fill duel-hp-rival" style="width: 64%"></div></div>
+            </div>
+          </div>
+          <div class="duel-caption" data-i18n="duel_caption">Every match charges your mana. Skills land on their board.</div>
+        </div>
+      </div>
+    </section>
+
     <!-- ===== DEMO VIDEO ===== -->
     <section id="demo-video">
       <div class="demo-window">
@@ -208,28 +291,61 @@
       </div>
     </section>
 
+    <!-- ===== GAME MODES ===== -->
+    <section id="game-modes">
+      <h2 class="section-title" data-i18n="modes_title">FIVE WAYS TO CLEAN HOUSE</h2>
+      <p class="section-sub" data-i18n="modes_sub">Beyond PVP, four classic modes. Zero chill. Maximum satisfaction. Free. Offline.</p>
+      <div class="modes-grid">
+        <div class="mode-card mode-pvp" id="mode-pvp">
+          <div class="mode-icon">⚔️</div>
+          <div class="mode-name" data-i18n="mode_pvp_name">PVP Duel</div>
+          <p class="mode-desc" data-i18n="mode_pvp_desc">Real-time duels. Online matchmaking or friend room codes. Drain their HP, loot their coins &amp; gems.</p>
+        </div>
+        <div class="mode-card" id="mode-boss">
+          <div class="mode-icon">🦗</div>
+          <div class="mode-name" data-i18n="mode_boss_name">Boss Brawl</div>
+          <p class="mode-desc" data-i18n="mode_boss_desc">Classic match-3 with teeth. 10 gimmick bosses, each with a unique weakness. Hit the weak spot, time your ultimate, watch that HP bar MELT.</p>
+        </div>
+        <div class="mode-card" id="mode-vessel">
+          <div class="mode-icon">💊</div>
+          <div class="mode-name" data-i18n="mode_vessel_name">Vessel Run</div>
+          <p class="mode-desc" data-i18n="mode_vessel_desc">A pill through blood vessel mazes. Slide to the bottom, collect germs, beat your best. Short. Satisfying. Repeat.</p>
+        </div>
+        <div class="mode-card" id="mode-drop">
+          <div class="mode-icon">⬇️</div>
+          <div class="mode-name" data-i18n="mode_drop_name">Death Drop</div>
+          <p class="mode-desc" data-i18n="mode_drop_desc">Death line closing in from above. Match to drop. Heart pounding. Stay ahead or die — just react.</p>
+        </div>
+        <div class="mode-card" id="mode-ascent">
+          <div class="mode-icon">🏔️</div>
+          <div class="mode-name" data-i18n="mode_ascent_name">Endless Ascent</div>
+          <p class="mode-desc" data-i18n="mode_ascent_desc">Every board is procedurally generated. No two runs the same. Climb until you can't — your rank on the global leaderboard is your bragging right.</p>
+        </div>
+      </div>
+    </section>
+
     <!-- ===== HOW TO PLAY ===== -->
     <section id="how-to-play">
       <h2 class="section-title" data-i18n="htp_title">HOW IT WORKS</h2>
-      <p class="section-sub" data-i18n="htp_sub">Pick your targets, drop 'em on the board, match 'em away</p>
+      <p class="section-sub" data-i18n="htp_sub">Match, charge, unleash — then make every board your own</p>
       <div class="steps">
         <div class="step-card" id="step-1">
           <div class="step-num">01</div>
-          <span class="step-icon">🖼️</span>
-          <div class="step-title" data-i18n="step1_title">Pick Your Targets</div>
-          <p class="step-desc" data-i18n="step1_desc">Choose any image from your gallery — your boss's face, your crush, your pet, a meme, anything. The game automatically turns it into a match-3 piece.</p>
+          <span class="step-icon">🟰</span>
+          <div class="step-title" data-i18n="step1_title">Match &amp; Charge</div>
+          <p class="step-desc" data-i18n="step1_desc">Classic match-3 rules. Build chains, trigger specials, fight bosses — every match also charges your mana for PVP duels.</p>
         </div>
         <div class="step-card" id="step-2">
           <div class="step-num">02</div>
-          <span class="step-icon">🎮</span>
-          <div class="step-title" data-i18n="step2_title">Drop 'Em on the Board</div>
-          <p class="step-desc" data-i18n="step2_desc">Your custom images instantly appear on tiles and even boss sprites. Every match you make is personal. No one else has your board.</p>
+          <span class="step-icon">⚔️</span>
+          <div class="step-title" data-i18n="step2_title">Duel a Rival</div>
+          <p class="step-desc" data-i18n="step2_desc">Go head-to-head with a real player. Seal their elements, convert blockers, reshape their board — first to zero HP wins and loots.</p>
         </div>
         <div class="step-card" id="step-3">
           <div class="step-num">03</div>
-          <span class="step-icon">💥</span>
-          <div class="step-title" data-i18n="step3_title">Match 'Em Away</div>
-          <p class="step-desc" data-i18n="step3_desc">Classic match-3 rules, infinitely personal stakes. Build chains, trigger specials, fight bosses — and watch your custom pieces disappear with satisfaction.</p>
+          <span class="step-icon">🖼️</span>
+          <div class="step-title" data-i18n="step3_title">Make It Personal</div>
+          <p class="step-desc" data-i18n="step3_desc">Drop your own images onto tiles and boss sprites — your boss's face, your crush, your cat, anything. No one else has your board.</p>
         </div>
       </div>
     </section>
@@ -358,12 +474,15 @@
           nav_bugs: "BUG FILES",
           nav_shots: "SCREENSHOTS",
           nav_demo: "DEMO",
+          nav_pvp: "PVP DUEL",
+          nav_modes: "GAME MODES",
           nav_register: "PRE-REGISTER",
           demo_window_label: "Gameplay Live Window",
           demo_title: "Watch The Gameplay In Action",
           demo_sub: "A quick look at the real match pace, effects, and boss pressure from our latest build.",
           demo_cta: "Open on YouTube Shorts",
-          hero_title_1: "CUSTOM ELEMENTS. MATCH WHOEVER YOU WANT.",
+          hero_title_1: "REAL-TIME PVP DUELS. LOOT THEIR COINS & GEMS.",
+          hero_sub_1: "Custom elements. Boss battles. Four classic modes. Free.",
           hero_title_2: 'Your <span style="color:var(--gold)">FACE</span> on Every Tile',
           hero_cta: "📱 VIEW SCREENSHOTS",
           badge_download: "Coming soon",
@@ -379,14 +498,47 @@
           hud_moves: "⏱ MOVES",
           hud_target: "TARGET",
           hud_level: "LEVEL",
+          pvp_badge: "⚔️ NEW IN 1.0.1",
+          pvp_title: "REAL-TIME PVP DUEL",
+          pvp_sub: "Match a real player online, or send your room code and invite a friend. Fight them like a boss.",
+          pvp_lead: "Your rival stands right below your board. Whoever drains the other's HP bar first wins the round.",
+          pvp_body: "Charge <strong>mana</strong> as you match, then unleash skills straight onto their board:",
+          pvp_skill1_name: "Random Freeze",
+          pvp_skill1_desc: "Freeze 5 random tiles on your rival's board — specials included — for 3 turns.",
+          pvp_skill1_cost: "80 mana",
+          pvp_skill2_name: "Random Blockers",
+          pvp_skill2_desc: "Convert 1–3 normal tiles into blockers from the PvP obstacle pool.",
+          pvp_skill2_cost: "99 mana",
+          pvp_skill3_name: "Weakness Shift",
+          pvp_skill3_desc: "Immediately reroll your rival's weakness color and throw their plan off.",
+          pvp_skill3_cost: "15 mana",
+          pvp_skill4_name: "Rolling Impact",
+          pvp_skill4_desc: "Clear all specials and reshuffle their board in one hit.",
+          pvp_skill4_cost: "80 mana",
+          pvp_loot: "Win and you don't just take the rewards — <strong>loot their coins & gems</strong> straight from their pocket.",
+          duel_you: "YOU",
+          duel_rival: "RIVAL",
+          duel_caption: "Every match charges your mana. Skills land on their board.",
+          modes_title: "FIVE WAYS TO CLEAN HOUSE",
+          modes_sub: "Beyond PVP, four classic modes. Zero chill. Maximum satisfaction. Free. Offline.",
+          mode_pvp_name: "PVP Duel",
+          mode_pvp_desc: "Real-time duels. Online matchmaking or friend room codes. Drain their HP, loot their coins & gems.",
+          mode_boss_name: "Boss Brawl",
+          mode_boss_desc: "Classic match-3 with teeth. 10 gimmick bosses, each with a unique weakness. Hit the weak spot, time your ultimate, watch that HP bar MELT.",
+          mode_vessel_name: "Vessel Run",
+          mode_vessel_desc: "A pill through blood vessel mazes. Slide to the bottom, collect germs, beat your best. Short. Satisfying. Repeat.",
+          mode_drop_name: "Death Drop",
+          mode_drop_desc: "Death line closing in from above. Match to drop. Heart pounding. Stay ahead or die — just react.",
+          mode_ascent_name: "Endless Ascent",
+          mode_ascent_desc: "Every board is procedurally generated. No two runs the same. Climb until you can't — your rank on the global leaderboard is your bragging right.",
           htp_title: "HOW IT WORKS",
-          htp_sub: "Pick your targets, drop 'em on the board, match 'em away",
-          step1_title: "Pick Your Targets",
-          step1_desc: "Choose any image from your gallery — your boss's face, your crush, your pet, a meme, anything. The game automatically turns it into a match-3 piece.",
-          step2_title: "Drop 'Em on the Board",
-          step2_desc: "Your custom images instantly appear on tiles and even boss sprites. Every match you make is personal. No one else has your board.",
-          step3_title: "Match 'Em Away",
-          step3_desc: "Classic match-3 rules, infinitely personal stakes. Build chains, trigger specials, fight bosses — and watch your custom pieces disappear with satisfaction.",
+          htp_sub: "Match, charge, unleash — then make every board your own",
+          step1_title: "Match & Charge",
+          step1_desc: "Classic match-3 rules. Build chains, trigger specials, fight bosses — every match also charges your mana for PVP duels.",
+          step2_title: "Duel a Rival",
+          step2_desc: "Go head-to-head with a real player. Seal their elements, convert blockers, reshape their board — first to zero HP wins and loots.",
+          step3_title: "Make It Personal",
+          step3_desc: "Drop your own images onto tiles and boss sprites — your boss's face, your crush, your cat, anything. No one else has your board.",
           boss_title: "BUG DOSSIERS",
           boss_sub: "Know your enemies",
           bugs_preview_title: "BOSS PREVIEW",
@@ -450,12 +602,15 @@
           nav_bugs: "虫子档案",
           nav_shots: "真机截图",
           nav_demo: "演示",
+          nav_pvp: "PVP 对战",
+          nav_modes: "游戏模式",
           nav_register: "预先注册",
           demo_window_label: "实机演示窗口",
           demo_title: "先看一分钟实机演示",
           demo_sub: "最新版本的战斗节奏展示，直接感受消除反馈、特效手感和 Boss 压迫感。",
           demo_cta: "前往 YouTube Shorts 观看",
-          hero_title_1: "自定义消除元素。看谁不爽就消谁。",
+          hero_title_1: "真人实时对战。掠夺对手的金币钻石。",
+          hero_sub_1: "自定义消除元素 · Boss 战 · 四大经典玩法 · 免费",
           hero_title_2: '你的<span style="color:var(--gold)">表情包</span>，就是你的武器',
           hero_cta: "📱 查看真机截图",
           badge_download: "敬请期待",
@@ -471,14 +626,47 @@
           hud_moves: "⏱ 步数",
           hud_target: "目标",
           hud_level: "关卡",
+          pvp_badge: "⚔️ 1.0.1 全新上线",
+          pvp_title: "真人实时对战（PVP）",
+          pvp_sub: "在线匹配真人对手，或把房间码发给好友，随时开局。把他当成 Boss 来打。",
+          pvp_lead: "对手的形象就立在你的棋盘下方。谁先把对方的血条打光，谁就赢下这局。",
+          pvp_body: "对战全程积累<strong>魔法值</strong>，攒满即可向对方棋盘发动技能：",
+          pvp_skill1_name: "随机冻结",
+          pvp_skill1_desc: "在对手棋盘随机冻结 5 个任意块（含特殊块），持续 3 回合。",
+          pvp_skill1_cost: "耗蓝 80",
+          pvp_skill2_name: "随机障碍",
+          pvp_skill2_desc: "施放时把 1~3 个普通格直接转换为 PvP 障碍池中的障碍。",
+          pvp_skill2_cost: "耗蓝 99",
+          pvp_skill3_name: "变换弱点",
+          pvp_skill3_desc: "立即随机重置/转换对手的弱点色，打乱他的布局。",
+          pvp_skill3_cost: "耗蓝 15",
+          pvp_skill4_name: "重组棋盘",
+          pvp_skill4_desc: "直接清除特殊块并洗牌，一次性重组对方棋盘。",
+          pvp_skill4_cost: "耗蓝 80",
+          pvp_loot: "胜利不止有奖励——<strong>金币、钻石</strong>，直接从对手兜里掠夺！",
+          duel_you: "我方",
+          duel_rival: "对手",
+          duel_caption: "每次消除都在积累魔法值，技能直接砸向对方棋盘。",
+          modes_title: "五大玩法，清光你的家",
+          modes_sub: "除了真人对战，还有四大经典玩法，解压、免费、无网也能玩。",
+          mode_pvp_name: "真人 PVP 对战",
+          mode_pvp_desc: "实时对战。在线匹配或用房间码邀请好友，打光对方血条，掠夺金币钻石。",
+          mode_boss_name: "打爆 Boss",
+          mode_boss_desc: "主线闯关，经典三消规则。10 个奇葩 Boss，每个都有弱点颜色和干扰技能。盯着弱点打，看准时机放大招。",
+          mode_vessel_name: "药丸冲冲",
+          mode_vessel_desc: "钻进血管迷宫，操控药丸一滑到底。步数越少越爽，收集细菌冲到底线。",
+          mode_drop_name: "向下逃",
+          mode_drop_desc: "死亡线从头顶压下来。快速消除脚下元素块，边坠落边求生，心脏狂跳直到触及安全线。",
+          mode_ascent_name: "无限登顶",
+          mode_ascent_desc: "每次通关自动生成全新地图。爬的层数就是你的排面——全服排行榜，谁敢来战？",
           htp_title: "怎么玩",
-          htp_sub: "选目标、放进去、消掉它——三步搞定",
-          step1_title: "选目标",
-          step1_desc: "从相册选一张照片——老板的脸、暗恋对象、宠物、表情包都行。游戏会自动把它变成消除元素。",
-          step2_title: "放进棋盘",
-          step2_desc: "你选的图片会立刻出现在方块甚至 Boss 身上。你的棋盘全世界独一无二。",
-          step3_title: "消掉它",
-          step3_desc: "经典三消规则，每个人都是自己的主题。构建连锁、触发特效、挑战 Boss——看着自定义方块消失的那一瞬间，爽。",
+          htp_sub: "消除、积攒、释放——再把每张棋盘变成你的专属",
+          step1_title: "匹配与积攒",
+          step1_desc: "经典三消规则。构建连锁、触发特效、挑战 Boss——每次消除同时为 PVP 对战积攒魔法值。",
+          step2_title: "真人对战",
+          step2_desc: "与真人玩家正面交锋。封印元素、转化障碍块、重组对方棋盘——血条先清零者获胜并掠夺。",
+          step3_title: "打造专属棋盘",
+          step3_desc: "把你的图片放进方块和 Boss 身上——老板的脸、暗恋对象、自家猫狗，想放什么放什么。你的棋盘独一无二。",
           boss_title: "虫子档案",
           boss_sub: "了解你的敌人",
           bugs_preview_title: "BOSS 预览",
@@ -1413,6 +1601,7 @@
 
         // Tagline
         gsap.fromTo("#tagline-el", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.9, delay: 0.4, ease: "power2.out" });
+        gsap.fromTo("#hero-sub-el", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.8, delay: 0.55, ease: "power2.out" });
 
         // Badges
         gsap.fromTo("#badges-el", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.7, delay: 1.1, ease: "power2.out" });
@@ -1434,6 +1623,45 @@
 
         // Bug cards entrance
         gsap.fromTo("#bugs .bug-flip-card", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.7, stagger: 0.12, delay: 1.4, ease: "power2.out" });
+
+        // Scroll-triggered: PVP skills & duel panel
+        gsap.fromTo(
+          "#pvp .pvp-skills li",
+          { opacity: 0, x: -30 },
+          {
+            opacity: 1,
+            x: 0,
+            duration: 0.6,
+            stagger: 0.12,
+            ease: "power2.out",
+            scrollTrigger: { trigger: "#pvp", start: "top 78%" },
+          },
+        );
+        gsap.fromTo(
+          "#pvp .duel-frame",
+          { opacity: 0, scale: 0.9 },
+          {
+            opacity: 1,
+            scale: 1,
+            duration: 0.8,
+            ease: "back.out(1.3)",
+            scrollTrigger: { trigger: "#pvp", start: "top 70%" },
+          },
+        );
+
+        // Scroll-triggered: Game mode cards
+        gsap.fromTo(
+          "#game-modes .mode-card",
+          { opacity: 0, y: 40 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.7,
+            stagger: 0.12,
+            ease: "power2.out",
+            scrollTrigger: { trigger: "#game-modes", start: "top 80%" },
+          },
+        );
 
         // Scroll-triggered: How to play steps
         gsap.fromTo(
