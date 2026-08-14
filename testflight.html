@@ -1,0 +1,1151 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>POOZZLE Beta - Join the TestFlight</title>
+    <meta name="description" content="Join the POOZZLE iOS beta on TestFlight. Real-time PVP match-3. Duel players, loot coins & gems, fight 10 bosses. Free to test." />
+    <link rel="icon" href="https://assets.poozzle.com/icons/poozzle.ico" type="image/x-icon" />
+    <link rel="apple-touch-icon" href="https://assets.poozzle.com/icons/Gemer.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet" media="print" onload="this.media = 'all'" />
+    <script>
+      (function () {
+        try {
+          localStorage.getItem("poozzle_lang");
+        } catch (e) {}
+      })();
+    </script>
+    <!-- TikTok Pixel Code Start -->
+    <script>
+      !function (w, d, t) {
+        w.TiktokAnalyticsObject=t;var ttq=w[t]=w[t]||[];ttq.methods=["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie","holdConsent","revokeConsent","grantConsent"],ttq.setAndDefer=function(t,e){t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}};for(var i=0;i<ttq.methods.length;i++)ttq.setAndDefer(ttq,ttq.methods[i]);ttq.instance=function(t){for(
+        var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n]);return e},ttq.load=function(e,n){var r="https://analytics.tiktok.com/i18n/pixel/events.js",o=n&&n.partner;ttq._i=ttq._i||{},ttq._i[e]=[],ttq._i[e]._u=r,ttq._t=ttq._t||{},ttq._t[e]=+new Date,ttq._o=ttq._o||{},ttq._o[e]=n||{};n=document.createElement("script")
+        ;n.type="text/javascript",n.async=!0,n.src=r+"?sdkid="+e+"&lib="+t;e=document.getElementsByTagName("script")[0];e.parentNode.insertBefore(n,e)};
+        ttq.load('D9U1OTRC77U31VPN346G');
+        ttq.page();
+      }(window, document, 'ttq');
+    </script>
+    <!-- TikTok Pixel Code End -->
+    <style>
+      :root {
+        --gold: #ffd93d;
+        --pink: #ff6eb4;
+        --teal: #2ec4b6;
+        --purple: #a855f7;
+        --orange: #ff8c42;
+        --slime: #5ecf8d;
+        --dark-wood: #0d0d1a;
+        --pipe-metal: #3d9ee8;
+        --tile-grout: #89c4f4;
+        --bug-dark: #071840;
+        --bg-deep: #0c2d6b;
+        --bg-vortex: #1248a8;
+        --text-light: #f0f8ff;
+        --card-bg: #0f2560;
+        --card-border: #2b7fd4;
+      }
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        font-family: "Open Sans", system-ui, sans-serif;
+        background:
+          radial-gradient(ellipse 120% 80% at 18% 28%, rgba(78, 168, 255, 0.42) 0%, transparent 52%),
+          radial-gradient(ellipse 100% 75% at 82% 72%, rgba(43, 127, 212, 0.38) 0%, transparent 48%),
+          radial-gradient(ellipse 90% 65% at 50% 50%, rgba(18, 72, 168, 0.55) 0%, transparent 58%),
+          linear-gradient(160deg, #071840 0%, var(--bg-deep) 42%, var(--bg-vortex) 100%);
+        color: var(--text-light);
+        overflow-x: hidden;
+        min-height: 100vh;
+      }
+
+      h1,
+      h2,
+      h3 {
+        font-family: "Oswald", "Impact", sans-serif;
+      }
+
+      #steam-canvas {
+        position: fixed;
+        inset: 0;
+        z-index: 0;
+        pointer-events: none;
+      }
+
+      /* ===== NAV ===== */
+      nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 100;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0.75rem 2rem;
+        background: rgba(7, 24, 64, 0.92);
+        border-bottom: 3px solid var(--dark-wood);
+        backdrop-filter: blur(8px);
+      }
+      .nav-logo {
+        height: 40px;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+      .nav-logo img {
+        height: 36px;
+      }
+      .nav-logo span {
+        font-family: "Oswald", sans-serif;
+        color: var(--gold);
+        font-size: 1.3rem;
+        letter-spacing: 0.1em;
+      }
+      .nav-links {
+        display: flex;
+        gap: 1.4rem;
+        align-items: center;
+        flex-wrap: wrap;
+      }
+      .nav-links a {
+        color: var(--text-light);
+        text-decoration: none;
+        font-family: "Oswald", sans-serif;
+        font-size: 0.85rem;
+        letter-spacing: 0.05em;
+        transition: color 0.2s;
+      }
+      .nav-links a:hover {
+        color: var(--gold);
+      }
+      .lang-toggle {
+        display: flex;
+        gap: 0.4rem;
+      }
+      .lang-btn {
+        background: transparent;
+        border: 1px solid var(--tile-grout);
+        color: var(--text-light);
+        padding: 0.2rem 0.6rem;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 0.75rem;
+        transition: all 0.2s;
+      }
+      .lang-btn.active,
+      .lang-btn:hover {
+        background: var(--gold);
+        border-color: var(--gold);
+        color: var(--dark-wood);
+      }
+
+      /* ===== HERO ===== */
+      #hero {
+        position: relative;
+        z-index: 1;
+        min-height: 100vh;
+        min-height: 100svh;
+        display: flex;
+        align-items: center;
+        padding: 6rem 2rem 3rem;
+      }
+      .hero-inner {
+        width: min(1180px, 100%);
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+        gap: 3rem;
+        align-items: center;
+      }
+      .hero-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        background: linear-gradient(135deg, #ffd93d 0%, #ffb800 55%, #ffe566 100%);
+        color: var(--dark-wood);
+        font-family: "Oswald", sans-serif;
+        font-weight: 700;
+        font-size: 0.82rem;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        padding: 0.42rem 1.1rem;
+        border-radius: 999px;
+        box-shadow: 0 6px 22px rgba(255, 217, 61, 0.4);
+        margin-bottom: 1.4rem;
+      }
+      .hero-title {
+        font-size: clamp(2.2rem, 5vw, 4rem);
+        line-height: 1.05;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        color: var(--text-light);
+        text-shadow: 0 2px 14px rgba(0, 0, 0, 0.55);
+        margin-bottom: 1.1rem;
+      }
+      .hero-title .hl {
+        color: var(--gold);
+      }
+      .hero-sub {
+        font-size: 1.02rem;
+        color: var(--tile-grout);
+        line-height: 1.65;
+        max-width: 560px;
+        margin-bottom: 1.8rem;
+      }
+      .hero-actions {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        flex-wrap: wrap;
+      }
+      .cta-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.6rem;
+        font-family: "Oswald", sans-serif;
+        font-size: 1.1rem;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        background: linear-gradient(135deg, #ffd93d 0%, #ffb800 55%, #ffe566 100%);
+        color: var(--dark-wood);
+        padding: 0.85rem 1.8rem;
+        border-radius: 8px;
+        text-decoration: none;
+        border: none;
+        cursor: pointer;
+        box-shadow:
+          0 4px 20px rgba(255, 217, 61, 0.55),
+          inset 0 1px 0 rgba(255, 255, 255, 0.3);
+        transition: transform 0.15s, box-shadow 0.15s;
+      }
+      .cta-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 28px rgba(255, 217, 61, 0.75);
+      }
+      .cta-btn .tf-icon {
+        display: inline-flex;
+      }
+      .hero-hint {
+        font-size: 0.82rem;
+        color: #a8d4f0;
+        margin-top: 1.1rem;
+      }
+      .hero-alt {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        color: var(--tile-grout);
+        font-size: 0.9rem;
+        text-decoration: none;
+        border-bottom: 1px dashed rgba(137, 196, 244, 0.5);
+        padding-bottom: 2px;
+        transition: color 0.2s;
+      }
+      .hero-alt:hover {
+        color: var(--gold);
+      }
+
+      /* Phone mockup */
+      .hero-visual {
+        display: flex;
+        justify-content: center;
+      }
+      .phone {
+        width: min(300px, 78vw);
+        aspect-ratio: 9 / 19;
+        border-radius: 38px;
+        padding: 12px;
+        background: linear-gradient(160deg, #2b2f3a 0%, #0b0d14 100%);
+        border: 3px solid var(--dark-wood);
+        box-shadow:
+          0 30px 60px rgba(0, 0, 0, 0.55),
+          0 0 0 1px rgba(255, 217, 61, 0.25),
+          inset 0 0 0 2px rgba(255, 255, 255, 0.08);
+        position: relative;
+      }
+      .phone::before {
+        content: "";
+        position: absolute;
+        top: 18px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 96px;
+        height: 26px;
+        border-radius: 999px;
+        background: #0b0d14;
+        z-index: 3;
+      }
+      .phone-screen {
+        width: 100%;
+        height: 100%;
+        border-radius: 28px;
+        overflow: hidden;
+        background: #0c2d6b;
+        position: relative;
+      }
+      .phone-screen img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+      .phone-ribbon {
+        position: absolute;
+        top: 46px;
+        left: -26px;
+        background: #ff2449;
+        color: #fff;
+        font-family: "Oswald", sans-serif;
+        font-size: 0.62rem;
+        letter-spacing: 0.16em;
+        padding: 4px 30px;
+        transform: rotate(-38deg);
+        z-index: 2;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+      }
+      .phone-tag {
+        position: absolute;
+        left: 50%;
+        bottom: 20px;
+        transform: translateX(-50%);
+        background: rgba(7, 24, 64, 0.85);
+        border: 1px solid var(--card-border);
+        border-radius: 999px;
+        padding: 0.4rem 1.1rem;
+        font-family: "Oswald", sans-serif;
+        font-size: 0.78rem;
+        letter-spacing: 0.12em;
+        color: var(--gold);
+        white-space: nowrap;
+        z-index: 2;
+        backdrop-filter: blur(4px);
+      }
+
+      /* ===== SECTIONS ===== */
+      section {
+        position: relative;
+        z-index: 1;
+        padding: 5rem 2rem;
+      }
+      .section-title {
+        font-size: clamp(1.8rem, 4vw, 2.8rem);
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        text-align: center;
+        color: var(--gold);
+        text-shadow: 0 2px 12px rgba(255, 217, 61, 0.4);
+        margin-bottom: 0.5rem;
+      }
+      .section-sub {
+        text-align: center;
+        color: var(--tile-grout);
+        margin-bottom: 3rem;
+        font-size: 1rem;
+      }
+
+      /* ===== STEPS ===== */
+      #steps {
+        background:
+          radial-gradient(700px 300px at 50% -10%, rgba(46, 196, 182, 0.1), transparent 55%),
+          linear-gradient(180deg, #071840 0%, #0a2463 100%);
+        border-top: 2px solid rgba(137, 196, 244, 0.18);
+        border-bottom: 2px solid rgba(137, 196, 244, 0.18);
+      }
+      .steps {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+        gap: 1.4rem;
+        max-width: 1180px;
+        margin: 0 auto;
+      }
+      .step-card {
+        position: relative;
+        background: rgba(15, 37, 96, 0.85);
+        border: 3px solid var(--card-border);
+        border-radius: 14px;
+        padding: 2rem 1.5rem 1.8rem;
+        text-align: center;
+        overflow: hidden;
+        transition: transform 0.22s ease, border-color 0.22s ease;
+      }
+      .step-card:hover {
+        transform: translateY(-6px);
+        border-color: rgba(255, 217, 61, 0.5);
+      }
+      .step-num {
+        font-family: "Oswald", sans-serif;
+        font-size: 3rem;
+        color: var(--gold);
+        opacity: 0.3;
+        line-height: 1;
+        margin-bottom: 0.6rem;
+      }
+      .step-ico {
+        width: 58px;
+        height: 58px;
+        margin: 0 auto 0.9rem;
+        border-radius: 14px;
+        background: linear-gradient(160deg, rgba(255, 217, 61, 0.16), rgba(255, 217, 61, 0.04));
+        border: 2px solid rgba(255, 217, 61, 0.35);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .step-ico svg {
+        width: 30px;
+        height: 30px;
+      }
+      .step-title {
+        font-family: "Oswald", sans-serif;
+        font-size: 1.08rem;
+        color: var(--text-light);
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        margin-bottom: 0.5rem;
+      }
+      .step-desc {
+        font-size: 0.85rem;
+        color: var(--tile-grout);
+        line-height: 1.6;
+      }
+      .step-link {
+        display: inline-block;
+        margin-top: 0.9rem;
+        font-family: "Oswald", sans-serif;
+        font-size: 0.78rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--gold);
+        text-decoration: none;
+        border-bottom: 1px dashed rgba(255, 217, 61, 0.5);
+        padding-bottom: 2px;
+      }
+      .step-link:hover {
+        border-bottom-style: solid;
+      }
+
+      /* ===== TESTER GUIDE ===== */
+      #guide {
+        background:
+          radial-gradient(800px 360px at 90% 100%, rgba(168, 85, 247, 0.16), transparent 55%),
+          linear-gradient(180deg, #1248a8 0%, #0a2463 100%);
+        border-top: 2px solid rgba(137, 196, 244, 0.18);
+        border-bottom: 2px solid rgba(137, 196, 244, 0.18);
+      }
+      .guide-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 1.4rem;
+        max-width: 1180px;
+        margin: 0 auto 2.4rem;
+      }
+      .guide-card {
+        background: rgba(15, 37, 96, 0.8);
+        border: 2px solid var(--card-border);
+        border-top: 4px solid var(--teal);
+        border-radius: 12px;
+        padding: 1.6rem 1.4rem;
+      }
+      .guide-card.g2 {
+        border-top-color: var(--pink);
+      }
+      .guide-card.g3 {
+        border-top-color: var(--purple);
+      }
+      .guide-ico {
+        width: 46px;
+        height: 46px;
+        margin-bottom: 0.9rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .guide-ico svg {
+        width: 42px;
+        height: 42px;
+      }
+      .guide-title {
+        font-family: "Oswald", sans-serif;
+        font-size: 1rem;
+        color: var(--gold);
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        margin-bottom: 0.45rem;
+      }
+      .guide-desc {
+        font-size: 0.86rem;
+        color: var(--tile-grout);
+        line-height: 1.6;
+      }
+      .feedback-bar {
+        max-width: 720px;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 1rem;
+        flex-wrap: wrap;
+        background: rgba(7, 24, 64, 0.8);
+        border: 2px solid var(--card-border);
+        border-radius: 14px;
+        padding: 1.2rem 1.6rem;
+        text-align: center;
+      }
+      .feedback-bar .fb-label {
+        font-size: 0.95rem;
+        color: var(--text-light);
+        font-weight: 600;
+      }
+      .email-link {
+        color: var(--gold);
+        font-weight: 700;
+        font-size: 1.05rem;
+        text-decoration: none;
+        border-bottom: 1px solid rgba(255, 217, 61, 0.45);
+      }
+      .email-link:hover {
+        border-bottom-style: solid;
+      }
+
+      /* ===== FAQ ===== */
+      #faq {
+        background: rgba(78, 168, 255, 0.06);
+        border-top: 2px solid rgba(137, 196, 244, 0.18);
+        border-bottom: 2px solid rgba(137, 196, 244, 0.18);
+      }
+      .faq-list {
+        max-width: 760px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        gap: 0.9rem;
+      }
+      .faq-item {
+        background: rgba(15, 37, 96, 0.75);
+        border: 2px solid var(--card-border);
+        border-radius: 12px;
+        overflow: hidden;
+      }
+      .faq-q {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        background: transparent;
+        border: none;
+        color: var(--text-light);
+        font-family: "Oswald", sans-serif;
+        font-size: 1rem;
+        letter-spacing: 0.04em;
+        text-align: left;
+        padding: 1rem 1.3rem;
+        cursor: pointer;
+      }
+      .faq-q::after {
+        content: "+";
+        font-family: "Open Sans", sans-serif;
+        font-size: 1.4rem;
+        color: var(--gold);
+        transition: transform 0.25s;
+        flex-shrink: 0;
+      }
+      .faq-item.is-open .faq-q::after {
+        transform: rotate(45deg);
+      }
+      .faq-a {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease;
+      }
+      .faq-a-inner {
+        padding: 0 1.3rem 1.1rem;
+        color: var(--tile-grout);
+        font-size: 0.9rem;
+        line-height: 1.65;
+      }
+
+      /* ===== FOOTER ===== */
+      footer {
+        position: relative;
+        z-index: 1;
+        padding: 2.5rem 2rem 7rem;
+        text-align: center;
+        border-top: 3px solid var(--dark-wood);
+        background: rgba(7, 24, 64, 0.85);
+      }
+      .footer-inner {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 1.2rem;
+        flex-wrap: wrap;
+      }
+      footer a {
+        color: var(--tile-grout);
+        text-decoration: none;
+        font-size: 0.9rem;
+      }
+      footer a:hover {
+        color: var(--gold);
+      }
+      .footer-meta {
+        margin-top: 0.8rem;
+        font-size: 0.75rem;
+        opacity: 0.75;
+        letter-spacing: 0.04em;
+      }
+
+      /* ===== STICKY CTA ===== */
+      .sticky-cta {
+        position: fixed;
+        left: 50%;
+        transform: translateX(-50%);
+        bottom: 16px;
+        z-index: 200;
+        width: min(560px, calc(100vw - 32px));
+        background: rgba(7, 24, 64, 0.94);
+        border: 2px solid var(--card-border);
+        border-radius: 999px;
+        padding: 0.6rem 0.8rem 0.6rem 1.3rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.8rem;
+        box-shadow: 0 12px 34px rgba(0, 0, 0, 0.5);
+        backdrop-filter: blur(6px);
+      }
+      .sticky-cta .s-label {
+        font-family: "Oswald", sans-serif;
+        font-size: 0.85rem;
+        letter-spacing: 0.08em;
+        color: var(--gold);
+        text-transform: uppercase;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .sticky-cta .s-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.45rem;
+        font-family: "Oswald", sans-serif;
+        font-size: 0.85rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        background: linear-gradient(135deg, #ffd93d 0%, #ffb800 55%, #ffe566 100%);
+        color: var(--dark-wood);
+        padding: 0.55rem 1.3rem;
+        border-radius: 999px;
+        text-decoration: none;
+        box-shadow: 0 4px 16px rgba(255, 217, 61, 0.4);
+        transition: transform 0.15s;
+        flex-shrink: 0;
+      }
+      .sticky-cta .s-btn:hover {
+        transform: translateY(-2px);
+      }
+
+      /* ===== RESPONSIVE ===== */
+      @media (max-width: 900px) {
+        .hero-inner {
+          grid-template-columns: 1fr;
+          text-align: center;
+        }
+        .hero-sub {
+          margin-left: auto;
+          margin-right: auto;
+        }
+        .hero-actions,
+        .hero-hint {
+          justify-content: center;
+        }
+        .hero-badge {
+          margin-left: auto;
+          margin-right: auto;
+        }
+        .phone {
+          margin-top: 2rem;
+        }
+        .nav-links a:not(.lang-btn) {
+          display: none;
+        }
+      }
+      @media (max-width: 520px) {
+        nav {
+          padding: 0.6rem 1rem;
+        }
+        .sticky-cta {
+          border-radius: 18px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="steam-canvas"></canvas>
+
+    <!-- ===== NAV ===== -->
+    <nav>
+      <div class="nav-logo">
+        <img src="https://assets.poozzle.com/icons/Gemer.png" alt="Poozzle Logo" onerror="this.style.display = 'none'" />
+        <span>POOZZLE</span>
+      </div>
+      <div class="nav-links">
+        <a href="#steps" data-i18n="nav_steps">HOW TO JOIN</a>
+        <a href="#guide" data-i18n="nav_guide">TESTER GUIDE</a>
+        <a href="#faq" data-i18n="nav_faq">FAQ</a>
+        <a href="index.html" data-i18n="nav_home">MAIN SITE</a>
+        <div class="lang-toggle">
+          <button class="lang-btn active" onclick="setLang('en')">EN</button>
+          <button class="lang-btn" onclick="setLang('zh')">中文</button>
+        </div>
+      </div>
+    </nav>
+
+    <!-- ===== HERO ===== -->
+    <header id="hero">
+      <div class="hero-inner">
+        <div class="hero-copy">
+          <div class="hero-badge" data-i18n="hero_badge">iOS BETA IS OPEN</div>
+          <h1 class="hero-title" data-i18n="hero_title">JOIN THE <span class="hl">POOZZLE</span> BETA</h1>
+          <p class="hero-sub" data-i18n="hero_sub">Real-time PVP match-3. Duel real players, loot their coins &amp; gems, and fight 10 gimmick bosses. The iOS TestFlight beta is open now — and it is free.</p>
+          <div class="hero-actions">
+            <a href="https://testflight.apple.com/join/VnUWvHFC" class="cta-btn" target="_blank" rel="noopener noreferrer">
+              <span class="tf-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <path d="M9 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm12 0a3 3 0 1 1-6 0 3 3 0 0 1 6 0ZM12 15a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm6 0a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                </svg>
+              </span>
+              <span data-i18n="hero_cta">JOIN ON TESTFLIGHT</span>
+            </a>
+          </div>
+          <div class="hero-hint" data-i18n="hero_hint">Free to join - requires an iPhone or iPad</div>
+          <div style="margin-top: 1.4rem">
+            <a class="hero-alt" href="index.html" data-i18n="hero_alt">Explore the full game site</a>
+          </div>
+        </div>
+
+        <div class="hero-visual">
+          <div class="phone">
+            <div class="phone-screen">
+              <img
+                src="https://assets.poozzle.com/screenshot/Screenshot_2026-07-05-10-49-38-59_167aae7d33d5b33ba250980fefd1f159.jpg"
+                alt="POOZZLE gameplay screenshot"
+                loading="lazy"
+                decoding="async"
+                onerror="this.style.display='none'"
+              />
+              <div class="phone-ribbon" data-i18n="phone_ribbon">POOZZLE BETA</div>
+              <div class="phone-tag" data-i18n="phone_tag">TESTFLIGHT</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- ===== HOW TO JOIN ===== -->
+    <section id="steps">
+      <h2 class="section-title" data-i18n="steps_title">HOW TO JOIN</h2>
+      <p class="section-sub" data-i18n="steps_sub">Four steps from here to your first duel</p>
+      <div class="steps">
+        <article class="step-card">
+          <div class="step-num">01</div>
+          <div class="step-ico">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#ffd93d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M12 2 4 6v6c0 5 3.4 8.4 8 10 4.6-1.6 8-5 8-10V6l-8-4Z" />
+              <path d="m9 12 2 2 4-4" />
+            </svg>
+          </div>
+          <div class="step-title" data-i18n="step1_title">Install TestFlight</div>
+          <p class="step-desc" data-i18n="step1_desc">Download the free TestFlight app from the App Store using your Apple ID.</p>
+          <a class="step-link" href="https://apps.apple.com/app/id899247664" target="_blank" rel="noopener noreferrer" data-i18n="step1_act">Open TestFlight in the App Store</a>
+        </article>
+
+        <article class="step-card">
+          <div class="step-num">02</div>
+          <div class="step-ico">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#ffd93d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M10 13a5 5 0 0 0 7.5 0l2.2-2.2a5 5 0 0 0-7-7l-1.1 1.1" />
+              <path d="m14 11-3.4 3.4a5 5 0 0 1-7-7l1.1-1.1a5 5 0 0 1 7 7L10 13" />
+            </svg>
+          </div>
+          <div class="step-title" data-i18n="step2_title">Tap the Join Link</div>
+          <p class="step-desc" data-i18n="step2_desc">Open the POOZZLE TestFlight invite on your iPhone or iPad, then tap Accept.</p>
+        </article>
+
+        <article class="step-card">
+          <div class="step-num">03</div>
+          <div class="step-ico">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#ffd93d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+              <path d="m7 10 5 5 5-5" />
+              <path d="M12 15V3" />
+            </svg>
+          </div>
+          <div class="step-title" data-i18n="step3_title">Install the Beta</div>
+          <p class="step-desc" data-i18n="step3_desc">TestFlight downloads the latest POOZZLE build straight onto your device. Updates arrive automatically.</p>
+        </article>
+
+        <article class="step-card">
+          <div class="step-num">04</div>
+          <div class="step-ico">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#ffd93d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M12 3v3m0 12v3m9-9h-3M6 12H3m13.4-6.4-2.1 2.1M7.7 16.3l-2.1 2.1m11.8 0-2.1-2.1M7.7 7.7l-2.1-2.1" />
+              <circle cx="12" cy="12" r="3.5" />
+            </svg>
+          </div>
+          <div class="step-title" data-i18n="step4_title">Play &amp; Report</div>
+          <p class="step-desc" data-i18n="step4_desc">Play through levels, test PVP, and send us everything you find. Your feedback shapes launch.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- ===== TESTER GUIDE ===== -->
+    <section id="guide">
+      <h2 class="section-title" data-i18n="guide_title">WHAT WE NEED FROM TESTERS</h2>
+      <p class="section-sub" data-i18n="guide_sub">You are the first line of quality control. Here is what helps most.</p>
+      <div class="guide-grid">
+        <article class="guide-card">
+          <div class="guide-ico">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#5ecf8d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="3" y="5" width="18" height="14" rx="3" />
+              <path d="m8 12 2.5 2.5L16 9.5" />
+            </svg>
+          </div>
+          <div class="guide-title" data-i18n="guide1_title">Play the new stuff</div>
+          <p class="guide-desc" data-i18n="guide1_desc">PVP duels, the 10 bosses and every blocker - try the features that just landed in the build.</p>
+        </article>
+        <article class="guide-card g2">
+          <div class="guide-ico">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#ff6eb4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M14.5 4.5 19.5 9.5" />
+              <path d="m19.5 4.5-8 8 3 3 8-8a2 2 0 0 0-3-3Z" />
+              <path d="m5.5 18.5-2 2" />
+              <path d="M9.5 9.5 6 13a2 2 0 0 0 3 3l3.5-3.5" />
+            </svg>
+          </div>
+          <div class="guide-title" data-i18n="guide2_title">Report bugs clearly</div>
+          <p class="guide-desc" data-i18n="guide2_desc">Tell us your device model, iOS version, what you did, and what happened. Screenshots or recordings are gold.</p>
+        </article>
+        <article class="guide-card g3">
+          <div class="guide-ico">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#a855f7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M21 11.5a8.4 8.4 0 0 1-8.5 8.5c-2.4 0-4.3-.6-5.7-1.6L3 19l.6-3.8C2.6 13.8 2 12 2 9.5A8.4 8.4 0 0 1 10.5 1 8.4 8.4 0 0 1 21 11.5Z" />
+              <path d="M8 11h.01M12 11h.01M16 11h.01" />
+            </svg>
+          </div>
+          <div class="guide-title" data-i18n="guide3_title">Share your feel</div>
+          <p class="guide-desc" data-i18n="guide3_desc">Tuning feels off? UI confusing? Send your opinion - it decides how the launch build plays.</p>
+        </article>
+      </div>
+
+      <div class="feedback-bar">
+        <span class="fb-label" data-i18n="guide_email">Send feedback to</span>
+        <a class="email-link" href="mailto:onebelief@gmail.com">onebelief@gmail.com</a>
+      </div>
+    </section>
+
+    <!-- ===== FAQ ===== -->
+    <section id="faq">
+      <h2 class="section-title" data-i18n="faq_title">FAQ</h2>
+      <p class="section-sub" data-i18n="faq_sub">Everything testers usually ask</p>
+      <div class="faq-list">
+        <div class="faq-item">
+          <button class="faq-q" type="button" data-i18n="faq1_q">What is TestFlight?</button>
+          <div class="faq-a"><div class="faq-a-inner" data-i18n="faq1_a">TestFlight is Apple's official app for beta testing. It installs and updates pre-release builds of POOZZLE on your iPhone or iPad, and lets you send feedback straight to the team.</div></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" type="button" data-i18n="faq2_q">What do I need to join?</button>
+          <div class="faq-a"><div class="faq-a-inner" data-i18n="faq2_a">An iPhone or iPad, an Apple ID, and the free TestFlight app. No purchase is needed.</div></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" type="button" data-i18n="faq3_q">Is the beta free?</button>
+          <div class="faq-a"><div class="faq-a-inner" data-i18n="faq3_a">Yes. The beta build and TestFlight itself are completely free. There are no in-app purchases in the beta.</div></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" type="button" data-i18n="faq4_q">Will my progress carry over to the App Store release?</button>
+          <div class="faq-a"><div class="faq-a-inner" data-i18n="faq4_a">Beta saves are wiped before release, so treat the beta as a preview of what is coming.</div></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" type="button" data-i18n="faq5_q">What if the beta is full?</button>
+          <div class="faq-a"><div class="faq-a-inner" data-i18n="faq5_a">TestFlight slots are limited and rotate. Check back later, or email us to be considered for the next wave.</div></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" type="button" data-i18n="faq6_q">Where do I report bugs?</button>
+          <div class="faq-a"><div class="faq-a-inner" data-i18n="faq6_a">Email onebelief@gmail.com with your device model and iOS version, plus what happened. Screenshots and videos help a lot.</div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer>
+      <div class="footer-inner">
+        <span style="color: var(--gold); font-family: 'Oswald', sans-serif; font-size: 1.05rem; letter-spacing: 0.1em">POOZZLE</span>
+        <a href="index.html" data-i18n="nav_home">MAIN SITE</a>
+        <a href="privacy.html" target="_blank" rel="noopener noreferrer" data-i18n="footer_privacy">Privacy Policy</a>
+        <a href="support.html" target="_blank" rel="noopener noreferrer" data-i18n="footer_contact">Contact</a>
+      </div>
+      <div class="footer-meta" data-i18n="footer_signature">&copy; 2026 Casualer Games. All rights reserved.</div>
+    </footer>
+
+    <!-- ===== STICKY CTA ===== -->
+    <div class="sticky-cta">
+      <span class="s-label" data-i18n="sticky_label">POOZZLE beta is live</span>
+      <a href="https://testflight.apple.com/join/VnUWvHFC" class="s-btn" target="_blank" rel="noopener noreferrer" data-i18n="sticky_btn">JOIN ON TESTFLIGHT</a>
+    </div>
+
+    <script>
+      /* ===== i18n ===== */
+      const i18n = {
+        en: {
+          nav_steps: "HOW TO JOIN",
+          nav_guide: "TESTER GUIDE",
+          nav_faq: "FAQ",
+          nav_home: "MAIN SITE",
+          hero_badge: "iOS BETA IS OPEN",
+          hero_title: 'JOIN THE <span class="hl">POOZZLE</span> BETA',
+          hero_sub: "Real-time PVP match-3. Duel real players, loot their coins & gems, and fight 10 gimmick bosses. The iOS TestFlight beta is open now — and it is free.",
+          hero_cta: "JOIN ON TESTFLIGHT",
+          hero_hint: "Free to join - requires an iPhone or iPad",
+          hero_alt: "Explore the full game site",
+          phone_ribbon: "POOZZLE BETA",
+          phone_tag: "TESTFLIGHT",
+          steps_title: "HOW TO JOIN",
+          steps_sub: "Four steps from here to your first duel",
+          step1_title: "Install TestFlight",
+          step1_desc: "Download the free TestFlight app from the App Store using your Apple ID.",
+          step1_act: "Open TestFlight in the App Store",
+          step2_title: "Tap the Join Link",
+          step2_desc: "Open the POOZZLE TestFlight invite on your iPhone or iPad, then tap Accept.",
+          step3_title: "Install the Beta",
+          step3_desc: "TestFlight downloads the latest POOZZLE build straight onto your device. Updates arrive automatically.",
+          step4_title: "Play & Report",
+          step4_desc: "Play through levels, test PVP, and send us everything you find. Your feedback shapes launch.",
+          guide_title: "WHAT WE NEED FROM TESTERS",
+          guide_sub: "You are the first line of quality control. Here is what helps most.",
+          guide1_title: "Play the new stuff",
+          guide1_desc: "PVP duels, the 10 bosses and every blocker - try the features that just landed in the build.",
+          guide2_title: "Report bugs clearly",
+          guide2_desc: "Tell us your device model, iOS version, what you did, and what happened. Screenshots or recordings are gold.",
+          guide3_title: "Share your feel",
+          guide3_desc: "Tuning feels off? UI confusing? Send your opinion - it decides how the launch build plays.",
+          guide_email: "Send feedback to",
+          faq_title: "FAQ",
+          faq_sub: "Everything testers usually ask",
+          faq1_q: "What is TestFlight?",
+          faq1_a: "TestFlight is Apple's official app for beta testing. It installs and updates pre-release builds of POOZZLE on your iPhone or iPad, and lets you send feedback straight to the team.",
+          faq2_q: "What do I need to join?",
+          faq2_a: "An iPhone or iPad, an Apple ID, and the free TestFlight app. No purchase is needed.",
+          faq3_q: "Is the beta free?",
+          faq3_a: "Yes. The beta build and TestFlight itself are completely free. There are no in-app purchases in the beta.",
+          faq4_q: "Will my progress carry over to the App Store release?",
+          faq4_a: "Beta saves are wiped before release, so treat the beta as a preview of what is coming.",
+          faq5_q: "What if the beta is full?",
+          faq5_a: "TestFlight slots are limited and rotate. Check back later, or email us to be considered for the next wave.",
+          faq6_q: "Where do I report bugs?",
+          faq6_a: "Email onebelief@gmail.com with your device model and iOS version, plus what happened. Screenshots and videos help a lot.",
+          sticky_label: "POOZZLE beta is live",
+          sticky_btn: "JOIN ON TESTFLIGHT",
+          footer_privacy: "Privacy Policy",
+          footer_contact: "Contact",
+          footer_signature: "© 2026 Casualer Games. All rights reserved.",
+        },
+        zh: {
+          nav_steps: "如何加入",
+          nav_guide: "测试指南",
+          nav_faq: "常见问题",
+          nav_home: "官网主页",
+          hero_badge: "iOS 测试现已开放",
+          hero_title: '加入 <span class="hl">POOZZLE</span> 测试',
+          hero_sub: "真人实时对战三消。与真实玩家对战、掠夺金币钻石、挑战 10 个奇葩 Boss。iOS TestFlight 测试现已开放，完全免费。",
+          hero_cta: "立即加入 TestFlight",
+          hero_hint: "免费加入 - 需要一台 iPhone 或 iPad",
+          hero_alt: "前往游戏官网主页",
+          phone_ribbon: "POOZZLE 测试版",
+          phone_tag: "TESTFLIGHT",
+          steps_title: "如何加入",
+          steps_sub: "四步，从此刻到你的第一场对战",
+          step1_title: "安装 TestFlight",
+          step1_desc: "使用你的 Apple ID 在 App Store 下载免费的 TestFlight 应用。",
+          step1_act: "在 App Store 打开 TestFlight",
+          step2_title: "点击加入链接",
+          step2_desc: "在 iPhone 或 iPad 上打开 POOZZLE 测试邀请，点击“接受”。",
+          step3_title: "安装测试版",
+          step3_desc: "TestFlight 会把最新版 POOZZLE 测试包直接安装到你的设备，后续更新自动推送。",
+          step4_title: "游玩并反馈",
+          step4_desc: "闯关、体验 PVP、把发现的任何问题告诉我们。你的反馈决定正式版。",
+          guide_title: "测试员需要做什么",
+          guide_sub: "你是第一道质量把关人，下面这些信息最有价值。",
+          guide1_title: "优先试玩新内容",
+          guide1_desc: "PVP 对战、10 个 Boss 和所有障碍——优先体验测试包里最新加入的功能。",
+          guide2_title: "清晰报告 Bug",
+          guide2_desc: "告诉我们设备型号、iOS 版本、你做了什么、发生了什么。截图或录屏尤其宝贵。",
+          guide3_title: "说出你的手感",
+          guide3_desc: "数值别扭？界面困惑？说出你的感受，它决定正式版的最终手感。",
+          guide_email: "反馈请发送至",
+          faq_title: "常见问题",
+          faq_sub: "测试员常问的问题",
+          faq1_q: "什么是 TestFlight？",
+          faq1_a: "TestFlight 是苹果官方的测试应用。它会在你的 iPhone 或 iPad 上安装并更新 POOZZLE 的测试版本，让你可以直接把反馈发给开发团队。",
+          faq2_q: "加入需要什么条件？",
+          faq2_a: "一台 iPhone 或 iPad、一个 Apple ID，以及免费的 TestFlight 应用。无需任何付费。",
+          faq3_q: "测试版免费吗？",
+          faq3_a: "免费。测试包和 TestFlight 本身完全免费，测试版内也没有内购。",
+          faq4_q: "测试进度会保留到正式版吗？",
+          faq4_a: "正式上线前测试存档会被清空，请把测试版当作先行预览。",
+          faq5_q: "测试名额满了怎么办？",
+          faq5_a: "TestFlight 名额有限且会轮换。请稍后再来，或邮件联系我们争取下一批名额。",
+          faq6_q: "在哪里反馈 Bug？",
+          faq6_a: "邮件 onebelief@gmail.com，附上设备型号和 iOS 版本，并说明发生了什么。截图和录屏会很有帮助。",
+          sticky_label: "POOZZLE 测试进行中",
+          sticky_btn: "立即加入 TestFlight",
+          footer_privacy: "隐私政策",
+          footer_contact: "联系我们",
+          footer_signature: "© 2026 Casualer Games. 保留所有权利。",
+        },
+      };
+
+      const LANG_STORAGE_KEY = "poozzle_lang";
+
+      function normalizeLang(lang) {
+        if (!lang) return "en";
+        return String(lang).toLowerCase().startsWith("zh") ? "zh" : "en";
+      }
+
+      function resolveInitialLang() {
+        let savedLang = null;
+        try {
+          savedLang = normalizeLang(localStorage.getItem(LANG_STORAGE_KEY));
+        } catch (e) {}
+        if (savedLang === "en" || savedLang === "zh") return savedLang;
+        const browserLang = (navigator.languages && navigator.languages[0]) || navigator.language || "en";
+        return normalizeLang(browserLang);
+      }
+
+      let currentLang = "en";
+
+      function setLang(lang, { persist = true } = {}) {
+        const safeLang = normalizeLang(lang);
+        currentLang = safeLang;
+
+        if (persist) {
+          try {
+            localStorage.setItem(LANG_STORAGE_KEY, safeLang);
+          } catch (e) {}
+        }
+
+        document.querySelectorAll("[data-i18n]").forEach((el) => {
+          const key = el.getAttribute("data-i18n");
+          if (i18n[safeLang][key] !== undefined) {
+            el.innerHTML = i18n[safeLang][key];
+          }
+        });
+
+        document.querySelectorAll(".lang-btn").forEach((btn) => {
+          btn.classList.toggle("active", btn.textContent.trim().toLowerCase() === safeLang || (safeLang === "zh" && btn.textContent.trim() === "中文"));
+        });
+
+        document.documentElement.lang = safeLang;
+      }
+
+      setLang(resolveInitialLang(), { persist: false });
+
+      /* ===== FAQ ACCORDION ===== */
+      document.querySelectorAll(".faq-item").forEach((item) => {
+        const q = item.querySelector(".faq-q");
+        const a = item.querySelector(".faq-a");
+        q.addEventListener("click", () => {
+          const isOpen = item.classList.toggle("is-open");
+          a.style.maxHeight = isOpen ? a.scrollHeight + "px" : "0px";
+        });
+      });
+
+      /* ===== STEAM PARTICLES ===== */
+      function initSteam() {
+        const canvas = document.getElementById("steam-canvas");
+        if (!canvas) return;
+        const ctx = canvas.getContext("2d");
+        let W, H;
+        const particles = [];
+
+        function resize() {
+          W = canvas.width = window.innerWidth;
+          H = canvas.height = window.innerHeight;
+        }
+        resize();
+        window.addEventListener("resize", resize);
+
+        class Particle {
+          constructor() {
+            this.reset();
+          }
+          reset() {
+            this.x = Math.random() * W;
+            this.y = H + 20 + Math.random() * 80;
+            this.vx = (Math.random() - 0.5) * 0.6;
+            this.vy = -(0.25 + Math.random() * 0.65);
+            this.r = 3 + Math.random() * 14;
+            this.alpha = 0;
+            this.maxAlpha = 0.1 + Math.random() * 0.2;
+            this.life = 0;
+            this.maxLife = 180 + Math.random() * 280;
+            this.bubble = Math.random() > 0.35;
+          }
+          update() {
+            this.life++;
+            this.x += this.vx;
+            this.y += this.vy;
+            this.r += 0.05;
+            const t = this.life / this.maxLife;
+            this.alpha = t < 0.3 ? (t / 0.3) * this.maxAlpha : (1 - (t - 0.3) / 0.7) * this.maxAlpha;
+            if (this.life >= this.maxLife || this.y < -50) this.reset();
+          }
+          draw() {
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+            if (this.bubble) {
+              ctx.fillStyle = `rgba(135,206,250,${this.alpha})`;
+              ctx.fill();
+              ctx.strokeStyle = `rgba(255,255,255,${this.alpha * 0.7})`;
+              ctx.lineWidth = 1.5;
+              ctx.stroke();
+            } else {
+              ctx.fillStyle = `rgba(255,217,61,${this.alpha * 0.85})`;
+              ctx.fill();
+            }
+          }
+        }
+
+        for (let i = 0; i < 50; i++) {
+          const p = new Particle();
+          p.life = Math.random() * p.maxLife;
+          particles.push(p);
+        }
+
+        function loop() {
+          ctx.clearRect(0, 0, W, H);
+          particles.forEach((p) => {
+            p.update();
+            p.draw();
+          });
+          requestAnimationFrame(loop);
+        }
+        loop();
+      }
+
+      initSteam();
+    </script>
+  </body>
+</html>
