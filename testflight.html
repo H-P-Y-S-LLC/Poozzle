@@ -83,6 +83,43 @@
         pointer-events: none;
       }
 
+      /* ===== BACK BUTTON ===== */
+      .back-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        padding: 0.45rem 0.9rem;
+        border: 1px solid var(--tile-grout);
+        border-radius: 999px;
+        background: rgba(7, 24, 64, 0.92);
+        color: var(--text-light);
+        text-decoration: none;
+        font-family: "Oswald", sans-serif;
+        font-size: 0.85rem;
+        letter-spacing: 0.05em;
+        white-space: nowrap;
+        transition: all 0.2s;
+      }
+      .back-btn:hover {
+        color: var(--gold);
+        border-color: var(--gold);
+      }
+      .back-btn svg {
+        width: 16px;
+        height: 16px;
+        fill: none;
+        stroke: currentColor;
+        stroke-width: 2.5;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+      @media (max-width: 768px) {
+        .back-btn {
+          padding: 0.35rem 0.7rem;
+          font-size: 0.75rem;
+        }
+      }
+
       /* ===== NAV ===== */
       nav {
         position: fixed;
@@ -698,9 +735,15 @@
 
     <!-- ===== NAV ===== -->
     <nav>
-      <div class="nav-logo">
-        <img src="https://assets.poozzle.com/icons/Gemer.png" alt="Poozzle Logo" onerror="this.style.display = 'none'" />
-        <span>POOZZLE</span>
+      <div style="display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;">
+        <a href="index.html" class="back-btn">
+          <svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6" /></svg>
+          <span data-i18n="back_btn_text">BACK TO SITE</span>
+        </a>
+        <div class="nav-logo">
+          <img src="https://assets.poozzle.com/icons/Gemer.png" alt="Poozzle Logo" onerror="this.style.display = 'none'" />
+          <span>POOZZLE</span>
+        </div>
       </div>
       <div class="nav-links">
         <a href="#steps" data-i18n="nav_steps">HOW TO JOIN</a>
@@ -914,6 +957,7 @@
           nav_guide: "TESTER GUIDE",
           nav_faq: "FAQ",
           nav_home: "MAIN SITE",
+          back_btn_text: "BACK TO SITE",
           hero_badge: "iOS BETA IS OPEN",
           hero_title: 'JOIN THE <span class="hl">POOZZLE</span> BETA',
           hero_sub: "Real-time PVP match-3. Duel real players, loot their coins & gems, and fight 10 gimmick bosses. The iOS TestFlight beta is open now — and it is free.",
@@ -967,6 +1011,7 @@
           nav_guide: "测试指南",
           nav_faq: "常见问题",
           nav_home: "官网主页",
+          back_btn_text: "返回官网",
           hero_badge: "iOS 测试现已开放",
           hero_title: '加入 <span class="hl">POOZZLE</span> 测试',
           hero_sub: "真人实时对战三消。与真实玩家对战、掠夺金币钻石、挑战 10 个奇葩 Boss。iOS TestFlight 测试现已开放，完全免费。",
