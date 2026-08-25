@@ -1,6 +1,6 @@
 # PoozzleWeb
 
-Official website for **MatchFace (表情消消乐)**, a match-3 emoji puzzle game by QZQ Studio / Casualer Games.
+Official website for **MatchFace (变脸大作战)**, a match-3 puzzle game by QZQ Studio.
 
 ## Stack
 
