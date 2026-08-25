@@ -1,6 +1,6 @@
 # PoozzleWeb
 
-Official website for **Poozzle**, a match-3 bathroom puzzle game by QZQ Studio / Casualer Games.
+Official website for **MatchFace (表情消消乐)**, a match-3 emoji puzzle game by QZQ Studio / Casualer Games.
 
 ## Stack
 
@@ -23,7 +23,7 @@ No server required — open any `.html` file directly. The playable demo runs cl
 
 ## i18n
 
-Inline in `index.html` as a single `i18n` object with `en` / `zh` keys. Language is persisted to `localStorage` under `poozzle_lang`.
+Inline in `index.html` as a single `i18n` object with `en` / `zh` keys. Language is persisted to `localStorage` under `matchface_lang`.
 
 ## Related
 

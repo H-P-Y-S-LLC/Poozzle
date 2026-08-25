@@ -216,7 +216,7 @@
     }
 
     bindLangSync() {
-      window.addEventListener("poozzle:lang-change", (event) => {
+      window.addEventListener("matchface:lang-change", (event) => {
         this.setLanguage(event?.detail?.lang);
       });
       this.setLanguage(document.documentElement.lang || navigator.language || "en");
