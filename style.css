@@ -1588,13 +1588,140 @@ section {
 #pvp .section-sub {
   text-align: center;
 }
-.pvp-layout {
+.pvp-modes {
   display: grid;
-  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
-  gap: 2.4rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 2rem;
   max-width: 1180px;
   margin: 0 auto;
-  align-items: center;
+  align-items: stretch;
+}
+.pvp-mode {
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(180deg, rgba(7, 24, 64, 0.9) 0%, rgba(12, 45, 107, 0.88) 100%);
+  border: 3px solid var(--card-border);
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 14px 38px rgba(7, 24, 64, 0.5);
+  transition: transform 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease;
+}
+.pvp-mode:hover {
+  transform: translateY(-6px);
+  border-color: rgba(255, 217, 61, 0.5);
+  box-shadow: 0 20px 46px rgba(7, 24, 64, 0.6);
+}
+.pvp-mode-media {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  background: rgba(0, 0, 0, 0.25);
+  overflow: hidden;
+}
+.pvp-mode-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+.pvp-mode-badge {
+  position: absolute;
+  top: 0.9rem;
+  left: 0.9rem;
+  font-family: "Oswald", sans-serif;
+  font-weight: 700;
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 0.3rem 0.85rem;
+  border-radius: 999px;
+  color: #0d0d1a;
+  background: linear-gradient(135deg, #ffd93d, #ffb800);
+  box-shadow: 0 6px 18px rgba(255, 217, 61, 0.4);
+}
+.pvp-mode-badge-score {
+  background: linear-gradient(135deg, #2ec4b6, #1aa79a);
+  color: #04221f;
+  box-shadow: 0 6px 18px rgba(46, 196, 182, 0.4);
+}
+.pvp-mode-body {
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem 1.5rem 1.7rem;
+  flex: 1 1 auto;
+}
+.pvp-mode-name {
+  font-family: "Oswald", sans-serif;
+  font-size: 1.4rem;
+  color: var(--gold);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin-bottom: 0.6rem;
+}
+.pvp-mode-lead {
+  font-family: "Oswald", sans-serif;
+  font-size: 1rem;
+  color: var(--text-light);
+  letter-spacing: 0.02em;
+  margin-bottom: 0.9rem;
+  line-height: 1.4;
+}
+.pvp-mode-text {
+  color: var(--tile-grout);
+  margin-bottom: 1.1rem;
+  line-height: 1.6;
+}
+.pvp-mode-text strong {
+  color: var(--gold);
+}
+.pvp-duel-points {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  margin: 0 0 1.3rem;
+  padding: 0;
+}
+.pvp-duel-points li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.7rem;
+  font-size: 0.86rem;
+  color: var(--tile-grout);
+  line-height: 1.5;
+}
+.pvp-point-ico {
+  flex-shrink: 0;
+  font-size: 1.05rem;
+  line-height: 1.4;
+}
+.pvp-mode-cta {
+  margin-top: auto;
+  align-self: flex-start;
+  display: inline-block;
+  font-family: "Oswald", sans-serif;
+  font-weight: 700;
+  font-size: 0.86rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: #0d0d1a;
+  background: linear-gradient(135deg, #ffd93d, #ffb800);
+  padding: 0.6rem 1.3rem;
+  border-radius: 999px;
+  box-shadow: 0 8px 22px rgba(255, 217, 61, 0.35);
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+.pvp-mode-cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(255, 217, 61, 0.5);
+}
+.pvp-mode-cta-score {
+  background: linear-gradient(135deg, #2ec4b6, #1aa79a);
+  box-shadow: 0 8px 22px rgba(46, 196, 182, 0.35);
+}
+.pvp-mode-cta-score:hover {
+  box-shadow: 0 12px 28px rgba(46, 196, 182, 0.5);
 }
 .pvp-lead {
   font-family: "Oswald", sans-serif;
@@ -1806,6 +1933,10 @@ section {
   font-weight: 700;
   z-index: 2;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+.mode-pvp-score::before {
+  content: "NEW 1.0.2";
+  background: linear-gradient(135deg, #2ec4b6, #1aa79a);
 }
 .mode-icon {
   font-size: 2.6rem;
@@ -3061,9 +3192,12 @@ button,
     grid-template-columns: 1fr;
     width: min(360px, 100%);
   }
-  .pvp-layout {
+  .pvp-modes {
     grid-template-columns: 1fr;
     gap: 1.6rem;
+  }
+  .pvp-mode-name {
+    font-size: 1.2rem;
   }
   .pvp-skills {
     gap: 0.7rem;

@@ -3,8 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>MATCHFACE 表情消消乐 – Real-Time PVP Match-3: Duel, Loot &amp; Customize</title>
-    <meta name="description" content="MATCHFACE 表情消消乐 — Real-time PVP match-3 with emoji faces. Duel players, loot coins &amp; gems, and fight bug bosses. Free." />
+    <title>MATCHFACE 表情消消乐 – Two PVP Modes: Real-Time Duel, Match Duel &amp; Customize</title>
+    <meta name="description" content="MATCHFACE 表情消消乐 — Two real-player PVP modes: Real-Time HP Duels and turn-based Match Duel. Loot coins &amp; gems, and fight bug bosses. Free." />
     <meta name="deploy" content="2026-08-25" />
     <link rel="icon" href="https://assets.poozzle.com/icons/poozzle.ico" type="image/x-icon" />
     <link rel="apple-touch-icon" href="https://assets.poozzle.com/icons/Gemer.png" />
@@ -94,9 +94,9 @@
           </div>
 
           <p class="tagline" id="tagline-el">
-            <span data-i18n="hero_title_1">REAL-TIME PVP DUELS. LOOT THEIR COINS &amp; GEMS.</span>
+            <span data-i18n="hero_title_1">TWO PVP MODES. REAL-TIME DUELS &amp; MATCH DUELS. LOOT COINS &amp; GEMS.</span>
           </p>
-          <p class="hero-sub" id="hero-sub-el" data-i18n="hero_sub_1">Custom elements. Boss battles. Four classic modes. Free.</p>
+          <p class="hero-sub" id="hero-sub-el" data-i18n="hero_sub_1">Emoji match-3 with two real-player PVP modes, custom faces, bug bosses. Free.</p>
 
           <div class="badges" id="badges-el">
             <!-- Apple Badge -->
@@ -200,68 +200,80 @@
     <!-- ===== PVP DUEL ===== -->
     <section id="pvp">
       <div class="pvp-badge">
-        <span data-i18n="pvp_badge">⚔️ NEW IN 1.0.1</span>
+        <span data-i18n="pvp_badge">⚔️ TWO PVP MODES · NEW IN 1.0.2</span>
       </div>
-      <h2 class="section-title" data-i18n="pvp_title">REAL-TIME PVP DUEL</h2>
-      <p class="section-sub" data-i18n="pvp_sub">Match a real player online, or send your room code and invite a friend. Fight them like a boss.</p>
+      <h2 class="section-title" data-i18n="pvp_title">TWO WAYS TO DUEL</h2>
+      <p class="section-sub" data-i18n="pvp_sub">Real-time HP duels and turn-based score battles — both put you head-to-head with a real rival and loot their coins &amp; gems.</p>
 
-      <div class="pvp-layout">
-        <div class="pvp-copy">
-          <p class="pvp-lead" data-i18n="pvp_lead">Your rival stands right below your board. Whoever drains the other's HP bar first wins the round.</p>
-          <p class="pvp-body" data-i18n="pvp_body">Charge <strong>mana</strong> as you match, then unleash skills straight onto their board:</p>
-          <ul class="pvp-skills">
-            <li>
-              <span class="pvp-skill-icon"><img src="https://assets.poozzle.com/resources/freeze_random_5.png" alt="Random Freeze" /></span>
-              <div>
-                <div class="pvp-skill-name" data-i18n="pvp_skill1_name">Random Freeze</div>
-                <p class="pvp-skill-desc" data-i18n="pvp_skill1_desc">Freeze 5 random tiles on your rival's board — specials included — for 3 turns.</p>
-                <div class="pvp-skill-cost" data-i18n="pvp_skill1_cost">80 mana</div>
-              </div>
-            </li>
-            <li>
-              <span class="pvp-skill-icon"><img src="https://assets.poozzle.com/resources/convert_random_blocker_3_4.png" alt="Random Blockers" /></span>
-              <div>
-                <div class="pvp-skill-name" data-i18n="pvp_skill2_name">Random Blockers</div>
-                <p class="pvp-skill-desc" data-i18n="pvp_skill2_desc">Convert 1–3 normal tiles into blockers from the PvP obstacle pool.</p>
-                <div class="pvp-skill-cost" data-i18n="pvp_skill2_cost">99 mana</div>
-              </div>
-            </li>
-            <li>
-              <span class="pvp-skill-icon">🔄</span>
-              <div>
-                <div class="pvp-skill-name" data-i18n="pvp_skill3_name">Weakness Shift</div>
-                <p class="pvp-skill-desc" data-i18n="pvp_skill3_desc">Immediately reroll your rival's weakness color and throw their plan off.</p>
-                <div class="pvp-skill-cost" data-i18n="pvp_skill3_cost">15 mana</div>
-              </div>
-            </li>
-            <li>
-              <span class="pvp-skill-icon">🌀</span>
-              <div>
-                <div class="pvp-skill-name" data-i18n="pvp_skill4_name">Rolling Impact</div>
-                <p class="pvp-skill-desc" data-i18n="pvp_skill4_desc">Clear all specials and reshuffle their board in one hit.</p>
-                <div class="pvp-skill-cost" data-i18n="pvp_skill4_cost">80 mana</div>
-              </div>
-            </li>
-          </ul>
-          <p class="pvp-loot" data-i18n="pvp_loot">Win and you don't just take the rewards — <strong>loot their coins &amp; gems</strong> straight from their pocket.</p>
-        </div>
-
-        <div class="pvp-panel">
-          <div class="duel-frame">
-            <div class="duel-avatar">
-              <img src="https://assets.poozzle.com/icons/Gemer.png" alt="You" onerror="this.style.display='none'" />
-              <span class="duel-label" data-i18n="duel_you">YOU</span>
-              <div class="duel-hp"><div class="duel-hp-fill" style="width: 100%"></div></div>
-            </div>
-            <div class="duel-vs">VS</div>
-            <div class="duel-avatar">
-              <img src="https://assets.poozzle.com/resources/PvPBossFace.png" alt="Rival" onerror="this.style.display='none'" />
-              <span class="duel-label" data-i18n="duel_rival">RIVAL</span>
-              <div class="duel-hp"><div class="duel-hp-fill duel-hp-rival" style="width: 64%"></div></div>
-            </div>
+      <div class="pvp-modes">
+        <!-- Real-Time PVP -->
+        <article class="pvp-mode">
+          <div class="pvp-mode-media">
+            <img src="https://assets.poozzle.com/resources/pvp_hp_ai.png" alt="Real-Time PVP Duel" loading="lazy" decoding="async" onerror="this.style.display='none'" />
+            <span class="pvp-mode-badge" data-i18n="pvp_rt_tag">REAL-TIME</span>
           </div>
-          <div class="duel-caption" data-i18n="duel_caption">Every match charges your mana. Skills land on their board.</div>
-        </div>
+          <div class="pvp-mode-body">
+            <h3 class="pvp-mode-name" data-i18n="pvp_rt_name">Real-Time PVP Duel</h3>
+            <p class="pvp-mode-lead" data-i18n="pvp_rt_lead">Your rival stands right below your board. Whoever drains the other's HP bar first wins the round.</p>
+            <p class="pvp-mode-text" data-i18n="pvp_rt_body">Charge <strong>mana</strong> as you match, then unleash skills straight onto their board:</p>
+            <ul class="pvp-skills">
+              <li>
+                <span class="pvp-skill-icon"><img src="https://assets.poozzle.com/resources/freeze_random_5.png" alt="Random Freeze" /></span>
+                <div>
+                  <div class="pvp-skill-name" data-i18n="pvp_skill1_name">Random Freeze</div>
+                  <p class="pvp-skill-desc" data-i18n="pvp_skill1_desc">Freeze 5 random tiles on your rival's board — specials included — for 3 turns.</p>
+                  <div class="pvp-skill-cost" data-i18n="pvp_skill1_cost">80 mana</div>
+                </div>
+              </li>
+              <li>
+                <span class="pvp-skill-icon"><img src="https://assets.poozzle.com/resources/convert_random_blocker_3_4.png" alt="Random Blockers" /></span>
+                <div>
+                  <div class="pvp-skill-name" data-i18n="pvp_skill2_name">Random Blockers</div>
+                  <p class="pvp-skill-desc" data-i18n="pvp_skill2_desc">Convert 1–3 normal tiles into blockers from the PvP obstacle pool.</p>
+                  <div class="pvp-skill-cost" data-i18n="pvp_skill2_cost">99 mana</div>
+                </div>
+              </li>
+              <li>
+                <span class="pvp-skill-icon">🔄</span>
+                <div>
+                  <div class="pvp-skill-name" data-i18n="pvp_skill3_name">Weakness Shift</div>
+                  <p class="pvp-skill-desc" data-i18n="pvp_skill3_desc">Immediately reroll your rival's weakness color and throw their plan off.</p>
+                  <div class="pvp-skill-cost" data-i18n="pvp_skill3_cost">15 mana</div>
+                </div>
+              </li>
+              <li>
+                <span class="pvp-skill-icon">🌀</span>
+                <div>
+                  <div class="pvp-skill-name" data-i18n="pvp_skill4_name">Rolling Impact</div>
+                  <p class="pvp-skill-desc" data-i18n="pvp_skill4_desc">Clear all specials and reshuffle their board in one hit.</p>
+                  <div class="pvp-skill-cost" data-i18n="pvp_skill4_cost">80 mana</div>
+                </div>
+              </li>
+            </ul>
+            <p class="pvp-loot" data-i18n="pvp_loot">Win and you don't just take the rewards — <strong>loot their coins &amp; gems</strong> straight from their pocket.</p>
+            <a class="pvp-mode-cta" href="testflight.html" data-i18n="pvp_cta">PLAY REAL-TIME PVP →</a>
+          </div>
+        </article>
+
+        <!-- Match Duel -->
+        <article class="pvp-mode">
+          <div class="pvp-mode-media">
+            <img src="https://assets.poozzle.com/resources/pvp_score_ai.png" alt="Match Duel" loading="lazy" decoding="async" onerror="this.style.display='none'" />
+            <span class="pvp-mode-badge pvp-mode-badge-score" data-i18n="pvp_md_tag">TURN-BASED</span>
+          </div>
+          <div class="pvp-mode-body">
+            <h3 class="pvp-mode-name" data-i18n="pvp_md_name">Match Duel</h3>
+            <p class="pvp-mode-lead" data-i18n="pvp_md_lead">One shared board, take turns. After 5 rounds, the higher score wins — no HP, pure points.</p>
+            <ul class="pvp-duel-points">
+              <li><span class="pvp-point-ico">🔁</span><span data-i18n="pvp_md_p1">Shared board, alternate turns — your move reshapes your rival's next play</span></li>
+              <li><span class="pvp-point-ico">⚡</span><span data-i18n="pvp_md_p2">4+ matches cost no move; bigger cascades mean more free plays</span></li>
+              <li><span class="pvp-point-ico">🔋</span><span data-i18n="pvp_md_p3">Clear blue/red pieces to charge energy, then unleash Firecracker / Laser Gun / Magic Wand</span></li>
+              <li><span class="pvp-point-ico">🪙</span><span data-i18n="pvp_md_p4">Wager coins &amp; gems each match — winner takes all, or hot-seat on one device</span></li>
+            </ul>
+            <p class="pvp-loot" data-i18n="pvp_md_loot">Out-score your rival across 5 rounds and <strong>walk away with their coins &amp; gems</strong>.</p>
+            <a class="pvp-mode-cta pvp-mode-cta-score" href="testflight.html" data-i18n="pvp_md_cta">PLAY MATCH DUEL →</a>
+          </div>
+        </article>
       </div>
     </section>
 
@@ -295,13 +307,18 @@
 
     <!-- ===== GAME MODES ===== -->
     <section id="game-modes">
-      <h2 class="section-title" data-i18n="modes_title">FIVE WAYS TO CLEAN HOUSE</h2>
-      <p class="section-sub" data-i18n="modes_sub">Beyond PVP, four classic modes. Zero chill. Maximum satisfaction. Free. Offline.</p>
+      <h2 class="section-title" data-i18n="modes_title">SIX WAYS TO CLEAN HOUSE</h2>
+      <p class="section-sub" data-i18n="modes_sub">Two real-player PVP modes plus four classic modes. Zero chill. Maximum satisfaction. Free. Offline.</p>
       <div class="modes-grid">
         <div class="mode-card mode-pvp" id="mode-pvp">
           <div class="mode-icon">⚔️</div>
-          <div class="mode-name" data-i18n="mode_pvp_name">PVP Duel</div>
-          <p class="mode-desc" data-i18n="mode_pvp_desc">Real-time duels. Online matchmaking or friend room codes. Drain their HP, loot their coins &amp; gems.</p>
+          <div class="mode-name" data-i18n="mode_pvp_name">Real-Time PVP</div>
+          <p class="mode-desc" data-i18n="mode_pvp_desc">Live duels. Online matchmaking or friend room codes. Drain their HP, loot their coins &amp; gems.</p>
+        </div>
+        <div class="mode-card mode-pvp mode-pvp-score" id="mode-duel">
+          <div class="mode-icon">🎯</div>
+          <div class="mode-name" data-i18n="mode_duel_name">Match Duel</div>
+          <p class="mode-desc" data-i18n="mode_duel_desc">Shared board, take turns, 5 rounds. Higher score wins. Wager coins &amp; gems on every match.</p>
         </div>
         <div class="mode-card" id="mode-boss">
           <div class="mode-icon">🦗</div>
@@ -476,7 +493,7 @@
           nav_bugs: "BUG FILES",
           nav_shots: "SCREENSHOTS",
           nav_demo: "DEMO",
-          nav_pvp: "PVP DUEL",
+          nav_pvp: "PVP MODES",
           nav_modes: "GAME MODES",
           nav_beta: "JOIN BETA",
           nav_register: "PRE-REGISTER",
@@ -484,8 +501,8 @@
           demo_title: "Watch The Gameplay In Action",
           demo_sub: "A quick look at the real match pace, effects, and boss pressure from our latest build.",
           demo_cta: "Open on YouTube Shorts",
-          hero_title_1: "REAL-TIME PVP DUELS. MATCH EMOJI, LOOT COINS & GEMS.",
-          hero_sub_1: "Match emoji faces. Bug boss battles. Four classic modes. Free.",
+          hero_title_1: "TWO PVP MODES. REAL-TIME DUELS & MATCH DUELS. LOOT COINS & GEMS.",
+          hero_sub_1: "Emoji match-3 with two real-player PVP modes, custom faces, bug bosses. Free.",
           hero_title_2: 'Your <span style="color:var(--gold)">FACE</span> on Every Tile',
           hero_cta: "📱 VIEW SCREENSHOTS",
           badge_download: "Coming soon",
@@ -501,11 +518,25 @@
           hud_moves: "⏱ MOVES",
           hud_target: "TARGET",
           hud_level: "LEVEL",
-          pvp_badge: "⚔️ NEW IN 1.0.1",
-          pvp_title: "REAL-TIME PVP DUEL",
-          pvp_sub: "Match a real player online, or send your room code and invite a friend. Fight them like a boss.",
+          pvp_badge: "⚔️ TWO PVP MODES · NEW IN 1.0.2",
+          pvp_title: "TWO WAYS TO DUEL",
+          pvp_sub: "Real-time HP duels and turn-based score battles — both put you head-to-head with a real rival and loot their coins & gems.",
           pvp_lead: "Your rival stands right below your board. Whoever drains the other's HP bar first wins the round.",
           pvp_body: "Charge <strong>mana</strong> as you match, then unleash skills straight onto their board:",
+          pvp_rt_tag: "REAL-TIME",
+          pvp_rt_name: "Real-Time PVP Duel",
+          pvp_rt_lead: "Your rival stands right below your board. Whoever drains the other's HP bar first wins the round.",
+          pvp_rt_body: "Charge <strong>mana</strong> as you match, then unleash skills straight onto their board:",
+          pvp_cta: "PLAY REAL-TIME PVP →",
+          pvp_md_tag: "TURN-BASED",
+          pvp_md_name: "Match Duel",
+          pvp_md_lead: "One shared board, take turns. After 5 rounds, the higher score wins — no HP, pure points.",
+          pvp_md_p1: "Shared board, alternate turns — your move reshapes your rival's next play",
+          pvp_md_p2: "4+ matches cost no move; bigger cascades mean more free plays",
+          pvp_md_p3: "Clear blue/red pieces to charge energy, then unleash Firecracker / Laser Gun / Magic Wand",
+          pvp_md_p4: "Wager coins & gems each match — winner takes all, or hot-seat on one device",
+          pvp_md_loot: "Out-score your rival across 5 rounds and <strong>walk away with their coins & gems</strong>.",
+          pvp_md_cta: "PLAY MATCH DUEL →",
           pvp_skill1_name: "Random Freeze",
           pvp_skill1_desc: "Freeze 5 random tiles on your rival's board — specials included — for 3 turns.",
           pvp_skill1_cost: "80 mana",
@@ -522,10 +553,12 @@
           duel_you: "YOU",
           duel_rival: "RIVAL",
           duel_caption: "Every match charges your mana. Skills land on their board.",
-          modes_title: "FIVE WAYS TO CLEAN HOUSE",
-          modes_sub: "Beyond PVP, four classic modes. Zero chill. Maximum satisfaction. Free. Offline.",
-          mode_pvp_name: "PVP Duel",
-          mode_pvp_desc: "Real-time duels. Online matchmaking or friend room codes. Drain their HP, loot their coins & gems.",
+          modes_title: "SIX WAYS TO CLEAN HOUSE",
+          modes_sub: "Two real-player PVP modes plus four classic modes. Zero chill. Maximum satisfaction. Free. Offline.",
+          mode_pvp_name: "Real-Time PVP",
+          mode_pvp_desc: "Live duels. Online matchmaking or friend room codes. Drain their HP, loot their coins & gems.",
+          mode_duel_name: "Match Duel",
+          mode_duel_desc: "Shared board, take turns, 5 rounds. Higher score wins. Wager coins & gems on every match.",
           mode_boss_name: "Boss Brawl",
           mode_boss_desc: "Classic match-3 with teeth. 10 gimmick bosses, each with a unique weakness. Hit the weak spot, time your ultimate, watch that HP bar MELT.",
           mode_vessel_name: "Vessel Run",
@@ -539,7 +572,7 @@
           step1_title: "Match & Charge",
           step1_desc: "Classic match-3 rules. Build chains, trigger specials, fight bosses — every match also charges your mana for PVP duels.",
           step2_title: "Duel a Rival",
-          step2_desc: "Go head-to-head with a real player. Seal their elements, convert blockers, reshape their board — first to zero HP wins and loots.",
+          step2_desc: "Go head-to-head with a real player — real-time HP duels or turn-based Match Duel. Seal elements, fire skills, reshape boards; the winner loots coins & gems.",
           step3_title: "Make It Personal",
           step3_desc: "Drop your own images onto tiles and boss sprites — your boss's face, your crush, your cat, anything. No one else has your board.",
           boss_title: "BUG DOSSIERS",
@@ -605,7 +638,7 @@
           nav_bugs: "虫子档案",
           nav_shots: "真机截图",
           nav_demo: "演示",
-          nav_pvp: "PVP 对战",
+          nav_pvp: "PVP 玩法",
           nav_modes: "游戏模式",
           nav_beta: "加入测试",
           nav_register: "预先注册",
@@ -613,8 +646,8 @@
           demo_title: "先看一分钟实机演示",
           demo_sub: "最新版本的战斗节奏展示，直接感受消除反馈、特效手感和 Boss 压迫感。",
           demo_cta: "前往 YouTube Shorts 观看",
-          hero_title_1: "真人实时对战，消除表情，掠夺金币钻石。",
-          hero_sub_1: "自定义表情 · 虫子 Boss 战 · 四大经典玩法 · 免费",
+          hero_title_1: "两种真人 PVP，实时对战 + 回合对决，掠夺金币钻石。",
+          hero_sub_1: "表情三消，两种真人 PVP，自定义表情与虫子 Boss 战 · 免费",
           hero_title_2: '你的<span style="color:var(--gold)">表情包</span>，就是你的武器',
           hero_cta: "📱 查看真机截图",
           badge_download: "敬请期待",
@@ -630,11 +663,25 @@
           hud_moves: "⏱ 步数",
           hud_target: "目标",
           hud_level: "关卡",
-          pvp_badge: "⚔️ 1.0.1 全新上线",
-          pvp_title: "真人实时对战（PVP）",
-          pvp_sub: "在线匹配真人对手，或把房间码发给好友，随时开局。把他当成 Boss 来打。",
+          pvp_badge: "⚔️ 两种 PVP 玩法 · 1.0.2 全新上线",
+          pvp_title: "两种真人 PVP 对战",
+          pvp_sub: "实时血条对战与回合制比分对战——都是和真人正面对决，并直接掠夺对方的金币钻石。",
           pvp_lead: "对手的形象就立在你的棋盘下方。谁先把对方的血条打光，谁就赢下这局。",
           pvp_body: "对战全程积累<strong>魔法值</strong>，攒满即可向对方棋盘发动技能：",
+          pvp_rt_tag: "实时",
+          pvp_rt_name: "真人实时对战（PVP）",
+          pvp_rt_lead: "对手的形象就立在你的棋盘下方。谁先把对方的血条打光，谁就赢下这局。",
+          pvp_rt_body: "对战全程积累<strong>魔法值</strong>，攒满即可向对方棋盘发动技能：",
+          pvp_cta: "开打实时 PVP →",
+          pvp_md_tag: "回合制",
+          pvp_md_name: "回合对决（Match Duel）",
+          pvp_md_lead: "共用一块棋盘、轮流落子。5 个回合后比分高者获胜——不拼血条，只拼分数。",
+          pvp_md_p1: "共用棋盘、轮流落子——你的一步直接改写对手下一手的局面",
+          pvp_md_p2: "4 连及以上不消耗步数，连锁越打越上头",
+          pvp_md_p3: "消除蓝 / 红元素积累能量，释放鞭炮 / 激光枪 / 魔法棒翻转战局",
+          pvp_md_p4: "每局押上金币钻石赌注——赢家通吃，也支持同屏热座对战",
+          pvp_md_loot: "5 回合内比分压制对手，<strong>把他的金币钻石通通带走</strong>。",
+          pvp_md_cta: "开打回合对决 →",
           pvp_skill1_name: "随机冻结",
           pvp_skill1_desc: "在对手棋盘随机冻结 5 个任意块（含特殊块），持续 3 回合。",
           pvp_skill1_cost: "耗蓝 80",
@@ -651,10 +698,12 @@
           duel_you: "我方",
           duel_rival: "对手",
           duel_caption: "每次消除都在积累魔法值，技能直接砸向对方棋盘。",
-          modes_title: "五大玩法，清光你的家",
-          modes_sub: "除了真人对战，还有四大经典玩法，解压、免费、无网也能玩。",
-          mode_pvp_name: "真人 PVP 对战",
+          modes_title: "六大玩法，清光你的家",
+          modes_sub: "两种真人 PVP 加四大经典玩法，解压、免费、无网也能玩。",
+          mode_pvp_name: "真人实时对战",
           mode_pvp_desc: "实时对战。在线匹配或用房间码邀请好友，打光对方血条，掠夺金币钻石。",
+          mode_duel_name: "回合对决",
+          mode_duel_desc: "共用棋盘、轮流落子、5 回合比分定胜负。每局押上金币钻石赌注。",
           mode_boss_name: "打爆 Boss",
           mode_boss_desc: "主线闯关，经典三消规则。10 个奇葩 Boss，每个都有弱点颜色和干扰技能。盯着弱点打，看准时机放大招。",
           mode_vessel_name: "药丸冲冲",
@@ -668,7 +717,7 @@
           step1_title: "匹配与积攒",
           step1_desc: "经典三消规则。构建连锁、触发特效、挑战 Boss——每次消除同时为 PVP 对战积攒魔法值。",
           step2_title: "真人对战",
-          step2_desc: "与真人玩家正面交锋。封印元素、转化障碍块、重组对方棋盘——血条先清零者获胜并掠夺。",
+          step2_desc: "与真人玩家正面交锋——实时血条对战或回合制比分对决。封印元素、释放技能、重组棋盘，胜者掠夺金币钻石。",
           step3_title: "打造专属棋盘",
           step3_desc: "把你的图片放进方块和 Boss 身上——老板的脸、暗恋对象、自家猫狗，想放什么放什么。你的棋盘独一无二。",
           boss_title: "虫子档案",
@@ -1628,7 +1677,19 @@
         // Bug cards entrance
         gsap.fromTo("#bugs .bug-flip-card", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.7, stagger: 0.12, delay: 1.4, ease: "power2.out" });
 
-        // Scroll-triggered: PVP skills & duel panel
+        // Scroll-triggered: PVP mode cards
+        gsap.fromTo(
+          "#pvp .pvp-mode",
+          { opacity: 0, y: 40 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.8,
+            stagger: 0.18,
+            ease: "power2.out",
+            scrollTrigger: { trigger: "#pvp", start: "top 78%" },
+          },
+        );
         gsap.fromTo(
           "#pvp .pvp-skills li",
           { opacity: 0, x: -30 },
@@ -1639,17 +1700,6 @@
             stagger: 0.12,
             ease: "power2.out",
             scrollTrigger: { trigger: "#pvp", start: "top 78%" },
-          },
-        );
-        gsap.fromTo(
-          "#pvp .duel-frame",
-          { opacity: 0, scale: 0.9 },
-          {
-            opacity: 1,
-            scale: 1,
-            duration: 0.8,
-            ease: "back.out(1.3)",
-            scrollTrigger: { trigger: "#pvp", start: "top 70%" },
           },
         );
 
