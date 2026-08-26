@@ -1919,24 +1919,10 @@ section {
   background: rgba(255, 217, 61, 0.08);
 }
 .mode-pvp::before {
-  content: "NEW";
-  position: absolute;
-  top: 16px;
-  right: -30px;
-  background: #ff2449;
-  color: #fff;
-  font-family: "Oswald", sans-serif;
-  font-size: 0.56rem;
-  letter-spacing: 0.14em;
-  padding: 3px 30px;
-  transform: rotate(38deg);
-  font-weight: 700;
-  z-index: 2;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  content: none;
 }
 .mode-pvp-score::before {
-  content: "NEW 1.0.2";
-  background: linear-gradient(135deg, #2ec4b6, #1aa79a);
+  content: none;
 }
 .mode-icon {
   font-size: 2.6rem;
