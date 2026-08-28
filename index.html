@@ -41,7 +41,7 @@
       <div class="nav-links">
         <a href="#pvp" data-i18n="nav_pvp">PVP DUEL</a>
         <a href="#game-modes" data-i18n="nav_modes">GAME MODES</a>
-        <a href="#how-to-play" data-i18n="nav_how">HOW IT WORKS</a>
+        <a href="#custom" data-i18n="nav_custom">YOUR BOARD</a>
         <a href="#boss-files" data-i18n="nav_bugs">BUG FILES</a>
         <a href="#device-shots" data-i18n="nav_shots">SCREENSHOTS</a>
         <a href="testflight.html" data-i18n="nav_beta">JOIN BETA</a>
@@ -203,18 +203,18 @@
         <span data-i18n="pvp_badge">⚔️ TWO PVP MODES · NEW IN 1.0.2</span>
       </div>
       <h2 class="section-title" data-i18n="pvp_title">TWO WAYS TO DUEL</h2>
-      <p class="section-sub" data-i18n="pvp_sub">Real-time HP duels and turn-based score battles — both put you head-to-head with a real rival and loot their coins &amp; gems.</p>
+        <p class="section-sub" data-i18n="pvp_sub">Real-time HP duels and turn-based score battles — both pit you against a real rival, and the winner banks 300 coins + 5 gems.</p>
 
       <div class="pvp-modes">
-        <!-- Real-Time PVP -->
+        <!-- HP PK -->
         <article class="pvp-mode">
           <div class="pvp-mode-media">
-            <img src="https://assets.poozzle.com/resources/pvp_hp_ai.png" alt="Real-Time PVP Duel" loading="lazy" decoding="async" onerror="this.style.display='none'" />
+            <img src="https://assets.poozzle.com/resources/pvp_hp_ai.png" alt="HP PK" loading="lazy" decoding="async" onerror="this.style.display='none'" />
             <span class="pvp-mode-badge" data-i18n="pvp_rt_tag">REAL-TIME</span>
           </div>
           <div class="pvp-mode-body">
-            <h3 class="pvp-mode-name" data-i18n="pvp_rt_name">Real-Time PVP Duel</h3>
-            <p class="pvp-mode-lead" data-i18n="pvp_rt_lead">Your rival stands right below your board. Whoever drains the other's HP bar first wins the round.</p>
+            <h3 class="pvp-mode-name" data-i18n="pvp_rt_name">HP PK</h3>
+            <p class="pvp-mode-lead" data-i18n="pvp_rt_lead">Asymmetric boards, head-to-head. Match to bank mana, then fire skills to drain your rival's HP — first to zero loses.</p>
             <p class="pvp-mode-text" data-i18n="pvp_rt_body">Charge <strong>mana</strong> as you match, then unleash skills straight onto their board:</p>
             <ul class="pvp-skills">
               <li>
@@ -229,142 +229,160 @@
                 <span class="pvp-skill-icon"><img src="https://assets.poozzle.com/resources/convert_random_blocker_3_4.png" alt="Random Blockers" /></span>
                 <div>
                   <div class="pvp-skill-name" data-i18n="pvp_skill2_name">Random Blockers</div>
-                  <p class="pvp-skill-desc" data-i18n="pvp_skill2_desc">Convert 1–3 normal tiles into blockers from the PvP obstacle pool.</p>
+                  <p class="pvp-skill-desc" data-i18n="pvp_skill2_desc">Convert 3–4 normal tiles into blockers from the PvP obstacle pool.</p>
                   <div class="pvp-skill-cost" data-i18n="pvp_skill2_cost">99 mana</div>
                 </div>
               </li>
               <li>
-                <span class="pvp-skill-icon">🔄</span>
+                <span class="pvp-skill-icon"><img src="https://assets.poozzle.com/resources/weakness_shift.png" alt="Weakness Shift" loading="lazy" decoding="async" onerror="this.style.display='none'" /></span>
                 <div>
                   <div class="pvp-skill-name" data-i18n="pvp_skill3_name">Weakness Shift</div>
-                  <p class="pvp-skill-desc" data-i18n="pvp_skill3_desc">Immediately reroll your rival's weakness color and throw their plan off.</p>
+                  <p class="pvp-skill-desc" data-i18n="pvp_skill3_desc">Randomly shift my weakness on the opponent's board.</p>
                   <div class="pvp-skill-cost" data-i18n="pvp_skill3_cost">15 mana</div>
                 </div>
               </li>
               <li>
-                <span class="pvp-skill-icon">🌀</span>
+                <span class="pvp-skill-icon"><img src="https://assets.poozzle.com/resources/rolling_impact.png" alt="Rolling Impact" loading="lazy" decoding="async" onerror="this.style.display='none'" /></span>
                 <div>
                   <div class="pvp-skill-name" data-i18n="pvp_skill4_name">Rolling Impact</div>
-                  <p class="pvp-skill-desc" data-i18n="pvp_skill4_desc">Clear all specials and reshuffle their board in one hit.</p>
+                  <p class="pvp-skill-desc" data-i18n="pvp_skill4_desc">Completely reshuffle the opponent's board.</p>
                   <div class="pvp-skill-cost" data-i18n="pvp_skill4_cost">80 mana</div>
                 </div>
               </li>
             </ul>
-            <a class="pvp-mode-cta" href="testflight.html" data-i18n="pvp_cta">PLAY REAL-TIME PVP →</a>
+            <p class="pvp-loot" data-i18n="pvp_rt_loot">Drain your rival's HP first and pocket 300 coins + 5 gems.</p>
           </div>
         </article>
 
-        <!-- Match Duel -->
+        <!-- Score PK -->
         <article class="pvp-mode">
           <div class="pvp-mode-media">
-            <img src="https://assets.poozzle.com/resources/pvp_score_ai.png" alt="Match Duel" loading="lazy" decoding="async" onerror="this.style.display='none'" />
+            <img src="https://assets.poozzle.com/resources/pvp_score_ai.png" alt="Score PK" loading="lazy" decoding="async" onerror="this.style.display='none'" />
             <span class="pvp-mode-badge pvp-mode-badge-score" data-i18n="pvp_md_tag">TURN-BASED</span>
           </div>
           <div class="pvp-mode-body">
-            <h3 class="pvp-mode-name" data-i18n="pvp_md_name">Match Duel</h3>
-            <p class="pvp-mode-lead" data-i18n="pvp_md_lead">One shared board, take turns. After 5 rounds, the higher score wins — no HP, pure points.</p>
+            <h3 class="pvp-mode-name" data-i18n="pvp_md_name">Score PK</h3>
+            <p class="pvp-mode-lead" data-i18n="pvp_md_lead">One shared board, take turns — clear more to score more. After 5 rounds, the highest score wins, no HP.</p>
             <ul class="pvp-duel-points">
-              <li><span class="pvp-point-ico">🔁</span><span data-i18n="pvp_md_p1">Shared board, alternate turns — your move reshapes your rival's next play</span></li>
+              <li><span class="pvp-point-ico">🔁</span><span data-i18n="pvp_md_p1">Shared board, alternate turns — the more you clear, the higher your score.</span></li>
               <li><span class="pvp-point-ico">⚡</span><span data-i18n="pvp_md_p2">4+ matches cost no move; bigger cascades mean more free plays</span></li>
-              <li><span class="pvp-point-ico">🔋</span><span data-i18n="pvp_md_p3">Three skills, each tied to its own element: Laser Gun (clears 2 rows &amp; 2 columns), Firecracker (random 10), Magic Wand (clears one color). Fill an element's energy to fire it.</span></li>
-              <li><span class="pvp-point-ico">🪙</span><span data-i18n="pvp_md_p4">Wager coins &amp; gems each match — winner takes all, or hot-seat on one device</span></li>
+              <li><span class="pvp-point-ico">🪙</span><span data-i18n="pvp_md_p4">Use skills and items mid-match, or pass one device and play hot-seat.</span></li>
             </ul>
-            <p class="pvp-loot" data-i18n="pvp_md_loot">Out-score your rival across 5 rounds and <strong>walk away with their coins &amp; gems</strong>.</p>
-            <a class="pvp-mode-cta pvp-mode-cta-score" href="testflight.html" data-i18n="pvp_md_cta">PLAY MATCH DUEL →</a>
+            <p class="pvp-mode-text" data-i18n="pvp_md_p3">Three skills, each tied to its own element — fill its energy to fire:</p>
+            <ul class="pvp-skills">
+              <li>
+                <span class="pvp-skill-icon"><img src="https://assets.poozzle.com/resources/MatchDuelSkill1.png" alt="Laser Gun" loading="lazy" decoding="async" onerror="this.style.display='none'" /></span>
+                <div>
+                  <div class="pvp-skill-name" data-i18n="pvp_md_skill1_name">Laser Gun</div>
+                  <p class="pvp-skill-desc" data-i18n="pvp_md_skill1_desc">Clears 2 rows &amp; 2 columns.</p>
+                </div>
+              </li>
+              <li>
+                <span class="pvp-skill-icon"><img src="https://assets.poozzle.com/resources/MatchDuelSkill3.png" alt="Firecracker" loading="lazy" decoding="async" onerror="this.style.display='none'" /></span>
+                <div>
+                  <div class="pvp-skill-name" data-i18n="pvp_md_skill2_name">Firecracker</div>
+                  <p class="pvp-skill-desc" data-i18n="pvp_md_skill2_desc">Clears 10 random tiles.</p>
+                </div>
+              </li>
+              <li>
+                <span class="pvp-skill-icon"><img src="https://assets.poozzle.com/resources/MatchDuelSkill2.png" alt="Magic Wand" loading="lazy" decoding="async" onerror="this.style.display='none'" /></span>
+                <div>
+                  <div class="pvp-skill-name" data-i18n="pvp_md_skill3_name">Magic Wand</div>
+                  <p class="pvp-skill-desc" data-i18n="pvp_md_skill3_desc">Clears every tile of one color.</p>
+                </div>
+              </li>
+            </ul>
+            <p class="pvp-loot" data-i18n="pvp_md_loot">Top the scoreboard after 5 rounds and pocket <strong>300 coins + 5 gems</strong>.</p>
           </div>
         </article>
       </div>
-    </section>
 
-    <!-- ===== DEMO VIDEO ===== -->
-    <section id="demo-video">
-      <div class="demo-window">
-        <div class="demo-window-head">
-          <span class="demo-dot demo-dot-close"></span>
-          <span class="demo-dot demo-dot-min"></span>
-          <span class="demo-dot demo-dot-max"></span>
-          <span class="demo-window-label" data-i18n="demo_window_label">Gameplay Live Window</span>
-        </div>
-        <div class="demo-window-body">
-          <div class="demo-copy">
-            <h2 class="section-title" data-i18n="demo_title">Watch The Gameplay In Action</h2>
-            <p class="section-sub" data-i18n="demo_sub">A quick look at the real match pace, effects, and boss pressure from our latest build.</p>
-            <a class="demo-youtube-link" href="https://youtube.com/shorts/IgqhFzKso6w" target="_blank" rel="noopener noreferrer" data-i18n="demo_cta">Open on YouTube Shorts</a>
-          </div>
-          <div class="demo-frame-wrap">
-            <iframe
-              src="https://www.youtube.com/embed/IgqhFzKso6w?rel=0"
-              title="MATCHFACE Gameplay Demo"
-              loading="lazy"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              allowfullscreen
-            ></iframe>
-          </div>
+      <div class="pvp-roster">
+        <h3 class="pvp-roster-title" data-i18n="pvp_roster_title">PICK YOUR FIGHTER</h3>
+        <p class="pvp-roster-sub" data-i18n="pvp_roster_sub">These three rivals are ready to take the board in both HP PK and Score PK. Pick your look before you duel.</p>
+        <div class="pvp-fighters">
+          <figure class="pvp-fighter">
+            <img src="https://assets.poozzle.com/resources/pvpboss.png" alt="PVP Fighter" loading="lazy" decoding="async" onerror="this.style.display='none'" />
+            <figcaption data-i18n="pvp_fighter1">Blinky</figcaption>
+          </figure>
+          <figure class="pvp-fighter">
+            <img src="https://assets.poozzle.com/resources/pvpbossk.png" alt="PVP Fighter" loading="lazy" decoding="async" onerror="this.style.display='none'" />
+            <figcaption data-i18n="pvp_fighter2">Snooty</figcaption>
+          </figure>
+          <figure class="pvp-fighter">
+            <img src="https://assets.poozzle.com/resources/pvpbosso.png" alt="PVP Fighter" loading="lazy" decoding="async" onerror="this.style.display='none'" />
+            <figcaption data-i18n="pvp_fighter3">Drooly</figcaption>
+          </figure>
         </div>
       </div>
     </section>
 
     <!-- ===== GAME MODES ===== -->
     <section id="game-modes">
-      <h2 class="section-title" data-i18n="modes_title">SIX WAYS TO CLEAN HOUSE</h2>
-      <p class="section-sub" data-i18n="modes_sub">Two real-player PVP modes plus four classic modes. Zero chill. Maximum satisfaction. Free — the four classic modes play offline, PVP needs a connection.</p>
-      <div class="modes-grid">
-        <div class="mode-card mode-pvp" id="mode-pvp">
-          <div class="mode-icon">⚔️</div>
-          <div class="mode-name" data-i18n="mode_pvp_name">Real-Time PVP</div>
-          <p class="mode-desc" data-i18n="mode_pvp_desc">Live duels. Online matchmaking or friend room codes. Drain their HP, loot their coins &amp; gems.</p>
+      <h2 class="section-title" data-i18n="camp_title">THE CAMPAIGN MAP</h2>
+      <p class="section-sub" data-i18n="camp_sub">100 hand-built levels sprawl across one big map. Every 10 levels a one-of-a-kind boss blocks the path, and two special mini-games are spliced right into the run.</p>
+      <div class="campaign-grid">
+        <article class="campaign-card">
+          <div class="campaign-ico">🗺️</div>
+          <div class="campaign-stat">100</div>
+          <div class="campaign-label" data-i18n="camp_l1">LEVELS</div>
+          <p class="campaign-text" data-i18n="camp_t1">100 levels wind across one connected overworld map — no level select, just forward.</p>
+        </article>
+        <article class="campaign-card">
+          <div class="campaign-ico">👹</div>
+          <div class="campaign-stat">10</div>
+          <div class="campaign-label" data-i18n="camp_l2">BOSSES</div>
+          <p class="campaign-text" data-i18n="camp_t2">10 wildly different bug bosses, one guarding every 10th level, each with its own weakness.</p>
+        </article>
+        <article class="campaign-card">
+          <div class="campaign-ico">🎮</div>
+          <div class="campaign-stat">2</div>
+          <div class="campaign-label" data-i18n="camp_l3">SPECIAL MODES</div>
+          <p class="campaign-text" data-i18n="camp_t3">Death Drop and Vessel Run break up the grind — two special mini-games spliced into the map.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- ===== TOWER / ROGUELIKE ===== -->
+    <section id="tower">
+      <div class="tower-card">
+        <div class="tower-visual" aria-hidden="true">
+          <span class="tower-floor f1"></span>
+          <span class="tower-floor f2"></span>
+          <span class="tower-floor f3"></span>
+          <span class="tower-floor f4"></span>
+          <span class="tower-floor f5"></span>
+          <span class="tower-floor f6"></span>
+          <span class="tower-floor f7"></span>
         </div>
-        <div class="mode-card mode-pvp mode-pvp-score" id="mode-duel">
-          <div class="mode-icon">🎯</div>
-          <div class="mode-name" data-i18n="mode_duel_name">Match Duel</div>
-          <p class="mode-desc" data-i18n="mode_duel_desc">Shared board, take turns, 5 rounds. Higher score wins. Wager coins &amp; gems on every match.</p>
-        </div>
-        <div class="mode-card" id="mode-boss">
-          <div class="mode-icon">🦗</div>
-          <div class="mode-name" data-i18n="mode_boss_name">Boss Brawl</div>
-          <p class="mode-desc" data-i18n="mode_boss_desc">Classic match-3 with teeth. 10 gimmick bosses, each with a unique weakness. Hit the weak spot, time your ultimate, watch that HP bar MELT.</p>
-        </div>
-        <div class="mode-card" id="mode-vessel">
-          <div class="mode-icon">💊</div>
-          <div class="mode-name" data-i18n="mode_vessel_name">Vessel Run</div>
-          <p class="mode-desc" data-i18n="mode_vessel_desc">A pill through blood vessel mazes. Slide to the bottom, collect germs, beat your best. Short. Satisfying. Repeat.</p>
-        </div>
-        <div class="mode-card" id="mode-drop">
-          <div class="mode-icon">⬇️</div>
-          <div class="mode-name" data-i18n="mode_drop_name">Death Drop</div>
-          <p class="mode-desc" data-i18n="mode_drop_desc">Death line closing in from above. Match to drop. Heart pounding. Stay ahead or die — just react.</p>
-        </div>
-        <div class="mode-card" id="mode-ascent">
-          <div class="mode-icon">🏔️</div>
-          <div class="mode-name" data-i18n="mode_ascent_name">Endless Ascent</div>
-          <p class="mode-desc" data-i18n="mode_ascent_desc">Every board is procedurally generated. No two runs the same. Climb until you can't — your rank on the global leaderboard is your bragging right.</p>
+        <div class="tower-body">
+          <h2 class="section-title" data-i18n="tower_title">CLIMB THE TOWER</h2>
+          <p class="section-sub" data-i18n="tower_sub">A roguelike endless climb with a fresh random map every run.</p>
+          <p class="tower-text" data-i18n="tower_body">Each floor is procedurally laid out — new paths, new hazards, new loot every climb. Go as high as you dare; your best floor hits the global leaderboard.</p>
+          <ul class="tower-feats">
+            <li data-i18n="tower_feat1">Random roguelike map — no two climbs alike</li>
+            <li data-i18n="tower_feat2">Endless floors, scaling difficulty</li>
+            <li data-i18n="tower_feat3">Global leaderboard ranks your best climb</li>
+          </ul>
         </div>
       </div>
     </section>
 
-    <!-- ===== HOW TO PLAY ===== -->
-    <section id="how-to-play">
-      <h2 class="section-title" data-i18n="htp_title">HOW IT WORKS</h2>
-      <p class="section-sub" data-i18n="htp_sub">Match, charge, unleash — then make every board your own</p>
-      <div class="steps">
-        <div class="step-card" id="step-1">
-          <div class="step-num">01</div>
-          <span class="step-icon">🟰</span>
-          <div class="step-title" data-i18n="step1_title">Match &amp; Charge</div>
-          <p class="step-desc" data-i18n="step1_desc">Classic match-3 rules. Build chains, trigger specials, fight bosses — every match also charges your mana for PVP duels.</p>
-        </div>
-        <div class="step-card" id="step-2">
-          <div class="step-num">02</div>
-          <span class="step-icon">⚔️</span>
-          <div class="step-title" data-i18n="step2_title">Duel a Rival</div>
-          <p class="step-desc" data-i18n="step2_desc">Go head-to-head with a real player. Seal their elements, convert blockers, reshape their board — first to zero HP wins and loots.</p>
-        </div>
-        <div class="step-card" id="step-3">
-          <div class="step-num">03</div>
-          <span class="step-icon">🖼️</span>
-          <div class="step-title" data-i18n="step3_title">Make It Personal</div>
-          <p class="step-desc" data-i18n="step3_desc">Drop your own images onto tiles and boss sprites — your boss's face, your crush, your cat, anything. No one else has your board.</p>
-        </div>
+    <!-- ===== CUSTOM BOARD ===== -->
+    <section id="custom">
+      <h2 class="section-title" data-i18n="custom_title">MAKE EVERY TILE YOURS</h2>
+      <p class="section-sub" data-i18n="custom_sub">Why play with factory tiles when you can run the board? Drop any photo onto your pieces and bosses — nobody has your board.</p>
+      <div class="campaign-grid">
+        <article class="campaign-card">
+          <div class="campaign-ico">🖼️</div>
+          <div class="campaign-label" data-i18n="custom_f1_t">ON TILES</div>
+          <p class="campaign-text" data-i18n="custom_f1">Swap any picture onto your match-3 tiles — your cat, your crush, a meme. Pure you.</p>
+        </article>
+        <article class="campaign-card">
+          <div class="campaign-ico">👹</div>
+          <div class="campaign-label" data-i18n="custom_f2_t">ON BOSSES</div>
+          <p class="campaign-text" data-i18n="custom_f2">Slap a face onto the bug bosses. Suddenly the cleanup feels personal.</p>
+        </article>
       </div>
     </section>
 
@@ -456,6 +474,34 @@
       </div>
     </section>
 
+    <!-- ===== DEMO VIDEO ===== -->
+    <section id="demo-video">
+      <div class="demo-window">
+        <div class="demo-window-head">
+          <span class="demo-dot demo-dot-close"></span>
+          <span class="demo-dot demo-dot-min"></span>
+          <span class="demo-dot demo-dot-max"></span>
+          <span class="demo-window-label" data-i18n="demo_window_label">Gameplay Live Window</span>
+        </div>
+        <div class="demo-window-body">
+          <div class="demo-copy">
+            <h2 class="section-title" data-i18n="demo_title">Watch The Gameplay In Action</h2>
+            <p class="section-sub" data-i18n="demo_sub">A quick look at the real match pace, effects, and boss pressure from our latest build.</p>
+            <a class="demo-youtube-link" href="https://youtube.com/shorts/IgqhFzKso6w" target="_blank" rel="noopener noreferrer" data-i18n="demo_cta">Open on YouTube Shorts</a>
+          </div>
+          <div class="demo-frame-wrap">
+            <iframe
+              src="https://www.youtube.com/embed/IgqhFzKso6w?rel=0"
+              title="MATCHFACE Gameplay Demo"
+              loading="lazy"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen
+            ></iframe>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- ===== SCREENSHOTS ===== -->
     <section id="device-shots">
       <h2 class="section-title" data-i18n="shots_title">真机截图</h2>
@@ -493,7 +539,8 @@
           nav_shots: "SCREENSHOTS",
           nav_demo: "DEMO",
           nav_pvp: "PVP MODES",
-          nav_modes: "GAME MODES",
+          nav_modes: "CAMPAIGN MAP",
+          nav_custom: "YOUR BOARD",
           nav_beta: "JOIN BETA",
           nav_register: "PRE-REGISTER",
           demo_window_label: "Gameplay Live Window",
@@ -519,58 +566,76 @@
           hud_level: "LEVEL",
           pvp_badge: "⚔️ TWO PVP MODES · NEW IN 1.0.2",
           pvp_title: "TWO WAYS TO DUEL",
-          pvp_sub: "Real-time HP duels and turn-based score battles — both put you head-to-head with a real rival and loot their coins & gems.",
-          pvp_lead: "Your rival stands right below your board. Whoever drains the other's HP bar first wins the round.",
+          pvp_sub: "HP PK and Score PK — both pit you against a real rival, and the winner banks 300 coins + 5 gems.",
+          pvp_lead: "Asymmetric boards, head-to-head. Match to bank mana, then fire skills to drain your rival's HP — first to zero loses.",
           pvp_body: "Charge <strong>mana</strong> as you match, then unleash skills straight onto their board:",
           pvp_rt_tag: "REAL-TIME",
-          pvp_rt_name: "Real-Time PVP Duel",
-          pvp_rt_lead: "Your rival stands right below your board. Whoever drains the other's HP bar first wins the round.",
+          pvp_rt_name: "HP PK",
+          pvp_rt_lead: "Asymmetric boards, head-to-head. Match to bank mana, then fire skills to drain your rival's HP — first to zero loses.",
           pvp_rt_body: "Charge <strong>mana</strong> as you match, then unleash skills straight onto their board:",
-          pvp_cta: "PLAY REAL-TIME PVP →",
           pvp_md_tag: "TURN-BASED",
-          pvp_md_name: "Match Duel",
-          pvp_md_lead: "One shared board, take turns. After 5 rounds, the higher score wins — no HP, pure points.",
-          pvp_md_p1: "Shared board, alternate turns — your move reshapes your rival's next play",
+          pvp_md_name: "Score PK",
+          pvp_md_lead: "One shared board, take turns — clear more to score more. After 5 rounds, the highest score wins, no HP.",
+          pvp_md_p1: "Shared board, alternate turns — the more you clear, the higher your score.",
           pvp_md_p2: "4+ matches cost no move; bigger cascades mean more free plays",
-          pvp_md_p3: "Three skills, each tied to its own element: Laser Gun (clears 2 rows & columns), Firecracker (random 10), Magic Wand (clears one color). Fill an element's energy to fire it.",
-          pvp_md_p4: "Wager coins & gems each match — winner takes all, or hot-seat on one device",
-          pvp_md_loot: "Out-score your rival across 5 rounds and <strong>walk away with their coins & gems</strong>.",
-          pvp_md_cta: "PLAY MATCH DUEL →",
+          pvp_md_p3: "Three skills, each tied to its own element — fill its energy to fire:",
+          pvp_md_skill1_name: "Laser Gun",
+          pvp_md_skill1_desc: "Clears 2 rows & 2 columns.",
+          pvp_md_skill2_name: "Firecracker",
+          pvp_md_skill2_desc: "Clears 10 random tiles.",
+          pvp_md_skill3_name: "Magic Wand",
+          pvp_md_skill3_desc: "Clears every tile of one color.",
+          pvp_md_p4: "Use skills and items mid-match, or pass one device and play hot-seat.",
+          pvp_md_loot: "Top the scoreboard after 5 rounds and pocket <strong>300 coins + 5 gems</strong>.",
           pvp_skill1_name: "Random Freeze",
           pvp_skill1_desc: "Freeze 5 random tiles on your rival's board — specials included — for 3 turns.",
           pvp_skill1_cost: "80 mana",
           pvp_skill2_name: "Random Blockers",
-          pvp_skill2_desc: "Convert 1–3 normal tiles into blockers from the PvP obstacle pool.",
+          pvp_skill2_desc: "Convert 3–4 normal tiles into blockers from the PvP obstacle pool.",
           pvp_skill2_cost: "99 mana",
           pvp_skill3_name: "Weakness Shift",
-          pvp_skill3_desc: "Immediately reroll your rival's weakness color and throw their plan off.",
+          pvp_skill3_desc: "Randomly shift my weakness on the opponent's board.",
           pvp_skill3_cost: "15 mana",
           pvp_skill4_name: "Rolling Impact",
-          pvp_skill4_desc: "Clear all specials and reshuffle their board in one hit.",
+          pvp_skill4_desc: "Completely reshuffle the opponent's board.",
           pvp_skill4_cost: "80 mana",
+          pvp_rt_loot: "Drain your rival's HP first and pocket 300 coins + 5 gems.",
+          pvp_roster_title: "PICK YOUR FIGHTER",
+          pvp_roster_sub: "Three rivals ready to take the board in both HP PK and Score PK — pick your look before you duel.",
+          pvp_fighter1: "Blinky",
+          pvp_fighter2: "Snooty",
+          pvp_fighter3: "Drooly",
           duel_you: "YOU",
           duel_rival: "RIVAL",
           duel_caption: "Every match charges your mana. Skills land on their board.",
-          modes_title: "SIX MODES. ONE JOB: CLEAN HOUSE",
-          modes_sub: "Two real-player PVP modes plus four solo modes. Bite-sized rounds, big chain reactions, zero filler. Free — and the four solo modes work offline.",
-          mode_pvp_name: "Real-Time PVP",
-          mode_pvp_desc: "Live duels. Online matchmaking or friend room codes. Drain their HP, loot their coins & gems.",
-          mode_duel_name: "Match Duel",
-          mode_duel_desc: "Shared board, take turns, 5 rounds. Higher score wins. Wager coins & gems on every match.",
-          mode_boss_name: "Boss Brawl",
-          mode_boss_desc: "The main campaign. Classic match-3, but every 10 levels a bug boss shows up with a weak color and dirty tricks. Hit the weakness, fire your ultimate, flip a BossCoin — watch that HP bar melt.",
-          mode_vessel_name: "Vessel Run",
-          mode_vessel_desc: "A pill sliding through blood vessels. One swipe sends it sliding till it hits a wall — plot your route, scoop up the germs, hit the exit. Quick, brainy, weirdly satisfying.",
-          mode_drop_name: "Death Drop",
-          mode_drop_desc: "A death line creeps down from the top. Clear the tiles under your guy so he drops — fast — before it catches him. Pure panic. Pure reflex.",
-          mode_ascent_name: "Endless Ascent",
-          mode_ascent_desc: "Endless auto-generated boards that get meaner the higher you climb. You're done when you're stuck — your floor count and score hit the global leaderboard. One more run?",
+          camp_title: "THE CAMPAIGN MAP",
+          camp_sub: "100 hand-built levels sprawl across one big map. Every 10 levels a one-of-a-kind boss blocks the path, and two special mini-games are spliced right into the run.",
+          camp_l1: "LEVELS",
+          camp_t1: "100 levels wind across one connected overworld map — no level select, just forward.",
+          camp_l2: "BOSSES",
+          camp_t2: "10 wildly different bug bosses, one guarding every 10th level, each with its own weakness.",
+          camp_l3: "SPECIAL MODES",
+          camp_t3: "Death Drop and Vessel Run break up the grind — two special mini-games spliced into the map.",
+          tower_title: "CLIMB THE TOWER",
+          tower_sub: "A roguelike endless climb with a fresh random map every run.",
+          tower_body: "Each floor is procedurally laid out — new paths, new hazards, new loot every climb. Go as high as you dare; your best floor hits the global leaderboard.",
+          tower_feat1: "Random roguelike map — no two climbs alike",
+          tower_feat2: "Endless floors, scaling difficulty",
+          tower_feat3: "Global leaderboard ranks your best climb",
+          custom_title: "MAKE EVERY TILE YOURS",
+          custom_sub: "Why play with factory tiles when you can run the board? Drop any photo onto your pieces and bosses — nobody has your board.",
+          custom_f1_t: "ON TILES",
+          custom_f1: "Swap any picture onto your match-3 tiles — your cat, your crush, a meme. Pure you.",
+          custom_f2_t: "ON BOSSES",
+          custom_f2: "Slap a face onto the bug bosses. Suddenly the cleanup feels personal.",
+          custom_f3_t: "ON THE FINAL BOSS",
+          custom_f3: "Stick the boss's face on the last boss and take it down in style. Petty? Delicious.",
           htp_title: "HOW IT WORKS",
           htp_sub: "Match, charge, unleash — then make every board your own",
           step1_title: "Match & Charge",
           step1_desc: "Swap neighbors, line up 3+, trigger specials and chain reactions. Every clear scrubs bug-filth off your board — and charges your mana for PVP.",
           step2_title: "Duel a Rival",
-          step2_desc: "Go head-to-head with a real player — real-time HP duels or turn-based Match Duel. Seal elements, fire skills, reshape boards; the winner loots coins & gems.",
+          step2_desc: "Go head-to-head with a real player — HP PK or Score PK. Seal elements, fire skills, reshape boards; the winner loots coins & gems.",
           step3_title: "Make It Personal",
           step3_desc: "Drop any photo onto your tiles and bosses — your boss, your cat, your crush, a meme. Stick the boss's face on the final boss and take it personally. Nobody has your board.",
           boss_title: "BUG DOSSIERS",
@@ -637,7 +702,8 @@
           nav_shots: "真机截图",
           nav_demo: "演示",
           nav_pvp: "PVP 玩法",
-          nav_modes: "游戏模式",
+          nav_modes: "大地图战役",
+          nav_custom: "我的棋盘",
           nav_beta: "加入测试",
           nav_register: "预先注册",
           demo_window_label: "实机演示窗口",
@@ -663,58 +729,76 @@
           hud_level: "关卡",
           pvp_badge: "⚔️ 两种 PVP 玩法 · 1.0.2 全新上线",
           pvp_title: "两种真人 PVP 对战",
-          pvp_sub: "实时血条对战与回合制比分对战——都是和真人正面对决，并直接掠夺对方的金币钻石。",
-          pvp_lead: "对手的形象就立在你的棋盘下方。谁先把对方的血条打光，谁就赢下这局。",
+          pvp_sub: "血量PK 与 分值PK——都是和真人正面对决，胜者入账 300 金币 + 5 钻石。",
+          pvp_lead: "非对称棋盘正面对决。消除积攒魔力,施放技能打光对手血条,先归零者落败。",
           pvp_body: "对战全程积累<strong>魔法值</strong>，攒满即可向对方棋盘发动技能：",
           pvp_rt_tag: "实时",
-          pvp_rt_name: "真人实时对战（PVP）",
-          pvp_rt_lead: "对手的形象就立在你的棋盘下方。谁先把对方的血条打光，谁就赢下这局。",
+          pvp_rt_name: "血量PK",
+          pvp_rt_lead: "非对称棋盘正面对决。消除积攒魔力，施放技能打光对手血条，先归零者落败。",
           pvp_rt_body: "对战全程积累<strong>魔法值</strong>，攒满即可向对方棋盘发动技能：",
-          pvp_cta: "开打实时 PVP →",
           pvp_md_tag: "回合制",
-          pvp_md_name: "回合对决（Match Duel）",
-          pvp_md_lead: "共用一块棋盘、轮流落子。5 个回合后比分高者获胜——不拼血条，只拼分数。",
-          pvp_md_p1: "共用棋盘、轮流落子——你的一步直接改写对手下一手的局面",
+          pvp_md_name: "分值PK",
+          pvp_md_lead: "共用一块棋盘、轮流落子，消除越多得分越高。5 个回合后比分高者获胜——不拼血条，只拼分数。",
+          pvp_md_p1: "同一棋盘、轮流落子——消除越多,得分越高。",
           pvp_md_p2: "4 连及以上不消耗步数，连锁越打越上头",
-          pvp_md_p3: "三种技能各对应一种元素：激光枪（清两行两列）、鞭炮（随机 10 个）、魔法棒（同色全清）。集满对应元素能量即可释放。",
-          pvp_md_p4: "每局押上金币钻石赌注——赢家通吃，也支持同屏热座对战",
-          pvp_md_loot: "5 回合内比分压制对手，<strong>把他的金币钻石通通带走</strong>。",
-          pvp_md_cta: "开打回合对决 →",
+          pvp_md_p3: "三种技能各对应一种元素，集满对应元素能量即可释放：",
+          pvp_md_skill1_name: "激光枪",
+          pvp_md_skill1_desc: "清掉两行两列。",
+          pvp_md_skill2_name: "鞭炮",
+          pvp_md_skill2_desc: "随机清除 10 个块。",
+          pvp_md_skill3_name: "魔法棒",
+          pvp_md_skill3_desc: "同色块全部清除。",
+          pvp_md_p4: "对局中可使用技能与道具，也支持同屏热座对战",
+          pvp_md_loot: "5 回合后比分领先，入账 300 金币 + 5 钻石。",
+          pvp_rt_loot: "先打光对手血条,入账 300 金币 + 5 钻石。",
           pvp_skill1_name: "随机冻结",
           pvp_skill1_desc: "在对手棋盘随机冻结 5 个任意块（含特殊块），持续 3 回合。",
           pvp_skill1_cost: "耗蓝 80",
           pvp_skill2_name: "随机障碍",
-          pvp_skill2_desc: "施放时把 1~3 个普通格直接转换为 PvP 障碍池中的障碍。",
+          pvp_skill2_desc: "施放时把 3~4 个普通格直接转换为 PvP 障碍池中的障碍。",
           pvp_skill2_cost: "耗蓝 99",
           pvp_skill3_name: "变换弱点",
-          pvp_skill3_desc: "立即随机重置/转换对手的弱点色，打乱他的布局。",
+          pvp_skill3_desc: "随机切换我在对方棋盘中的弱点。",
           pvp_skill3_cost: "耗蓝 15",
           pvp_skill4_name: "重组棋盘",
-          pvp_skill4_desc: "直接清除特殊块并洗牌，一次性重组对方棋盘。",
+          pvp_skill4_desc: "将对方棋盘完全重组。",
           pvp_skill4_cost: "耗蓝 80",
+          pvp_roster_title: "选个战士出战",
+          pvp_roster_sub: "三位对手可在血量PK与分值PK中任选登场——开打前先挑个顺眼的形象。",
+          pvp_fighter1: "赤丸",
+          pvp_fighter2: "泡泡",
+          pvp_fighter3: "嘀嗒",
           duel_you: "我方",
           duel_rival: "对手",
           duel_caption: "每次消除都在积累魔法值，技能直接砸向对方棋盘。",
-          modes_title: "六大玩法，一个目标：把家收拾干净",
-          modes_sub: "两种真人 PVP + 四种单人玩法。每局就一两分钟，连锁爽到飞起。免费，而且四种单人模式断网也能玩。",
-          mode_pvp_name: "真人实时对战",
-          mode_pvp_desc: "实时对战。在线匹配或用房间码邀请好友，打光对方血条，掠夺金币钻石。",
-          mode_duel_name: "回合对决",
-          mode_duel_desc: "共用棋盘、轮流落子、5 回合比分定胜负。每局押上金币钻石赌注。",
-          mode_boss_name: "打爆 Boss",
-          mode_boss_desc: "主线闯关。经典三消规则，但每 10 关就蹦出一个虫怪 Boss，各有弱点色和阴招。盯着弱点打，攒满大招正面反打，再投个 BossCoin 碰碰运气——看血条哗哗往下掉。",
-          mode_vessel_name: "药丸冲冲",
-          mode_vessel_desc: "操控一颗药丸钻进血管迷宫，一滑到底。划一下它就顺着管道滑到撞墙为止——规划路线、沿途吞掉细菌、冲到终点。短平快，还挺上头。",
-          mode_drop_name: "向下逃",
-          mode_drop_desc: "一条死亡线从头顶缓缓压下来。赶紧消除脚下的块，让小人一路往下坠、抢在压到之前触到安全线。心跳拉满，全靠手速。",
-          mode_ascent_name: "无限登顶",
-          mode_ascent_desc: "地图无限随机生成，越往上越刁钻。走投无路就结算，爬的层数和分数直接挂上全服排行榜。再来一局？",
+          camp_title: "大地图战役",
+          camp_sub: "100 个手工关卡铺满一整张大地图。每 10 关就有一位造型各异的 Boss 镇守，两种特殊玩法穿插在主线旅程中。",
+          camp_l1: "关卡",
+          camp_t1: "100 关连成一张完整的大地图，没有选关界面，只管一路向前。",
+          camp_l2: "BOSS",
+          camp_t2: "10 个造型迥异的虫怪 Boss，每 10 关一位，各自有专属弱点。",
+          camp_l3: "特殊玩法",
+          camp_t3: "下落逃生与药丸穿梭两种特殊玩法，穿插在主线地图里调剂节奏。",
+          tower_title: "无限登顶",
+          tower_sub: "随机 roguelike 地图的爬塔玩法，每一局都焕然一新。",
+          tower_body: "每一层地图随机生成——路线、陷阱、奖励每次都不同。能爬多高全看本事，你的最高层数直接挂上全服排行榜。",
+          tower_feat1: "随机 roguelike 地图，没有两局相同",
+          tower_feat2: "无限楼层，难度层层递进",
+          tower_feat3: "全服排行榜记录你的最高层数",
+          custom_title: "把棋盘变成你的专属",
+          custom_sub: "凭什么用系统自带的方块？把任意照片贴到你的棋子与 Boss 身上——你的棋盘，全世界独一份。",
+          custom_f1_t: "贴到方块",
+          custom_f1: "把任意照片贴到三消方块上——猫主子、暗恋对象、沙雕表情包，随你。",
+          custom_f2_t: "贴到 BOSS",
+          custom_f2: "把某张脸糊到虫怪 Boss 身上，消起来格外解气。",
+          custom_f3_t: "贴到最终 BOSS",
+          custom_f3: "把老板的脸贴到最终 Boss 上，狠狠消掉。爽不爽？",
           htp_title: "怎么玩",
           htp_sub: "消除、积攒、释放——再把每张棋盘变成你的专属",
           step1_title: "匹配与积攒",
           step1_desc: "把相邻方块换一换，凑齐三连以上就消除。连锁、特效、大爆发，每消一个就把家里的虫怪脏东西清掉一点——顺手还给 PVP 攒满魔法值。",
           step2_title: "真人对战",
-          step2_desc: "与真人玩家正面交锋——实时血条对战或回合制比分对决。封印元素、释放技能、重组棋盘，胜者掠夺金币钻石。",
+          step2_desc: "与真人玩家正面交锋——血量PK 或 分值PK。封印元素、释放技能、重组棋盘，胜者掠夺金币钻石。",
           step3_title: "打造专属棋盘",
           step3_desc: "把任意照片贴到方块和 Boss 身上——老板、猫主子、暗恋对象、沙雕表情包都行。把老板的脸糊到最终 Boss 上，往死里消。你的棋盘，全世界独一份。",
           boss_title: "虫子档案",
@@ -1711,20 +1795,6 @@
             stagger: 0.12,
             ease: "power2.out",
             scrollTrigger: { trigger: "#game-modes", start: "top 80%" },
-          },
-        );
-
-        // Scroll-triggered: How to play steps
-        gsap.fromTo(
-          "#step-1, #step-2, #step-3",
-          { opacity: 0, y: 40 },
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.7,
-            stagger: 0.2,
-            ease: "power2.out",
-            scrollTrigger: { trigger: "#how-to-play", start: "top 80%" },
           },
         );
 
