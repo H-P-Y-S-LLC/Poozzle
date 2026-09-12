@@ -1,0 +1,1804 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <title>Boss 3D Prototype — MatchFace</title>
+    <style>
+      :root {
+        --bg: #0d0d1a;
+        --panel: rgba(255, 255, 255, 0.06);
+        --accent: #3d9ee8;
+        --accent-2: #ff8c42;
+        --text: #eef2ff;
+        --muted: #9aa3c0;
+      }
+      * { box-sizing: border-box; }
+      html, body { margin: 0; height: 100%; background: var(--bg); color: var(--text); }
+      body { font-family: "Open Sans", "Segoe UI", system-ui, -apple-system, sans-serif; overflow: hidden; }
+      #stage { position: fixed; inset: 0; }
+      #stage canvas { display: block; cursor: grab; }
+      #stage canvas:active { cursor: grabbing; }
+
+      .hud { position: fixed; z-index: 10; pointer-events: none; }
+      .title {
+        top: 20px; left: 22px;
+        font-family: "Oswald", "Segoe UI", sans-serif;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+      .title h1 { margin: 0; font-size: clamp(16px, 2.4vw, 22px); font-weight: 600; }
+      .title p { margin: 6px 0 0; color: var(--muted); font-size: 12px; letter-spacing: 0.02em; text-transform: none; }
+
+      .controls {
+        bottom: 26px; left: 50%; transform: translateX(-50%);
+        display: flex; flex-wrap: wrap; justify-content: center; align-items: center;
+        gap: 10px; pointer-events: auto; max-width: calc(100vw - 24px);
+      }
+      .controls button {
+        font-family: inherit; font-size: 13px; letter-spacing: 0.06em; text-transform: uppercase;
+        color: var(--muted); background: var(--panel); border: 1px solid rgba(255,255,255,0.12);
+        padding: 10px 20px; border-radius: 999px; cursor: pointer; backdrop-filter: blur(8px);
+        transition: color .18s, border-color .18s, background .18s, transform .18s;
+      }
+      .controls button:hover { color: var(--text); transform: translateY(-1px); }
+      .controls button.active { color: #fff; border-color: var(--accent); background: rgba(61,158,232,0.22); }
+      .controls .sep { width: 1px; align-self: stretch; margin: 2px 4px; background: rgba(255,255,255,0.14); }
+      .controls button[data-action] { border-color: rgba(255,140,66,0.4); }
+      .controls button[data-action]:hover { border-color: var(--accent-2); color: var(--accent-2); }
+      .controls button[data-cam] { border-color: rgba(46,196,182,0.45); }
+      .controls button[data-cam]:hover { border-color: #2ec4b6; color: #2ec4b6; }
+      .controls button[data-fx] { border-color: rgba(61,158,232,0.35); }
+
+      .hint { bottom: 132px; left: 50%; transform: translateX(-50%); color: var(--muted); font-size: 12px; letter-spacing: 0.04em; text-align: center; width: 90vw; }
+
+      #fallback {
+        position: fixed; inset: 0; display: none; z-index: 50;
+        align-items: center; justify-content: center; text-align: center; padding: 24px;
+      }
+      #fallback.show { display: flex; }
+      #fallback .box { max-width: 420px; }
+      #fallback h2 { font-family: "Oswald", sans-serif; letter-spacing: 0.06em; text-transform: uppercase; }
+      #fallback p { color: var(--muted); line-height: 1.6; font-size: 14px; }
+      #fallback code { color: var(--accent-2); }
+    </style>
+  </head>
+  <body>
+    <div id="stage"></div>
+
+    <div class="hud title">
+      <h1>Boss 3D Prototype</h1>
+      <p>Procedural low-poly models · no external assets</p>
+    </div>
+
+    <div class="hud hint">Drag to rotate · Scroll / pinch to zoom · Try the action buttons</div>
+
+    <div class="hud controls">
+      <button data-boss="spider" class="active">Spider</button>
+      <button data-boss="earwig">Earwig</button>
+      <button data-boss="gecko">Gecko</button>
+      <button data-boss="redworm">Red Worm</button>
+      <button data-boss="sowbug">Sowbug</button>
+      <button data-boss="mothfly">Moth Fly</button>
+      <button data-boss="mosquito">Mosquito</button>
+      <button data-boss="cockroach">Cockroach</button>
+      <button data-boss="termite">White Ant</button>
+      <button data-boss="slug">Slug</button>
+      <span class="sep"></span>
+      <button data-action="attack">Attack</button>
+      <button data-action="hurt">Hurt</button>
+      <span class="sep"></span>
+      <button data-cam="cinematic">Cinematic</button>
+      <button data-fx="burst">Burst</button>
+      <button data-fx="bloom" class="active">Bloom</button>
+      <button data-sound="toggle" class="active">Sound</button>
+    </div>
+
+    <div id="fallback">
+      <div class="box">
+        <h2>3D preview unavailable</h2>
+        <p id="fallback-msg">
+          Your browser could not start WebGL, or the three.js CDN could not be reached.
+          Serve this folder locally, e.g. <code>python3 -m http.server</code>, then open
+          <code>http://localhost:8000/boss3d-test.html</code>.
+        </p>
+      </div>
+    </div>
+
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+          "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+        }
+      }
+    </script>
+
+    <script type="module">
+      import * as THREE from "three";
+      import { OrbitControls } from "three/addons/controls/OrbitControls.js";
+      import { EffectComposer } from "three/addons/postprocessing/EffectComposer.js";
+      import { RenderPass } from "three/addons/postprocessing/RenderPass.js";
+      import { UnrealBloomPass } from "three/addons/postprocessing/UnrealBloomPass.js";
+      import { OutputPass } from "three/addons/postprocessing/OutputPass.js";
+
+      const fallback = document.getElementById("fallback");
+      let ready = false;
+      const bootGuard = setTimeout(() => {
+        if (!ready) fallback.classList.add("show");
+      }, 4500);
+
+      function hasWebGL() {
+        try {
+          const c = document.createElement("canvas");
+          return !!(window.WebGLRenderingContext && (c.getContext("webgl2") || c.getContext("webgl")));
+        } catch (e) {
+          return false;
+        }
+      }
+
+      if (!hasWebGL()) {
+        clearTimeout(bootGuard);
+        fallback.classList.add("show");
+      } else {
+        init();
+      }
+
+      function init() {
+        const stage = document.getElementById("stage");
+
+        const renderer = new THREE.WebGLRenderer({ antialias: true, powerPreference: "high-performance" });
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.shadowMap.enabled = true;
+        renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+        renderer.toneMapping = THREE.ACESFilmicToneMapping;
+        renderer.toneMappingExposure = 1.15;
+        renderer.outputColorSpace = THREE.SRGBColorSpace;
+        stage.appendChild(renderer.domElement);
+
+        const scene = new THREE.Scene();
+        scene.background = new THREE.Color(0x0d0d1a);
+        scene.fog = new THREE.Fog(0x0d0d1a, 7, 14);
+
+        const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 100);
+        camera.position.set(0, 1.7, 4.4);
+
+        const controls = new OrbitControls(camera, renderer.domElement);
+        controls.target.set(0, 0.7, 0);
+        controls.enableDamping = true;
+        controls.dampingFactor = 0.08;
+        controls.enablePan = false;
+        controls.minDistance = 2.2;
+        controls.maxDistance = 8;
+        controls.minPolarAngle = 0.35;
+        controls.maxPolarAngle = Math.PI * 0.52;
+        controls.update();
+
+        /* ---------- post processing (bloom) ---------- */
+        const basePixelRatio = Math.min(window.devicePixelRatio, 1.5);
+        let resolutionScale = 1;
+        let bloomEnabled = true;
+        const composer = new EffectComposer(renderer);
+        composer.setPixelRatio(basePixelRatio);
+        composer.setSize(window.innerWidth, window.innerHeight);
+        composer.addPass(new RenderPass(scene, camera));
+        const bloomPass = new UnrealBloomPass(
+          new THREE.Vector2(window.innerWidth, window.innerHeight),
+          0.85,
+          0.45,
+          0.85
+        );
+        composer.addPass(bloomPass);
+        composer.addPass(new OutputPass());
+
+        /* ---------- lighting ---------- */
+        scene.add(new THREE.HemisphereLight(0x9fc4ff, 0x161628, 0.75));
+        scene.add(new THREE.AmbientLight(0xffffff, 0.22));
+
+        const key = new THREE.DirectionalLight(0xffffff, 2.1);
+        key.position.set(3.5, 6, 4.5);
+        key.castShadow = true;
+        key.shadow.mapSize.set(1024, 1024);
+        key.shadow.camera.near = 1;
+        key.shadow.camera.far = 18;
+        key.shadow.camera.left = -4;
+        key.shadow.camera.right = 4;
+        key.shadow.camera.top = 4;
+        key.shadow.camera.bottom = -4;
+        key.shadow.bias = -0.0008;
+        scene.add(key);
+
+        const rim = new THREE.DirectionalLight(0x5fa8ff, 0.7);
+        rim.position.set(-4, 2.5, -4);
+        scene.add(rim);
+
+        const fill = new THREE.PointLight(0xff8c42, 18, 8, 2);
+        fill.position.set(-2.5, 1.2, 2);
+        scene.add(fill);
+
+        const hitLight = new THREE.PointLight(0xff3355, 0, 6, 2);
+        hitLight.position.set(0, 1.6, 0.6);
+        scene.add(hitLight);
+
+        /* ---------- ground ---------- */
+        const ground = new THREE.Mesh(
+          new THREE.CircleGeometry(6, 48),
+          new THREE.MeshStandardMaterial({ color: 0x111122, roughness: 0.95, metalness: 0 })
+        );
+        ground.rotation.x = -Math.PI / 2;
+        ground.receiveShadow = true;
+        scene.add(ground);
+
+        const ring = new THREE.Mesh(
+          new THREE.TorusGeometry(2.35, 0.02, 8, 80),
+          new THREE.MeshStandardMaterial({ color: 0x3d9ee8, emissive: 0x1c5c8f, emissiveIntensity: 0.9, roughness: 0.4 })
+        );
+        ring.rotation.x = -Math.PI / 2;
+        ring.position.y = 0.02;
+        scene.add(ring);
+
+        /* ---------- particles ---------- */
+        function makeSoftDot() {
+          const s = 64;
+          const c = document.createElement("canvas");
+          c.width = c.height = s;
+          const ctx = c.getContext("2d");
+          const g = ctx.createRadialGradient(s / 2, s / 2, 0, s / 2, s / 2, s / 2);
+          g.addColorStop(0, "rgba(255,255,255,1)");
+          g.addColorStop(0.35, "rgba(255,255,255,0.85)");
+          g.addColorStop(1, "rgba(255,255,255,0)");
+          ctx.fillStyle = g;
+          ctx.fillRect(0, 0, s, s);
+          const tex = new THREE.CanvasTexture(c);
+          tex.colorSpace = THREE.SRGBColorSpace;
+          return tex;
+        }
+
+        const MAX_PARTICLES = 700;
+        const pPos = new Float32Array(MAX_PARTICLES * 3);
+        const pCol = new Float32Array(MAX_PARTICLES * 3);
+        const pAlpha = new Float32Array(MAX_PARTICLES);
+        const pSizeArr = new Float32Array(MAX_PARTICLES);
+        const pGeo = new THREE.BufferGeometry();
+        pGeo.setAttribute("position", new THREE.BufferAttribute(pPos, 3));
+        pGeo.setAttribute("aColor", new THREE.BufferAttribute(pCol, 3));
+        pGeo.setAttribute("aAlpha", new THREE.BufferAttribute(pAlpha, 1));
+        pGeo.setAttribute("aSize", new THREE.BufferAttribute(pSizeArr, 1));
+
+        const pMat = new THREE.ShaderMaterial({
+          uniforms: {
+            uMap: { value: makeSoftDot() },
+            uPixelRatio: { value: basePixelRatio },
+          },
+          vertexShader: `
+            attribute vec3 aColor;
+            attribute float aAlpha;
+            attribute float aSize;
+            uniform float uPixelRatio;
+            varying vec3 vColor;
+            varying float vAlpha;
+            void main() {
+              vColor = aColor;
+              vAlpha = aAlpha;
+              vec4 mv = modelViewMatrix * vec4(position, 1.0);
+              gl_PointSize = aSize * uPixelRatio * (300.0 / -mv.z);
+              gl_Position = projectionMatrix * mv;
+            }`,
+          fragmentShader: `
+            uniform sampler2D uMap;
+            varying vec3 vColor;
+            varying float vAlpha;
+            void main() {
+              vec4 t = texture2D(uMap, gl_PointCoord);
+              gl_FragColor = vec4(vColor, 1.0) * t * vAlpha;
+              if (gl_FragColor.a < 0.01) discard;
+            }`,
+          transparent: true,
+          depthWrite: false,
+          blending: THREE.AdditiveBlending,
+        });
+
+        const points = new THREE.Points(pGeo, pMat);
+        points.frustumCulled = false;
+        scene.add(points);
+
+        const pool = [];
+        const tmpColor = new THREE.Color();
+        for (let i = 0; i < MAX_PARTICLES; i++) {
+          pool.push({ alive: false, x: 0, y: 0, z: 0, vx: 0, vy: 0, vz: 0, life: 0, max: 1, size: 1, r: 1, g: 1, b: 1, gravity: 6, drag: 1.8 });
+        }
+        let cursor = 0;
+
+        function spawnParticle(x, y, z, vx, vy, vz, color, size, life, gravity, drag) {
+          const p = pool[cursor];
+          cursor = (cursor + 1) % MAX_PARTICLES;
+          tmpColor.set(color);
+          p.alive = true;
+          p.x = x; p.y = y; p.z = z;
+          p.vx = vx; p.vy = vy; p.vz = vz;
+          p.life = life; p.max = life;
+          p.size = size;
+          p.r = tmpColor.r; p.g = tmpColor.g; p.b = tmpColor.b;
+          p.gravity = gravity; p.drag = drag;
+        }
+
+        function burst(origin, { count = 60, colors = [0xff8c42], speed = 3, size = 0.2, life = 0.8, gravity = 6 } = {}) {
+          for (let i = 0; i < count; i++) {
+            const a = Math.random() * Math.PI * 2;
+            const up = Math.random();
+            const horiz = Math.sqrt(Math.max(0, 1 - up * up));
+            const sp = speed * (0.35 + Math.random() * 0.9);
+            const color = colors[(Math.random() * colors.length) | 0];
+            spawnParticle(
+              origin.x + (Math.random() - 0.5) * 0.2,
+              origin.y + (Math.random() - 0.5) * 0.2,
+              origin.z + (Math.random() - 0.5) * 0.2,
+              Math.cos(a) * horiz * sp,
+              up * sp + 0.6,
+              Math.sin(a) * horiz * sp,
+              color,
+              size * (0.6 + Math.random() * 0.9),
+              life * (0.7 + Math.random() * 0.6),
+              gravity,
+              1.6 + Math.random()
+            );
+          }
+        }
+
+        function updateParticles(dt) {
+          for (let i = 0; i < MAX_PARTICLES; i++) {
+            const p = pool[i];
+            const o = i * 3;
+            if (!p.alive) {
+              pAlpha[i] = 0;
+              pSizeArr[i] = 0;
+              continue;
+            }
+            p.life -= dt;
+            if (p.life <= 0) {
+              p.alive = false;
+              pAlpha[i] = 0;
+              pSizeArr[i] = 0;
+              continue;
+            }
+            p.vy -= p.gravity * dt;
+            const damp = Math.max(0, 1 - p.drag * dt);
+            p.vx *= damp; p.vz *= damp; p.vy *= damp;
+            p.x += p.vx * dt; p.y += p.vy * dt; p.z += p.vz * dt;
+            if (p.y < 0.02) {
+              p.y = 0.02;
+              p.vy = Math.abs(p.vy) * 0.35;
+              p.vx *= 0.7;
+              p.vz *= 0.7;
+            }
+            const k = p.life / p.max;
+            pPos[o] = p.x; pPos[o + 1] = p.y; pPos[o + 2] = p.z;
+            pCol[o] = p.r; pCol[o + 1] = p.g; pCol[o + 2] = p.b;
+            pAlpha[i] = k * k;
+            pSizeArr[i] = p.size * (0.4 + k * 0.8);
+          }
+          pGeo.attributes.position.needsUpdate = true;
+          pGeo.attributes.aColor.needsUpdate = true;
+          pGeo.attributes.aAlpha.needsUpdate = true;
+          pGeo.attributes.aSize.needsUpdate = true;
+        }
+
+        /* ---------- shockwave rings ---------- */
+        const shockwaves = [];
+        for (let i = 0; i < 3; i++) {
+          const mat = new THREE.MeshBasicMaterial({
+            color: 0xff5566,
+            transparent: true,
+            opacity: 0,
+            blending: THREE.AdditiveBlending,
+            side: THREE.DoubleSide,
+            depthWrite: false,
+          });
+          const mesh = new THREE.Mesh(new THREE.RingGeometry(0.35, 0.5, 40), mat);
+          mesh.rotation.x = -Math.PI / 2;
+          mesh.position.y = 0.05;
+          mesh.visible = false;
+          scene.add(mesh);
+          shockwaves.push({ mesh, mat, t: 0, active: false, max: 0.7, reach: 2.6 });
+        }
+        let swCursor = 0;
+
+        function shockwave(origin, color = 0xff5566, max = 0.7, reach = 2.6) {
+          const sw = shockwaves[swCursor];
+          swCursor = (swCursor + 1) % shockwaves.length;
+          sw.mesh.position.set(origin.x, 0.05, origin.z);
+          sw.mat.color.set(color);
+          sw.t = 0;
+          sw.active = true;
+          sw.max = max;
+          sw.reach = reach;
+          sw.mesh.visible = true;
+        }
+
+        function updateShockwaves(dt) {
+          shockwaves.forEach((sw) => {
+            if (!sw.active) return;
+            sw.t += dt;
+            const k = sw.t / sw.max;
+            if (k >= 1) {
+              sw.active = false;
+              sw.mesh.visible = false;
+              sw.mat.opacity = 0;
+              return;
+            }
+            sw.mesh.scale.setScalar(0.6 + k * sw.reach);
+            sw.mat.opacity = (1 - k) * 0.9;
+          });
+        }
+
+        /* ---------- procedural sound (Web Audio API, no assets) ---------- */
+        const sfx = (() => {
+          let ctx = null;
+          let master = null;
+          let analyser = null;
+          let freqData = null;
+          let noiseBuf = null;
+          let muted = false;
+
+          function ensure() {
+            if (ctx) return true;
+            const AC = window.AudioContext || window.webkitAudioContext;
+            if (!AC) return false;
+            ctx = new AC();
+            master = ctx.createGain();
+            master.gain.value = 0.55;
+            analyser = ctx.createAnalyser();
+            analyser.fftSize = 256;
+            freqData = new Uint8Array(analyser.frequencyBinCount);
+            const comp = ctx.createDynamicsCompressor();
+            comp.threshold.value = -12;
+            comp.ratio.value = 6;
+            master.connect(analyser);
+            analyser.connect(comp);
+            comp.connect(ctx.destination);
+
+            const len = Math.floor(ctx.sampleRate * 1.2);
+            noiseBuf = ctx.createBuffer(1, len, ctx.sampleRate);
+            const data = noiseBuf.getChannelData(0);
+            for (let i = 0; i < len; i++) data[i] = Math.random() * 2 - 1;
+            return true;
+          }
+
+          function tone(freq, dur, { type = "sine", gain = 0.4, toFreq = null, attack = 0.006, delay = 0 } = {}) {
+            const osc = ctx.createOscillator();
+            const g = ctx.createGain();
+            const t = ctx.currentTime + delay;
+            osc.type = type;
+            osc.frequency.setValueAtTime(freq, t);
+            if (toFreq) osc.frequency.exponentialRampToValueAtTime(Math.max(1, toFreq), t + dur);
+            g.gain.setValueAtTime(0.0001, t);
+            g.gain.exponentialRampToValueAtTime(gain, t + attack);
+            g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+            osc.connect(g);
+            g.connect(master);
+            osc.start(t);
+            osc.stop(t + dur + 0.03);
+            return { g, t };
+          }
+
+          function noise(dur, { type = "lowpass", freq = 800, q = 1, gain = 0.5, decay = 0.2 } = {}) {
+            const src = ctx.createBufferSource();
+            src.buffer = noiseBuf;
+            const filt = ctx.createBiquadFilter();
+            filt.type = type;
+            filt.frequency.setValueAtTime(freq, ctx.currentTime);
+            filt.Q.value = q;
+            const g = ctx.createGain();
+            const t = ctx.currentTime;
+            g.gain.setValueAtTime(0.0001, t);
+            g.gain.exponentialRampToValueAtTime(gain, t + 0.004);
+            g.gain.exponentialRampToValueAtTime(0.0001, t + Math.max(0.02, decay));
+            src.connect(filt);
+            filt.connect(g);
+            g.connect(master);
+            src.start(t);
+            src.stop(t + dur);
+            return { filt, g };
+          }
+
+          function playable() {
+            if (!ensure()) return false;
+            if (ctx.state === "suspended") ctx.resume();
+            return !muted;
+          }
+
+          return {
+            resume() {
+              if (!ensure()) return;
+              if (ctx.state === "suspended") ctx.resume();
+            },
+            toggle() {
+              muted = !muted;
+              if (master) master.gain.value = muted ? 0 : 0.55;
+              return muted;
+            },
+            isMuted: () => muted,
+            level() {
+              if (!analyser) return 0;
+              analyser.getByteFrequencyData(freqData);
+              let sum = 0;
+              for (let i = 0; i < freqData.length; i++) sum += freqData[i];
+              return Math.min(1, sum / freqData.length / 130);
+            },
+            click() {
+              if (!playable()) return;
+              tone(680, 0.09, { type: "triangle", gain: 0.24, toFreq: 1020 });
+            },
+            attack() {
+              if (!playable()) return;
+              const n = noise(0.3, { type: "bandpass", freq: 300, q: 0.7, gain: 0.4, decay: 0.28 });
+              n.filt.frequency.setValueAtTime(300, ctx.currentTime);
+              n.filt.frequency.exponentialRampToValueAtTime(2600, ctx.currentTime + 0.24);
+            },
+            impact() {
+              if (!playable()) return;
+              tone(170, 0.24, { type: "sine", gain: 0.5, toFreq: 48 });
+              noise(0.18, { type: "lowpass", freq: 1300, gain: 0.45, decay: 0.16 });
+            },
+            hurt() {
+              if (!playable()) return;
+              tone(220, 0.34, { type: "sawtooth", gain: 0.3, toFreq: 68 });
+              tone(110, 0.34, { type: "square", gain: 0.16, toFreq: 40 });
+              noise(0.3, { type: "lowpass", freq: 900, gain: 0.32, decay: 0.28 });
+            },
+            burst() {
+              if (!playable()) return;
+              [523, 659, 784, 1046, 1318].forEach((f, i) =>
+                tone(f, 0.3, { type: "triangle", gain: 0.2, delay: i * 0.045, toFreq: f * 1.5 })
+              );
+              noise(0.35, { type: "highpass", freq: 1800, gain: 0.22, decay: 0.3 });
+            },
+            cinematic() {
+              if (!playable()) return;
+              tone(60, 2.6, { type: "sine", gain: 0.3, toFreq: 90 });
+              tone(90, 2.6, { type: "triangle", gain: 0.12, toFreq: 140 });
+              noise(2.4, { type: "bandpass", freq: 420, q: 0.6, gain: 0.1, decay: 2.2 });
+            },
+          };
+        })();
+
+        ["pointerdown", "keydown", "touchstart"].forEach((ev) =>
+          window.addEventListener(ev, () => sfx.resume())
+        );
+
+        /* ---------- material + geometry helpers ---------- */
+        const materials = new Map();
+        function stdMat(color, { roughness = 0.65, metalness = 0.06, emissive = 0x000000, emissiveIntensity = 1 } = {}) {
+          const key = `${color}-${roughness}-${metalness}-${emissive}-${emissiveIntensity}`;
+          if (!materials.has(key)) {
+            materials.set(
+              key,
+              new THREE.MeshStandardMaterial({
+                color,
+                roughness,
+                metalness,
+                emissive,
+                emissiveIntensity,
+                flatShading: true,
+              })
+            );
+          }
+          return materials.get(key);
+        }
+
+        const UP = new THREE.Vector3(0, 1, 0);
+        function boneBetween(parent, p1, p2, radius, material) {
+          const dir = new THREE.Vector3().subVectors(p2, p1);
+          const len = dir.length();
+          const r = Math.min(radius, len * 0.45);
+          const geo = new THREE.CapsuleGeometry(r, Math.max(0.001, len - r * 2), 4, 7);
+          const mesh = new THREE.Mesh(geo, material);
+          mesh.position.copy(p1).addScaledVector(dir, 0.5);
+          mesh.quaternion.setFromUnitVectors(UP, dir.normalize());
+          mesh.castShadow = true;
+          parent.add(mesh);
+          return mesh;
+        }
+
+        function capsule(parent, position, length, radius, material, rot = null) {
+          const mesh = new THREE.Mesh(new THREE.CapsuleGeometry(radius, length, 4, 8), material);
+          mesh.position.copy(position);
+          if (rot) mesh.rotation.set(rot.x || 0, rot.y || 0, rot.z || 0);
+          mesh.castShadow = true;
+          parent.add(mesh);
+          return mesh;
+        }
+
+        function sphere(parent, position, radius, material, scale = null, detail = 1) {
+          const geo = new THREE.SphereGeometry(radius, 10, detail === 1 ? 8 : 6);
+          const mesh = new THREE.Mesh(geo, material);
+          mesh.position.copy(position);
+          if (scale) mesh.scale.set(scale.x, scale.y, scale.z);
+          mesh.castShadow = true;
+          parent.add(mesh);
+          return mesh;
+        }
+
+        function tube(parent, points, radius, material, tubular = 20, radial = 6) {
+          const curve = new THREE.CatmullRomCurve3(points.map((p) => p.clone()));
+          const mesh = new THREE.Mesh(new THREE.TubeGeometry(curve, tubular, radius, radial, false), material);
+          mesh.castShadow = true;
+          parent.add(mesh);
+          return mesh;
+        }
+
+        function makeLeg(parent, hip, knee, foot, radius, material, phase, kick = 0.12) {
+          const g = new THREE.Group();
+          g.position.copy(hip);
+          parent.add(g);
+
+          const k = knee.clone().sub(hip);
+          const f = foot.clone().sub(hip);
+
+          boneBetween(g, new THREE.Vector3(0, 0, 0), k, radius, material);
+          const joint = new THREE.Mesh(new THREE.SphereGeometry(radius * 1.2, 7, 6), material);
+          joint.position.copy(k);
+          joint.castShadow = true;
+          g.add(joint);
+          boneBetween(g, k, f, radius * 0.82, material);
+          const footMesh = new THREE.Mesh(new THREE.SphereGeometry(radius * 1.05, 7, 6), material);
+          footMesh.position.copy(f);
+          footMesh.castShadow = true;
+          g.add(footMesh);
+
+          return { group: g, phase, kick };
+        }
+
+        /* ---------- spider ---------- */
+        const PAL = {
+          spiderDark: 0x191822,
+          spiderBody: 0x2b2a36,
+          spiderLight: 0x454453,
+          spiderEye: 0xffce4d,
+          spiderFang: 0xd8d3e8,
+          earwigTan: 0xb3835a,
+          earwigMid: 0x8a5a34,
+          earwigDark: 0x5d3b22,
+          earwigEye: 0xf45b49,
+          geckoBody: 0x58c674,
+          geckoDark: 0x246c3a,
+          geckoBelly: 0x9fe0ab,
+          geckoEye: 0xffe978,
+          geckoPupil: 0x1b1b24,
+          wormBody: 0xd8323f,
+          wormDark: 0x8f0f22,
+          wormEye: 0xffd57e,
+          sowBody: 0x8b93aa,
+          sowPlate: 0x59607c,
+          sowEdge: 0xc8d0ea,
+          sowEye: 0xf06a6a,
+          mothBody: 0xd9c8a2,
+          mothFuzz: 0x9e8764,
+          mothWing: 0xe8dcc0,
+          mothEye: 0x1e1d22,
+          mosqBody: 0x8a5a34,
+          mosqDark: 0x432918,
+          mosqWing: 0xdcecff,
+          mosqEye: 0x1f1410,
+          roachBody: 0x7a5028,
+          roachDark: 0x40250f,
+          roachEdge: 0xffd791,
+          termiteBody: 0xe8cf9c,
+          termiteDark: 0x9b7e52,
+          termiteEye: 0x4d2d1e,
+          slugBody: 0x86bd68,
+          slugDark: 0x47683b,
+          slugLight: 0x9ed07d,
+          slugEye: 0x171617,
+        };
+
+        function makeSpider() {
+          const group = new THREE.Group();
+          const dark = stdMat(PAL.spiderDark, { roughness: 0.55 });
+          const body = stdMat(PAL.spiderBody, { roughness: 0.5 });
+          const light = stdMat(PAL.spiderLight, { roughness: 0.5 });
+          const eyeMat = stdMat(PAL.spiderEye, { roughness: 0.25, emissive: 0x6a4a00, emissiveIntensity: 0.7 });
+          const fangMat = stdMat(PAL.spiderFang, { roughness: 0.4 });
+
+          const cephalothorax = sphere(group, new THREE.Vector3(0, 0.78, 0.34), 0.5, body, { x: 1, y: 0.8, z: 1 });
+          cephalothorax.name = "body";
+
+          const abdomen = sphere(group, new THREE.Vector3(0, 0.82, -0.72), 0.62, dark, { x: 1, y: 0.84, z: 1.18 });
+          abdomen.name = "body";
+
+          // marking embedded into the abdomen shell
+          sphere(group, new THREE.Vector3(0, 1.08, -0.72), 0.34, light, { x: 0.85, y: 0.42, z: 1.35 });
+
+          // eyes: 2 large + 2 small
+          [-1, 1].forEach((s) => {
+            sphere(group, new THREE.Vector3(s * 0.17, 0.98, 0.74), 0.1, eyeMat);
+            sphere(group, new THREE.Vector3(s * 0.34, 0.9, 0.6), 0.06, eyeMat);
+          });
+
+          // fangs
+          [-1, 1].forEach((s) => {
+            const fang = new THREE.Mesh(new THREE.ConeGeometry(0.06, 0.24, 6), fangMat);
+            fang.position.set(s * 0.11, 0.56, 0.8);
+            fang.rotation.x = Math.PI;
+            fang.castShadow = true;
+            group.add(fang);
+          });
+
+          // legs: 4 per side, fanning front -> back
+          const legs = [];
+          const baseZ = [0.52, 0.18, -0.18, -0.52];
+          let idx = 0;
+          for (let i = 0; i < 4; i++) {
+            for (const s of [1, -1]) {
+              const hip = new THREE.Vector3(s * 0.34, 0.78, baseZ[i]);
+              const knee = new THREE.Vector3(s * 0.92, 1.26, baseZ[i] * 1.5);
+              const foot = new THREE.Vector3(s * 1.34, 0.03, baseZ[i] * 2.0);
+              legs.push(makeLeg(group, hip, knee, foot, 0.055, dark, idx * 0.7, 0.11));
+              idx++;
+            }
+          }
+
+          const frontLegs = [legs[0], legs[1]];
+
+          group.traverse((o) => {
+            if (o.isMesh) o.castShadow = true;
+          });
+
+          return {
+            group,
+            centerY: 0.85,
+            forward: new THREE.Vector3(0, 0, 1),
+            update(t) {
+              group.position.set(0, Math.sin(t * 2) * 0.035, 0);
+              group.rotation.set(0, 0, Math.sin(t * 1.3) * 0.015);
+              legs.forEach((leg) => {
+                leg.group.rotation.z = Math.sin(t * 3 + leg.phase) * leg.kick;
+                leg.group.rotation.x = Math.cos(t * 1.6 + leg.phase) * 0.04;
+              });
+              eyeMat.emissiveIntensity = 0.55 + Math.sin(t * 4) * 0.18;
+            },
+            flourish(name, p) {
+              if (name !== "attack") return;
+              const raise = Math.sin(p * Math.PI);
+              frontLegs.forEach((leg, i) => {
+                leg.group.rotation.x -= raise * (0.75 + i * 0.15);
+                leg.group.rotation.z += (i === 0 ? 1 : -1) * raise * 0.35;
+              });
+            },
+          };
+        }
+
+        /* ---------- earwig ---------- */
+        function makeEarwig() {
+          const group = new THREE.Group();
+          group.rotation.y = 1.0;
+          const tan = stdMat(PAL.earwigTan, { roughness: 0.55 });
+          const mid = stdMat(PAL.earwigMid, { roughness: 0.55 });
+          const dark = stdMat(PAL.earwigDark, { roughness: 0.6 });
+          const eyeMat = stdMat(PAL.earwigEye, { roughness: 0.25, emissive: 0x5a0f0a, emissiveIntensity: 0.6 });
+
+          const bodyGroup = new THREE.Group();
+          group.add(bodyGroup);
+
+          // segmented abdomen: head at +Z, tail at -Z
+          const segs = [
+            { z: 0.62, r: 0.34, mat: mid, sy: 0.86 },
+            { z: 0.12, r: 0.42, mat: tan, sy: 0.84 },
+            { z: -0.42, r: 0.4, mat: tan, sy: 0.82 },
+            { z: -0.92, r: 0.34, mat: mid, sy: 0.8 },
+            { z: -1.3, r: 0.25, mat: dark, sy: 0.78 },
+          ];
+          segs.forEach((s) => {
+            sphere(bodyGroup, new THREE.Vector3(0, 0.55, s.z), s.r, s.mat, { x: 1, y: s.sy, z: 1.1 });
+          });
+
+          // head + eyes
+          const head = sphere(bodyGroup, new THREE.Vector3(0, 0.6, 1.02), 0.38, dark, { x: 1, y: 0.9, z: 1 });
+          head.name = "head";
+          [-1, 1].forEach((s) => {
+            sphere(bodyGroup, new THREE.Vector3(s * 0.16, 0.72, 1.3), 0.08, eyeMat);
+          });
+
+          // antennae
+          const antennae = [];
+          [-1, 1].forEach((s) => {
+            const a = new THREE.Group();
+            a.position.set(s * 0.13, 0.82, 1.28);
+            const seg = tube(
+              a,
+              [
+                new THREE.Vector3(0, 0, 0),
+                new THREE.Vector3(s * 0.14, 0.3, 0.22),
+                new THREE.Vector3(s * 0.3, 0.52, 0.42),
+              ],
+              0.02,
+              dark,
+              14,
+              6
+            );
+            seg.castShadow = true;
+            bodyGroup.add(a);
+            antennae.push({ group: a, side: s, phase: s * 0.5 });
+          });
+
+          // tail pincers (curve up and inward)
+          const pincers = [];
+          [-1, 1].forEach((s) => {
+            const p = new THREE.Group();
+            p.position.set(s * 0.12, 0.52, -1.42);
+            tube(
+              p,
+              [
+                new THREE.Vector3(0, 0, 0),
+                new THREE.Vector3(s * 0.24, 0.08, -0.33),
+                new THREE.Vector3(s * 0.18, 0.22, -0.62),
+                new THREE.Vector3(-s * 0.02, 0.3, -0.82),
+              ],
+              0.045,
+              dark,
+              22,
+              6
+            );
+            const tip = new THREE.Mesh(new THREE.ConeGeometry(0.045, 0.18, 6), dark);
+            tip.position.set(-s * 0.09, 0.34, -0.94);
+            tip.rotation.x = -Math.PI / 2;
+            tip.rotation.z = s * 0.5;
+            tip.castShadow = true;
+            p.add(tip);
+            bodyGroup.add(p);
+            pincers.push({ group: p, side: s });
+          });
+
+          // six short legs
+          const legs = [];
+          const legZ = [0.5, 0.08, -0.38];
+          let idx = 0;
+          for (let i = 0; i < 3; i++) {
+            for (const s of [1, -1]) {
+              const hip = new THREE.Vector3(s * 0.34, 0.42, legZ[i]);
+              const knee = new THREE.Vector3(s * 0.55, 0.24, legZ[i] + 0.06);
+              const foot = new THREE.Vector3(s * 0.62, 0.02, legZ[i] + 0.12);
+              legs.push(makeLeg(bodyGroup, hip, knee, foot, 0.032, dark, idx * 0.9, 0.16));
+              idx++;
+            }
+          }
+
+          bodyGroup.traverse((o) => {
+            if (o.isMesh) o.castShadow = true;
+          });
+
+          return {
+            group,
+            centerY: 0.6,
+            forward: new THREE.Vector3(Math.sin(group.rotation.y), 0, Math.cos(group.rotation.y)),
+            update(t) {
+              group.position.set(0, Math.sin(t * 3) * 0.028, 0);
+              group.rotation.x = 0;
+              group.rotation.z = 0;
+              bodyGroup.rotation.y = Math.sin(t * 1.4) * 0.1;
+              antennae.forEach((a) => {
+                a.group.rotation.z = Math.sin(t * 2.4 + a.phase) * 0.22;
+                a.group.rotation.x = Math.cos(t * 1.8 + a.phase) * 0.1;
+              });
+              pincers.forEach((p) => {
+                p.group.rotation.y = p.side * (Math.sin(t * 2 + 1) * 0.14);
+              });
+              legs.forEach((leg) => {
+                leg.group.rotation.z = Math.sin(t * 3.6 + leg.phase) * leg.kick;
+              });
+              eyeMat.emissiveIntensity = 0.45 + Math.sin(t * 3.2) * 0.15;
+            },
+            flourish(name, p) {
+              if (name !== "attack") return;
+              const open = Math.sin(p * Math.PI);
+              pincers.forEach((pin) => {
+                pin.group.rotation.y += pin.side * open * 0.7;
+              });
+              antennae.forEach((a) => {
+                a.group.rotation.x -= open * 0.5;
+              });
+            },
+          };
+        }
+
+        /* ---------- gecko ---------- */
+        function makeGecko() {
+          const baseYaw = 1.0;
+          const group = new THREE.Group();
+          group.rotation.y = baseYaw;
+          const bodyMat = stdMat(PAL.geckoBody, { roughness: 0.5 });
+          const darkMat = stdMat(PAL.geckoDark, { roughness: 0.55 });
+          const bellyMat = stdMat(PAL.geckoBelly, { roughness: 0.55 });
+          const eyeMat = stdMat(PAL.geckoEye, { roughness: 0.25, emissive: 0x6a5a00, emissiveIntensity: 0.6 });
+          const pupilMat = stdMat(PAL.geckoPupil, { roughness: 0.3 });
+
+          const bodyGroup = new THREE.Group();
+          group.add(bodyGroup);
+
+          // torso + belly
+          sphere(bodyGroup, new THREE.Vector3(0, 0.5, 0), 0.42, bodyMat, { x: 0.82, y: 0.72, z: 1.5 });
+          sphere(bodyGroup, new THREE.Vector3(0, 0.37, 0.04), 0.4, bellyMat, { x: 0.68, y: 0.48, z: 1.42 });
+
+          // dorsal markings
+          for (let i = 0; i < 4; i++) {
+            sphere(bodyGroup, new THREE.Vector3(0, 0.72, 0.4 - i * 0.32), 0.15, darkMat, { x: 0.95, y: 0.45, z: 0.95 });
+          }
+          // side spots
+          [-1, 1].forEach((s) => {
+            sphere(bodyGroup, new THREE.Vector3(s * 0.3, 0.54, 0.18), 0.1, bellyMat, { x: 0.5, y: 0.7, z: 1 });
+            sphere(bodyGroup, new THREE.Vector3(s * 0.3, 0.52, -0.28), 0.09, bellyMat, { x: 0.5, y: 0.7, z: 1 });
+          });
+
+          // head
+          const headGroup = new THREE.Group();
+          headGroup.position.set(0, 0.56, 0.6);
+          bodyGroup.add(headGroup);
+          sphere(headGroup, new THREE.Vector3(0, 0, 0), 0.28, darkMat, { x: 1, y: 0.82, z: 1.12 });
+          sphere(headGroup, new THREE.Vector3(0, -0.03, 0.22), 0.2, bodyMat, { x: 0.92, y: 0.68, z: 1.1 });
+          [-1, 1].forEach((s) => {
+            sphere(headGroup, new THREE.Vector3(s * 0.16, 0.1, 0.14), 0.1, eyeMat, { x: 0.9, y: 1, z: 1 });
+            sphere(headGroup, new THREE.Vector3(s * 0.17, 0.1, 0.22), 0.045, pupilMat, { x: 0.5, y: 1.5, z: 1 });
+          });
+          sphere(headGroup, new THREE.Vector3(0, -0.05, 0.36), 0.035, pupilMat, { x: 1.4, y: 1, z: 0.6 });
+
+          // tail: chain of segments for wave animation
+          const tailSegs = [];
+          const tailRoot = new THREE.Group();
+          tailRoot.position.set(0, 0.52, -0.56);
+          bodyGroup.add(tailRoot);
+          let parent = tailRoot;
+          for (let i = 0; i < 8; i++) {
+            const seg = new THREE.Group();
+            seg.position.z = i === 0 ? 0 : -0.24;
+            parent.add(seg);
+            const r = 0.19 * (1 - i / 9);
+            sphere(seg, new THREE.Vector3(0, 0, 0), r, i % 2 ? bodyMat : darkMat, { x: 0.85, y: 0.72, z: 1.5 });
+            tailSegs.push(seg);
+            parent = seg;
+          }
+
+          // four splayed legs
+          const legs = [];
+          let idx = 0;
+          for (const z of [0.34, -0.4]) {
+            for (const s of [1, -1]) {
+              const hip = new THREE.Vector3(s * 0.3, 0.48, z);
+              const knee = new THREE.Vector3(s * 0.58, 0.6, z - 0.04);
+              const foot = new THREE.Vector3(s * 0.7, 0.02, z + 0.09);
+              legs.push(makeLeg(bodyGroup, hip, knee, foot, 0.05, darkMat, idx * 0.8, 0.1));
+              idx++;
+            }
+          }
+
+          group.traverse((o) => {
+            if (o.isMesh) o.castShadow = true;
+          });
+
+          return {
+            group,
+            centerY: 0.55,
+            forward: new THREE.Vector3(Math.sin(baseYaw), 0, Math.cos(baseYaw)),
+            update(t) {
+              group.position.set(0, Math.sin(t * 2.2) * 0.03, 0);
+              group.rotation.set(0, baseYaw, Math.sin(t * 1.1) * 0.012);
+              headGroup.rotation.y = Math.sin(t * 0.9) * 0.2;
+              headGroup.rotation.x = -0.05 + Math.sin(t * 1.7) * 0.06;
+              tailSegs.forEach((seg, i) => {
+                seg.rotation.y = Math.sin(t * 3 - i * 0.55) * 0.16;
+                seg.rotation.x = -0.055 + Math.sin(t * 2.2 - i * 0.4) * 0.08;
+              });
+              legs.forEach((leg) => {
+                leg.group.rotation.z = Math.sin(t * 3 + leg.phase) * leg.kick;
+              });
+              eyeMat.emissiveIntensity = 0.5 + Math.sin(t * 3.4) * 0.18;
+            },
+            flourish(name, p) {
+              if (name !== "attack") return;
+              const k = Math.sin(p * Math.PI);
+              headGroup.rotation.x += k * 0.3;
+              tailSegs.forEach((seg, i) => {
+                seg.rotation.x -= k * (0.1 * (i + 1)) / 6;
+              });
+            },
+          };
+        }
+
+        /* ---------- red worm ---------- */
+        function makeRedWorm() {
+          const baseYaw = 0.9;
+          const group = new THREE.Group();
+          group.rotation.y = baseYaw;
+          const bodyMat = stdMat(PAL.wormBody, { roughness: 0.5 });
+          const darkMat = stdMat(PAL.wormDark, { roughness: 0.55 });
+          const eyeMat = stdMat(PAL.wormEye, { roughness: 0.25, emissive: 0x6a5200, emissiveIntensity: 0.6 });
+          const bodyGroup = new THREE.Group();
+          group.add(bodyGroup);
+
+          const segMeshes = [];
+          const segCount = 9;
+          for (let i = 0; i < segCount; i++) {
+            const z = 0.9 - i * 0.24;
+            const rise = i < 3 ? (3 - i) * 0.1 : 0;
+            const y = 0.3 + rise;
+            const r = 0.32 * (1 - i / 14);
+            const mesh = sphere(bodyGroup, new THREE.Vector3(0, y, z), r, i % 2 ? darkMat : bodyMat, { x: 1, y: 0.9, z: 1.12 });
+            mesh.userData.baseY = y;
+            mesh.userData.index = i;
+            segMeshes.push(mesh);
+          }
+
+          const head = new THREE.Group();
+          head.position.set(0, 0.3 + 3 * 0.1 + 0.02, 1.05);
+          bodyGroup.add(head);
+          sphere(head, new THREE.Vector3(0, 0, 0), 0.3, bodyMat, { x: 1, y: 0.95, z: 1 });
+          [-1, 1].forEach((s) => sphere(head, new THREE.Vector3(s * 0.14, 0.1, 0.16), 0.08, eyeMat));
+          [-1, 1].forEach((s) => {
+            const m = new THREE.Mesh(new THREE.ConeGeometry(0.05, 0.18, 6), darkMat);
+            m.position.set(s * 0.09, -0.12, 0.24);
+            m.rotation.x = Math.PI;
+            m.castShadow = true;
+            head.add(m);
+          });
+
+          group.traverse((o) => { if (o.isMesh) o.castShadow = true; });
+
+          return {
+            group,
+            centerY: 0.55,
+            forward: new THREE.Vector3(Math.sin(baseYaw), 0, Math.cos(baseYaw)),
+            update(t) {
+              group.position.set(0, Math.sin(t * 2) * 0.03, 0);
+              group.rotation.set(0, baseYaw, 0);
+              segMeshes.forEach((m) => {
+                m.position.x = Math.sin(t * 3 - m.userData.index * 0.6) * 0.06;
+                m.position.y = m.userData.baseY + Math.sin(t * 2.4 - m.userData.index * 0.5) * 0.035;
+              });
+              head.position.x = Math.sin(t * 3) * 0.06;
+              head.rotation.x = Math.sin(t * 1.8) * 0.12;
+              eyeMat.emissiveIntensity = 0.5 + Math.sin(t * 4) * 0.15;
+            },
+            flourish(name, p) {
+              if (name !== "attack") return;
+              head.rotation.x += Math.sin(p * Math.PI) * 0.4;
+            },
+          };
+        }
+
+        /* ---------- sowbug ---------- */
+        function makeSowbug() {
+          const baseYaw = 0.7;
+          const group = new THREE.Group();
+          group.rotation.y = baseYaw;
+          const bodyMat = stdMat(PAL.sowBody, { roughness: 0.5 });
+          const plateMat = stdMat(PAL.sowPlate, { roughness: 0.5 });
+          const edgeMat = stdMat(PAL.sowEdge, { roughness: 0.55 });
+          const eyeMat = stdMat(PAL.sowEye, { roughness: 0.3, emissive: 0x5a1010, emissiveIntensity: 0.5 });
+          const bodyGroup = new THREE.Group();
+          group.add(bodyGroup);
+
+          const plates = [];
+          const n = 7;
+          for (let i = 0; i < n; i++) {
+            const tt = i / (n - 1);
+            const z = 0.72 - i * 0.25;
+            const size = 0.36 * (1 - Math.abs(tt - 0.4) * 0.5);
+            const g = new THREE.Group();
+            g.position.set(0, 0.36, z);
+            sphere(g, new THREE.Vector3(0, 0, 0), size, i % 2 ? plateMat : bodyMat, { x: 1.15, y: 0.55, z: 0.78 });
+            sphere(g, new THREE.Vector3(0, 0.03, 0), size * 0.9, edgeMat, { x: 1.18, y: 0.34, z: 0.24 });
+            plates.push(g);
+            bodyGroup.add(g);
+          }
+
+          const head = new THREE.Group();
+          head.position.set(0, 0.34, 0.92);
+          bodyGroup.add(head);
+          sphere(head, new THREE.Vector3(0, 0, 0), 0.28, bodyMat, { x: 1.1, y: 0.6, z: 0.72 });
+          sphere(head, new THREE.Vector3(0, 0.05, 0.06), 0.2, eyeMat, { x: 1.15, y: 0.3, z: 0.5 });
+          [-1, 1].forEach((s) => {
+            tube(head, [new THREE.Vector3(s * 0.12, 0, 0.16), new THREE.Vector3(s * 0.35, 0.12, 0.4), new THREE.Vector3(s * 0.55, 0.18, 0.6)], 0.02, plateMat, 10, 5);
+          });
+
+          const legs = [];
+          let idx = 0;
+          for (let i = 0; i < 6; i++) {
+            const z = 0.6 - i * 0.22;
+            for (const s of [1, -1]) {
+              const hip = new THREE.Vector3(s * 0.28, 0.3, z);
+              const knee = new THREE.Vector3(s * 0.46, 0.22, z);
+              const foot = new THREE.Vector3(s * 0.55, 0.02, z + 0.05);
+              legs.push(makeLeg(bodyGroup, hip, knee, foot, 0.035, plateMat, idx * 0.7, 0.14));
+              idx++;
+            }
+          }
+
+          group.traverse((o) => { if (o.isMesh) o.castShadow = true; });
+
+          return {
+            group,
+            centerY: 0.4,
+            forward: new THREE.Vector3(Math.sin(baseYaw), 0, Math.cos(baseYaw)),
+            update(t) {
+              group.position.set(0, Math.sin(t * 3) * 0.02, 0);
+              group.rotation.set(0, baseYaw, 0);
+              plates.forEach((g, i) => { g.position.y = 0.36 + Math.sin(t * 2.6 - i * 0.5) * 0.02; });
+              head.rotation.y = Math.sin(t * 1.4) * 0.15;
+              legs.forEach((leg) => { leg.group.rotation.z = Math.sin(t * 5 + leg.phase) * leg.kick; });
+              eyeMat.emissiveIntensity = 0.45 + Math.sin(t * 3) * 0.12;
+            },
+            flourish(name, p) {
+              if (name !== "attack") return;
+              const k = Math.sin(p * Math.PI);
+              plates.forEach((g, i) => { g.rotation.x = -k * 0.28 * (i / 5); });
+            },
+          };
+        }
+
+        /* ---------- moth fly ---------- */
+        function makeMothFly() {
+          const baseYaw = 0.6;
+          const group = new THREE.Group();
+          group.rotation.y = baseYaw;
+          const bodyMat = stdMat(PAL.mothBody, { roughness: 0.85 });
+          const fuzzMat = stdMat(PAL.mothFuzz, { roughness: 0.9 });
+          const wingMat = new THREE.MeshStandardMaterial({ color: PAL.mothWing, roughness: 0.7, transparent: true, opacity: 0.85, flatShading: true, side: THREE.DoubleSide });
+          const eyeMat = stdMat(PAL.mothEye, { roughness: 0.3 });
+
+          const bodyGroup = new THREE.Group();
+          group.add(bodyGroup);
+          sphere(bodyGroup, new THREE.Vector3(0, 0.72, 0.08), 0.34, fuzzMat, { x: 1, y: 0.95, z: 1.1 });
+          sphere(bodyGroup, new THREE.Vector3(0, 0.72, -0.42), 0.3, bodyMat, { x: 0.95, y: 0.9, z: 1.2 });
+
+          const head = new THREE.Group();
+          head.position.set(0, 0.76, 0.44);
+          bodyGroup.add(head);
+          sphere(head, new THREE.Vector3(0, 0, 0), 0.22, bodyMat, { x: 1, y: 0.95, z: 1 });
+          [-1, 1].forEach((s) => sphere(head, new THREE.Vector3(s * 0.13, 0.03, 0.1), 0.1, eyeMat, { x: 0.9, y: 1, z: 0.9 }));
+          [-1, 1].forEach((s) => {
+            tube(head, [new THREE.Vector3(s * 0.08, 0.12, 0.05), new THREE.Vector3(s * 0.22, 0.34, 0.18), new THREE.Vector3(s * 0.4, 0.5, 0.3)], 0.02, fuzzMat, 12, 5);
+          });
+
+          const wings = [];
+          [-1, 1].forEach((s) => {
+            const w = new THREE.Group();
+            w.position.set(s * 0.16, 0.84, 0.08);
+            const wing = sphere(w, new THREE.Vector3(s * 0.36, 0, 0), 0.42, wingMat, { x: 1.15, y: 0.06, z: 0.75 });
+            wing.rotation.z = s * 0.12;
+            bodyGroup.add(w);
+            wings.push({ group: w, side: s });
+          });
+
+          const legs = [];
+          let idx = 0;
+          for (const z of [0.22, 0.02, -0.2]) {
+            for (const s of [1, -1]) {
+              const hip = new THREE.Vector3(s * 0.22, 0.6, z);
+              const knee = new THREE.Vector3(s * 0.34, 0.4, z);
+              const foot = new THREE.Vector3(s * 0.38, 0.02, z + 0.04);
+              legs.push(makeLeg(bodyGroup, hip, knee, foot, 0.03, fuzzMat, idx * 1.1, 0.1));
+              idx++;
+            }
+          }
+
+          group.traverse((o) => { if (o.isMesh) o.castShadow = true; });
+
+          return {
+            group,
+            centerY: 0.8,
+            forward: new THREE.Vector3(Math.sin(baseYaw), 0, Math.cos(baseYaw)),
+            update(t) {
+              group.position.set(0, Math.sin(t * 2.6) * 0.03, 0);
+              group.rotation.set(0, baseYaw, 0);
+              wings.forEach((w) => { w.group.rotation.z = w.side * (0.35 + Math.sin(t * 22) * 0.5); });
+              head.rotation.y = Math.sin(t * 1.2) * 0.12;
+              legs.forEach((leg) => { leg.group.rotation.z = Math.sin(t * 3 + leg.phase) * leg.kick; });
+            },
+            flourish(name, p) {
+              if (name !== "attack") return;
+              const k = Math.sin(p * Math.PI);
+              wings.forEach((w) => { w.group.rotation.z = w.side * (0.35 + k * 1.2); });
+            },
+          };
+        }
+
+        /* ---------- mosquito ---------- */
+        function makeMosquito() {
+          const baseYaw = 0.9;
+          const group = new THREE.Group();
+          group.rotation.y = baseYaw;
+          const bodyMat = stdMat(PAL.mosqBody, { roughness: 0.5 });
+          const darkMat = stdMat(PAL.mosqDark, { roughness: 0.55 });
+          const eyeMat = stdMat(PAL.mosqEye, { roughness: 0.25 });
+          const wingMat = new THREE.MeshStandardMaterial({ color: PAL.mosqWing, roughness: 0.3, transparent: true, opacity: 0.55, flatShading: true, side: THREE.DoubleSide });
+
+          const bodyGroup = new THREE.Group();
+          group.add(bodyGroup);
+          sphere(bodyGroup, new THREE.Vector3(0, 0.9, 0.1), 0.2, darkMat, { x: 1, y: 0.9, z: 1.1 });
+          capsule(bodyGroup, new THREE.Vector3(0, 0.98, -0.42), 0.5, 0.1, bodyMat, { x: Math.PI / 2 + 0.5, y: 0, z: 0 });
+
+          const head = new THREE.Group();
+          head.position.set(0, 0.92, 0.32);
+          bodyGroup.add(head);
+          sphere(head, new THREE.Vector3(0, 0, 0), 0.13, darkMat, { x: 1, y: 0.9, z: 1 });
+          [-1, 1].forEach((s) => sphere(head, new THREE.Vector3(s * 0.09, 0.02, 0.06), 0.07, eyeMat));
+          const prob = new THREE.Mesh(new THREE.ConeGeometry(0.02, 0.42, 6), darkMat);
+          prob.position.set(0, -0.05, 0.32);
+          prob.rotation.x = Math.PI / 2;
+          prob.castShadow = true;
+          head.add(prob);
+          [-1, 1].forEach((s) => {
+            tube(head, [new THREE.Vector3(s * 0.05, 0.08, 0.02), new THREE.Vector3(s * 0.12, 0.28, 0.1), new THREE.Vector3(s * 0.18, 0.46, 0.16)], 0.012, darkMat, 10, 5);
+          });
+
+          const wings = [];
+          [-1, 1].forEach((s) => {
+            const w = new THREE.Group();
+            w.position.set(s * 0.1, 1.0, 0.08);
+            sphere(w, new THREE.Vector3(s * 0.42, 0, -0.1), 0.5, wingMat, { x: 1.1, y: 0.05, z: 0.5 });
+            bodyGroup.add(w);
+            wings.push({ group: w, side: s });
+          });
+
+          const legs = [];
+          let idx = 0;
+          for (const z of [0.18, 0.0, -0.18]) {
+            for (const s of [1, -1]) {
+              const hip = new THREE.Vector3(s * 0.14, 0.82, z);
+              const knee = new THREE.Vector3(s * 0.45, 0.55, z - 0.05);
+              const foot = new THREE.Vector3(s * 0.6, 0.25, z - 0.12);
+              legs.push(makeLeg(bodyGroup, hip, knee, foot, 0.02, darkMat, idx * 0.9, 0.12));
+              idx++;
+            }
+          }
+
+          group.traverse((o) => { if (o.isMesh) o.castShadow = true; });
+
+          return {
+            group,
+            centerY: 0.9,
+            forward: new THREE.Vector3(Math.sin(baseYaw), 0, Math.cos(baseYaw)),
+            update(t) {
+              group.position.set(0, 0.35 + Math.sin(t * 4) * 0.06, 0);
+              group.rotation.set(0, baseYaw, 0);
+              bodyGroup.rotation.z = Math.sin(t * 3) * 0.04;
+              wings.forEach((w) => { w.group.rotation.z = w.side * (0.5 + Math.sin(t * 48) * 0.55); });
+              legs.forEach((leg) => { leg.group.rotation.z = Math.sin(t * 4 + leg.phase) * leg.kick; });
+              head.rotation.x = Math.sin(t * 3.4) * 0.1;
+            },
+            flourish(name, p) {
+              if (name !== "attack") return;
+              head.rotation.x -= Math.sin(p * Math.PI) * 0.4;
+            },
+          };
+        }
+
+        /* ---------- cockroach ---------- */
+        function makeCockroach() {
+          const baseYaw = 0.8;
+          const group = new THREE.Group();
+          group.rotation.y = baseYaw;
+          const bodyMat = stdMat(PAL.roachBody, { roughness: 0.45 });
+          const darkMat = stdMat(PAL.roachDark, { roughness: 0.5 });
+          const edgeMat = stdMat(PAL.roachEdge, { roughness: 0.5 });
+          const bodyGroup = new THREE.Group();
+          group.add(bodyGroup);
+
+          sphere(bodyGroup, new THREE.Vector3(0, 0.34, -0.15), 0.46, bodyMat, { x: 1.0, y: 0.42, z: 1.55 });
+          sphere(bodyGroup, new THREE.Vector3(0, 0.4, -0.15), 0.42, darkMat, { x: 0.55, y: 0.3, z: 1.5 });
+          sphere(bodyGroup, new THREE.Vector3(0, 0.42, 0.55), 0.3, darkMat, { x: 1.05, y: 0.5, z: 0.7 });
+
+          const head = new THREE.Group();
+          head.position.set(0, 0.38, 0.82);
+          bodyGroup.add(head);
+          sphere(head, new THREE.Vector3(0, 0, 0), 0.2, darkMat, { x: 1, y: 0.85, z: 0.9 });
+          [-1, 1].forEach((s) => sphere(head, new THREE.Vector3(s * 0.11, 0.05, 0.12), 0.06, edgeMat));
+
+          const antennae = [];
+          [-1, 1].forEach((s) => {
+            const a = new THREE.Group();
+            a.position.set(s * 0.1, 0.44, 0.92);
+            tube(a, [new THREE.Vector3(0, 0, 0), new THREE.Vector3(s * 0.25, 0.25, 0.3), new THREE.Vector3(s * 0.5, 0.4, 0.55), new THREE.Vector3(s * 0.75, 0.45, 0.8)], 0.018, darkMat, 18, 5);
+            bodyGroup.add(a);
+            antennae.push({ group: a, side: s });
+          });
+
+          const legs = [];
+          let idx = 0;
+          for (const z of [0.4, 0.0, -0.4]) {
+            for (const s of [1, -1]) {
+              const hip = new THREE.Vector3(s * 0.35, 0.3, z);
+              const knee = new THREE.Vector3(s * 0.62, 0.42, z - 0.05);
+              const foot = new THREE.Vector3(s * 0.78, 0.02, z + 0.02);
+              legs.push(makeLeg(bodyGroup, hip, knee, foot, 0.05, darkMat, idx * 0.8, 0.12));
+              idx++;
+            }
+          }
+
+          group.traverse((o) => { if (o.isMesh) o.castShadow = true; });
+
+          return {
+            group,
+            centerY: 0.4,
+            forward: new THREE.Vector3(Math.sin(baseYaw), 0, Math.cos(baseYaw)),
+            update(t) {
+              group.position.set(0, Math.sin(t * 3.4) * 0.02, 0);
+              group.rotation.set(0, baseYaw, 0);
+              antennae.forEach((a, i) => {
+                a.group.rotation.y = a.side * Math.sin(t * 2 + i) * 0.25;
+                a.group.rotation.z = a.side * Math.sin(t * 3 + i) * 0.12;
+              });
+              legs.forEach((leg) => { leg.group.rotation.z = Math.sin(t * 6 + leg.phase) * leg.kick; });
+              head.rotation.y = Math.sin(t * 2.2) * 0.14;
+            },
+            flourish(name, p) {
+              if (name !== "attack") return;
+              const k = Math.sin(p * Math.PI);
+              antennae.forEach((a) => { a.group.rotation.x -= k * 0.4; });
+            },
+          };
+        }
+
+        /* ---------- white ant (termite) ---------- */
+        function makeTermite() {
+          const baseYaw = 0.9;
+          const group = new THREE.Group();
+          group.rotation.y = baseYaw;
+          const bodyMat = stdMat(PAL.termiteBody, { roughness: 0.6 });
+          const darkMat = stdMat(PAL.termiteDark, { roughness: 0.6 });
+          const eyeMat = stdMat(PAL.termiteEye, { roughness: 0.3 });
+          const bodyGroup = new THREE.Group();
+          group.add(bodyGroup);
+
+          sphere(bodyGroup, new THREE.Vector3(0, 0.4, -0.55), 0.34, bodyMat, { x: 1, y: 0.9, z: 1.2 });
+          sphere(bodyGroup, new THREE.Vector3(0, 0.4, -0.95), 0.27, darkMat, { x: 1, y: 0.88, z: 1.1 });
+          sphere(bodyGroup, new THREE.Vector3(0, 0.4, -0.1), 0.32, bodyMat, { x: 1, y: 0.92, z: 1 });
+          [-0.4, -0.72, -1.12].forEach((z) => sphere(bodyGroup, new THREE.Vector3(0, 0.4, z), 0.29, darkMat, { x: 1.02, y: 0.9, z: 0.16 }));
+
+          const head = new THREE.Group();
+          head.position.set(0, 0.46, 0.5);
+          bodyGroup.add(head);
+          sphere(head, new THREE.Vector3(0, 0, 0), 0.3, bodyMat, { x: 1.05, y: 0.95, z: 1 });
+          [-1, 1].forEach((s) => sphere(head, new THREE.Vector3(s * 0.14, 0.06, 0.16), 0.06, eyeMat));
+
+          const mandibles = [];
+          [-1, 1].forEach((s) => {
+            const m = new THREE.Group();
+            m.position.set(s * 0.1, -0.06, 0.24);
+            const c = new THREE.Mesh(new THREE.ConeGeometry(0.05, 0.26, 6), darkMat);
+            c.position.set(s * 0.05, -0.02, 0.1);
+            c.rotation.x = Math.PI / 2;
+            c.rotation.z = s * 0.5;
+            c.castShadow = true;
+            m.add(c);
+            head.add(m);
+            mandibles.push({ group: m, side: s });
+          });
+
+          const antennae = [];
+          [-1, 1].forEach((s) => {
+            const a = new THREE.Group();
+            a.position.set(s * 0.1, 0.16, 0.1);
+            tube(a, [new THREE.Vector3(0, 0, 0), new THREE.Vector3(s * 0.2, 0.22, 0.15), new THREE.Vector3(s * 0.38, 0.36, 0.32)], 0.016, darkMat, 12, 5);
+            head.add(a);
+            antennae.push({ group: a, side: s });
+          });
+
+          const legs = [];
+          let idx = 0;
+          for (const z of [0.12, -0.25, -0.6]) {
+            for (const s of [1, -1]) {
+              const hip = new THREE.Vector3(s * 0.3, 0.34, z);
+              const knee = new THREE.Vector3(s * 0.52, 0.42, z - 0.03);
+              const foot = new THREE.Vector3(s * 0.64, 0.02, z + 0.04);
+              legs.push(makeLeg(bodyGroup, hip, knee, foot, 0.04, darkMat, idx * 0.9, 0.12));
+              idx++;
+            }
+          }
+
+          group.traverse((o) => { if (o.isMesh) o.castShadow = true; });
+
+          return {
+            group,
+            centerY: 0.45,
+            forward: new THREE.Vector3(Math.sin(baseYaw), 0, Math.cos(baseYaw)),
+            update(t) {
+              group.position.set(0, Math.sin(t * 2.8) * 0.025, 0);
+              group.rotation.set(0, baseYaw, 0);
+              mandibles.forEach((m, i) => { m.group.rotation.y = m.side * (0.1 + Math.max(0, Math.sin(t * 3 + i)) * 0.25); });
+              antennae.forEach((a, i) => { a.group.rotation.z = a.side * Math.sin(t * 2.6 + i) * 0.2; });
+              legs.forEach((leg) => { leg.group.rotation.z = Math.sin(t * 4 + leg.phase) * leg.kick; });
+              head.rotation.y = Math.sin(t * 1.6) * 0.14;
+            },
+            flourish(name, p) {
+              if (name !== "attack") return;
+              const k = Math.sin(p * Math.PI);
+              mandibles.forEach((m) => { m.group.rotation.y = m.side * (0.1 + k * 0.6); });
+            },
+          };
+        }
+
+        /* ---------- slug ---------- */
+        function makeSlug() {
+          const baseYaw = 0.9;
+          const group = new THREE.Group();
+          group.rotation.y = baseYaw;
+          const bodyMat = stdMat(PAL.slugBody, { roughness: 0.75 });
+          const darkMat = stdMat(PAL.slugDark, { roughness: 0.8 });
+          const lightMat = stdMat(PAL.slugLight, { roughness: 0.7 });
+          const eyeMat = stdMat(PAL.slugEye, { roughness: 0.25 });
+          const bodyGroup = new THREE.Group();
+          group.add(bodyGroup);
+
+          const body = sphere(bodyGroup, new THREE.Vector3(0, 0.28, -0.15), 0.45, bodyMat, { x: 0.72, y: 0.55, z: 1.5 });
+          sphere(bodyGroup, new THREE.Vector3(0, 0.16, -0.2), 0.42, lightMat, { x: 0.66, y: 0.4, z: 1.45 });
+
+          const head = new THREE.Group();
+          head.position.set(0, 0.34, 0.62);
+          bodyGroup.add(head);
+          sphere(head, new THREE.Vector3(0, 0, 0), 0.28, bodyMat, { x: 0.85, y: 0.85, z: 1 });
+
+          const stalks = [];
+          [-1, 1].forEach((s) => {
+            const st = new THREE.Group();
+            st.position.set(s * 0.12, 0.2, 0.16);
+            tube(st, [new THREE.Vector3(0, 0, 0), new THREE.Vector3(s * 0.05, 0.18, 0.05), new THREE.Vector3(s * 0.08, 0.34, 0.08)], 0.035, bodyMat, 10, 6);
+            sphere(st, new THREE.Vector3(s * 0.08, 0.38, 0.08), 0.06, eyeMat);
+            tube(st, [new THREE.Vector3(s * 0.02, 0.05, 0.12), new THREE.Vector3(s * 0.1, 0.02, 0.24)], 0.02, darkMat, 6, 5);
+            head.add(st);
+            stalks.push({ group: st, side: s });
+          });
+
+          group.traverse((o) => { if (o.isMesh) o.castShadow = true; });
+
+          return {
+            group,
+            centerY: 0.35,
+            forward: new THREE.Vector3(Math.sin(baseYaw), 0, Math.cos(baseYaw)),
+            update(t) {
+              group.position.set(0, Math.sin(t * 2) * 0.02, 0);
+              group.rotation.set(0, baseYaw, 0);
+              const pulse = 1 + Math.sin(t * 2.4) * 0.03;
+              body.scale.set(0.72 * pulse, 0.55 / pulse, 1.5);
+              stalks.forEach((st, i) => {
+                st.group.rotation.z = st.side * Math.sin(t * 2.2 + i) * 0.18;
+                st.group.rotation.x = Math.sin(t * 1.6 + i) * 0.1;
+              });
+              head.rotation.y = Math.sin(t * 1.2) * 0.12;
+            },
+            flourish(name, p) {
+              if (name !== "attack") return;
+              const k = Math.sin(p * Math.PI);
+              stalks.forEach((st) => { st.group.rotation.x += k * 0.5; });
+              head.rotation.y += k * 0.2;
+            },
+          };
+        }
+
+        /* ---------- boss registry ---------- */
+        const builders = {
+          spider: makeSpider,
+          earwig: makeEarwig,
+          gecko: makeGecko,
+          redworm: makeRedWorm,
+          sowbug: makeSowbug,
+          mothfly: makeMothFly,
+          mosquito: makeMosquito,
+          cockroach: makeCockroach,
+          termite: makeTermite,
+          slug: makeSlug,
+        };
+        const bosses = {};
+        Object.keys(builders).forEach((name) => {
+          const boss = builders[name]();
+          boss.group.visible = false;
+          scene.add(boss.group);
+          bosses[name] = boss;
+        });
+
+        let current = "spider";
+        function show(name) {
+          if (!bosses[name]) return;
+          Object.values(bosses).forEach((b) => (b.group.visible = false));
+          bosses[name].group.visible = true;
+          current = name;
+          document.querySelectorAll(".controls button").forEach((btn) => {
+            btn.classList.toggle("active", btn.dataset.boss === name);
+          });
+          controls.target.set(0, 0.7, 0);
+          controls.update();
+        }
+        const initial = new URLSearchParams(location.search).get("boss");
+        show(bosses[initial] ? initial : "spider");
+
+        document.querySelectorAll(".controls button").forEach((btn) => {
+          btn.addEventListener("click", () => show(btn.dataset.boss));
+        });
+
+        /* ---------- action state machine (attack / hurt) ---------- */
+        const easeOutCubic = (x) => 1 - Math.pow(1 - x, 3);
+        const ACTION_DURATION = { attack: 0.72, hurt: 0.5 };
+
+        function createActionController(boss) {
+          let name = null;
+          let elapsed = 0;
+          let hit = false;
+          const pos = new THREE.Vector3();
+          const rot = new THREE.Vector3();
+          const scale = new THREE.Vector3(1, 1, 1);
+
+          return {
+            play(action) {
+              if (!ACTION_DURATION[action]) return;
+              name = action;
+              elapsed = 0;
+              hit = false;
+              if (action === "attack") {
+                sfx.attack();
+              } else if (action === "hurt") {
+                sfx.hurt();
+                const o = bossCenter(boss);
+                burst(o, { count: 70, colors: [0xff4466, 0xff8866, 0xffcc55], speed: 3.2, size: 0.2, life: 0.75 });
+                shockwave(o, 0xff4466, 0.6, 2.2);
+              }
+            },
+            update(dt) {
+              pos.set(0, 0, 0);
+              rot.set(0, 0, 0);
+              scale.set(1, 1, 1);
+              let flash = 0;
+
+              if (name) {
+                elapsed += dt;
+                const p = Math.min(1, elapsed / ACTION_DURATION[name]);
+
+                if (name === "attack") {
+                  const lunge = Math.sin(p * Math.PI);
+                  const drive = easeOutCubic(Math.min(1, p * 1.7));
+                  pos.addScaledVector(boss.forward, lunge * 0.85 * drive);
+                  pos.y += lunge * 0.14;
+                  rot.x = lunge * 0.1;
+                  scale.setScalar(1 + lunge * 0.07);
+                  if (!hit && p >= 0.4) {
+                    hit = true;
+                    sfx.impact();
+                    const o = bossCenter(boss).addScaledVector(boss.forward, 1.1);
+                    burst(o, { count: 45, colors: [0xd9c8a8, 0xbba27a, 0xffd08a], speed: 2.4, size: 0.16, life: 0.6, gravity: 7 });
+                    shockwave(o, 0xffcc88, 0.45, 1.7);
+                  }
+                } else if (name === "hurt") {
+                  const rec = Math.sin(p * Math.PI);
+                  pos.addScaledVector(boss.forward, -rec * 0.5);
+                  rot.z = Math.sin(p * Math.PI * 7) * 0.14 * (1 - p);
+                  scale.set(1 + rec * 0.06, 1 - rec * 0.1, 1 + rec * 0.06);
+                  flash = rec;
+                }
+
+                if (boss.flourish) boss.flourish(name, p);
+                if (p >= 1) name = null;
+              }
+
+              boss.group.position.add(pos);
+              boss.group.rotation.x += rot.x;
+              boss.group.rotation.y += rot.y;
+              boss.group.rotation.z += rot.z;
+              boss.group.scale.set(scale.x, scale.y, scale.z);
+              hitLight.intensity = flash * 55;
+            },
+          };
+        }
+
+        const actions = {};
+        Object.keys(bosses).forEach((name) => {
+          actions[name] = createActionController(bosses[name]);
+        });
+
+        document.querySelectorAll(".controls button[data-action]").forEach((btn) => {
+          btn.addEventListener("click", () => actions[current].play(btn.dataset.action));
+        });
+
+        const autoAction = new URLSearchParams(location.search).get("action");
+        if (ACTION_DURATION[autoAction]) {
+          setInterval(() => actions[current].play(autoAction), 1400);
+        }
+
+        /* ---------- camera director ---------- */
+        const easeInOutCubic = (x) => (x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2);
+        const homePose = { pos: camera.position.clone(), target: controls.target.clone() };
+
+        const cameraShots = [
+          {
+            duration: 3.6,
+            to: () => ({ pos: new THREE.Vector3(-3.5, 2.5, 3.1), target: new THREE.Vector3(0, 0.7, 0), fov: 45 }),
+          },
+          {
+            duration: 2.4,
+            to: (fwd) => ({
+              pos: new THREE.Vector3(fwd.x * 2.7, 1.15, fwd.z * 2.7),
+              target: new THREE.Vector3(fwd.x * 0.5, 0.9, fwd.z * 0.5),
+              fov: 34,
+            }),
+          },
+          {
+            duration: 2.2,
+            to: () => ({ pos: new THREE.Vector3(2.7, 0.5, 2.1), target: new THREE.Vector3(0, 0.95, 0), fov: 52 }),
+          },
+          {
+            duration: 2.8,
+            to: () => ({ pos: homePose.pos.clone(), target: homePose.target.clone(), fov: 45 }),
+          },
+        ];
+
+        const director = {
+          playing: false,
+          index: 0,
+          time: 0,
+          fromPos: new THREE.Vector3(),
+          fromTarget: new THREE.Vector3(),
+          fromFov: 45,
+          pose: null,
+          beginShot(i) {
+            this.index = i;
+            this.time = 0;
+            this.fromPos.copy(camera.position);
+            this.fromTarget.copy(controls.target);
+            this.fromFov = camera.fov;
+            this.pose = cameraShots[i].to(bosses[current].forward);
+          },
+          play() {
+            if (this.playing) return;
+            this.playing = true;
+            controls.enabled = false;
+            this.beginShot(0);
+          },
+          stop() {
+            this.playing = false;
+            controls.enabled = true;
+            camera.fov = 45;
+            camera.updateProjectionMatrix();
+            controls.target.copy(homePose.target);
+            controls.update();
+          },
+          update(dt) {
+            if (!this.playing) return;
+            this.time += dt;
+            const shot = cameraShots[this.index];
+            const raw = Math.min(1, this.time / shot.duration);
+            const k = easeInOutCubic(raw);
+            camera.position.lerpVectors(this.fromPos, this.pose.pos, k);
+            controls.target.lerpVectors(this.fromTarget, this.pose.target, k);
+            camera.fov = this.fromFov + (this.pose.fov - this.fromFov) * k;
+            camera.updateProjectionMatrix();
+            camera.lookAt(controls.target);
+            if (raw >= 1) {
+              if (this.index < cameraShots.length - 1) this.beginShot(this.index + 1);
+              else this.stop();
+            }
+          },
+        };
+
+        /* ---------- fx + camera UI ---------- */
+        function bossCenter(boss) {
+          return new THREE.Vector3(0, boss.centerY ?? 0.8, 0).add(boss.group.position);
+        }
+
+        document.querySelectorAll(".controls button[data-cam]").forEach((btn) => {
+          btn.addEventListener("click", () => {
+            sfx.cinematic();
+            director.play();
+          });
+        });
+
+        document.querySelectorAll(".controls button[data-fx]").forEach((btn) => {
+          btn.addEventListener("click", () => {
+            if (btn.dataset.fx === "burst") {
+              sfx.burst();
+              const o = bossCenter(bosses[current]);
+              burst(o, { count: 110, colors: [0x3d9ee8, 0xff8c42, 0x2ec4b6, 0xffce4d], speed: 3.6, size: 0.22, life: 0.95 });
+              shockwave(o, 0x5fc8ff, 0.7, 3);
+            } else if (btn.dataset.fx === "bloom") {
+              bloomEnabled = !bloomEnabled;
+              bloomPass.enabled = bloomEnabled;
+              btn.classList.toggle("active", bloomEnabled);
+            }
+          });
+        });
+
+        /* ---------- sound toggle + global click sfx ---------- */
+        document.addEventListener("click", () => {
+          sfx.resume();
+          sfx.click();
+        });
+
+        const soundBtn = document.querySelector('.controls button[data-sound="toggle"]');
+        if (soundBtn) {
+          soundBtn.addEventListener("click", () => {
+            sfx.resume();
+            const muted = sfx.toggle();
+            soundBtn.classList.toggle("active", !muted);
+          });
+        }
+
+        const autoCam = new URLSearchParams(location.search).get("cam");
+        if (autoCam) setTimeout(() => director.play(), 700);
+
+        const autoFx = new URLSearchParams(location.search).get("fx");
+        if (autoFx === "burst") {
+          setInterval(() => {
+            const o = bossCenter(bosses[current]);
+            burst(o, { count: 140, colors: [0x3d9ee8, 0xff8c42, 0x2ec4b6, 0xffce4d], speed: 3.8, size: 0.24, life: 1.1 });
+            shockwave(o, 0x5fc8ff, 0.7, 3);
+          }, 1600);
+        }
+
+        /* ---------- resize ---------- */
+        function onResize() {
+          const w = window.innerWidth;
+          const h = window.innerHeight;
+          camera.aspect = w / h;
+          camera.updateProjectionMatrix();
+          renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
+          renderer.setSize(w, h);
+          composer.setPixelRatio(basePixelRatio * resolutionScale);
+          composer.setSize(w, h);
+          pMat.uniforms.uPixelRatio.value = basePixelRatio;
+        }
+        window.addEventListener("resize", onResize);
+
+        /* ---------- adaptive quality (protects mobile) ---------- */
+        let fpsAccum = 0;
+        let fpsFrames = 0;
+        let fpsCooldown = 0;
+        function adaptQuality(dt) {
+          fpsAccum += dt;
+          fpsFrames += 1;
+          if (fpsAccum < 1.2) return;
+          const avg = fpsAccum / fpsFrames;
+          fpsAccum = 0;
+          fpsFrames = 0;
+          if (fpsCooldown > 0) {
+            fpsCooldown -= 1;
+            return;
+          }
+          if (!bloomEnabled) return;
+          if (avg > 0.045) {
+            if (resolutionScale > 0.5) {
+              resolutionScale = Math.max(0.5, resolutionScale - 0.25);
+              composer.setPixelRatio(basePixelRatio * resolutionScale);
+              composer.setSize(window.innerWidth, window.innerHeight);
+            } else {
+              bloomEnabled = false;
+              bloomPass.enabled = false;
+              const b = document.querySelector('.controls button[data-fx="bloom"]');
+              if (b) b.classList.remove("active");
+            }
+            fpsCooldown = 2;
+          }
+        }
+
+        /* ---------- loop ---------- */
+        const clock = new THREE.Clock();
+        let elapsed = 0;
+        renderer.setAnimationLoop(() => {
+          if (document.hidden) return;
+          const dt = Math.min(clock.getDelta(), 0.05);
+          elapsed += dt;
+          bosses[current].update(elapsed);
+          actions[current].update(dt);
+          updateParticles(dt);
+          updateShockwaves(dt);
+          director.update(dt);
+          if (!director.playing) controls.update();
+          const level = sfx.level();
+          ring.material.emissiveIntensity = 0.7 + Math.sin(elapsed * 1.5) * 0.25 + level * 1.6;
+          if (bloomEnabled) bloomPass.strength = 0.85 + level * 0.7;
+          adaptQuality(dt);
+          composer.render();
+        });
+
+        ready = true;
+        clearTimeout(bootGuard);
+      }
+    </script>
+  </body>
+</html>
