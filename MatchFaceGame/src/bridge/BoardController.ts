@@ -17,6 +17,8 @@ export interface ControllerCallbacks {
   onSelect?: (c: Coord) => void;
   /** Swap toward an immovable target: play a half-swap bounce (no move consumed). */
   onBlockedSwap?: (a: Coord, b: Coord) => void;
+  /** Ultimate aim mode: tap a cell to release the ultimate on that class. */
+  onUltimate?: (c: Coord) => void;
 }
 
 export class BoardController {
@@ -25,6 +27,7 @@ export class BoardController {
   private board: BoardLogic;
   private cb: ControllerCallbacks;
   private selected: Coord | null = null;
+  private aiming = false;
 
   private activeId: number | null = null;
   private downCell: Coord | null = null;
@@ -78,6 +81,13 @@ export class BoardController {
     const idx = this.board.index(cell.row, cell.col);
     if (!this.board.cells[idx].bUsable) return;
 
+    if (this.aiming && this.cb.onUltimate) {
+      this.aiming = false;
+      this.clearSelection();
+      this.cb.onUltimate(cell);
+      return;
+    }
+
     this.activeId = e.pointerId;
     this.downCell = cell;
     this.downX = e.clientX;
@@ -89,7 +99,13 @@ export class BoardController {
     }
   }
 
+  setAiming(on: boolean): void {
+    this.aiming = on;
+    if (on) this.clearSelection();
+  }
+
   private pointerMove(e: PointerEvent): void {
+    if (this.aiming) return;
     if (this.activeId !== e.pointerId || !this.downCell || this.dragTriggered) return;
     const dx = e.clientX - this.downX;
     const dy = e.clientY - this.downY;

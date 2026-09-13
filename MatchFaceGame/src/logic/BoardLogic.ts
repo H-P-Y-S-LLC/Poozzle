@@ -11,6 +11,7 @@ import {
   ClearTriggerType,
   FinishReason,
   SpecialType,
+  parseSpecialType,
   charToInt,
   coordOf,
   createCell,
@@ -22,6 +23,7 @@ import { Prng, randomSeed32 } from "../core/Prng.js";
 import type { BlockerTypeDef, LevelConfig } from "../config/types/LevelConfig.js";
 import type { BossConfig } from "../config/types/BossConfig.js";
 import { BossRuntime, type BossEvent } from "./BossRuntime.js";
+import type { BossCoinSkill } from "../config/BossCoinConfig.js";
 
 /** Blockers stay fixed; set true to re-enable per-turn movable/spread (§3.9). */
 const ENABLE_TURN_BLOCKER_DYNAMICS = false;
@@ -81,6 +83,16 @@ export interface RefreshEvent {
   type: "refresh";
 }
 
+/** Ultimate skill charge state changed. */
+export interface UltimateEvent {
+  type: "ultimate";
+  enabled: boolean;
+  ready: boolean;
+  element: number;
+  count: number;
+  required: number;
+}
+
 export type BoardEvent =
   | ClearBatchEvent
   | FallEvent
@@ -91,11 +103,22 @@ export type BoardEvent =
   | ShuffleEvent
   | GoalsEvent
   | RefreshEvent
+  | UltimateEvent
   | BossEvent;
 
 export interface SwapResult {
   accepted: boolean;
   combo: boolean;
+  events: BoardEvent[];
+  victory: boolean;
+  finished: boolean;
+  finishReason: FinishReason;
+}
+
+export interface BossCoinResult {
+  accepted: boolean;
+  success: boolean;
+  applied: boolean;
   events: BoardEvent[];
   victory: boolean;
   finished: boolean;
@@ -121,6 +144,8 @@ export class BoardLogic {
   currentScore = 0;
   usedMoves = 0;
   cascadeCombo = 0;
+  /** Extra moves granted mid-run (BossCoin ConvertFliesToMoves). */
+  bonusMoves = 0;
 
   collectedByTileType = new Map<number, number>();
   brokenBlockerCount = 0;
@@ -142,6 +167,21 @@ export class BoardLogic {
   private comboSuppress = new Set<number>();
   private lastBlockerMove = 0;
 
+  // ── ultimate skill ──
+  private ultimateEnabled = true;
+  private ultimateReadyFlag = false;
+  private ultimateElement = 0;
+  private ultimateChargeType = 0;
+  private ultimateCount = 0;
+  private ultimateCountedThisTurn = false;
+  static readonly ULTIMATE_REQUIRED = 3;
+
+  // ── boss coin (defeat a boss -> own its skill coin) ──
+  private bossCoinMaxUses = 0;
+  private bossCoinUses = 0;
+  private bossCoinMisses = 0;
+  private bossCoinEmptied: number[] = [];
+
   constructor(config: LevelConfig, seed?: number, bossConfig?: BossConfig | null) {
     this.config = config;
     this.rows = config.Board.Rows;
@@ -153,6 +193,15 @@ export class BoardLogic {
     this.prng = new Prng(this.randomSeed);
 
     this.init();
+
+    const ult = config.bEnableUltimateSkillOverride;
+    this.ultimateEnabled = ult.present ? ult.value : true;
+    if (this.ultimateEnabled && config.InitialUltimateReadyTileType > 0) {
+      this.ultimateReadyFlag = true;
+      this.ultimateElement = config.InitialUltimateReadyTileType;
+      this.ultimateChargeType = this.ultimateElement;
+      this.ultimateCount = BoardLogic.ULTIMATE_REQUIRED;
+    }
 
     if (bossConfig && bossConfig.bEnabled) {
       this.boss = new BossRuntime(bossConfig, this, this.randomSeed);
@@ -574,6 +623,7 @@ export class BoardLogic {
     this.events = [];
     this.comboTargetType = 0;
     this.comboSuppress.clear();
+    this.ultimateCountedThisTurn = false;
     const empty = (accepted: boolean): SwapResult => ({
       accepted,
       combo: false,
@@ -633,6 +683,7 @@ export class BoardLogic {
     this.events = [];
     this.comboTargetType = 0;
     this.comboSuppress.clear();
+    this.ultimateCountedThisTurn = false;
     const idx = this.index(coord.row, coord.col);
     const c = this.cells[idx];
     const st = c.SpecialType;
@@ -943,6 +994,11 @@ export class BoardLogic {
       });
       this.events.push({ type: "score", delta: scoreDelta, total: this.currentScore });
       this.emitGoals();
+      // only the first clear of a turn charges the ultimate (cascades do not)
+      if (!this.ultimateCountedThisTurn) {
+        this.ultimateCountedThisTurn = true;
+        this.updateUltimateCharge(tileTypes);
+      }
 
       // gravity + refill
       this.state = BoardState.Falling;
@@ -1001,6 +1057,417 @@ export class BoardLogic {
       return [{ typeId: 0, current: Math.min(this.brokenBlockerCount, goal.TargetBlockerBreakCount), required: goal.TargetBlockerBreakCount }];
     }
     return [];
+  }
+
+  // ───────────────────────────── ultimate skill ─────────────────────────────
+
+  /** Current ultimate charge state for the HUD. */
+  ultimateState(): { enabled: boolean; ready: boolean; element: number; count: number; required: number } {
+    return {
+      enabled: this.ultimateEnabled,
+      ready: this.ultimateReadyFlag,
+      element: this.ultimateElement || this.ultimateChargeType,
+      count: this.ultimateReadyFlag ? BoardLogic.ULTIMATE_REQUIRED : this.ultimateCount,
+      required: BoardLogic.ULTIMATE_REQUIRED,
+    };
+  }
+
+  /**
+   * Charge: clearing the same tile type on 3 consecutive clear batches fills
+   * the ultimate. Switching type restarts the count; once ready it neither
+   * resets nor accumulates until released.
+   */
+  private updateUltimateCharge(tileTypes: number[]): void {
+    if (!this.ultimateEnabled || this.ultimateReadyFlag) return;
+    const dominant = this.dominantTileType(tileTypes);
+    if (dominant <= 0) return;
+    if (dominant === this.ultimateChargeType) this.ultimateCount++;
+    else {
+      this.ultimateChargeType = dominant;
+      this.ultimateCount = 1;
+    }
+    if (this.ultimateCount >= BoardLogic.ULTIMATE_REQUIRED) this.ultimateReadyFlag = true;
+    this.pushUltimateEvent();
+  }
+
+  private dominantTileType(tileTypes: number[]): number {
+    const map = new Map<number, number>();
+    for (const t of tileTypes) if (t > 0) map.set(t, (map.get(t) ?? 0) + 1);
+    let best = 0;
+    let bestN = 0;
+    for (const [t, n] of map) {
+      if (n > bestN) {
+        bestN = n;
+        best = t;
+      }
+    }
+    return best;
+  }
+
+  private pushUltimateEvent(): void {
+    this.events.push({
+      type: "ultimate",
+      enabled: this.ultimateEnabled,
+      ready: this.ultimateReadyFlag,
+      element: this.ultimateElement || this.ultimateChargeType,
+      count: this.ultimateReadyFlag ? BoardLogic.ULTIMATE_REQUIRED : this.ultimateCount,
+      required: BoardLogic.ULTIMATE_REQUIRED,
+    });
+  }
+
+  /**
+   * Release the ultimate on a target: clears every element of that tile type,
+   * or every blocker of that blocker type (999 direct damage). Does not consume
+   * a move. Only usable when ready.
+   */
+  activateUltimate(coord: Coord): SwapResult {
+    this.events = [];
+    this.ultimateCountedThisTurn = true; // ultimate's own clear never charges
+    const reject = (): SwapResult => ({
+      accepted: false,
+      combo: false,
+      events: this.events,
+      victory: this.victory,
+      finished: this.levelFinished,
+      finishReason: this.lastFinishReason,
+    });
+    if (!this.ultimateEnabled || !this.ultimateReadyFlag || this.levelFinished || this.state !== BoardState.Idle) {
+      return reject();
+    }
+    const idx = this.index(coord.row, coord.col);
+    const c = this.cells[idx];
+    if (!c.bUsable) return reject();
+
+    let used = false;
+    if (c.BlockerType > 0) {
+      const type = c.BlockerType;
+      const hits: BlockerHitEvent["hits"] = [];
+      for (let i = 0; i < this.cells.length; i++) {
+        const b = this.cells[i];
+        if (b.BlockerType !== type || !b.bBlockerDestructible) continue;
+        b.BlockerHP = 1; // force break regardless of HP / immunity
+        hits.push(this.hitBlocker(i));
+      }
+      if (hits.length) {
+        this.events.push({ type: "blockerHit", hits });
+        used = true;
+      }
+    } else if (c.TileType > 0) {
+      const type = c.TileType;
+      const clear = new Set<number>();
+      for (let i = 0; i < this.cells.length; i++) {
+        const b = this.cells[i];
+        if (b.bUsable && b.BlockerType === 0 && b.TileType === type) clear.add(i);
+      }
+      if (clear.size) {
+        this.resolveCascade(clear, ClearTriggerType.UltimateTool, true);
+        used = true;
+      }
+    }
+    if (!used) return reject();
+
+    this.ultimateReadyFlag = false;
+    this.ultimateElement = 0;
+    this.ultimateChargeType = 0;
+    this.ultimateCount = 0;
+    this.pushUltimateEvent();
+    this.state = BoardState.Idle;
+    this.evaluateFinishState();
+    return {
+      accepted: true,
+      combo: false,
+      events: this.events,
+      victory: this.victory,
+      finished: this.levelFinished,
+      finishReason: this.lastFinishReason,
+    };
+  }
+
+  // ────────────────────────────── boss coin ──────────────────────────────
+
+  /** Reset per-run BossCoin state (§4.11.1). */
+  initBossCoin(maxUses: number): void {
+    this.bossCoinMaxUses = Math.max(0, maxUses);
+    this.bossCoinUses = this.bossCoinMaxUses;
+    this.bossCoinMisses = 0;
+  }
+
+  bossCoinState(): { maxUses: number; remaining: number; misses: number } {
+    return { maxUses: this.bossCoinMaxUses, remaining: this.bossCoinUses, misses: this.bossCoinMisses };
+  }
+
+  canUseBossCoin(): boolean {
+    return !this.levelFinished && this.state === BoardState.Idle;
+  }
+
+  /**
+   * Decide a toss outcome up-front (§4.11.2) so the card/coin animation can
+   * reveal the right face before the effect is applied. Consumes a use and
+   * advances the pity counter. Pity: two misses force the next toss to hit.
+   */
+  rollBossCoin(probability: number): { accepted: boolean; success: boolean } {
+    if (!this.canUseBossCoin() || this.bossCoinUses <= 0) return { accepted: false, success: false };
+    const p = Math.max(0, Math.min(1, probability));
+    const forceSuccess = this.bossCoinMisses >= 2;
+    const success = forceSuccess || Math.random() < p;
+    if (success) this.bossCoinMisses = 0;
+    else this.bossCoinMisses++;
+    this.bossCoinUses--;
+    return { accepted: true, success };
+  }
+
+  /** Apply a rolled toss outcome. Effects run only on success; the fallback runs only when a successful skill cannot apply. */
+  applyBossCoinResult(skill: BossCoinSkill, success: boolean): BossCoinResult {
+    this.events = [];
+    const done = (applied: boolean): BossCoinResult => ({
+      accepted: true,
+      success,
+      applied,
+      events: this.events,
+      victory: this.victory,
+      finished: this.levelFinished,
+      finishReason: this.lastFinishReason,
+    });
+    if (!success) return done(false);
+
+    this.ultimateCountedThisTurn = true; // coin clears never charge the ultimate
+    this.bossCoinEmptied = [];
+    let applied = this.applyBossCoinEffect(skill);
+    if (!applied) applied = this.applyBossCoinFallback(skill);
+    // clearing blockers/tiles leaves holes -> run gravity + refill immediately
+    if (this.bossCoinEmptied.length > 0) {
+      this.resolveCascade(new Set(this.bossCoinEmptied), ClearTriggerType.UltimateTool, true);
+      this.bossCoinEmptied = [];
+    }
+    this.state = BoardState.Idle;
+    this.evaluateFinishState();
+    return done(applied);
+  }
+
+  /**
+   * Toss a BossCoin skill in one call (§4.11.2/§4.11.3): roll + apply.
+   * `probability` is the resolved hit chance.
+   */
+  useBossCoin(skill: BossCoinSkill, probability: number): BossCoinResult {
+    const roll = this.rollBossCoin(probability);
+    if (!roll.accepted) {
+      return {
+        accepted: false,
+        success: false,
+        applied: false,
+        events: this.events,
+        victory: this.victory,
+        finished: this.levelFinished,
+        finishReason: this.lastFinishReason,
+      };
+    }
+    return this.applyBossCoinResult(skill, roll.success);
+  }
+
+  private applyBossCoinEffect(skill: BossCoinSkill): boolean {
+    const e = (skill.effectType || "RandomDestroyBlockers").toLowerCase();
+    switch (e) {
+      case "clearspecificblockertypes":
+        return this.clearBossCoinBlockers(skill.blockerTypeIds, 0, true) > 0;
+      case "randomdestroyblockers": {
+        const count = skill.primaryCount > 0 ? skill.primaryCount : 3;
+        return this.clearBossCoinBlockers(null, count, false) > 0;
+      }
+      case "doublebossnextdamage":
+      case "doublebnextbossdamage":
+      case "doublenextbossdamage": {
+        const mult = skill.primaryScalar > 1 ? skill.primaryScalar : 2;
+        return this.boss ? this.boss.setDamageBoost(mult, skill.bAllowRepeatWhileBuffActive) : false;
+      }
+      case "convertfliestomoves": {
+        const perFly = skill.primaryScalar > 0 ? skill.primaryScalar : 1;
+        const flyType = skill.flyTileType > 0 ? skill.flyTileType : this.resolveBossCoinFlyTileType();
+        const clear = new Set<number>();
+        for (let i = 0; i < this.cells.length; i++) {
+          const c = this.cells[i];
+          if (c.bUsable && c.BlockerType === 0 && c.TileType === flyType) clear.add(i);
+        }
+        let candidates = clear.size;
+        if (candidates > 0) this.resolveCascade(clear, ClearTriggerType.UltimateTool, true);
+        else candidates = this.clearBossCoinBlockers(skill.blockerTypeIds, 0, true);
+        if (candidates === 0) return false;
+        const extraMoves = Math.max(1, Math.round(candidates * perFly));
+        this.bonusMoves += extraMoves;
+        return true;
+      }
+      case "convertblockerstotiles":
+        return this.bossCoinConvertBlockersToTiles(skill);
+      case "clearwaterpitandlarvae": {
+        const a = this.clearBossCoinBlockers(skill.blockerTypeIds, 0, true);
+        const b = this.clearBossCoinLarvae();
+        return a + b > 0;
+      }
+      case "clearsticky":
+        return this.clearBossCoinSticky() > 0;
+      case "clearcockroachandspawnspecials":
+        return this.bossCoinSpawnSpecialsAndClear(skill);
+      default:
+        return false;
+    }
+  }
+
+  private applyBossCoinFallback(skill: BossCoinSkill): boolean {
+    const fb = skill.fallback;
+    if (fb.randomDestroyBlockerCount > 0) {
+      if (this.clearBossCoinBlockers(null, fb.randomDestroyBlockerCount, false) > 0) return true;
+    }
+    if (fb.rewardType.toLowerCase() === "score" && fb.rewardAmount > 0) {
+      this.currentScore += fb.rewardAmount;
+      this.events.push({ type: "score", delta: fb.rewardAmount, total: this.currentScore });
+      return true;
+    }
+    return false;
+  }
+
+  private resolveBossCoinFlyTileType(): number {
+    for (const def of this.blockersByType.values()) {
+      if (def.bIsMouthBlocker && def.MouthFlyTileType > 0) return def.MouthFlyTileType;
+    }
+    return this.config.TilePool.TileTypes.find((t) => t > 0) ?? 1;
+  }
+
+  /**
+   * Clear up to `limit` BossCoin-targetable blockers (0 = all). `forceInstant`
+   * ignores direct-hit immunity and breaks regardless of HP.
+   */
+  private clearBossCoinBlockers(typeFilter: number[] | null, limit: number, forceInstant: boolean): number {
+    const targets: number[] = [];
+    for (let i = 0; i < this.cells.length; i++) {
+      const c = this.cells[i];
+      if (!c.bUsable || c.BlockerType <= 0 || c.BlockerHP <= 0) continue;
+      if (c.BlockerType === 22) continue; // moss mushroom is never a coin target
+      if (typeFilter && typeFilter.length > 0 && !typeFilter.includes(c.BlockerType)) continue;
+      if (!c.bBlockerDestructible) continue;
+      const def = this.blockerDef(c);
+      if (def?.bImmuneToDirectHitDamage && !forceInstant) continue;
+      targets.push(i);
+    }
+    this.shuffleInPlace(targets);
+    const take = limit > 0 ? Math.min(limit, targets.length) : targets.length;
+    const hits: BlockerHitEvent["hits"] = [];
+    for (let k = 0; k < take; k++) {
+      const idx = targets[k];
+      if (forceInstant) this.cells[idx].BlockerHP = 1;
+      hits.push(this.hitBlocker(idx));
+      if (this.cells[idx].BlockerType === 0 && this.cells[idx].TileType === 0) this.bossCoinEmptied.push(idx);
+    }
+    if (hits.length) this.events.push({ type: "blockerHit", hits });
+    return hits.length;
+  }
+
+  private clearBossCoinLarvae(): number {
+    let n = 0;
+    for (const c of this.cells) {
+      if (c.bLarvae) {
+        c.bLarvae = false;
+        n++;
+      }
+    }
+    if (n) this.events.push({ type: "refresh" });
+    return n;
+  }
+
+  private clearBossCoinSticky(): number {
+    let n = 0;
+    for (const c of this.cells) {
+      if (c.bSticky) {
+        c.bSticky = false;
+        n++;
+      }
+    }
+    if (n) this.events.push({ type: "refresh" });
+    return n;
+  }
+
+  private clearBossCoinBubbles(): number {
+    let n = 0;
+    for (const c of this.cells) {
+      if (c.bBubble) {
+        c.bBubble = false;
+        n++;
+      }
+    }
+    if (n) this.events.push({ type: "refresh" });
+    return n;
+  }
+
+  /** ConvertBlockersToTiles: pick the blockers-heaviest rows and turn them into tiles. */
+  private bossCoinConvertBlockersToTiles(skill: BossCoinSkill): boolean {
+    const targetRows = skill.primaryCount > 0 ? skill.primaryCount : 2;
+    const filter = skill.blockerTypeIds;
+    const rowCounts: Array<{ row: number; count: number }> = [];
+    for (let r = 0; r < this.rows; r++) {
+      let n = 0;
+      for (let c = 0; c < this.cols; c++) {
+        const cell = this.cells[r * this.cols + c];
+        if (!cell.bUsable || cell.BlockerType <= 0 || cell.BlockerHP <= 0) continue;
+        if (filter.length > 0 && !filter.includes(cell.BlockerType)) continue;
+        n++;
+      }
+      if (n > 0) rowCounts.push({ row: r, count: n });
+    }
+    rowCounts.sort((a, b) => b.count - a.count);
+    const chosenRows = rowCounts.slice(0, targetRows);
+    const hits: BlockerHitEvent["hits"] = [];
+    for (const { row } of chosenRows) {
+      for (let c = this.cols - 1; c >= 0; c--) {
+        const idx = row * this.cols + c;
+        const cell = this.cells[idx];
+        if (!cell.bUsable || cell.BlockerType <= 0 || cell.BlockerHP <= 0) continue;
+        if (filter.length > 0 && !filter.includes(cell.BlockerType)) continue;
+        if (cell.BlockerType === 22) continue;
+        cell.BlockerHP = 1;
+        hits.push(this.hitBlocker(idx));
+        if (cell.BlockerType === 0 && cell.TileType === 0) cell.TileType = this.rollRandomTileType();
+      }
+    }
+    let changed = hits.length > 0;
+    if (hits.length) this.events.push({ type: "blockerHit", hits });
+    if (skill.bClearAllBubbles && this.clearBossCoinBubbles() > 0) changed = true;
+    if (changed) this.events.push({ type: "refresh" });
+    return changed;
+  }
+
+  /** ClearCockroachAndSpawnSpecials: spawn specials first, then clear blockers. */
+  private bossCoinSpawnSpecialsAndClear(skill: BossCoinSkill): boolean {
+    const pool = skill.spawnSpecialPool
+      .map((s) => parseSpecialType(s))
+      .filter((s) => s !== SpecialType.None);
+    let spawned = 0;
+    if (pool.length > 0) {
+      const count = skill.secondaryCount > 0 ? skill.secondaryCount : 2;
+      const candidates: number[] = [];
+      for (let i = 0; i < this.cells.length; i++) {
+        const c = this.cells[i];
+        if (c.bUsable && c.BlockerType === 0 && c.TileType > 0 && c.SpecialType === SpecialType.None) candidates.push(i);
+      }
+      this.shuffleInPlace(candidates);
+      const take = Math.min(count, candidates.length);
+      for (let k = 0; k < take; k++) {
+        const c = this.cells[candidates[k]];
+        c.TileType = 0;
+        c.SpecialType = pool[this.prng.intRange(0, pool.length - 1)];
+        c.bSticky = false;
+        c.bLarvae = false;
+        spawned++;
+      }
+      if (spawned) this.events.push({ type: "refresh" });
+    }
+    const clearLimit = skill.primaryCount > 0 ? skill.primaryCount : 0;
+    const cleared = this.clearBossCoinBlockers(skill.blockerTypeIds, clearLimit, true);
+    return spawned + cleared > 0;
+  }
+
+  private shuffleInPlace<T>(arr: T[]): void {
+    for (let i = arr.length - 1; i > 0; i--) {
+      const j = this.prng.intRange(0, i);
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
   }
 
   // ─────────────────────────────── blockers ───────────────────────────────
@@ -1438,7 +1905,7 @@ export class BoardLogic {
   }
 
   get moveBudget(): number {
-    return Math.max(0, this.config.Goal.MaxMoves);
+    return Math.max(0, this.config.Goal.MaxMoves + this.bonusMoves);
   }
 
   get remainingMoves(): number {

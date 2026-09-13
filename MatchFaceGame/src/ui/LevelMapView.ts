@@ -38,6 +38,10 @@ export class LevelMapView {
     this.layer.innerHTML = "";
   }
 
+  get visible(): boolean {
+    return !this.layer.classList.contains("hidden");
+  }
+
   show(
     entries: ManifestEntry[],
     save: MapSaveState,

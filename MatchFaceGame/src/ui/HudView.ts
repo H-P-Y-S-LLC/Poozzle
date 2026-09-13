@@ -6,6 +6,8 @@ import type { BoardLogic } from "../logic/BoardLogic.js";
 import type { ManifestEntry } from "../config/LevelManifest.js";
 import { elementIconDataURL } from "../proc/ElementIconFactory.js";
 import { blockerIconDataURL } from "../proc/BlockerIconFactory.js";
+import { tileColor } from "../proc/Palette.js";
+import type { BossCoinAnimation } from "../config/BossCoinConfig.js";
 import type { I18n } from "./i18n.js";
 
 export interface SettlementInfo {
@@ -23,6 +25,18 @@ export class HudView {
   private goalRow: HTMLElement;
   private overlay: HTMLElement;
   private loading: HTMLElement;
+  private ultimateWrap: HTMLElement;
+  private useBtn: HTMLButtonElement;
+  private ultimateSlots: HTMLElement[] = [];
+  private ultElement = 0;
+  private ultFilled = 0;
+  private ultAnimating = false;
+  private ultReadyState = false;
+  private bossCoinTray: HTMLElement;
+  private bossCoinCoins: HTMLElement;
+  private bossCoinLabel: HTMLElement;
+  private coinOverlay: HTMLElement;
+  private coinBusy = false;
   private goalChips = new Map<number, HTMLElement>();
   private blockerChips = new Map<number, HTMLElement>();
   private goalSig = "";
@@ -39,6 +53,219 @@ export class HudView {
     this.loading.textContent = i18n.t("loading");
 
     root.append(this.topBar, this.bossRow, this.goalRow, this.overlay, this.loading);
+
+    // ultimate: 3 charge slots (display) + a separate "use" button
+    this.ultimateWrap = div("ultimate-wrap hidden");
+    const slots = div("ultimate-slots");
+    for (let i = 0; i < 3; i++) {
+      const slot = div("ultimate-slot");
+      slots.appendChild(slot);
+      this.ultimateSlots.push(slot);
+    }
+    this.useBtn = document.createElement("button");
+    this.useBtn.className = "ultimate-use";
+    this.useBtn.textContent = "大招";
+    this.useBtn.disabled = true;
+    this.ultimateWrap.append(slots, this.useBtn);
+    root.appendChild(this.ultimateWrap);
+
+    // boss coin tray: owned coins, displayed next to the ultimate, usable anytime
+    this.bossCoinTray = div("bosscoin-tray hidden");
+    this.bossCoinLabel = document.createElement("span");
+    this.bossCoinLabel.className = "bosscoin-label";
+    this.bossCoinCoins = div("bosscoin-coins");
+    this.bossCoinTray.append(this.bossCoinLabel, this.bossCoinCoins);
+    root.appendChild(this.bossCoinTray);
+
+    this.coinOverlay = div("coin-toss hidden");
+    root.appendChild(this.coinOverlay);
+  }
+
+  get bossCoinTrayEl(): HTMLElement {
+    return this.bossCoinTray;
+  }
+
+  get useButton(): HTMLButtonElement {
+    return this.useBtn;
+  }
+
+  updateUltimate(state: { enabled: boolean; ready: boolean; element: number; count: number; required: number }): void {
+    if (!state.enabled) {
+      this.ultimateWrap.classList.add("hidden");
+      return;
+    }
+    this.ultimateWrap.classList.remove("hidden");
+    this.ultReadyState = state.ready;
+    this.applyUltimateReady();
+
+    const color = state.element > 0 ? tileColor(state.element).main : "#4C9AFF";
+    this.ultimateWrap.style.setProperty("--ult-color", color);
+
+    // reset visual fill when the accumulated element changes or on release
+    if (state.element > 0 && state.element !== this.ultElement) this.resetUltimateVisual(state.element);
+    if (state.count === 0 && this.ultFilled > 0) this.resetUltimateVisual(0);
+
+    // a level that starts already ready shows all slots full immediately
+    if (state.ready && this.ultFilled === 0 && state.element > 0) {
+      for (let i = 0; i < 3; i++) this.fillUltimateSlot(i, state.element);
+    }
+
+    this.useBtn.title = state.ready ? "使用大招：点击选中，再点棋盘目标释放" : `充能 ${state.count}/${state.required}`;
+  }
+
+  /** Charge/fill animation running: keep the use button disabled until it ends. */
+  setUltimateAnimating(on: boolean): void {
+    this.ultAnimating = on;
+    this.applyUltimateReady();
+  }
+
+  private applyUltimateReady(): void {
+    const clickable = this.ultReadyState && !this.ultAnimating;
+    this.useBtn.disabled = !clickable;
+    this.useBtn.classList.toggle("ready", clickable);
+    this.ultimateWrap.classList.toggle("ready-glow", clickable);
+    if (!clickable) this.ultimateWrap.classList.remove("glow-done");
+  }
+
+  /** Clear the visual slots and set the element that will fill them. */
+  resetUltimateVisual(element: number): void {
+    this.ultElement = element;
+    this.ultFilled = 0;
+    this.ultimateSlots.forEach((slot) => {
+      slot.classList.remove("filled");
+      slot.innerHTML = "";
+    });
+  }
+
+  /** Fill one slot (called when the flying icon arrives). */
+  fillUltimateSlot(i: number, element: number): void {
+    if (i < 0 || i >= this.ultimateSlots.length || element <= 0) return;
+    const slot = this.ultimateSlots[i];
+    slot.classList.add("filled");
+    slot.innerHTML = `<img src="${elementIconDataURL(element)}" alt="" />`;
+    this.ultFilled = Math.max(this.ultFilled, i + 1);
+  }
+
+  /** Screen center of the i-th ultimate slot (for fly-in animation). */
+  ultimateSlotCenter(i: number): { x: number; y: number } | null {
+    const slot = this.ultimateSlots[Math.max(0, Math.min(this.ultimateSlots.length - 1, i))];
+    if (!slot) return null;
+    const r = slot.getBoundingClientRect();
+    return { x: r.left + r.width / 2, y: r.top + r.height / 2 };
+  }
+
+  popUltimateSlot(i: number): void {
+    const slot = this.ultimateSlots[Math.max(0, Math.min(this.ultimateSlots.length - 1, i))];
+    if (!slot) return;
+    slot.classList.remove("pop");
+    void slot.offsetWidth;
+    slot.classList.add("pop");
+  }
+
+  setAiming(on: boolean): void {
+    this.useBtn.classList.toggle("selected", on);
+    document.body.classList.toggle("aim-mode", on);
+  }
+
+  /**
+   * Show/refresh the owned-coin tray (next to the ultimate, usable anytime).
+   * `coins` lists every owned coin; click events are delegated via data-boss.
+   */
+  updateBossCoinTray(state: {
+    enabled: boolean;
+    remaining: number;
+    total: number;
+    coins: Array<{ bossId: string; name: string; desc: string; icon: string }>;
+  }): void {
+    if (!state.enabled || state.coins.length === 0) {
+      this.bossCoinTray.classList.add("hidden");
+      return;
+    }
+    this.bossCoinTray.classList.remove("hidden");
+    this.bossCoinLabel.textContent = `硬币 ${Math.max(0, state.remaining)}/${state.total}`;
+    const usable = state.remaining > 0 && !this.coinBusy;
+    this.bossCoinTray.classList.toggle("ready-glow", usable);
+
+    const sig = state.coins.map((c) => c.bossId).join("|") + (usable ? "1" : "0");
+    if (this.bossCoinCoins.dataset.sig === sig) return;
+    this.bossCoinCoins.dataset.sig = sig;
+    this.bossCoinCoins.innerHTML = "";
+    for (const c of state.coins) {
+      const btn = document.createElement("button");
+      btn.className = "bosscoin-coin";
+      btn.dataset.boss = c.bossId;
+      btn.disabled = !usable;
+      btn.title = `${c.name}：${c.desc}`;
+      btn.innerHTML = `<img src="${c.icon}" alt="" />`;
+      this.bossCoinCoins.appendChild(btn);
+    }
+  }
+
+  get bossCoinIsBusy(): boolean {
+    return this.coinBusy;
+  }
+
+  /** Throw the coin: rise, spin, reveal heads (success) or tails (failure). */
+  async playCoinToss(success: boolean, anim: BossCoinAnimation, icon: string): Promise<void> {
+    this.coinBusy = true;
+    this.bossCoinCoins.querySelectorAll("button").forEach((b) => {
+      (b as HTMLButtonElement).disabled = true;
+    });
+    this.coinOverlay.classList.remove("hidden");
+    this.coinOverlay.innerHTML = "";
+
+    const scale = anim.scale > 0 ? anim.scale : 2;
+    const coin = div("coin3d");
+    coin.innerHTML =
+      `<div class="coin-face coin-front"><img src="${icon}" alt="" /></div>` +
+      `<div class="coin-face coin-back"><span>★</span></div>`;
+    this.coinOverlay.appendChild(coin);
+
+    await delay(Math.max(0, anim.tossStartDelay) * 1000);
+
+    const span = Math.max(0, anim.maxSpinTurns - anim.minSpinTurns);
+    const turns = anim.minSpinTurns + Math.floor(Math.random() * (span + 1));
+    const total = Math.max(0.08, anim.tossUpDuration + anim.spinDuration + anim.settleDuration);
+    const upFrac = Math.min(0.9, Math.max(0.1, anim.tossUpDuration / total));
+    const finalX = success ? turns * 360 + 180 : turns * 360;
+    const rise = Math.min(Math.max(60, anim.tossHeight), window.innerHeight * 0.36);
+
+    const a = coin.animate(
+      [
+        { transform: `translateY(0) rotateX(0deg) scale(${scale})` },
+        { transform: `translateY(${-rise}px) rotateX(${finalX * upFrac}deg) scale(${scale})`, offset: upFrac },
+        { transform: `translateY(0) rotateX(${finalX}deg) scale(${scale})` },
+      ],
+      { duration: total * 1000, easing: "ease-in-out", fill: "forwards" }
+    );
+    await a.finished.catch(() => undefined);
+
+    coin.classList.add(success ? "coin-success" : "coin-fail");
+    this.spawnCoinParticles(success);
+    await delay(Math.max(0, anim.revealDuration + anim.resultPauseDuration) * 1000);
+
+    this.coinOverlay.classList.add("hidden");
+    this.coinOverlay.innerHTML = "";
+    this.coinBusy = false;
+    this.bossCoinCoins.dataset.sig = "";
+  }
+
+  private spawnCoinParticles(success: boolean): void {
+    const n = 16;
+    for (let i = 0; i < n; i++) {
+      const p = div("coin-particle");
+      const a = (i / n) * Math.PI * 2 + Math.random() * 0.3;
+      const dist = 50 + Math.random() * 70;
+      p.style.background = success ? (i % 2 ? "#FFD866" : "#FFB302") : "#8A8F99";
+      this.coinOverlay.appendChild(p);
+      p.animate(
+        [
+          { transform: `translate(-50%,-50%) translate(0,0) scale(1)`, opacity: 1 },
+          { transform: `translate(-50%,-50%) translate(${Math.cos(a) * dist}px, ${Math.sin(a) * dist}px) scale(0)`, opacity: 0 },
+        ],
+        { duration: success ? 520 : 620, easing: "ease-out", fill: "forwards" }
+      );
+    }
   }
 
   setLoading(on: boolean): void {
@@ -268,6 +495,10 @@ function div(cls: string): HTMLElement {
   const d = document.createElement("div");
   d.className = cls;
   return d;
+}
+
+function delay(ms: number): Promise<void> {
+  return new Promise((resolve) => setTimeout(resolve, Math.max(0, ms)));
 }
 
 function stat(label: string, value: string): HTMLElement {

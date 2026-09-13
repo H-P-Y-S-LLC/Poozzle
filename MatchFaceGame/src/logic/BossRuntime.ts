@@ -130,6 +130,10 @@ export class BossRuntime {
   private hardShellPct = 50;
   private hardShellProtectMove = -1;
 
+  /** BossCoin DoubleNextBossDamage buff (persists for the rest of the fight). */
+  private damageBoostActive = false;
+  private damageBoostMultiplier = 1;
+
   private timedSkillId: string | null = null;
   private timedTriggerAt = 0;
 
@@ -150,6 +154,8 @@ export class BossRuntime {
     this.phases = this.config.rebirthPhases;
     this.hardShell = false;
     this.hardShellPct = 50;
+    this.damageBoostActive = false;
+    this.damageBoostMultiplier = 1;
     for (const s of this.config.skills) {
       if (HARD_SHELL_NAMES.has(eff(s))) {
         this.hardShell = true;
@@ -241,9 +247,22 @@ export class BossRuntime {
     this.applyDirectDamage(damage, events);
   }
 
+  /**
+   * BossCoin DoubleNextBossDamage: refresh the damage multiplier for the rest
+   * of the fight (never stacks). Refuses when a boost is already active and
+   * repeats are disallowed.
+   */
+  setDamageBoost(multiplier: number, allowRepeat: boolean): boolean {
+    if (this.damageBoostActive && !allowRepeat) return false;
+    this.damageBoostActive = true;
+    this.damageBoostMultiplier = Math.max(1, multiplier);
+    return true;
+  }
+
   applyDirectDamage(damage: number, events: BoardEvent[]): void {
     if (!this.enabled || this.currentHp <= 0 || damage <= 0) return;
     let effective = damage;
+    if (this.damageBoostActive) effective = Math.round(effective * this.damageBoostMultiplier);
 
     if (this.hardShell && this.hardShellProtectMove !== -1 && this.lastProcessedMove === this.hardShellProtectMove) {
       effective = Math.max(1, Math.round((effective * clamp(100 - this.hardShellPct, 0, 100)) / 100));

@@ -487,7 +487,247 @@ canvas {
   filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.4));
 }
 
-/* full-screen win / lose celebration */
+/* ===== ultimate skill (3 charge slots + use button) ===== */
+.ultimate-wrap {
+  position: absolute;
+  right: 16px;
+  bottom: 78px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: rgba(30, 34, 51, 0.92);
+  pointer-events: auto;
+}
+
+.ultimate-wrap.hidden {
+  display: none;
+}
+
+.ultimate-slots {
+  display: flex;
+  gap: 6px;
+  pointer-events: none;
+}
+
+.ultimate-slot {
+  width: 42px;
+  height: 42px;
+  border-radius: 9px;
+  border: 1px dashed rgba(168, 176, 200, 0.5);
+  background: rgba(255, 255, 255, 0.04);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.ultimate-slot img {
+  width: 34px;
+  height: 34px;
+  display: block;
+}
+
+.ultimate-slot.filled {
+  border-style: solid;
+  border-color: var(--ult-color, #4c9aff);
+  background: rgba(76, 154, 255, 0.14);
+}
+
+.ultimate-slot.pop {
+  animation: goalPop 0.34s ease;
+}
+
+.ultimate-use {
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  padding: 12px 16px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--dim);
+  cursor: pointer;
+  transition: color 0.15s, border-color 0.15s, background 0.15s, box-shadow 0.2s;
+}
+
+.ultimate-use:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.ultimate-use.ready {
+  color: #fff;
+  border-color: var(--ult-color, #4c9aff);
+  background: rgba(76, 154, 255, 0.18);
+  box-shadow: 0 0 16px var(--ult-color, #4c9aff);
+}
+
+.ultimate-use.selected {
+  color: var(--accent-2);
+  border-color: var(--accent-2);
+  animation: ultShake 0.45s ease-in-out infinite;
+}
+
+.ultimate-wrap.ready-glow {
+  border-color: var(--ult-color, #4c9aff);
+  animation: ultReadyGlow 1.2s ease-in-out infinite;
+}
+
+@keyframes ultReadyGlow {
+  0%, 100% { box-shadow: 0 0 8px var(--ult-color, #4c9aff); }
+  50% { box-shadow: 0 0 28px var(--ult-color, #4c9aff), 0 0 10px var(--ult-color, #4c9aff) inset; }
+}
+
+.bosscoin-tray {
+  position: absolute;
+  right: 16px;
+  bottom: 158px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 6px;
+  padding: 8px 10px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: rgba(30, 34, 51, 0.92);
+  pointer-events: auto;
+}
+
+.bosscoin-tray.hidden {
+  display: none;
+}
+
+.bosscoin-tray.ready-glow {
+  border-color: #e7b84b;
+  animation: coinReadyGlow 1.4s ease-in-out infinite;
+}
+
+@keyframes coinReadyGlow {
+  0%, 100% { box-shadow: 0 0 8px rgba(231, 184, 75, 0.7); }
+  50% { box-shadow: 0 0 26px rgba(231, 184, 75, 1), 0 0 10px rgba(231, 184, 75, 0.4) inset; }
+}
+
+.bosscoin-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: #ffd866;
+  letter-spacing: 0.05em;
+  align-self: center;
+}
+
+.bosscoin-coins {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  max-width: 220px;
+}
+
+.bosscoin-coin {
+  width: 52px;
+  height: 52px;
+  padding: 3px;
+  border-radius: 50%;
+  border: 2px solid #8a6a16;
+  background: radial-gradient(circle at 35% 30%, #fff3c4, #e7b84b 60%, #8a6a16);
+  cursor: pointer;
+  transition: transform 0.12s, box-shadow 0.2s;
+}
+
+.bosscoin-coin:hover:not(:disabled) {
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 0 14px rgba(231, 184, 75, 0.9);
+}
+
+.bosscoin-coin:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.bosscoin-coin img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  display: block;
+  object-fit: contain;
+}
+
+.coin-toss {
+  position: fixed;
+  inset: 0;
+  z-index: 70;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.coin-toss.hidden {
+  display: none;
+}
+
+.coin3d {
+  position: relative;
+  width: 72px;
+  height: 72px;
+  transform-style: preserve-3d;
+}
+
+.coin-face {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  backface-visibility: hidden;
+  border: 3px solid #8a6a16;
+  background: radial-gradient(circle at 35% 30%, #fff3c4, #e7b84b 60%, #8a6a16);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.coin-face img {
+  width: 70%;
+  height: 70%;
+  object-fit: contain;
+}
+
+.coin-back {
+  transform: rotateX(180deg);
+  color: #4a3a12;
+  font-size: 30px;
+}
+
+.coin-success {
+  filter: drop-shadow(0 0 14px #ffd866);
+}
+
+.coin-fail {
+  filter: grayscale(0.7) brightness(0.8);
+}
+
+.coin-particle {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+}
+
+body.aim-mode #game-root canvas {
+  cursor: crosshair;
+}
+
+@keyframes ultShake {
+  0%, 100% { transform: translateX(0) rotate(0); }
+  25% { transform: translateX(-2px) rotate(-3deg); }
+  75% { transform: translateX(2px) rotate(3deg); }
+}
 .celebration {
   position: fixed;
   inset: 0;

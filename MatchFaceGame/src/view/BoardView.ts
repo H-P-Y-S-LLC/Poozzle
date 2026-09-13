@@ -51,6 +51,48 @@ export class BoardView {
     mesh.rotation.y = Math.sin(this.wiggleT * 10) * 0.35;
   }
 
+  /**
+   * Idle hint: visually nudge two tiles into each other and back to show a
+   * possible match. Pure animation — never mutates logic/board state.
+   */
+  async hintSwap(a: { row: number; col: number }, b: { row: number; col: number }): Promise<void> {
+    const ia = this.board.index(a.row, a.col);
+    const ib = this.board.index(b.row, b.col);
+    const ma = this.tiles[ia];
+    const mb = this.tiles[ib];
+    if (!ma || !mb) return;
+    const pa = ma.position.clone();
+    const pb = mb.position.clone();
+    const color = new THREE.Color(0x7fe3ff);
+    this.vfx.shockwave(pa, color, 0.9);
+    this.vfx.shockwave(pb, color, 0.9);
+
+    const slide = (fromA: THREE.Vector3, fromB: THREE.Vector3, toA: THREE.Vector3, toB: THREE.Vector3) =>
+      this.animate(0.24, (k) => {
+        const e = Easing.easeInOutQuad(k);
+        ma.position.lerpVectors(fromA, toA, e);
+        mb.position.lerpVectors(fromB, toB, e);
+      });
+
+    const pulse = this.animate(0.78, (k) => {
+      const s = 1 + Math.sin(k * Math.PI) * 0.18;
+      ma.scale.setScalar(s);
+      mb.scale.setScalar(s);
+    });
+
+    const seq = slide(pa, pb, pb, pa)
+      .then(() => this.animate(0.3, () => undefined)) // hold on the hinted pair
+      .then(() => slide(pb, pa, pa, pb))
+      .then(() => {
+        ma.position.copy(pa);
+        mb.position.copy(pb);
+      });
+
+    await Promise.all([seq, pulse]);
+    ma.scale.setScalar(1);
+    mb.scale.setScalar(1);
+  }
+
   /** Animate a swap between two cells. Invalid/blocked swaps bounce back. */
   animateSwap(a: { row: number; col: number }, b: { row: number; col: number }, accepted: boolean): Promise<void> {
     const ia = this.board.index(a.row, a.col);
@@ -257,7 +299,7 @@ export class BoardView {
           await this.animSpawn(ev);
           break;
         case "blockerHit":
-          this.animBlockerHit(ev);
+          await this.animBlockerHit(ev);
           break;
         case "shuffle":
           await this.animShuffle();
@@ -398,6 +440,14 @@ export class BoardView {
     return { x: (v.x * 0.5 + 0.5) * rect.width + rect.left, y: (-v.y * 0.5 + 0.5) * rect.height + rect.top };
   }
 
+  /** Ultimate release burst at the aimed cell. */
+  ultimateBurst(coord: { row: number; col: number }, colorHex: string): void {
+    const pos = this.cellWorld(coord.row, coord.col);
+    const c = new THREE.Color(parseInt(colorHex.slice(1), 16));
+    this.vfx.shockwave(pos, c, 3.4);
+    this.vfx.burst(new THREE.Vector3(pos.x, pos.y + 0.3, pos.z), c, 40, 5);
+  }
+
   /** Boss skill projectile: particles stream from the boss to a target cell. */
   bossProjectile(from: { x: number; y: number; z: number }, toIndex: number, color: number): void {
     const { row, col } = this.board.coord(toIndex);
@@ -472,27 +522,63 @@ export class BoardView {
    * Blocker damage/death. Broken blockers vanish immediately and emit a
    * distinct grey "stone debris" burst (different from element shatter).
    */
-  private animBlockerHit(ev: BlockerHitEvent): void {
+  private async animBlockerHit(ev: BlockerHitEvent): Promise<void> {
+    const jobs: Promise<void>[] = [];
     for (const hit of ev.hits) {
       const { row, col } = this.board.coord(hit.index);
       const pos = this.cellWorld(row, col);
       const color = new THREE.Color(blockerColor(hit.blockerType));
       const center = new THREE.Vector3(pos.x, pos.y + 0.28, pos.z);
+      const obj = this.blockers.get(hit.index);
       if (!hit.broken) {
+        // HP loss: shake + white-flash punch so each lost point reads clearly
         this.vfx.burst(center, color, 8, 2.0);
+        if (obj) jobs.push(this.animateBlockerDamage(obj));
         continue;
       }
-      // remove the blocker mesh right away
-      const obj = this.blockers.get(hit.index);
+      // HP reached 0: elimination animation (puff up -> shrink/spin out) then remove
+      this.blockers.delete(hit.index);
       if (obj) {
-        this.root.remove(obj);
-        this.blockers.delete(hit.index);
+        jobs.push(this.animateBlockerBreak(obj, pos, center, color));
+      } else {
+        this.vfx.burst(center, color, 26, 3.4);
+        this.vfx.shockwave(pos, color, 1.5);
       }
-      // heavy chunk burst + shockwave ring => clearly distinct from tile clears
-      this.vfx.burst(center, color, 26, 3.4);
-      this.vfx.burst(new THREE.Vector3(pos.x, pos.y + 0.1, pos.z), new THREE.Color(0xf0f0f0), 12, 2.2);
-      this.vfx.shockwave(pos, color, 1.5);
     }
+    await Promise.all(jobs);
+  }
+
+  private animateBlockerDamage(obj: THREE.Object3D): Promise<void> {
+    const base = obj.position.clone();
+    const baseScale = obj.scale.x;
+    return this.animate(0.22, (k) => {
+      const wob = Math.sin(k * Math.PI * 4) * (1 - k) * 0.06;
+      obj.position.set(base.x + wob, base.y, base.z);
+      obj.scale.setScalar(baseScale * (1 + Math.sin(k * Math.PI) * 0.14));
+      obj.rotation.z = Math.sin(k * Math.PI * 3) * (1 - k) * 0.2;
+    }).then(() => {
+      obj.position.copy(base);
+      obj.scale.setScalar(baseScale);
+      obj.rotation.z = 0;
+    });
+  }
+
+  private animateBlockerBreak(obj: THREE.Object3D, pos: THREE.Vector3, center: THREE.Vector3, color: THREE.Color): Promise<void> {
+    this.vfx.burst(center, color, 26, 3.4);
+    this.vfx.burst(new THREE.Vector3(pos.x, pos.y + 0.1, pos.z), new THREE.Color(0xf0f0f0), 12, 2.2);
+    this.vfx.shockwave(pos, color, 1.5);
+    const baseScale = obj.scale.x;
+    const baseY = obj.position.y;
+    return this.animate(0.3, (k) => {
+      // brief puff up, then collapse while spinning out
+      const s = k < 0.3 ? 1 + k * 0.6 : Math.max(0.001, 1.18 * (1 - (k - 0.3) / 0.7));
+      obj.scale.setScalar(baseScale * s);
+      obj.position.y = baseY + k * 0.35;
+      obj.rotation.y = k * Math.PI * 2;
+      obj.rotation.z = k * 1.1;
+    }).then(() => {
+      this.root.remove(obj);
+    });
   }
 
   private animate(duration: number, apply: (k: number) => void): Promise<void> {

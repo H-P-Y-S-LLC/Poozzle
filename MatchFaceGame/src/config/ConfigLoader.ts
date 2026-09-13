@@ -13,6 +13,7 @@ import {
   type BossConfig,
 } from "./types/BossConfig.js";
 import { createLogger } from "../core/Logger.js";
+import { parseBossCoinConfig, type BossCoinConfig } from "./BossCoinConfig.js";
 
 const log = createLogger("ConfigLoader");
 
@@ -38,6 +39,7 @@ export class ConfigLoader {
   private manifestCache: LevelManifest | null = null;
   private levelCache = new Map<string, LevelConfig>();
   private rawCache = new Map<string, JsonObject>();
+  private bossCoinCache: BossCoinConfig | null = null;
 
   constructor(base: string = DEFAULT_CONFIG_BASE) {
     this.base = base.replace(/\/+$/, "");
@@ -70,6 +72,14 @@ export class ConfigLoader {
     const level = parseLevelConfig(json);
     this.levelCache.set(rel, level);
     return level;
+  }
+
+  /** BossCoin skills (§2.6). */
+  async loadBossCoins(): Promise<BossCoinConfig> {
+    if (this.bossCoinCache) return this.bossCoinCache;
+    const json = await fetchJson(this.url("boss/boss_coin_skills.json"));
+    this.bossCoinCache = parseBossCoinConfig(json);
+    return this.bossCoinCache;
   }
 
   /**

@@ -225,4 +225,41 @@ describe("BoardLogic", () => {
     normal.damageBlockers(new Set([1 * 3 + 0]), ClearTriggerType.NormalMatch);
     expect(normal.cells[0].BlockerHP).toBe(2);
   });
+
+  it("charges the ultimate on 3 consecutive same-type clears and releases it", () => {
+    const board = new BoardLogic(makeLevel({ Rules: { MinMatchCount: 3, bAvoidAutoCascadeAtStart: true, bEnsureAtLeastOneMove: true } }));
+    const charge = (b: BoardLogic, t: number[]): void =>
+      (b as unknown as { updateUltimateCharge: (t: number[]) => void }).updateUltimateCharge(t);
+
+    expect(board.ultimateState().ready).toBe(false);
+    charge(board, [2]);
+    charge(board, [2]);
+    expect(board.ultimateState().ready).toBe(false);
+    expect(board.ultimateState().count).toBe(2);
+    charge(board, [2]);
+    expect(board.ultimateState().ready).toBe(true);
+    expect(board.ultimateState().element).toBe(2);
+
+    // switching type before ready resets the count
+    const other = new BoardLogic(makeLevel());
+    charge(other, [1]);
+    charge(other, [3]);
+    expect(other.ultimateState().count).toBe(1);
+    expect(other.ultimateState().ready).toBe(false);
+
+    // release: clears every element of the targeted type
+    const target = board.cells.findIndex((c) => c.TileType === 2);
+    expect(target).toBeGreaterThanOrEqual(0);
+    const before = new Set<number>();
+    board.cells.forEach((c, i) => {
+      if (c.TileType === 2) before.add(i);
+    });
+    const { row, col } = board.coord(target);
+    const res = board.activateUltimate({ row, col });
+    expect(res.accepted).toBe(true);
+    const clearEv = res.events.find((e) => e.type === "clear") as { indices: number[]; triggerType: ClearTriggerType };
+    expect(clearEv.triggerType).toBe(ClearTriggerType.UltimateTool);
+    for (const i of before) expect(clearEv.indices).toContain(i);
+    expect(board.ultimateState().ready).toBe(false);
+  });
 });

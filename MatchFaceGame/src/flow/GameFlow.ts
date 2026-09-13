@@ -5,7 +5,7 @@
 import type { ConfigLoader, LevelBossMeta } from "../config/ConfigLoader.js";
 import { selectMatch3Levels, type ManifestEntry } from "../config/LevelManifest.js";
 import { parseThemeConfig, type LevelMapConfig } from "../config/ThemeConfig.js";
-import { FinishReason } from "../logic/Match3Types.js";
+import { BoardState, FinishReason } from "../logic/Match3Types.js";
 import { BoardLogic } from "../logic/BoardLogic.js";
 import { SceneRoot } from "../view/SceneRoot.js";
 import { BoardView } from "../view/BoardView.js";
@@ -17,6 +17,9 @@ import { AudioBus } from "../audio/AudioBus.js";
 import { MusicGenerator } from "../audio/MusicGenerator.js";
 import { elementIconDataURL } from "../proc/ElementIconFactory.js";
 import { blockerIconDataURL } from "../proc/BlockerIconFactory.js";
+import { tileColor } from "../proc/Palette.js";
+import { bossCoinIconDataURL } from "../proc/BossCoinIconFactory.js";
+import { coinProbability, type BossCoinConfig, type BossCoinSkill } from "../config/BossCoinConfig.js";
 import type { BoardEvent } from "../logic/BoardLogic.js";
 import * as THREE from "three";
 import type { I18n } from "../ui/i18n.js";
@@ -24,6 +27,10 @@ import { createLogger } from "../core/Logger.js";
 
 const log = createLogger("GameFlow");
 const SAVE_KEY = "matchface.save.v1";
+/** Coin tosses allowed per level, any coin type. The 3rd is a guaranteed hit if the first two miss. */
+const BOSS_COIN_TOSSES_PER_LEVEL = 3;
+/** Seconds without an elimination before the board hints a valid swap. */
+const IDLE_HINT_SECONDS = 30;
 
 const DEFAULT_LEVEL_MAP: LevelMapConfig = {
   levelsPerChunk: 12,
@@ -38,6 +45,8 @@ interface SaveData {
   unlocked: string[];
   stars: Record<string, number>;
   best: Record<string, number>;
+  /** Boss ids whose skill coin has been earned (defeat a boss -> earn its coin). */
+  bossCoins: string[];
   /** Last level the player entered; used to auto-resume on next visit. */
   lastPlayed: string;
 }
@@ -61,9 +70,17 @@ export class GameFlow {
   private busy = false;
   private timedAccum = 0;
   private celebrating = false;
+  private lastClearedForUlt: { index: number; tileType: number } | null = null;
+  private lastUltCount = 0;
+  private lastUltElement = 0;
+  private aiming = false;
+  private idleResetAt = performance.now();
+  private hinting = false;
   private audio = new AudioBus();
   private music = new MusicGenerator(this.audio);
   private bossMeta = new Map<string, LevelBossMeta>();
+  private bossCoinConfig: BossCoinConfig | null = null;
+  private currentBossId = "";
   private listenerForward = new THREE.Vector3();
 
   constructor(container: HTMLElement, loader: ConfigLoader, i18n: I18n, hud: HudView, uiRoot: HTMLElement) {
@@ -76,6 +93,8 @@ export class GameFlow {
     this.scene.setFrameCallback((dt) => this.onFrame(dt));
     this.scene.start();
     this.buildToolbar();
+    this.hud.useButton.addEventListener("click", () => this.onUltimateButton());
+    this.hud.bossCoinTrayEl.addEventListener("click", (e) => this.onBossCoinTrayClick(e));
     const unlock = () => {
       this.audio.resume();
       this.music.start();
@@ -97,6 +116,8 @@ export class GameFlow {
     this.view?.update(dt);
     const board = this.board;
     if (!board) return;
+    this.hud.updateUltimate(board.ultimateState());
+    this.updateIdleHint(board);
     const now = performance.now() / 1000;
     if (board.updateCorrosion(now)) {
       this.view?.syncFromBoard();
@@ -112,6 +133,38 @@ export class GameFlow {
           if (this.board) this.hud.update(this.board, this.entries[this.index]?.displayName ?? "");
         });
       }
+    }
+  }
+
+  /** Debounce: after 30s with no elimination, nudge a valid swap as a hint (wall-clock). */
+  private updateIdleHint(board: BoardLogic): void {
+    if (board.levelFinished || this.celebrating || this.mapView.visible) {
+      this.resetIdleHint();
+      return;
+    }
+    if ((performance.now() - this.idleResetAt) / 1000 < IDLE_HINT_SECONDS) return;
+    if (this.busy || this.hinting || this.aiming || board.state !== BoardState.Idle) return;
+    void this.playIdleHint(board);
+  }
+
+  private resetIdleHint(): void {
+    this.idleResetAt = performance.now();
+  }
+
+  private async playIdleHint(board: BoardLogic): Promise<void> {
+    const view = this.view;
+    if (!view || this.hinting) return;
+    const move = board.findOnePossibleSwap();
+    if (!move) {
+      this.resetIdleHint();
+      return;
+    }
+    this.hinting = true;
+    try {
+      await view.hintSwap(move[0], move[1]);
+    } finally {
+      this.hinting = false;
+      this.resetIdleHint();
     }
   }
 
@@ -171,6 +224,13 @@ export class GameFlow {
         log.warn("theme_asset_config.json unavailable, using map defaults", err);
       }
 
+      // boss coin skills — optional
+      try {
+        this.bossCoinConfig = await this.loader.loadBossCoins();
+      } catch (err) {
+        log.warn("boss_coin_skills.json unavailable, boss coins disabled", err);
+      }
+
       // seed unlock state
       const unlocked = new Set(this.save.unlocked);
       for (const e of this.entries) if (e.bInitiallyUnlocked) unlocked.add(e.levelId);
@@ -202,7 +262,14 @@ export class GameFlow {
     this.hud.setLoading(true);
     this.hud.hideOverlay();
     this.mapView.hide();
+    this.endAim();
+    this.lastUltCount = 0;
+    this.lastUltElement = 0;
+    this.lastClearedForUlt = null;
+    this.hud.setUltimateAnimating(false);
     this.celebrating = false;
+    this.resetIdleHint();
+    this.hinting = false;
     this.busy = true;
 
     try {
@@ -225,13 +292,15 @@ export class GameFlow {
       this.board = board;
       this.view = view;
       this.controller = new BoardController(this.scene, view, board, {
-        isBusy: () => this.busy,
+        isBusy: () => this.busy || this.hinting,
         onSwap: (a, b) => void this.handleSwap(a, b),
         onActivate: (c) => void this.handleActivate(c),
         onSelect: () => this.audio.play("select"),
         onBlockedSwap: (a, b) => void this.handleBlockedSwap(a, b),
+        onUltimate: (c) => void this.handleUltimate(c),
       });
       this.hud.update(board, entry.displayName || entry.levelId);
+      this.setupBossCoin(board, isBoss ? bossConfig!.bossId : "");
       log.info(
         `level ${entry.levelId} seed=${board.randomSeed} size=${board.rows}x${board.cols} boss=${bossConfig?.bossId ?? "-"}`
       );
@@ -244,6 +313,7 @@ export class GameFlow {
   private onBoardEvent(e: BoardEvent): void {
     switch (e.type) {
       case "clear": {
+        this.resetIdleHint(); // any elimination restarts the idle-hint timer
         const at = e.indices.length ? this.cellPos(e.indices[0]) : this.origin();
         this.audio.playAt("clear", { combo: e.comboIndex, tileType: e.tileTypes[0] }, at);
         if (e.specialsSpawned.length) this.audio.playAt("specialCreate", {}, this.cellPos(e.specialsSpawned[0].index));
@@ -254,6 +324,32 @@ export class GameFlow {
         }
         this.spawnGoalFlights(e.clearedTiles);
         this.spawnWeaknessFlights(e.clearedTiles);
+        const firstTile = e.clearedTiles.find((t) => t.tileType > 0);
+        this.lastClearedForUlt = firstTile ? { index: firstTile.index, tileType: firstTile.tileType } : null;
+        break;
+      }
+      case "ultimate": {
+        const st = this.board?.ultimateState();
+        if (st && st.enabled && st.element > 0 && this.view) {
+          const changed = st.element !== this.lastUltElement || st.count > this.lastUltCount;
+          if (changed && this.lastClearedForUlt && this.board) {
+            const { row, col } = this.board.coord(this.lastClearedForUlt.index);
+            const start = this.view.worldToScreen(this.view.cellWorld(row, col));
+            const end = this.hud.ultimateSlotCenter(st.count - 1);
+            const slotIndex = st.count - 1;
+            const element = st.element;
+            if (end) {
+              this.hud.setUltimateAnimating(true);
+              this.flyGhost(elementIconDataURL(element), start, end, () => {
+                this.hud.fillUltimateSlot(slotIndex, element);
+                this.hud.popUltimateSlot(slotIndex);
+                this.hud.setUltimateAnimating(false);
+              });
+            }
+          }
+          this.lastUltCount = st.count;
+          this.lastUltElement = st.element;
+        }
         break;
       }
       case "blockerHit": {
@@ -445,6 +541,49 @@ export class GameFlow {
     }
   }
 
+  private onUltimateButton(): void {
+    if (!this.board || this.busy || !this.controller) return;
+    if (!this.board.ultimateState().ready) return;
+    if (this.aiming) {
+      this.endAim();
+    } else {
+      this.aiming = true;
+      this.hud.setAiming(true);
+      this.controller.setAiming(true);
+      this.audio.play("select");
+    }
+  }
+
+  private endAim(): void {
+    this.aiming = false;
+    this.hud.setAiming(false);
+    this.controller?.setAiming(false);
+  }
+
+  /** Release the ultimate on the aimed cell (tile type or blocker type). */
+  private async handleUltimate(c: { row: number; col: number }): Promise<void> {
+    if (!this.board || !this.view) {
+      this.endAim();
+      return;
+    }
+    this.busy = true;
+    try {
+      const element = this.board.ultimateState().element;
+      const res = this.board.activateUltimate(c);
+      if (res.accepted) {
+        this.audio.play("specialExplode");
+        this.view.ultimateBurst(c, element > 0 ? tileColor(element).main : "#FFD60A");
+        await this.view.playEvents(res.events, (e) => this.onBoardEvent(e));
+        this.bossView?.onEvents(res.events);
+      }
+      this.hud.update(this.board, this.entries[this.index].displayName);
+      this.checkFinish();
+    } finally {
+      this.busy = false;
+      this.endAim();
+    }
+  }
+
   private checkFinish(): void {
     if (!this.board) return;
     if (!this.board.levelFinished) return;
@@ -454,6 +593,7 @@ export class GameFlow {
     if (snap.victory) {
       this.save.stars[entry.levelId] = Math.max(this.save.stars[entry.levelId] ?? 0, snap.stars);
       this.save.best[entry.levelId] = Math.max(this.save.best[entry.levelId] ?? 0, snap.score);
+      this.awardBossCoin();
       this.unlockNext(entry);
       // progress points at the newly unlocked next level, so resuming continues forward
       const next = this.nextEntry(entry);
@@ -489,6 +629,88 @@ export class GameFlow {
 
   get debugBoard(): BoardLogic | null {
     return this.board;
+  }
+
+  /** Defeating a boss earns its skill coin (once). */
+  private awardBossCoin(): void {
+    if (!this.currentBossId || !this.bossCoinConfig) return;
+    const skill = this.bossCoinConfig.coins.find(
+      (c) => c.bossId.toLowerCase() === this.currentBossId.toLowerCase()
+    );
+    if (!skill || this.save.bossCoins.includes(skill.bossId)) return;
+    this.save.bossCoins.push(skill.bossId);
+    log.info(`earned boss coin: ${skill.bossId}`);
+  }
+
+  /** Owned coins shown in the tray (any boss's coin, usable in any level). */
+  private ownedBossCoins(): BossCoinSkill[] {
+    if (!this.bossCoinConfig) return [];
+    return this.bossCoinConfig.coins.filter((c) => this.save.bossCoins.includes(c.bossId));
+  }
+
+  /** Prepare the per-level coin toss budget and refresh the tray. */
+  private setupBossCoin(board: BoardLogic, bossId: string): void {
+    this.currentBossId = bossId;
+    if (this.ownedBossCoins().length > 0) board.initBossCoin(BOSS_COIN_TOSSES_PER_LEVEL);
+    this.refreshBossCoin();
+  }
+
+  private refreshBossCoin(): void {
+    const board = this.board;
+    const cfg = this.bossCoinConfig;
+    const owned = this.ownedBossCoins();
+    if (!board || !cfg || owned.length === 0) {
+      this.hud.updateBossCoinTray({ enabled: false, remaining: 0, total: 0, coins: [] });
+      return;
+    }
+    const st = board.bossCoinState();
+    const zh = this.i18n.lang === "zh";
+    this.hud.updateBossCoinTray({
+      enabled: true,
+      remaining: st.remaining,
+      total: st.maxUses,
+      coins: owned.map((c) => ({
+        bossId: c.bossId,
+        name: (zh ? c.displayNameZh : c.displayName) || c.displayName || c.bossId,
+        desc: (zh ? c.skillDescriptionZh : c.skillDescription) || c.effectType,
+        icon: bossCoinIconDataURL(c.bossId),
+      })),
+    });
+  }
+
+  private onBossCoinTrayClick(e: MouseEvent): void {
+    const btn = (e.target as HTMLElement | null)?.closest<HTMLElement>(".bosscoin-coin");
+    const bossId = btn?.dataset.boss;
+    if (!bossId) return;
+    const skill = this.bossCoinConfig?.coins.find((c) => c.bossId === bossId) ?? null;
+    if (skill) void this.onBossCoinClick(skill);
+  }
+
+  /** Toss the chosen coin: roll, animate, then apply the skill effect. */
+  private async onBossCoinClick(skill: BossCoinSkill): Promise<void> {
+    const board = this.board;
+    const cfg = this.bossCoinConfig;
+    if (!board || !cfg || this.busy || this.celebrating) return;
+    if (!this.save.bossCoins.includes(skill.bossId)) return;
+    if (!board.canUseBossCoin() || board.bossCoinState().remaining <= 0) return;
+
+    this.busy = true;
+    try {
+      const roll = board.rollBossCoin(coinProbability(cfg, skill));
+      if (!roll.accepted) return;
+      await this.hud.playCoinToss(roll.success, cfg.animation, bossCoinIconDataURL(skill.bossId));
+      this.audio.play(roll.success ? "skill" : "swapInvalid");
+      const res = board.applyBossCoinResult(skill, roll.success);
+      if (this.view && res.events.length) {
+        await this.view.playEvents(res.events, (e) => this.onBoardEvent(e));
+      }
+      this.bossView?.onEvents(res.events);
+      this.hud.update(board, this.entries[this.index].displayName);
+      this.refreshBossCoin();
+      this.checkFinish();
+    } finally {
+      this.busy = false;
+    }
   }
 
   private nextEntry(entry: ManifestEntry): ManifestEntry | undefined {
@@ -535,13 +757,14 @@ function loadSave(): SaveData {
         unlocked: parsed.unlocked ?? [],
         stars: parsed.stars ?? {},
         best: parsed.best ?? {},
+        bossCoins: parsed.bossCoins ?? [],
         lastPlayed: parsed.lastPlayed ?? "",
       };
     }
   } catch {
     /* ignore */
   }
-  return { unlocked: [], stars: {}, best: {}, lastPlayed: "" };
+  return { unlocked: [], stars: {}, best: {}, bossCoins: [], lastPlayed: "" };
 }
 
 function persist(data: SaveData): void {
