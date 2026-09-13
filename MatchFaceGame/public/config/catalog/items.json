@@ -1,0 +1,44 @@
+{
+  "items": [
+    {
+      "id": "hammer",
+      "name": "Hammer",
+      "stackMax": 999,
+      "usableInModes": ["match3"],
+      "perLevelUseLimit": 8,
+      "bRequiresExecutor": true
+    },
+    {
+      "id": "shuffle",
+      "name": "Shuffle",
+      "stackMax": 99,
+      "usableInModes": ["match3"],
+      "perLevelUseLimit": 5,
+      "bRequiresExecutor": true
+    },
+    {
+      "id": "rocket",
+      "name": "Rocket",
+      "stackMax": 99,
+      "usableInModes": ["match3"],
+      "perLevelUseLimit": 5,
+      "bRequiresExecutor": true
+    },
+    {
+      "id": "glove",
+      "name": "Glove",
+      "stackMax": 99,
+      "usableInModes": ["match3"],
+      "perLevelUseLimit": 5,
+      "bRequiresExecutor": true
+    },
+    {
+      "id": "finger",
+      "name": "Finger",
+      "stackMax": 99,
+      "usableInModes": ["match3"],
+      "perLevelUseLimit": 5,
+      "bRequiresExecutor": true
+    }
+  ]
+}

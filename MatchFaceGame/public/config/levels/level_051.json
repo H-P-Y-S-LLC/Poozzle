@@ -1,0 +1,157 @@
+{
+  "LevelId": "level_051",
+  "Board": {
+    "Rows": 8,
+    "Cols": 5,
+    "Mask": ["11111", "11111", "11111", "11111", "11111", "11111", "11111", "11111"],
+    "Blocked": ["00000", "00000", "00000", "00000", "00000", "00000", "00000", "00000"],
+    "BlockedTypes": ["00000", "00000", "00000", "00000", "00000", "00000", "00000", "00000"],
+    "BlockedHP": ["00000", "00000", "00000", "00000", "00000", "00000", "00000", "00000"],
+    "BlockerTypeDefs": [
+      {
+        "TypeId": 15,
+        "DefaultHP": 1,
+        "bDestructible": true,
+        "bDamageByAdjacentClear": true,
+        "AdjacentDamageSourceTileTypes": [2],
+        "bAdjacentDamageRequiresNormalMatch": true,
+        "bAdjacentDamageAllowSpecialExplosion": true,
+        "bAdjacentDamageAllowUltimateBySourceType": true,
+        "bImmuneToDirectHitDamage": true
+      }
+    ],
+    "Pipe": {
+      "bEnabled": true,
+      "Mask": ["00001", "00001", "00001", "00001", "00001", "00001", "00001", "00001"],
+      "BlockedMask": ["00000", "00001", "00001", "00001", "00001", "00001", "00001", "00000"],
+      "OpenMask": ["00004", "00005", "00005", "00005", "00005", "00005", "00005", "00001"],
+      "ProxyTileTypeMask": ["00000", "00005", "00005", "00004", "00005", "00005", "00004", "00000"],
+      "HPMask": ["00000", "00001", "00001", "00001", "00001", "00001", "00001", "00000"],
+      "DefaultProxyTileType": 2,
+      "DefaultHP": 1,
+      "DefaultOpenMask": 15,
+      "GoalMode": "AllFlowing",
+      "Sources": [
+        {
+          "Row": 7,
+          "Col": 4
+        }
+      ],
+      "Ends": [
+        {
+          "Row": 0,
+          "Col": 4
+        }
+      ]
+    },
+    "InitialTiles": [5, 1, 2, 3, 4, 5, 1, 3, 2, 5, 3, 2, 1, 4, 5, 4, 3, 4, 5, 1, 1, 4, 5, 5, 2, 2, 5, 5, 1, 3, 3, 5, 2, 4, 5, 4, 2, 4, 5, 5],
+    "InitialSpecials": [],
+    "RandomSeed": 0
+  },
+  "TilePool": {
+    "TileTypes": [1, 2, 3, 4, 5],
+    "Weights": [15, 15, 16, 18, 18],
+    "NonRegeneratingTileTypes": [],
+    "InertTileTypes": []
+  },
+  "Rules": {
+    "MinMatchCount": 3,
+    "bAllowDiagonalSwap": false,
+    "bInvalidSwapBounceBack": true,
+    "bEnsureAtLeastOneMove": true,
+    "bAvoidAutoCascadeAtStart": true,
+    "bEnableSpecialSpecialSwapCombo": true,
+    "bUseTopSpawnAfterInternalSettle": true
+  },
+  "Score": {
+    "BaseClearScore": 31,
+    "ExtraPerMoreThan3": 2,
+    "SpecialTriggerScore": 32,
+    "ComboMultiplierStep": 0.42,
+    "BlockerBreakScore": 22
+  },
+  "Goal": {
+    "TargetScore": 5800,
+    "MaxMoves": 22,
+    "Collect": [
+      {
+        "TileType": 5,
+        "Count": 18,
+        "bCountSpecialClear": true
+      },
+      {
+        "TileType": 4,
+        "Count": 16,
+        "bCountSpecialClear": true
+      }
+    ],
+    "BlockerBreakByType": []
+  },
+  "Boss": {
+    "ConfigFile": "",
+    "bEnabled": false,
+    "BossId": "",
+    "SealFailThreshold": 1
+  },
+  "StarRating": {
+    "ThreeStarScore": 3000,
+    "ScoreWeight": 0.25,
+    "MoveWeight": 0.75,
+    "TwoStarThreshold": 0.25,
+    "ThreeStarThreshold": 0.45,
+    "FourStarThreshold": 0.65,
+    "FiveStarThreshold": 0.8,
+    "MinScoreFor2Star": 2200,
+    "MinScoreFor3Star": 3000,
+    "MinScoreFor4Star": 4040,
+    "MinScoreFor5Star": 5800,
+    "ScoreNormCap": 1.2
+  },
+  "SpecialCombos": [
+    {
+      "A": "ColorBomb",
+      "B": "ColorBomb",
+      "bClearWholeBoard": true,
+      "bClearAllOfOtherType": false,
+      "BombRadius": 0,
+      "bClearSwapRow": false,
+      "bClearSwapCol": false
+    },
+    {
+      "A": "ColorBomb",
+      "B": "LineHorizontal",
+      "bClearWholeBoard": false,
+      "bClearAllOfOtherType": true,
+      "BombRadius": 0,
+      "bClearSwapRow": true,
+      "bClearSwapCol": true
+    },
+    {
+      "A": "ColorBomb",
+      "B": "LineVertical",
+      "bClearWholeBoard": false,
+      "bClearAllOfOtherType": true,
+      "BombRadius": 0,
+      "bClearSwapRow": true,
+      "bClearSwapCol": true
+    },
+    {
+      "A": "Bomb3x3",
+      "B": "Bomb3x3",
+      "bClearWholeBoard": false,
+      "bClearAllOfOtherType": false,
+      "BombRadius": 2,
+      "bClearSwapRow": true,
+      "bClearSwapCol": true
+    },
+    {
+      "A": "LineHorizontal",
+      "B": "LineVertical",
+      "bClearWholeBoard": false,
+      "bClearAllOfOtherType": false,
+      "BombRadius": 1,
+      "bClearSwapRow": true,
+      "bClearSwapCol": true
+    }
+  ]
+}

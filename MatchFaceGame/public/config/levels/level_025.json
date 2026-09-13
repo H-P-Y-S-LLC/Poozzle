@@ -1,0 +1,229 @@
+{
+  "LevelId": "level_025",
+  "Board": {
+    "Rows": 7,
+    "Cols": 7,
+    "Mask": [
+      "1111111",
+      "1111111",
+      "1111111",
+      "1111111",
+      "1111111",
+      "1111111",
+      "1111111"
+    ],
+    "Blocked": [
+      "1111000",
+      "1111000",
+      "1111000",
+      "1111000",
+      "1111000",
+      "1111000",
+      "1111000"
+    ],
+    "BlockedTypes": [
+      "5554000",
+      "5554000",
+      "5554000",
+      "5554000",
+      "5554000",
+      "5554000",
+      "5554000"
+    ],
+    "BlockedHP": [
+      "1111000",
+      "1111000",
+      "1111000",
+      "1111000",
+      "1111000",
+      "1111000",
+      "1111000"
+    ],
+    "BlockerTypeDefs": [
+      {
+        "TypeId": 4,
+        "bDestructible": true,
+        "DefaultHP": 1,
+        "BreakScore": 16,
+        "bDamageByAdjacentClear": true
+      },
+      {
+        "TypeId": 5,
+        "bDestructible": true,
+        "DefaultHP": 1,
+        "BreakScore": 16,
+        "bDamageByAdjacentClear": true,
+        "bSpreadEachTurn": true,
+        "SpreadCountPerTurn": 2
+      }
+    ],
+    "InitialTiles": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      1,
+      2,
+      2,
+      3,
+      4,
+      5,
+      1,
+      2,
+      3,
+      3,
+      4,
+      5,
+      1,
+      2,
+      3,
+      4,
+      4,
+      5,
+      1,
+      2,
+      3,
+      4,
+      5,
+      5,
+      1,
+      2,
+      3,
+      4,
+      5,
+      1,
+      1,
+      2,
+      3,
+      4,
+      5,
+      1,
+      2,
+      2,
+      3,
+      4,
+      5,
+      1,
+      2,
+      3
+    ],
+    "InitialSpecials": [],
+    "RandomSeed": 0
+  },
+  "TilePool": {
+    "TileTypes": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "Weights": [
+      21,
+      20,
+      20,
+      20,
+      19
+    ]
+  },
+  "Rules": {
+    "MinMatchCount": 3,
+    "bAllowDiagonalSwap": false,
+    "bInvalidSwapBounceBack": true,
+    "bEnsureAtLeastOneMove": true,
+    "bAvoidAutoCascadeAtStart": true,
+    "bEnableSpecialSpecialSwapCombo": true,
+    "bUseTopSpawnAfterInternalSettle": true
+  },
+  "Score": {
+    "BaseClearScore": 16,
+    "ExtraPerMoreThan3": 2,
+    "SpecialTriggerScore": 17,
+    "ComboMultiplierStep": 0.25,
+    "BlockerBreakScore": 279
+  },
+  "Goal": {
+    "TargetScore": 3180,
+    "MaxMoves": 28,
+    "Collect": [
+      {
+        "TileType": 1,
+        "Count": 24,
+        "bCountSpecialClear": true
+      },
+      {
+        "TileType": 2,
+        "Count": 24,
+        "bCountSpecialClear": true
+      }
+    ],
+    "BlockerBreakByType": [
+      {
+        "TypeId": 4,
+        "Count": 4
+      }
+    ]
+  },
+  "StarRating": {
+    "ThreeStarScore": 4293,
+    "ScoreWeight": 0.35,
+    "MoveWeight": 0.65,
+    "TwoStarThreshold": 0.3,
+    "ThreeStarThreshold": 0.5,
+    "FourStarThreshold": 0.7,
+    "FiveStarThreshold": 0.85,
+    "MinScoreFor2Star": 2067,
+    "MinScoreFor3Star": 2862,
+    "MinScoreFor4Star": 2902,
+    "MinScoreFor5Star": 3180,
+    "ScoreNormCap": 1.2
+  },
+  "SpecialCombos": [
+    {
+      "A": "ColorBomb",
+      "B": "ColorBomb",
+      "bClearWholeBoard": true,
+      "bClearAllOfOtherType": false,
+      "BombRadius": 0,
+      "bClearSwapRow": false,
+      "bClearSwapCol": false
+    },
+    {
+      "A": "ColorBomb",
+      "B": "LineHorizontal",
+      "bClearWholeBoard": false,
+      "bClearAllOfOtherType": true,
+      "BombRadius": 0,
+      "bClearSwapRow": true,
+      "bClearSwapCol": true
+    },
+    {
+      "A": "ColorBomb",
+      "B": "LineVertical",
+      "bClearWholeBoard": false,
+      "bClearAllOfOtherType": true,
+      "BombRadius": 0,
+      "bClearSwapRow": true,
+      "bClearSwapCol": true
+    },
+    {
+      "A": "Bomb3x3",
+      "B": "Bomb3x3",
+      "bClearWholeBoard": false,
+      "bClearAllOfOtherType": false,
+      "BombRadius": 2,
+      "bClearSwapRow": true,
+      "bClearSwapCol": true
+    },
+    {
+      "A": "LineHorizontal",
+      "B": "LineVertical",
+      "bClearWholeBoard": false,
+      "bClearAllOfOtherType": false,
+      "BombRadius": 1,
+      "bClearSwapRow": true,
+      "bClearSwapCol": true
+    }
+  ]
+}

@@ -1,0 +1,155 @@
+{
+  "bEnabled": true,
+  "bossId": "boss_placeholder_08",
+  "displayName": "Cockroach",
+  "maxHp": 520,
+  "initialHp": 520,
+  "weaknesses": [
+    {
+      "tileType": 4,
+      "damagePerClear": 4
+    },
+    {
+      "tileType": 5,
+      "damagePerClear": 4
+    }
+  ],
+  "skills": [
+    {
+      "bEnabled": true,
+      "skillId": "land_convert",
+      "effectType": "land_convert",
+      "intervalMoves": 1,
+      "priority": 10,
+      "paramA": 5,
+      "paramB": 0,
+      "bMoveBossOnLandConvert": false,
+      "landingNiagaraPath": "/Game/Models/boss03/Niagara/ConvertNG.ConvertNG",
+      "bossFeedbackSourceBoneName": "Root"
+    }
+  ],
+  "bEnableRebirthPhase": true,
+  "rebirthSpawnBlockerType": 19,
+  "rebirthSpawnCount": 10,
+  "rebirthMaxHp": 800,
+  "rebirthInitialHp": 800,
+  "rebirthWeaknesses": [
+    {
+      "tileType": 4,
+      "damagePerClear": 0
+    },
+    {
+      "tileType": 5,
+      "damagePerClear": 0
+    }
+  ],
+  "rebirthBlockerWeaknessTriggers": [
+    {
+      "signalTag": "roach_break_hit",
+      "damagePerTrigger": 80
+    }
+  ],
+  "rebirthPhases": [
+    {
+      "spawnBlockerType": 19,
+      "spawnCount": 10,
+      "maxHp": 800,
+      "initialHp": 800,
+      "weaknesses": [
+        {
+          "tileType": 4,
+          "damagePerClear": 0
+        },
+        {
+          "tileType": 5,
+          "damagePerClear": 0
+        }
+      ],
+      "blockerWeaknessTriggers": [
+        {
+          "signalTag": "roach_break_hit",
+          "damagePerTrigger": 80
+        }
+      ],
+      "interceptedBlockerTransformTargets": [
+        4,
+        5,
+        6,
+        1,
+        2,
+        3,
+        8
+      ]
+    },
+    {
+      "spawnBlockerType": 19,
+      "spawnCount": 12,
+      "spawnBlockerHP": 3,
+      "maxHp": 960,
+      "initialHp": 960,
+      "weaknesses": [
+        {
+          "tileType": 4,
+          "damagePerClear": 0
+        },
+        {
+          "tileType": 5,
+          "damagePerClear": 0
+        }
+      ],
+      "blockerWeaknessTriggers": [
+        {
+          "signalTag": "roach_break_hit",
+          "damagePerTrigger": 80
+        }
+      ],
+      "interceptedBlockerTransformTargets": [
+        4,
+        5,
+        6,
+        1,
+        2,
+        3,
+        8
+      ]
+    }
+  ],
+  "sealFailThreshold": 1,
+  "presentation": {
+    "skeletalMeshPath": "/Game/Models/boss08/SKM_Cockroach.SKM_Cockroach",
+    "transformLocation": {
+      "X": 180,
+      "Y": 0,
+      "Z": 80
+    },
+    "transformRotation": {
+      "Pitch": -60,
+      "Yaw": 0,
+      "Roll": 0
+    },
+    "transformScale": {
+      "X": 2,
+      "Y": 2,
+      "Z": 2
+    },
+    "animationPaths": [
+      "idle:/Game/Models/boss08/Animations/Boss08_Idle.Boss08_Idle",
+      "hit:/Game/Models/boss08/Animations/Boss08_Hit.Boss08_Hit",
+      "skill:land_convert:/Game/Models/boss08/Animations/Boss08_Fight.Boss08_Fight",
+      "phase1_fake_death:/Game/Models/boss08/Animations/Boss08_Fakedeath1.Boss08_Fakedeath1",
+      "phase2_fake_death:/Game/Models/boss08/Animations/Boss08_Fakedeath2.Boss08_Fakedeath2",
+      "defeat:/Game/Models/boss08/Animations/Boss08_Defeat.Boss08_Defeat"
+    ],
+    "convertBlockerTileVfxPath": "/Game/Models/boss03/Niagara/ConvertNG.ConvertNG",
+    "convertBlockerTileSfxPath": "/Game/Models/boss03/Sounds/Convert_Cue.Convert_Cue",
+    "convertBlockerSourceBoneName": "joint14",
+    "frozenTileVfxPath": "/Game/Models/boss01/Niagara/FrozenNG.FrozenNG",
+    "frozenTileSfxPath": "/Game/Models/boss01/Sounds/Frozen_Cue.Frozen_Cue",
+    "unfrozenTileVfxPath": "/Game/Models/boss01/Niagara/UnFrozenNG.UnFrozenNG",
+    "unfrozenTileSfxPath": "/Game/Models/boss01/Sounds/UnFrozen_Cue.UnFrozen_Cue",
+    "fakeDeathVfxPath": "/Game/Models/boss08/Niagara/ChangeNG.ChangeNG",
+    "victoryNiagaraPath": "/Game/Niagara/VistoryBossNG.VistoryBossNG",
+    "victoryNiagaraBossPath": "/Game/Models/boss08coin/Boss08Coin.Boss08Coin",
+    "victorySoundPath": ""
+  }
+}

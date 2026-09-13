@@ -1,0 +1,136 @@
+{
+  "module": "Guide",
+  "generatedAtUtc": "2026-06-08T00:00:00.000000+00:00",
+  "sourceRoot": "Content/Match3Json/guide",
+  "entryCount": 10,
+  "entries": [
+    {
+      "key": "guide.slide_move.title",
+      "text": "Slide to Move",
+      "kind": "TEXT",
+      "sourceFile": "guide/guide_steps_slide_puzzle.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "guide.slide_move.title.zh",
+      "text": "滑动以移动",
+      "kind": "TEXT",
+      "sourceFile": "guide/guide_steps_slide_puzzle.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "guide.slide_move.desc",
+      "text": "Swipe up/down/left/right to drive the pill. It won't stop until it hits an obstacle. ",
+      "kind": "TEXT",
+      "sourceFile": "guide/guide_steps_slide_puzzle.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "guide.slide_move.desc.zh",
+      "text": "通过上下左右滑动屏幕来驱动药丸前进。药丸在没有遇到障碍物前不会停下。",
+      "kind": "TEXT",
+      "sourceFile": "guide/guide_steps_slide_puzzle.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "guide.slide_collect.title",
+      "text": "Collect Coins",
+      "kind": "TEXT",
+      "sourceFile": "guide/guide_steps_slide_puzzle.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "guide.slide_collect.title.zh",
+      "text": "消灭细菌",
+      "kind": "TEXT",
+      "sourceFile": "guide/guide_steps_slide_puzzle.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "guide.slide_collect.desc",
+      "text": "Drive the pill to destroy the specified bacteria. Destroy all bacteria to complete the guide.",
+      "kind": "TEXT",
+      "sourceFile": "guide/guide_steps_slide_puzzle.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "guide.slide_collect.desc.zh",
+      "text": "驱动药丸消灭指定细菌。",
+      "kind": "TEXT",
+      "sourceFile": "guide/guide_steps_slide_puzzle.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "guide.slide_exit.title",
+      "text": "Find the Exit",
+      "kind": "TEXT",
+      "sourceFile": "guide/guide_steps_slide_puzzle.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "guide.slide_exit.title.zh",
+      "text": "找到出口",
+      "kind": "TEXT",
+      "sourceFile": "guide/guide_steps_slide_puzzle.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "guide.slide_exit.desc",
+      "text": "Navigate through the maze and reach the exit pipe to complete the level!",
+      "kind": "TEXT",
+      "sourceFile": "guide/guide_steps_slide_puzzle.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "guide.slide_exit.desc.zh",
+      "text": "穿越迷宫，抵达出口管道即可完成关卡！",
+      "kind": "TEXT",
+      "sourceFile": "guide/guide_steps_slide_puzzle.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "guide.flow_life_death_line.title",
+      "text": "Life Line & Death Line",
+      "kind": "TEXT",
+      "sourceFile": "guide/guide_steps.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "guide.flow_life_death_line.title.zh",
+      "text": "生命线与死亡线",
+      "kind": "TEXT",
+      "sourceFile": "guide/guide_steps.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "guide.flow_life_death_line.desc",
+      "text": "Touch the green life line to pass the level! Avoid the red death line or you will fail. Make one match to begin your descent.",
+      "kind": "TEXT",
+      "sourceFile": "guide/guide_steps.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "guide.flow_life_death_line.desc.zh",
+      "text": "让角色触碰绿色生命线即可过关！被红色死亡线追上就会失败。进行一次消除，开始你的下坠之旅。",
+      "kind": "TEXT",
+      "sourceFile": "guide/guide_steps.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    }
+  ]
+}

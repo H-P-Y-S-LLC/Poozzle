@@ -1,0 +1,141 @@
+{
+  "LevelId": "level_043",
+  "Board": {
+    "Rows": 8,
+    "Cols": 7,
+    "Mask": ["0011100", "0111110", "1111111", "1110111", "1111111", "1111111", "0111110", "0011100"],
+    "Blocked": ["0000000", "0100000", "0001000", "0010100", "0010100", "0000000", "0000000", "0000000"],
+    "BlockedTypes": ["0000000", "0500000", "000F000", "00F0F00", "00F0F00", "0000000", "0000000", "0000000"],
+    "BlockedHP": ["0000000", "0100000", "0001000", "0010100", "0010100", "0000000", "0000000", "0000000"],
+    "BlockerTypeDefs": [
+      {
+        "TypeId": 5,
+        "bDestructible": true,
+        "DefaultHP": 1,
+        "BreakScore": 20,
+        "bDamageByAdjacentClear": true,
+        "bSpreadEachTurn": true,
+        "SpreadCountPerTurn": 2
+      },
+      {
+        "TypeId": 15,
+        "bDestructible": true,
+        "DefaultHP": 1,
+        "BreakScore": 22,
+        "bDamageByAdjacentClear": true,
+        "AdjacentDamageSourceTileTypes": [2],
+        "bAdjacentDamageRequiresNormalMatch": true,
+        "bAdjacentDamageAllowSpecialExplosion": true,
+        "bAdjacentDamageAllowUltimateBySourceType": true,
+        "bImmuneToDirectHitDamage": true
+      }
+    ],
+    "InitialTiles": [1, 2, 3, 4, 5, 1, 2, 2, 3, 4, 5, 1, 2, 3, 3, 4, 5, 1, 2, 3, 4, 4, 5, 1, 2, 3, 4, 5, 5, 1, 2, 3, 4, 5, 1, 1, 2, 3, 4, 5, 1, 2, 2, 3, 4, 5, 1, 2, 3, 3, 4, 5, 1, 2, 3, 4],
+    "InitialSpecials": [],
+    "RandomSeed": 0
+  },
+  "TilePool": {
+    "TileTypes": [1, 2, 3, 4, 5],
+    "Weights": [16, 30, 16, 18, 20],
+    "NonRegeneratingTileTypes": [],
+    "InertTileTypes": []
+  },
+  "Rules": {
+    "MinMatchCount": 3,
+    "bAllowDiagonalSwap": false,
+    "bInvalidSwapBounceBack": true,
+    "bEnsureAtLeastOneMove": true,
+    "bAvoidAutoCascadeAtStart": true,
+    "bEnableSpecialSpecialSwapCombo": true,
+    "bUseTopSpawnAfterInternalSettle": true
+  },
+  "Score": {
+    "BaseClearScore": 24,
+    "ExtraPerMoreThan3": 3,
+    "SpecialTriggerScore": 26,
+    "ComboMultiplierStep": 0.33,
+    "BlockerBreakScore": 867
+  },
+  "Goal": {
+    "TargetScore": 3900,
+    "MaxMoves": 16,
+    "Collect": [],
+    "BlockerBreakByType": [
+      {
+        "TypeId": 15,
+        "Count": 5
+      },
+      {
+        "TypeId": 5,
+        "Count": 1
+      }
+    ]
+  },
+  "Boss": {
+    "ConfigFile": "",
+    "bEnabled": false,
+    "BossId": "",
+    "SealFailThreshold": 1
+  },
+  "StarRating": {
+    "ThreeStarScore": 3900,
+    "ScoreWeight": 0.1,
+    "MoveWeight": 0.9,
+    "TwoStarThreshold": 0.25,
+    "ThreeStarThreshold": 0.45,
+    "FourStarThreshold": 0.65,
+    "FiveStarThreshold": 0.8,
+    "MinScoreFor2Star": 1650,
+    "MinScoreFor3Star": 2550,
+    "MinScoreFor4Star": 3080,
+    "MinScoreFor5Star": 3600,
+    "ScoreNormCap": 1.2
+  },
+  "SpecialCombos": [
+    {
+      "A": "ColorBomb",
+      "B": "ColorBomb",
+      "bClearWholeBoard": true,
+      "bClearAllOfOtherType": false,
+      "BombRadius": 0,
+      "bClearSwapRow": false,
+      "bClearSwapCol": false
+    },
+    {
+      "A": "ColorBomb",
+      "B": "LineHorizontal",
+      "bClearWholeBoard": false,
+      "bClearAllOfOtherType": true,
+      "BombRadius": 0,
+      "bClearSwapRow": true,
+      "bClearSwapCol": true
+    },
+    {
+      "A": "ColorBomb",
+      "B": "LineVertical",
+      "bClearWholeBoard": false,
+      "bClearAllOfOtherType": true,
+      "BombRadius": 0,
+      "bClearSwapRow": true,
+      "bClearSwapCol": true
+    },
+    {
+      "A": "Bomb3x3",
+      "B": "Bomb3x3",
+      "bClearWholeBoard": false,
+      "bClearAllOfOtherType": false,
+      "BombRadius": 2,
+      "bClearSwapRow": true,
+      "bClearSwapCol": true
+    },
+    {
+      "A": "LineHorizontal",
+      "B": "LineVertical",
+      "bClearWholeBoard": false,
+      "bClearAllOfOtherType": false,
+      "BombRadius": 1,
+      "bClearSwapRow": true,
+      "bClearSwapCol": true
+    }
+  ]
+}

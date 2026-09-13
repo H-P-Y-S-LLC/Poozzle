@@ -1,0 +1,2915 @@
+{
+  "bIgnoreLevelLockForTesting": false,
+  "levels": [
+    {
+      "levelId": "level_test",
+      "order": 0,
+      "displayName": "Test",
+      "modeId": "slide_puzzle",
+      "configFile": "slidepuzzle/levels/slide_001.json",
+      "chapterId": "chapter_00",
+      "bInitiallyUnlocked": true,
+      "bEnabled": false,
+      "outcomes": {
+        "firstWinEffects": [],
+        "repeatWinEffects": [],
+        "loseEffects": []
+      }
+    },
+    {
+      "levelId": "level_pvp",
+      "order": -1,
+      "displayName": "PvP",
+      "modeId": "pvp",
+      "configFile": "pvp/pvp_default_level.json",
+      "chapterId": "chapter_pvp",
+      "bInitiallyUnlocked": true,
+      "bEnabled": false,
+      "outcomes": {
+        "firstWinEffects": [],
+        "repeatWinEffects": [],
+        "loseEffects": []
+      }
+    },
+    {
+      "levelId": "level_001",
+      "order": 1,
+      "displayName": "1",
+      "modeId": "match3",
+      "configFile": "levels/level_001.json",
+      "chapterId": "chapter_01",
+      "bInitiallyUnlocked": true,
+      "bEnabled": true,
+      "outcomes": {
+        "firstWinEffects": [
+          {
+            "type": "UnlockLevel",
+            "targetId": "level_002"
+          },
+          {
+            "type": "PlayPresentationCue",
+            "targetId": "level_001_clear"
+          }
+        ],
+        "repeatWinEffects": [],
+        "loseEffects": []
+      }
+    },
+    {
+      "levelId": "level_002",
+      "order": 2,
+      "displayName": "2",
+      "modeId": "match3",
+      "configFile": "levels/level_002.json",
+      "chapterId": "chapter_01",
+      "bInitiallyUnlocked": false,
+      "bEnabled": true,
+      "outcomes": {
+        "firstWinEffects": [
+          {
+            "type": "UnlockLevel",
+            "targetId": "level_003"
+          },
+          {
+            "type": "PlayPresentationCue",
+            "targetId": "level_002_clear"
+          }
+        ],
+        "repeatWinEffects": [],
+        "loseEffects": []
+      }
+    },
+    {
+      "levelId": "level_003",
+      "order": 3,
+      "displayName": "3",
+      "modeId": "match3",
+      "configFile": "levels/level_003.json",
+      "chapterId": "chapter_01",
+      "bInitiallyUnlocked": false,
+      "bEnabled": true,
+      "outcomes": {
+        "firstWinEffects": [
+          {
+            "type": "UnlockLevel",
+            "targetId": "level_004"
+          },
+          {
+            "type": "PlayPresentationCue",
+            "targetId": "level_003_clear"
+          }
+        ],
+        "repeatWinEffects": [],
+        "loseEffects": []
+      }
+    },
+    {
+      "levelId": "level_004",
+      "order": 4,
+      "displayName": "4",
+      "modeId": "match3",
+      "configFile": "levels/level_004.json",
+      "chapterId": "chapter_01",
+      "bInitiallyUnlocked": false,
+      "bEnabled": true,
+      "outcomes": {
+        "firstWinEffects": [
+          {
+            "type": "UnlockLevel",
+            "targetId": "level_005"
+          },
+          {
+            "type": "PlayPresentationCue",
+            "targetId": "level_004_clear"
+          }
+        ],
+        "repeatWinEffects": [],
+        "loseEffects": []
+      }
+    },
+    {
+      "levelId": "level_005",
+      "order": 5,
+      "displayName": "5",
+      "modeId": "match3",
+      "configFile": "levels/level_005.json",
+      "chapterId": "chapter_01",
+      "bInitiallyUnlocked": false,
+      "bEnabled": true,
+      "outcomes": {
+        "firstWinEffects": [
+          {
+            "type": "UnlockLevel",
+            "targetId": "slide_001"
+          },
+          {
+            "type": "PlayPresentationCue",
+            "targetId": "level_005_clear"
+          }
+        ],
+        "repeatWinEffects": [],
+        "loseEffects": []
+      }
+    },
+    {
+      "levelId": "slide_001",
+      "order": 6,
+      "displayName": "@1",
+      "modeId": "slide_puzzle",
+      "configFile": "slidepuzzle/levels/slide_001.json",
+      "chapterId": "chapter_01",
+      "bInitiallyUnlocked": false,
+      "bEnabled": true,
+      "outcomes": {
+        "firstWinEffects": [
+          {
+            "type": "UnlockLevel",
+            "targetId": "level_006"
+          },
+          {
+            "type": "PlayPresentationCue",
+            "targetId": "slide_001_clear"
+          }
+        ],
+        "repeatWinEffects": [],
+        "loseEffects": []
+      }
+    },
+    {
+      "levelId": "level_006",
+      "order": 7,
+      "displayName": "6",
+      "modeId": "match3",
+      "configFile": "levels/level_006.json",
+      "chapterId": "chapter_01",
+      "bInitiallyUnlocked": false,
+      "bEnabled": true,
+      "outcomes": {
+        "firstWinEffects": [
+          {
+            "type": "UnlockLevel",
+            "targetId": "flow_001"
+          },
+          {
+            "type": "PlayPresentationCue",
+            "targetId": "level_006_clear"
+          }
+        ],
+        "repeatWinEffects": [],
+        "loseEffects": []
+      }
+    },
+    {
+      "levelId": "flow_001",
+      "order": 8,
+      "displayName": "#1",
+      "modeId": "particle_flow",
+      "configFile": "particleflow/levels/flow_001.json",
+      "chapterId": "chapter_01",
+      "bInitiallyUnlocked": false,
+      "bEnabled": true,
+      "outcomes": {
+        "firstWinEffects": [
+          {
+            "type": "UnlockLevel",
+            "targetId": "level_007"
+          },
+          {
+            "type": "PlayPresentationCue",
+            "targetId": "flow_001_clear"
+          }
+        ],
+        "repeatWinEffects": [],
+        "loseEffects": []
+      }
+    },
+    {
+      "levelId": "level_007",
+      "order": 9,
+      "displayName": "7",
+      "modeId": "match3",
+      "configFile": "levels/level_007.json",
+      "chapterId": "chapter_01",
+      "bInitiallyUnlocked": false,
+      "bEnabled": true,
+      "outcomes": {
+        "firstWinEffects": [
+          {
+            "type": "UnlockLevel",
+            "targetId": "level_008"
+          },
+          {
+            "type": "PlayPresentationCue",
+            "targetId": "level_007_clear"
+          }
+        ],
+        "repeatWinEffects": [],
+        "loseEffects": []
+      }
+    },
+    {
+      "levelId": "level_008",
+      "order": 10,
+      "displayName": "8",
+      "modeId": "match3",
+      "configFile": "levels/level_008.json",
+      "chapterId": "chapter_01",
+      "bInitiallyUnlocked": false,
+      "bEnabled": true,
+      "outcomes": {
+        "firstWinEffects": [
+          {
+            "type": "UnlockLevel",
+            "targetId": "level_009"
+          },
+          {
+            "type": "PlayPresentationCue",
+            "targetId": "level_008_clear"
+          }
+        ],
+        "repeatWinEffects": [],
+        "loseEffects": []
+      }
+    },
+    {
+      "levelId": "level_009",
+      "order": 11,
+      "displayName": "9",
+      "modeId": "match3",
+      "configFile": "levels/level_009.json",
+      "chapterId": "chapter_01",
+      "bInitiallyUnlocked": false,
+      "bEnabled": true,
+      "outcomes": {
+        "firstWinEffects": [
+          {
+            "type": "UnlockLevel",
+            "targetId": "level_010"
+          },
+          {
+            "type": "PlayPresentationCue",
+            "targetId": "level_009_clear"
+          }
+        ],
+        "repeatWinEffects": [],
+        "loseEffects": []
+      }
+    },
+    {
+      "levelId": "level_010",
+      "order": 12,
+      "displayName": "10",
+      "modeId": "match3",
+      "configFile": "levels/level_010.json",
+      "chapterId": "chapter_01",
+      "bInitiallyUnlocked": false,
+      "bEnabled": true,
+      "outcomes": {
+        "firstWinEffects": [
+          {
+            "type": "UnlockLevel",
+            "targetId": "level_011"
+          },
+          {
+            "type": "PlayPresentationCue",
+            "targetId": "level_010_clear"
+          }
+        ],
+        "repeatWinEffects": [],
+        "loseEffects": []
+      }
+    },
+    {
+      "levelId": "level_011",
+      "order": 13,
+      "displayName": "11",
+      "modeId": "match3",
+      "configFile": "levels/level_011.json",
+      "chapterId": "chapter_02",
+      "bInitiallyUnlocked": false,
+      "bEnabled": true,
+      "outcomes": {
+        "firstWinEffects": [
+          {
+            "type": "UnlockLevel",
+            "targetId": "level_012"
+          },
+          {
+            "type": "PlayPresentationCue",
+            "targetId": "level_011_clear"
+          }
+        ],
+        "repeatWinEffects": [],
+        "loseEffects": []
+      }
+    },
+    {
+      "levelId": "level_012",
+      "order": 14,
+      "displayName": "12",
+      "modeId": "match3",
+      "configFile": "levels/level_012.json",
+      "chapterId": "chapter_02",
+      "bInitiallyUnlocked": false,
+      "bEnabled": true,
+      "outcomes": {
+        "firstWinEffects": [
+          {
+            "type": "UnlockLevel",
+            "targetId": "level_013"
+          },
+          {
+            "type": "PlayPresentationCue",
+            "targetId": "level_012_clear"
+          }
+        ],
+        "repeatWinEffects": [],
+        "loseEffects": []
+      }
+    },
+    {
+      "levelId": "level_013",
+      "order": 15,
+      "displayName": "13",
+      "modeId": "match3",
+      "configFile": "levels/level_013.json",
+      "chapterId": "chapter_02",
+      "bInitiallyUnlocked": false,
+      "bEnabled": true,
+      "outcomes": {
+        "firstWinEffects": [
+          {
+            "type": "UnlockLevel",
+            "targetId": "level_014"
+          },
+          {
+            "type": "PlayPresentationCue",
+            "targetId": "level_013_clear"
+          }
+        ],
+        "repeatWinEffects": [],
+        "loseEffects": []
+      }
+    },
+    {
+      "levelId": "level_014",
+      "order": 16,
+      "displayName": "14",
+      "modeId": "match3",
+      "configFile": "levels/level_014.json",
+      "chapterId": "chapter_02",
+      "bInitiallyUnlocked": false,
+      "bEnabled": true,
+      "outcomes": {
+        "firstWinEffects": [
+          {
+            "type": "UnlockLevel",
+            "targetId": "level_015"
+          },
+          {
+            "type": "PlayPresentationCue",
+            "targetId": "level_014_clear"
+          }
+        ],
+        "repeatWinEffects": [],
+        "loseEffects": []
+      }
+    },
+    {
+      "levelId": "level_015",
+      "order": 17,
+      "displayName": "15",
+      "modeId": "match3",
+      "configFile": "levels/level_015.json",
+      "chapterId": "chapter_02",
+      "bInitiallyUnlocked": false,
+      "bEnabled": true,
+      "outcomes": {
+        "firstWinEffects": [
+          {
+            "type": "UnlockLevel",
+            "targetId": "slide_002"
+          },
+          {
+            "type": "PlayPresentationCue",
+            "targetId": "level_015_clear"
+          }
+        ],
+        "repeatWinEffects": [],
+        "loseEffects": []
+      }
+    },
+    {
+      "levelId": "slide_002",
+      "order": 18,
+      "displayName": "@2",
+      "modeId": "slide_puzzle",
+      "configFile": "slidepuzzle/levels/slide_002.json",
+      "chapterId": "chapter_02",
+      "bInitiallyUnlocked": false,
+      "bEnabled": true,
+      "outcomes": {
+        "firstWinEffects": [
+          {
+            "type": "UnlockLevel",
+            "targetId": "level_016"
+          },
+          {
+            "type": "PlayPresentationCue",
+            "targetId": "slide_002_clear"
+          }
+        ],
+        "repeatWinEffects": [],
+        "loseEffects": []
+      }
+    },
+    {
+      "levelId": "level_016",
+      "order": 19,
+      "displayName": "16",
+      "modeId": "match3",
+      "configFile": "levels/level_016.json",
+      "chapterId": "chapter_02",
+      "bInitiallyUnlocked": false,
+      "bEnabled": true,
+      "outcomes": {
+        "firstWinEffects": [
+          {
+            "type": "UnlockLevel",
+            "targetId": "flow_002"
+          },
+          {
+            "type": "PlayPresentationCue",
+            "targetId": "level_016_clear"
+          }
+        ],
+        "repeatWinEffects": [],
+        "loseEffects": []
+      }
+    },
+    {
+      "levelId": "flow_002",
+      "order": 20,
+      "displayName": "#2",
+      "modeId": "particle_flow",
+      "configFile": "particleflow/levels/flow_002.json",
+      "chapterId": "chapter_02",
+      "bInitiallyUnlocked": false,
+      "bEnabled": true,
+      "outcomes": {
+        "firstWinEffects": [
+          {
+            "type": "UnlockLevel",
+            "targetId": "level_017"
+          },
+          {
+            "type": "PlayPresentationCue",
+            "targetId": "flow_002_clear"
+          }
+        ],
+        "repeatWinEffects": [],
+        "loseEffects": []
+      }
+    },
+    {
+      "levelId": "level_017",
+      "order": 21,
+      "displayName": "17",
+      "modeId": "match3",
+      "configFile": "levels/level_017.json",
+      "chapterId": "chapter_02",
+      "bInitiallyUnlocked": false,
+      "bEnabled": true,
+      "outcomes": {
+        "firstWinEffects": [
+          {
+            "type": "UnlockLevel",
+            "targetId": "level_018"
+          },
+          {
+            "type": "PlayPresentationCue",
+            "targetId": "level_017_clear"
+          }
+        ],
+        "repeatWinEffects": [],
+        "loseEffects": []
+      }
+    },
+    {
+      "levelId": "level_018",
+      "order": 22,
+      "displayName": "18",
+      "modeId": "match3",
+      "configFile": "levels/level_018.json",
+      "chapterId": "chapter_02",
+      "bInitiallyUnlocked": false,
+      "bEnabled": true,
+      "outcomes": {
+        "firstWinEffects": [
+          {
+            "type": "UnlockLevel",
+            "targetId": "level_019"
+          },
+          {
+            "type": "PlayPresentationCue",
+            "targetId": "level_018_clear"
+          }
+        ],
+        "repeatWinEffects": [],
+        "loseEffects": []
+      }
+    },
+    {
+      "levelId": "level_019",
+      "order": 23,
+      "displayName": "19",
+      "modeId": "match3",
+      "configFile": "levels/level_019.json",
+      "chapterId": "chapter_02",
+      "bInitiallyUnlocked": false,
+      "bEnabled": true,
+      "outcomes": {
+        "firstWinEffects": [
+          {
+            "type": "UnlockLevel",
+            "targetId": "level_020"
+          },
+          {
+            "type": "PlayPresentationCue",
+            "targetId": "level_019_clear"
+          }
+        ],
+        "repeatWinEffects": [],
+        "loseEffects": []
+      }
+    },
+    {
+      "levelId": "level_020",
+      "order": 24,
+      "displayName": "20",
+      "modeId": "match3",
+      "configFile": "levels/level_020.json",
+      "chapterId": "chapter_02",
+      "bInitiallyUnlocked": false,
+      "bEnabled": true,
+      "outcomes": {
+        "firstWinEffects": [
+          {
+            "type": "UnlockLevel",
+            "targetId": "level_021"
+          },
+          {
+            "type": "PlayPresentationCue",
+            "targetId": "level_020_clear"
+          }
+        ],
+        "repeatWinEffects": [],
+        "loseEffects": []
+      }
+    },
+    {
+      "levelId": "level_021",
+      "order": 25,
+      "displayName": "21",
+      "modeId": "match3",
+      "configFile": "levels/level_021.json",
+      "chapterId": "chapter_03",
+      "bInitiallyUnlocked": false,
+      "bEnabled": true,
+      "outcomes": {
+        "firstWinEffects": [
+          {
+            "type": "UnlockLevel",
+            "targetId": "level_022"
+          },
+          {
+            "type": "PlayPresentationCue",
+            "targetId": "level_021_clear"
+          }
+        ],
+        "repeatWinEffects": [],
+        "loseEffects": []
+      }
+    },
+    {
+      "levelId": "level_022",
+      "order": 26,
+      "displayName": "22",
+      "modeId": "match3",
+      "configFile": "levels/level_022.json",
+      "chapterId": "chapter_03",
+      "bInitiallyUnlocked": false,
+      "bEnabled": true,
+      "outcomes": {
+        "firstWinEffects": [
+          {
+            "type": "UnlockLevel",
+            "targetId": "level_023"
+          },
+          {
+            "type": "PlayPresentationCue",
+            "targetId": "level_022_clear"
+          }
+        ],
+        "repeatWinEffects": [],
+        "loseEffects": []
+      }
+    },
+    {
+      "levelId": "level_023",
+      "order": 27,
+      "displayName": "23",
+      "modeId": "match3",
+      "configFile": "levels/level_023.json",
+      "chapterId": "chapter_03",
+      "bInitiallyUnlocked": false,
+      "bEnabled": true,
+      "outcomes": {
+        "firstWinEffects": [
+          {
+            "type": "UnlockLevel",
+            "targetId": "level_024"
+          },
+          {
+            "type": "PlayPresentationCue",
+            "targetId": "level_023_clear"
+          }
+        ],
+        "repeatWinEffects": [],
+        "loseEffects": []
+      }
+    },
+    {
+      "levelId": "level_024",
+      "order": 28,
+      "displayName": "24",
+      "modeId": "match3",
+      "configFile": "levels/level_024.json",
+      "chapterId": "chapter_03",
+      "bInitiallyUnlocked": false,
+      "bEnabled": true,
+      "outcomes": {
+        "firstWinEffects": [
+          {
+            "type": "UnlockLevel",
+            "targetId": "level_025"
+          },
+          {
+            "type": "PlayPresentationCue",
+            "targetId": "level_024_clear"
+          }
+        ],
+        "repeatWinEffects": [],
+        "loseEffects": []
+      }
+    },
+    {
+      "levelId": "level_025",
+      "order": 29,
+      "displayName": "25",
+      "modeId": "match3",
+      "configFile": "levels/level_025.json",
+      "chapterId": "chapter_03",
+      "bInitiallyUnlocked": false,
+      "bEnabled": true,
+      "outcomes": {
+        "firstWinEffects": [
+          {
+            "type": "UnlockLevel",
+            "targetId": "slide_003"
+          },
+          {
+            "type": "PlayPresentationCue",
+            "targetId": "level_025_clear"
+          }
+        ],
+        "repeatWinEffects": [],
+        "loseEffects": []
+      }
+    },
+    {
+      "levelId": "slide_003",
+      "order": 30,
+      "displayName": "@3",
+      "modeId": "slide_puzzle",
+      "configFile": "slidepuzzle/levels/slide_003.json",
+      "chapterId": "chapter_03",
+      "bInitiallyUnlocked": false,
+      "bEnabled": true,
+      "outcomes": {
+        "firstWinEffects": [
+          {
+            "type": "UnlockLevel",
+            "targetId": "level_026"
+          },
+          {
+            "type": "PlayPresentationCue",
+            "targetId": "slide_003_clear"
+          }
+        ],
+        "repeatWinEffects": [],
+        "loseEffects": []
+      }
+    },
+    {
+      "levelId": "level_026",
+      "order": 31,
+      "displayName": "26",
+      "modeId": "match3",
+      "configFile": "levels/level_026.json",
+      "chapterId": "chapter_03",
+      "bInitiallyUnlocked": false,
+      "bEnabled": true,
+      "outcomes": {
+        "firstWinEffects": [
+          {
+            "type": "UnlockLevel",
+            "targetId": "flow_003"
+          },
+          {
+            "type": "PlayPresentationCue",
+            "targetId": "level_026_clear"
+          }
+        ],
+        "repeatWinEffects": [],
+        "loseEffects": []
+      }
+    },
+    {
+      "levelId": "flow_003",
+      "order": 32,
+      "displayName": "#3",
+      "modeId": "particle_flow",
+      "configFile": "particleflow/levels/flow_003.json",
+      "chapterId": "chapter_03",
+      "bInitiallyUnlocked": false,
+      "bEnabled": true,
+      "outcomes": {
+        "firstWinEffects": [
+          {
+            "type": "UnlockLevel",
+            "targetId": "level_027"
+          },
+          {
+            "type": "PlayPresentationCue",
+            "targetId": "flow_003_clear"
+          }
+        ],
+        "repeatWinEffects": [],
+        "loseEffects": []
+      }
+    },
+    {
+      "levelId": "level_027",
+      "order": 33,
+      "displayName": "27",
+      "modeId": "match3",
+      "configFile": "levels/level_027.json",
+      "chapterId": "chapter_03",
+      "bInitiallyUnlocked": false,
+      "bEnabled": true,
+      "outcomes": {
+        "firstWinEffects": [
+          {
+            "type": "UnlockLevel",
+            "targetId": "level_028"
+          },
+          {
+            "type": "PlayPresentationCue",
+            "targetId": "level_027_clear"
+          }
+        ],
+        "repeatWinEffects": [],
+        "loseEffects": []
+      }
+    },
+    {
+      "levelId": "level_028",
+      "order": 34,
+      "displayName": "28",
+      "modeId": "match3",
+      "configFile": "levels/level_028.json",
+      "chapterId": "chapter_03",
+      "bInitiallyUnlocked": false,
+      "bEnabled": true,
+      "outcomes": {
+        "firstWinEffects": [
+          {
+            "type": "UnlockLevel",
+            "targetId": "level_029"
+          },
+          {
+            "type": "PlayPresentationCue",
+            "targetId": "level_028_clear"
+          }
+        ],
+        "repeatWinEffects": [],
+        "loseEffects": []
+      }
+    },
+    {
+      "levelId": "level_029",
+      "order": 35,
+      "displayName": "29",
+      "modeId": "match3",
+      "configFile": "levels/level_029.json",
+      "chapterId": "chapter_03",
+      "bInitiallyUnlocked": false,
+      "bEnabled": true,
+      "outcomes": {
+        "firstWinEffects": [
+          {
+            "type": "UnlockLevel",
+            "targetId": "level_030"
+          },
+          {
+            "type": "PlayPresentationCue",
+            "targetId": "level_029_clear"
+          }
+        ],
+        "repeatWinEffects": [],
+        "loseEffects": []
+      }
+    },
+    {
+      "levelId": "level_030",
+      "order": 36,
+      "displayName": "30",
+      "modeId": "match3",
+      "configFile": "levels/level_030.json",
+      "chapterId": "chapter_03",
+      "bInitiallyUnlocked": false,
+      "bEnabled": true,
+      "outcomes": {
+        "firstWinEffects": [
+          {
+            "type": "UnlockLevel",
+            "targetId": "level_031"
+          },
+          {
+            "type": "PlayPresentationCue",
+            "targetId": "level_030_clear"
+          }
+        ],
+        "repeatWinEffects": [],
+        "loseEffects": []
+      }
+    },
+    {
+      "levelId": "level_031",
+      "order": 37,
+      "displayName": "31",
+      "modeId": "match3",
+      "configFile": "levels/level_031.json",
+      "chapterId": "chapter_04",
+      "bInitiallyUnlocked": false,
+      "bEnabled": true,
+      "outcomes": {
+        "firstWinEffects": [
+          {
+            "type": "UnlockLevel",
+            "targetId": "level_032"
+          },
+          {
+            "type": "PlayPresentationCue",
+            "targetId": "level_031_clear"
+          }
+        ],
+        "repeatWinEffects": [],
+        "loseEffects": []
+      }
+    },
+    {
+      "levelId": "level_032",
+      "order": 38,
+      "displayName": "32",
+      "modeId": "match3",
+      "configFile": "levels/level_032.json",
+      "chapterId": "chapter_04",
+      "bInitiallyUnlocked": false,
+      "bEnabled": true,
+      "outcomes": {
+        "firstWinEffects": [
+          {
+            "type": "UnlockLevel",
+            "targetId": "level_033"
+          },
+          {
+            "type": "PlayPresentationCue",
+            "targetId": "level_032_clear"
+          }
+        ],
+        "repeatWinEffects": [],
+        "loseEffects": []
+      }
+    },
+    {
+      "levelId": "level_033",
+      "order": 39,
+      "displayName": "33",
+      "modeId": "match3",
+      "configFile": "levels/level_033.json",
+      "chapterId": "chapter_04",
+      "bInitiallyUnlocked": false,
+      "bEnabled": true,
+      "outcomes": {
+        "firstWinEffects": [
+          {
+            "type": "UnlockLevel",
+            "targetId": "level_034"
+          },
+          {
+            "type": "PlayPresentationCue",
+            "targetId": "level_033_clear"
+          }
+        ],
+        "repeatWinEffects": [],
+        "loseEffects": []
+      }
+    },
+    {
+      "levelId": "level_034",
+      "order": 40,
+      "displayName": "34",
+      "modeId": "match3",
+      "configFile": "levels/level_034.json",
+      "chapterId": "chapter_04",
+      "bInitiallyUnlocked": false,
+      "bEnabled": true,
+      "outcomes": {
+        "firstWinEffects": [
+          {
+            "type": "UnlockLevel",
+            "targetId": "level_035"
+          },
+          {
+            "type": "PlayPresentationCue",
+            "targetId": "level_034_clear"
+          }
+        ],
+        "repeatWinEffects": [],
+        "loseEffects": []
+      }
+    },
+    {
+      "levelId": "level_035",
+      "order": 41,
+      "displayName": "35",
+      "modeId": "match3",
+      "configFile": "levels/level_035.json",
+      "chapterId": "chapter_04",
+      "bInitiallyUnlocked": false,
+      "bEnabled": true,
+      "outcomes": {
+        "firstWinEffects": [
+          {
+            "type": "UnlockLevel",
+            "targetId": "slide_004"
+          },
+          {
+            "type": "PlayPresentationCue",
+            "targetId": "level_035_clear"
+          }
+        ],
+        "repeatWinEffects": [],
+        "loseEffects": []
+      }
+    },
+    {
+      "levelId": "slide_004",
+      "order": 42,
+      "displayName": "@4",
+      "modeId": "slide_puzzle",
+      "configFile": "slidepuzzle/levels/slide_004.json",
+      "chapterId": "chapter_04",
+      "bInitiallyUnlocked": false,
+      "bEnabled": true,
+      "outcomes": {
+        "firstWinEffects": [
+          {
+            "type": "UnlockLevel",
+            "targetId": "level_036"
+          },
+          {
+            "type": "PlayPresentationCue",
+            "targetId": "slide_004_clear"
+          }
+        ],
+        "repeatWinEffects": [],
+        "loseEffects": []
+      }
+    },
+    {
+      "levelId": "level_036",
+      "order": 43,
+      "displayName": "36",
+      "modeId": "match3",
+      "configFile": "levels/level_036.json",
+      "chapterId": "chapter_04",
+      "bInitiallyUnlocked": false,
+      "bEnabled": true,
+      "outcomes": {
+        "firstWinEffects": [
+          {
+            "type": "UnlockLevel",
+            "targetId": "flow_004"
+          },
+          {
+            "type": "PlayPresentationCue",
+            "targetId": "level_036_clear"
+          }
+        ],
+        "repeatWinEffects": [],
+        "loseEffects": []
+      }
+    },
+    {
+      "levelId": "flow_004",
+      "order": 44,
+      "displayName": "#4",
+      "modeId": "particle_flow",
+      "configFile": "particleflow/levels/flow_004.json",
+      "chapterId": "chapter_04",
+      "bInitiallyUnlocked": false,
+      "bEnabled": true,
+      "outcomes": {
+        "firstWinEffects": [
+          {
+            "type": "UnlockLevel",
+            "targetId": "level_037"
+          },
+          {
+            "type": "PlayPresentationCue",
+            "targetId": "flow_004_clear"
+          }
+        ],
+        "repeatWinEffects": [],
+        "loseEffects": []
+      }
+    },
+    {
+      "levelId": "level_037",
+      "order": 45,
+      "displayName": "37",
+      "modeId": "match3",
+      "configFile": "levels/level_037.json",
+      "chapterId": "chapter_04",
+      "bInitiallyUnlocked": false,
+      "bEnabled": true,
+      "outcomes": {
+        "firstWinEffects": [
+          {
+            "type": "UnlockLevel",
+            "targetId": "level_038"
+          },
+          {
+            "type": "PlayPresentationCue",
+            "targetId": "level_037_clear"
+          }
+        ],
+        "repeatWinEffects": [],
+        "loseEffects": []
+      }
+    },
+    {
+      "levelId": "level_038",
+      "order": 46,
+      "displayName": "38",
+      "modeId": "match3",
+      "configFile": "levels/level_038.json",
+      "chapterId": "chapter_04",
+      "bInitiallyUnlocked": false,
+      "bEnabled": true,
+      "outcomes": {
+        "firstWinEffects": [
+          {
+            "type": "UnlockLevel",
+            "targetId": "level_039"
+          },
+          {
+            "type": "PlayPresentationCue",
+            "targetId": "level_038_clear"
+          }
+        ],
+        "repeatWinEffects": [],
+        "loseEffects": []
+      }
+    },
+    {
+      "levelId": "level_039",
+      "order": 47,
+      "displayName": "39",
+      "modeId": "match3",
+      "configFile": "levels/level_039.json",
+      "chapterId": "chapter_04",
+      "bInitiallyUnlocked": false,
+      "bEnabled": true,
+      "outcomes": {
+        "firstWinEffects": [
+          {
+            "type": "UnlockLevel",
+            "targetId": "level_040"
+          },
+          {
+            "type": "PlayPresentationCue",
+            "targetId": "level_039_clear"
+          }
+        ],
+        "repeatWinEffects": [],
+        "loseEffects": []
+      }
+    },
+    {
+      "levelId": "level_040",
+      "order": 48,
+      "displayName": "40",
+      "modeId": "match3",
+      "configFile": "levels/level_040.json",
+      "chapterId": "chapter_04",
+      "bInitiallyUnlocked": false,
+      "bEnabled": true,
+      "outcomes": {
+        "firstWinEffects": [
+          {
+            "type": "UnlockLevel",
+            "targetId": "level_041"
+          },
+          {
+            "type": "PlayPresentationCue",
+            "targetId": "level_040_clear"
+          }
+        ],
+        "repeatWinEffects": [],
+        "loseEffects": []
+      }
+    },
+    {
+      "levelId": "level_041",
+      "order": 49,
+      "displayName": "41",
+      "modeId": "match3",
+      "configFile": "levels/level_041.json",
+      "chapterId": "chapter_05",
+      "bInitiallyUnlocked": false,
+      "bEnabled": true,
+      "outcomes": {
+        "firstWinEffects": [
+          {
+            "type": "UnlockLevel",
+            "targetId": "level_042"
+          },
+          {
+            "type": "PlayPresentationCue",
+            "targetId": "level_041_clear"
+          }
+        ],
+        "repeatWinEffects": [],
+        "loseEffects": []
+      }
+    },
+    {
+      "levelId": "level_042",
+      "order": 50,
+      "displayName": "42",
+      "modeId": "match3",
+      "configFile": "levels/level_042.json",
+      "chapterId": "chapter_05",
+      "bInitiallyUnlocked": false,
+      "bEnabled": true,
+      "outcomes": {
+        "firstWinEffects": [
+          {
+            "type": "UnlockLevel",
+            "targetId": "level_043"
+          },
+          {
+            "type": "PlayPresentationCue",
+            "targetId": "level_042_clear"
+          }
+        ],
+        "repeatWinEffects": [],
+        "loseEffects": []
+      }
+    },
+    {
+      "levelId": "level_043",
+      "order": 51,
+      "displayName": "43",
+      "modeId": "match3",
+      "configFile": "levels/level_043.json",
+      "chapterId": "chapter_05",
+      "bInitiallyUnlocked": false,
+      "bEnabled": true,
+      "outcomes": {
+        "firstWinEffects": [
+          {
+            "type": "UnlockLevel",
+            "targetId": "level_044"
+          },
+          {
+            "type": "PlayPresentationCue",
+            "targetId": "level_043_clear"
+          }
+        ],
+        "repeatWinEffects": [],
+        "loseEffects": []
+      }
+    },
+    {
+      "levelId": "level_044",
+      "order": 52,
+      "displayName": "44",
+      "modeId": "match3",
+      "configFile": "levels/level_044.json",
+      "chapterId": "chapter_05",
+      "bInitiallyUnlocked": false,
+      "bEnabled": true,
+      "outcomes": {
+        "firstWinEffects": [
+          {
+            "type": "UnlockLevel",
+            "targetId": "level_045"
+          },
+          {
+            "type": "PlayPresentationCue",
+            "targetId": "level_044_clear"
+          }
+        ],
+        "repeatWinEffects": [],
+        "loseEffects": []
+      }
+    },
+    {
+      "levelId": "level_045",
+      "order": 53,
+      "displayName": "45",
+      "modeId": "match3",
+      "configFile": "levels/level_045.json",
+      "chapterId": "chapter_05",
+      "bInitiallyUnlocked": false,
+      "bEnabled": true,
+      "outcomes": {
+        "firstWinEffects": [
+          {
+            "type": "UnlockLevel",
+            "targetId": "slide_005"
+          },
+          {
+            "type": "PlayPresentationCue",
+            "targetId": "level_045_clear"
+          }
+        ],
+        "repeatWinEffects": [],
+        "loseEffects": []
+      }
+    },
+    {
+      "levelId": "slide_005",
+      "order": 54,
+      "displayName": "@5",
+      "modeId": "slide_puzzle",
+      "configFile": "slidepuzzle/levels/slide_005.json",
+      "chapterId": "chapter_05",
+      "bInitiallyUnlocked": false,
+      "bEnabled": true,
+      "outcomes": {
+        "firstWinEffects": [
+          {
+            "type": "UnlockLevel",
+            "targetId": "level_046"
+          },
+          {
+            "type": "PlayPresentationCue",
+            "targetId": "slide_005_clear"
+          }
+        ],
+        "repeatWinEffects": [],
+        "loseEffects": []
+      }
+    },
+    {
+      "levelId": "level_046",
+      "order": 55,
+      "displayName": "46",
+      "modeId": "match3",
+      "configFile": "levels/level_046.json",
+      "chapterId": "chapter_05",
+      "bInitiallyUnlocked": false,
+      "bEnabled": true,
+      "outcomes": {
+        "firstWinEffects": [
+          {
+            "type": "UnlockLevel",
+            "targetId": "flow_005"
+          },
+          {
+            "type": "PlayPresentationCue",
+            "targetId": "level_046_clear"
+          }
+        ],
+        "repeatWinEffects": [],
+        "loseEffects": []
+      }
+    },
+    {
+      "levelId": "flow_005",
+      "order": 56,
+      "displayName": "#5",
+      "modeId": "particle_flow",
+      "configFile": "particleflow/levels/flow_005.json",
+      "chapterId": "chapter_05",
+      "bInitiallyUnlocked": false,
+      "bEnabled": true,
+      "outcomes": {
+        "firstWinEffects": [
+          {
+            "type": "UnlockLevel",
+            "targetId": "level_047"
+          },
+          {
+            "type": "PlayPresentationCue",
+            "targetId": "flow_005_clear"
+          }
+        ],
+        "repeatWinEffects": [],
+        "loseEffects": []
+      }
+    },
+    {
+      "levelId": "level_047",
+      "order": 57,
+      "displayName": "47",
+      "modeId": "match3",
+      "configFile": "levels/level_047.json",
+      "chapterId": "chapter_05",
+      "bInitiallyUnlocked": false,
+      "bEnabled": true,
+      "outcomes": {
+        "firstWinEffects": [
+          {
+            "type": "UnlockLevel",
+            "targetId": "level_048"
+          },
+          {
+            "type": "PlayPresentationCue",
+            "targetId": "level_047_clear"
+          }
+        ],
+        "repeatWinEffects": [],
+        "loseEffects": []
+      }
+    },
+    {
+      "levelId": "level_048",
+      "order": 58,
+      "displayName": "48",
+      "modeId": "match3",
+      "configFile": "levels/level_048.json",
+      "chapterId": "chapter_05",
+      "bInitiallyUnlocked": false,
+      "bEnabled": true,
+      "outcomes": {
+        "firstWinEffects": [
+          {
+            "type": "UnlockLevel",
+            "targetId": "level_049"
+          },
+          {
+            "type": "PlayPresentationCue",
+            "targetId": "level_048_clear"
+          }
+        ],
+        "repeatWinEffects": [],
+        "loseEffects": []
+      }
+    },
+    {
+      "levelId": "level_049",
+      "order": 59,
+      "displayName": "49",
+      "modeId": "match3",
+      "configFile": "levels/level_049.json",
+      "chapterId": "chapter_05",
+      "bInitiallyUnlocked": false,
+      "bEnabled": true,
+      "outcomes": {
+        "firstWinEffects": [
+          {
+            "type": "UnlockLevel",
+            "targetId": "level_050"
+          },
+          {
+            "type": "PlayPresentationCue",
+            "targetId": "level_049_clear"
+          }
+        ],
+        "repeatWinEffects": [],
+        "loseEffects": []
+      }
+    },
+    {
+      "levelId": "level_050",
+      "order": 60,
+      "displayName": "50",
+      "modeId": "match3",
+      "configFile": "levels/level_050.json",
+      "chapterId": "chapter_05",
+      "bInitiallyUnlocked": false,
+      "bEnabled": true,
+      "outcomes": {
+        "firstWinEffects": [
+          {
+            "type": "UnlockLevel",
+            "targetId": "level_051"
+          },
+          {
+            "type": "PlayPresentationCue",
+            "targetId": "level_050_clear"
+          }
+        ],
+        "repeatWinEffects": [],
+        "loseEffects": []
+      }
+    },
+    {
+      "levelId": "level_051",
+      "order": 61,
+      "displayName": "51",
+      "modeId": "match3",
+      "configFile": "levels/level_051.json",
+      "chapterId": "chapter_06",
+      "bInitiallyUnlocked": false,
+      "bEnabled": true,
+      "outcomes": {
+        "firstWinEffects": [
+          {
+            "type": "UnlockLevel",
+            "targetId": "level_052"
+          },
+          {
+            "type": "PlayPresentationCue",
+            "targetId": "level_051_clear"
+          }
+        ],
+        "repeatWinEffects": [],
+        "loseEffects": []
+      }
+    },
+    {
+      "levelId": "level_052",
+      "order": 62,
+      "displayName": "52",
+      "modeId": "match3",
+      "configFile": "levels/level_052.json",
+      "chapterId": "chapter_06",
+      "bInitiallyUnlocked": false,
+      "bEnabled": true,
+      "outcomes": {
+        "firstWinEffects": [
+          {
+            "type": "UnlockLevel",
+            "targetId": "level_053"
+          },
+          {
+            "type": "PlayPresentationCue",
+            "targetId": "level_052_clear"
+          }
+        ],
+        "repeatWinEffects": [],
+        "loseEffects": []
+      }
+    },
+    {
+      "levelId": "level_053",
+      "order": 63,
+      "displayName": "53",
+      "modeId": "match3",
+      "configFile": "levels/level_053.json",
+      "chapterId": "chapter_06",
+      "bInitiallyUnlocked": false,
+      "bEnabled": true,
+      "outcomes": {
+        "firstWinEffects": [
+          {
+            "type": "UnlockLevel",
+            "targetId": "level_054"
+          },
+          {
+            "type": "PlayPresentationCue",
+            "targetId": "level_053_clear"
+          }
+        ],
+        "repeatWinEffects": [],
+        "loseEffects": []
+      }
+    },
+    {
+      "levelId": "level_054",
+      "order": 64,
+      "displayName": "54",
+      "modeId": "match3",
+      "configFile": "levels/level_054.json",
+      "chapterId": "chapter_06",
+      "bInitiallyUnlocked": false,
+      "bEnabled": true,
+      "outcomes": {
+        "firstWinEffects": [
+          {
+            "type": "UnlockLevel",
+            "targetId": "level_055"
+          },
+          {
+            "type": "PlayPresentationCue",
+            "targetId": "level_054_clear"
+          }
+        ],
+        "repeatWinEffects": [],
+        "loseEffects": []
+      }
+    },
+    {
+      "levelId": "level_055",
+      "order": 65,
+      "displayName": "55",
+      "modeId": "match3",
+      "configFile": "levels/level_055.json",
+      "chapterId": "chapter_06",
+      "bInitiallyUnlocked": false,
+      "bEnabled": true,
+      "outcomes": {
+        "firstWinEffects": [
+          {
+            "type": "UnlockLevel",
+            "targetId": "slide_006"
+          },
+          {
+            "type": "PlayPresentationCue",
+            "targetId": "level_055_clear"
+          }
+        ],
+        "repeatWinEffects": [],
+        "loseEffects": []
+      }
+    },
+    {
+      "levelId": "slide_006",
+      "order": 66,
+      "displayName": "@6",
+      "modeId": "slide_puzzle",
+      "configFile": "slidepuzzle/levels/slide_006.json",
+      "chapterId": "chapter_06",
+      "bInitiallyUnlocked": false,
+      "bEnabled": true,
+      "outcomes": {
+        "firstWinEffects": [
+          {
+            "type": "UnlockLevel",
+            "targetId": "level_056"
+          },
+          {
+            "type": "PlayPresentationCue",
+            "targetId": "slide_006_clear"
+          }
+        ],
+        "repeatWinEffects": [],
+        "loseEffects": []
+      }
+    },
+    {
+      "levelId": "level_056",
+      "order": 67,
+      "displayName": "56",
+      "modeId": "match3",
+      "configFile": "levels/level_056.json",
+      "chapterId": "chapter_06",
+      "bInitiallyUnlocked": false,
+      "bEnabled": true,
+      "outcomes": {
+        "firstWinEffects": [
+          {
+            "type": "UnlockLevel",
+            "targetId": "flow_006"
+          },
+          {
+            "type": "PlayPresentationCue",
+            "targetId": "level_056_clear"
+          }
+        ],
+        "repeatWinEffects": [],
+        "loseEffects": []
+      }
+    },
+    {
+      "levelId": "flow_006",
+      "order": 68,
+      "displayName": "#6",
+      "modeId": "particle_flow",
+      "configFile": "particleflow/levels/flow_006.json",
+      "chapterId": "chapter_06",
+      "bInitiallyUnlocked": false,
+      "bEnabled": true,
+      "outcomes": {
+        "firstWinEffects": [
+          {
+            "type": "UnlockLevel",
+            "targetId": "level_057"
+          },
+          {
+            "type": "PlayPresentationCue",
+            "targetId": "flow_006_clear"
+          }
+        ],
+        "repeatWinEffects": [],
+        "loseEffects": []
+      }
+    },
+    {
+      "levelId": "level_057",
+      "order": 69,
+      "displayName": "57",
+      "modeId": "match3",
+      "configFile": "levels/level_057.json",
+      "chapterId": "chapter_06",
+      "bInitiallyUnlocked": false,
+      "bEnabled": true,
+      "outcomes": {
+        "firstWinEffects": [
+          {
+            "type": "UnlockLevel",
+            "targetId": "level_058"
+          },
+          {
+            "type": "PlayPresentationCue",
+            "targetId": "level_057_clear"
+          }
+        ],
+        "repeatWinEffects": [],
+        "loseEffects": []
+      }
+    },
+    {
+      "levelId": "level_058",
+      "order": 70,
+      "displayName": "58",
+      "modeId": "match3",
+      "configFile": "levels/level_058.json",
+      "chapterId": "chapter_06",
+      "bInitiallyUnlocked": false,
+      "bEnabled": true,
+      "outcomes": {
+        "firstWinEffects": [
+          {
+            "type": "UnlockLevel",
+            "targetId": "level_059"
+          },
+          {
+            "type": "PlayPresentationCue",
+            "targetId": "level_058_clear"
+          }
+        ],
+        "repeatWinEffects": [],
+        "loseEffects": []
+      }
+    },
+    {
+      "levelId": "level_059",
+      "order": 71,
+      "displayName": "59",
+      "modeId": "match3",
+      "configFile": "levels/level_059.json",
+      "chapterId": "chapter_06",
+      "bInitiallyUnlocked": false,
+      "bEnabled": true,
+      "outcomes": {
+        "firstWinEffects": [
+          {
+            "type": "UnlockLevel",
+            "targetId": "level_060"
+          },
+          {
+            "type": "PlayPresentationCue",
+            "targetId": "level_059_clear"
+          }
+        ],
+        "repeatWinEffects": [],
+        "loseEffects": []
+      }
+    },
+    {
+      "levelId": "level_060",
+      "order": 72,
+      "displayName": "60",
+      "modeId": "match3",
+      "configFile": "levels/level_060.json",
+      "chapterId": "chapter_06",
+      "bInitiallyUnlocked": false,
+      "bEnabled": true,
+      "outcomes": {
+        "firstWinEffects": [
+          {
+            "type": "UnlockLevel",
+            "targetId": "level_061"
+          },
+          {
+            "type": "PlayPresentationCue",
+            "targetId": "level_060_clear"
+          }
+        ],
+        "repeatWinEffects": [],
+        "loseEffects": []
+      }
+    },
+    {
+      "levelId": "level_061",
+      "order": 73,
+      "displayName": "61",
+      "modeId": "match3",
+      "configFile": "levels/level_061.json",
+      "chapterId": "chapter_05",
+      "bInitiallyUnlocked": false,
+      "bEnabled": true,
+      "outcomes": {
+        "firstWinEffects": [
+          {
+            "type": "UnlockLevel",
+            "targetId": "level_062"
+          },
+          {
+            "type": "PlayPresentationCue",
+            "targetId": "level_061_clear"
+          }
+        ],
+        "repeatWinEffects": [],
+        "loseEffects": []
+      }
+    },
+    {
+      "levelId": "level_062",
+      "order": 74,
+      "displayName": "62",
+      "modeId": "match3",
+      "configFile": "levels/level_062.json",
+      "chapterId": "chapter_05",
+      "bInitiallyUnlocked": false,
+      "bEnabled": true,
+      "outcomes": {
+        "firstWinEffects": [
+          {
+            "type": "UnlockLevel",
+            "targetId": "level_063"
+          },
+          {
+            "type": "PlayPresentationCue",
+            "targetId": "level_062_clear"
+          }
+        ],
+        "repeatWinEffects": [],
+        "loseEffects": []
+      }
+    },
+    {
+      "levelId": "level_063",
+      "order": 75,
+      "displayName": "63",
+      "modeId": "match3",
+      "configFile": "levels/level_063.json",
+      "chapterId": "chapter_05",
+      "bInitiallyUnlocked": false,
+      "bEnabled": true,
+      "outcomes": {
+        "firstWinEffects": [
+          {
+            "type": "UnlockLevel",
+            "targetId": "level_064"
+          },
+          {
+            "type": "PlayPresentationCue",
+            "targetId": "level_063_clear"
+          }
+        ],
+        "repeatWinEffects": [],
+        "loseEffects": []
+      }
+    },
+    {
+      "levelId": "level_064",
+      "order": 76,
+      "displayName": "64",
+      "modeId": "match3",
+      "configFile": "levels/level_064.json",
+      "chapterId": "chapter_05",
+      "bInitiallyUnlocked": false,
+      "bEnabled": true,
+      "outcomes": {
+        "firstWinEffects": [
+          {
+            "type": "UnlockLevel",
+            "targetId": "level_065"
+          },
+          {
+            "type": "PlayPresentationCue",
+            "targetId": "level_064_clear"
+          }
+        ],
+        "repeatWinEffects": [],
+        "loseEffects": []
+      }
+    },
+    {
+      "levelId": "level_065",
+      "order": 77,
+      "displayName": "65",
+      "modeId": "match3",
+      "configFile": "levels/level_065.json",
+      "chapterId": "chapter_05",
+      "bInitiallyUnlocked": false,
+      "bEnabled": true,
+      "outcomes": {
+        "firstWinEffects": [
+          {
+            "type": "UnlockLevel",
+            "targetId": "slide_007"
+          },
+          {
+            "type": "PlayPresentationCue",
+            "targetId": "level_065_clear"
+          }
+        ],
+        "repeatWinEffects": [],
+        "loseEffects": []
+      }
+    },
+    {
+      "levelId": "slide_007",
+      "order": 78,
+      "displayName": "@7",
+      "modeId": "slide_puzzle",
+      "configFile": "slidepuzzle/levels/slide_007.json",
+      "chapterId": "chapter_05",
+      "bInitiallyUnlocked": false,
+      "bEnabled": true,
+      "outcomes": {
+        "firstWinEffects": [
+          {
+            "type": "UnlockLevel",
+            "targetId": "level_066"
+          },
+          {
+            "type": "PlayPresentationCue",
+            "targetId": "slide_007_clear"
+          }
+        ],
+        "repeatWinEffects": [],
+        "loseEffects": []
+      }
+    },
+    {
+      "levelId": "level_066",
+      "order": 79,
+      "displayName": "66",
+      "modeId": "match3",
+      "configFile": "levels/level_066.json",
+      "chapterId": "chapter_07",
+      "bInitiallyUnlocked": false,
+      "bEnabled": true,
+      "outcomes": {
+        "firstWinEffects": [
+          {
+            "type": "UnlockLevel",
+            "targetId": "flow_007"
+          },
+          {
+            "type": "PlayPresentationCue",
+            "targetId": "level_066_clear"
+          }
+        ],
+        "repeatWinEffects": [],
+        "loseEffects": []
+      }
+    },
+    {
+      "levelId": "flow_007",
+      "order": 80,
+      "displayName": "#7",
+      "modeId": "particle_flow",
+      "configFile": "particleflow/levels/flow_007.json",
+      "chapterId": "chapter_07",
+      "bInitiallyUnlocked": false,
+      "bEnabled": true,
+      "outcomes": {
+        "firstWinEffects": [
+          {
+            "type": "UnlockLevel",
+            "targetId": "level_067"
+          },
+          {
+            "type": "PlayPresentationCue",
+            "targetId": "flow_007_clear"
+          }
+        ],
+        "repeatWinEffects": [],
+        "loseEffects": []
+      }
+    },
+    {
+      "levelId": "level_067",
+      "order": 81,
+      "displayName": "67",
+      "modeId": "match3",
+      "configFile": "levels/level_067.json",
+      "chapterId": "chapter_07",
+      "bInitiallyUnlocked": false,
+      "bEnabled": true,
+      "outcomes": {
+        "firstWinEffects": [
+          {
+            "type": "UnlockLevel",
+            "targetId": "level_068"
+          },
+          {
+            "type": "PlayPresentationCue",
+            "targetId": "level_067_clear"
+          }
+        ],
+        "repeatWinEffects": [],
+        "loseEffects": []
+      }
+    },
+    {
+      "levelId": "level_068",
+      "order": 82,
+      "displayName": "68",
+      "modeId": "match3",
+      "configFile": "levels/level_068.json",
+      "chapterId": "chapter_07",
+      "bInitiallyUnlocked": false,
+      "bEnabled": true,
+      "outcomes": {
+        "firstWinEffects": [
+          {
+            "type": "UnlockLevel",
+            "targetId": "level_069"
+          },
+          {
+            "type": "PlayPresentationCue",
+            "targetId": "level_068_clear"
+          }
+        ],
+        "repeatWinEffects": [],
+        "loseEffects": []
+      }
+    },
+    {
+      "levelId": "level_069",
+      "order": 83,
+      "displayName": "69",
+      "modeId": "match3",
+      "configFile": "levels/level_069.json",
+      "chapterId": "chapter_07",
+      "bInitiallyUnlocked": false,
+      "bEnabled": true,
+      "outcomes": {
+        "firstWinEffects": [
+          {
+            "type": "UnlockLevel",
+            "targetId": "level_070"
+          },
+          {
+            "type": "PlayPresentationCue",
+            "targetId": "level_069_clear"
+          }
+        ],
+        "repeatWinEffects": [],
+        "loseEffects": []
+      }
+    },
+    {
+      "levelId": "level_070",
+      "order": 84,
+      "displayName": "70",
+      "modeId": "match3",
+      "configFile": "levels/level_070.json",
+      "chapterId": "chapter_07",
+      "bInitiallyUnlocked": false,
+      "bEnabled": true,
+      "outcomes": {
+        "firstWinEffects": [
+          {
+            "type": "UnlockLevel",
+            "targetId": "level_071"
+          },
+          {
+            "type": "PlayPresentationCue",
+            "targetId": "level_070_clear"
+          }
+        ],
+        "repeatWinEffects": [],
+        "loseEffects": []
+      }
+    },
+    {
+      "levelId": "level_071",
+      "order": 85,
+      "displayName": "71",
+      "modeId": "match3",
+      "configFile": "levels/level_071.json",
+      "chapterId": "chapter_08",
+      "bInitiallyUnlocked": false,
+      "bEnabled": true,
+      "outcomes": {
+        "firstWinEffects": [
+          {
+            "type": "UnlockLevel",
+            "targetId": "level_072"
+          },
+          {
+            "type": "PlayPresentationCue",
+            "targetId": "level_071_clear"
+          }
+        ],
+        "repeatWinEffects": [],
+        "loseEffects": []
+      }
+    },
+    {
+      "levelId": "level_072",
+      "order": 86,
+      "displayName": "72",
+      "modeId": "match3",
+      "configFile": "levels/level_072.json",
+      "chapterId": "chapter_08",
+      "bInitiallyUnlocked": false,
+      "bEnabled": true,
+      "outcomes": {
+        "firstWinEffects": [
+          {
+            "type": "UnlockLevel",
+            "targetId": "level_073"
+          },
+          {
+            "type": "PlayPresentationCue",
+            "targetId": "level_072_clear"
+          }
+        ],
+        "repeatWinEffects": [],
+        "loseEffects": []
+      }
+    },
+    {
+      "levelId": "level_073",
+      "order": 87,
+      "displayName": "73",
+      "modeId": "match3",
+      "configFile": "levels/level_073.json",
+      "chapterId": "chapter_08",
+      "bInitiallyUnlocked": false,
+      "bEnabled": true,
+      "outcomes": {
+        "firstWinEffects": [
+          {
+            "type": "UnlockLevel",
+            "targetId": "level_074"
+          },
+          {
+            "type": "PlayPresentationCue",
+            "targetId": "level_073_clear"
+          }
+        ],
+        "repeatWinEffects": [],
+        "loseEffects": []
+      }
+    },
+    {
+      "levelId": "level_074",
+      "order": 88,
+      "displayName": "74",
+      "modeId": "match3",
+      "configFile": "levels/level_074.json",
+      "chapterId": "chapter_08",
+      "bInitiallyUnlocked": false,
+      "bEnabled": true,
+      "outcomes": {
+        "firstWinEffects": [
+          {
+            "type": "UnlockLevel",
+            "targetId": "level_075"
+          },
+          {
+            "type": "PlayPresentationCue",
+            "targetId": "level_074_clear"
+          }
+        ],
+        "repeatWinEffects": [],
+        "loseEffects": []
+      }
+    },
+    {
+      "levelId": "level_075",
+      "order": 89,
+      "displayName": "75",
+      "modeId": "match3",
+      "configFile": "levels/level_075.json",
+      "chapterId": "chapter_08",
+      "bInitiallyUnlocked": false,
+      "bEnabled": true,
+      "outcomes": {
+        "firstWinEffects": [
+          {
+            "type": "UnlockLevel",
+            "targetId": "slide_008"
+          },
+          {
+            "type": "PlayPresentationCue",
+            "targetId": "level_075_clear"
+          }
+        ],
+        "repeatWinEffects": [],
+        "loseEffects": []
+      }
+    },
+    {
+      "levelId": "slide_008",
+      "order": 90,
+      "displayName": "@8",
+      "modeId": "slide_puzzle",
+      "configFile": "slidepuzzle/levels/slide_008.json",
+      "chapterId": "chapter_08",
+      "bInitiallyUnlocked": false,
+      "bEnabled": true,
+      "outcomes": {
+        "firstWinEffects": [
+          {
+            "type": "UnlockLevel",
+            "targetId": "level_076"
+          },
+          {
+            "type": "PlayPresentationCue",
+            "targetId": "slide_008_clear"
+          }
+        ],
+        "repeatWinEffects": [],
+        "loseEffects": []
+      }
+    },
+    {
+      "levelId": "level_076",
+      "order": 91,
+      "displayName": "76",
+      "modeId": "match3",
+      "configFile": "levels/level_076.json",
+      "chapterId": "chapter_08",
+      "bInitiallyUnlocked": false,
+      "bEnabled": true,
+      "outcomes": {
+        "firstWinEffects": [
+          {
+            "type": "UnlockLevel",
+            "targetId": "flow_008"
+          },
+          {
+            "type": "PlayPresentationCue",
+            "targetId": "level_076_clear"
+          }
+        ],
+        "repeatWinEffects": [],
+        "loseEffects": []
+      }
+    },
+    {
+      "levelId": "flow_008",
+      "order": 92,
+      "displayName": "#8",
+      "modeId": "particle_flow",
+      "configFile": "particleflow/levels/flow_008.json",
+      "chapterId": "chapter_08",
+      "bInitiallyUnlocked": false,
+      "bEnabled": true,
+      "outcomes": {
+        "firstWinEffects": [
+          {
+            "type": "UnlockLevel",
+            "targetId": "level_077"
+          },
+          {
+            "type": "PlayPresentationCue",
+            "targetId": "flow_008_clear"
+          }
+        ],
+        "repeatWinEffects": [],
+        "loseEffects": []
+      }
+    },
+    {
+      "levelId": "level_077",
+      "order": 93,
+      "displayName": "77",
+      "modeId": "match3",
+      "configFile": "levels/level_077.json",
+      "chapterId": "chapter_08",
+      "bInitiallyUnlocked": false,
+      "bEnabled": true,
+      "outcomes": {
+        "firstWinEffects": [
+          {
+            "type": "UnlockLevel",
+            "targetId": "level_078"
+          },
+          {
+            "type": "PlayPresentationCue",
+            "targetId": "level_077_clear"
+          }
+        ],
+        "repeatWinEffects": [],
+        "loseEffects": []
+      }
+    },
+    {
+      "levelId": "level_078",
+      "order": 94,
+      "displayName": "78",
+      "modeId": "match3",
+      "configFile": "levels/level_078.json",
+      "chapterId": "chapter_08",
+      "bInitiallyUnlocked": false,
+      "bEnabled": true,
+      "outcomes": {
+        "firstWinEffects": [
+          {
+            "type": "UnlockLevel",
+            "targetId": "level_079"
+          },
+          {
+            "type": "PlayPresentationCue",
+            "targetId": "level_078_clear"
+          }
+        ],
+        "repeatWinEffects": [],
+        "loseEffects": []
+      }
+    },
+    {
+      "levelId": "level_079",
+      "order": 95,
+      "displayName": "79",
+      "modeId": "match3",
+      "configFile": "levels/level_079.json",
+      "chapterId": "chapter_08",
+      "bInitiallyUnlocked": false,
+      "bEnabled": true,
+      "outcomes": {
+        "firstWinEffects": [
+          {
+            "type": "UnlockLevel",
+            "targetId": "level_080"
+          },
+          {
+            "type": "PlayPresentationCue",
+            "targetId": "level_079_clear"
+          }
+        ],
+        "repeatWinEffects": [],
+        "loseEffects": []
+      }
+    },
+    {
+      "levelId": "level_080",
+      "order": 96,
+      "displayName": "80",
+      "modeId": "match3",
+      "configFile": "levels/level_080.json",
+      "chapterId": "chapter_08",
+      "bInitiallyUnlocked": false,
+      "bEnabled": true,
+      "outcomes": {
+        "firstWinEffects": [
+          {
+            "type": "UnlockLevel",
+            "targetId": "level_081"
+          },
+          {
+            "type": "PlayPresentationCue",
+            "targetId": "level_080_clear"
+          }
+        ],
+        "repeatWinEffects": [],
+        "loseEffects": []
+      }
+    },
+    {
+      "levelId": "level_081",
+      "order": 97,
+      "displayName": "81",
+      "modeId": "match3",
+      "configFile": "levels/level_081.json",
+      "chapterId": "chapter_09",
+      "bInitiallyUnlocked": false,
+      "bEnabled": true,
+      "outcomes": {
+        "firstWinEffects": [
+          {
+            "type": "UnlockLevel",
+            "targetId": "level_082"
+          },
+          {
+            "type": "PlayPresentationCue",
+            "targetId": "level_081_clear"
+          }
+        ],
+        "repeatWinEffects": [],
+        "loseEffects": []
+      }
+    },
+    {
+      "levelId": "level_082",
+      "order": 98,
+      "displayName": "82",
+      "modeId": "match3",
+      "configFile": "levels/level_082.json",
+      "chapterId": "chapter_09",
+      "bInitiallyUnlocked": false,
+      "bEnabled": true,
+      "outcomes": {
+        "firstWinEffects": [
+          {
+            "type": "UnlockLevel",
+            "targetId": "level_083"
+          },
+          {
+            "type": "PlayPresentationCue",
+            "targetId": "level_082_clear"
+          }
+        ],
+        "repeatWinEffects": [],
+        "loseEffects": []
+      }
+    },
+    {
+      "levelId": "level_083",
+      "order": 99,
+      "displayName": "83",
+      "modeId": "match3",
+      "configFile": "levels/level_083.json",
+      "chapterId": "chapter_09",
+      "bInitiallyUnlocked": false,
+      "bEnabled": true,
+      "outcomes": {
+        "firstWinEffects": [
+          {
+            "type": "UnlockLevel",
+            "targetId": "level_084"
+          },
+          {
+            "type": "PlayPresentationCue",
+            "targetId": "level_083_clear"
+          }
+        ],
+        "repeatWinEffects": [],
+        "loseEffects": []
+      }
+    },
+    {
+      "levelId": "level_084",
+      "order": 100,
+      "displayName": "84",
+      "modeId": "match3",
+      "configFile": "levels/level_084.json",
+      "chapterId": "chapter_09",
+      "bInitiallyUnlocked": false,
+      "bEnabled": true,
+      "outcomes": {
+        "firstWinEffects": [
+          {
+            "type": "UnlockLevel",
+            "targetId": "level_085"
+          },
+          {
+            "type": "PlayPresentationCue",
+            "targetId": "level_084_clear"
+          }
+        ],
+        "repeatWinEffects": [],
+        "loseEffects": []
+      }
+    },
+    {
+      "levelId": "level_085",
+      "order": 101,
+      "displayName": "85",
+      "modeId": "match3",
+      "configFile": "levels/level_085.json",
+      "chapterId": "chapter_09",
+      "bInitiallyUnlocked": false,
+      "bEnabled": true,
+      "outcomes": {
+        "firstWinEffects": [
+          {
+            "type": "UnlockLevel",
+            "targetId": "slide_009"
+          },
+          {
+            "type": "PlayPresentationCue",
+            "targetId": "level_085_clear"
+          }
+        ],
+        "repeatWinEffects": [],
+        "loseEffects": []
+      }
+    },
+    {
+      "levelId": "slide_009",
+      "order": 102,
+      "displayName": "@9",
+      "modeId": "slide_puzzle",
+      "configFile": "slidepuzzle/levels/slide_009.json",
+      "chapterId": "chapter_09",
+      "bInitiallyUnlocked": false,
+      "bEnabled": true,
+      "outcomes": {
+        "firstWinEffects": [
+          {
+            "type": "UnlockLevel",
+            "targetId": "level_086"
+          },
+          {
+            "type": "PlayPresentationCue",
+            "targetId": "slide_009_clear"
+          }
+        ],
+        "repeatWinEffects": [],
+        "loseEffects": []
+      }
+    },
+    {
+      "levelId": "level_086",
+      "order": 103,
+      "displayName": "86",
+      "modeId": "match3",
+      "configFile": "levels/level_086.json",
+      "chapterId": "chapter_09",
+      "bInitiallyUnlocked": false,
+      "bEnabled": true,
+      "outcomes": {
+        "firstWinEffects": [
+          {
+            "type": "UnlockLevel",
+            "targetId": "flow_009"
+          },
+          {
+            "type": "PlayPresentationCue",
+            "targetId": "level_086_clear"
+          }
+        ],
+        "repeatWinEffects": [],
+        "loseEffects": []
+      }
+    },
+    {
+      "levelId": "flow_009",
+      "order": 104,
+      "displayName": "#9",
+      "modeId": "particle_flow",
+      "configFile": "particleflow/levels/flow_009.json",
+      "chapterId": "chapter_09",
+      "bInitiallyUnlocked": false,
+      "bEnabled": true,
+      "outcomes": {
+        "firstWinEffects": [
+          {
+            "type": "UnlockLevel",
+            "targetId": "level_087"
+          },
+          {
+            "type": "PlayPresentationCue",
+            "targetId": "flow_009_clear"
+          }
+        ],
+        "repeatWinEffects": [],
+        "loseEffects": []
+      }
+    },
+    {
+      "levelId": "level_087",
+      "order": 105,
+      "displayName": "87",
+      "modeId": "match3",
+      "configFile": "levels/level_087.json",
+      "chapterId": "chapter_09",
+      "bInitiallyUnlocked": false,
+      "bEnabled": true,
+      "outcomes": {
+        "firstWinEffects": [
+          {
+            "type": "UnlockLevel",
+            "targetId": "level_088"
+          },
+          {
+            "type": "PlayPresentationCue",
+            "targetId": "level_087_clear"
+          }
+        ],
+        "repeatWinEffects": [],
+        "loseEffects": []
+      }
+    },
+    {
+      "levelId": "level_088",
+      "order": 106,
+      "displayName": "88",
+      "modeId": "match3",
+      "configFile": "levels/level_088.json",
+      "chapterId": "chapter_09",
+      "bInitiallyUnlocked": false,
+      "bEnabled": true,
+      "outcomes": {
+        "firstWinEffects": [
+          {
+            "type": "UnlockLevel",
+            "targetId": "level_089"
+          },
+          {
+            "type": "PlayPresentationCue",
+            "targetId": "level_088_clear"
+          }
+        ],
+        "repeatWinEffects": [],
+        "loseEffects": []
+      }
+    },
+    {
+      "levelId": "level_089",
+      "order": 107,
+      "displayName": "89",
+      "modeId": "match3",
+      "configFile": "levels/level_089.json",
+      "chapterId": "chapter_09",
+      "bInitiallyUnlocked": false,
+      "bEnabled": true,
+      "outcomes": {
+        "firstWinEffects": [
+          {
+            "type": "UnlockLevel",
+            "targetId": "level_090"
+          },
+          {
+            "type": "PlayPresentationCue",
+            "targetId": "level_089_clear"
+          }
+        ],
+        "repeatWinEffects": [],
+        "loseEffects": []
+      }
+    },
+    {
+      "levelId": "level_090",
+      "order": 108,
+      "displayName": "90",
+      "modeId": "match3",
+      "configFile": "levels/level_090.json",
+      "chapterId": "chapter_09",
+      "bInitiallyUnlocked": false,
+      "bEnabled": true,
+      "outcomes": {
+        "firstWinEffects": [
+          {
+            "type": "UnlockLevel",
+            "targetId": "level_091"
+          },
+          {
+            "type": "PlayPresentationCue",
+            "targetId": "level_090_clear"
+          }
+        ],
+        "repeatWinEffects": [],
+        "loseEffects": []
+      }
+    },
+    {
+      "levelId": "level_091",
+      "order": 109,
+      "displayName": "91",
+      "modeId": "match3",
+      "configFile": "levels/level_091.json",
+      "chapterId": "chapter_10",
+      "bInitiallyUnlocked": false,
+      "bEnabled": true,
+      "outcomes": {
+        "firstWinEffects": [
+          {
+            "type": "UnlockLevel",
+            "targetId": "level_092"
+          },
+          {
+            "type": "PlayPresentationCue",
+            "targetId": "level_091_clear"
+          }
+        ],
+        "repeatWinEffects": [],
+        "loseEffects": []
+      }
+    },
+    {
+      "levelId": "level_092",
+      "order": 110,
+      "displayName": "92",
+      "modeId": "match3",
+      "configFile": "levels/level_092.json",
+      "chapterId": "chapter_10",
+      "bInitiallyUnlocked": false,
+      "bEnabled": true,
+      "outcomes": {
+        "firstWinEffects": [
+          {
+            "type": "UnlockLevel",
+            "targetId": "level_093"
+          },
+          {
+            "type": "PlayPresentationCue",
+            "targetId": "level_092_clear"
+          }
+        ],
+        "repeatWinEffects": [],
+        "loseEffects": []
+      }
+    },
+    {
+      "levelId": "level_093",
+      "order": 111,
+      "displayName": "93",
+      "modeId": "match3",
+      "configFile": "levels/level_093.json",
+      "chapterId": "chapter_10",
+      "bInitiallyUnlocked": false,
+      "bEnabled": true,
+      "outcomes": {
+        "firstWinEffects": [
+          {
+            "type": "UnlockLevel",
+            "targetId": "level_094"
+          },
+          {
+            "type": "PlayPresentationCue",
+            "targetId": "level_093_clear"
+          }
+        ],
+        "repeatWinEffects": [],
+        "loseEffects": []
+      }
+    },
+    {
+      "levelId": "level_094",
+      "order": 112,
+      "displayName": "94",
+      "modeId": "match3",
+      "configFile": "levels/level_094.json",
+      "chapterId": "chapter_10",
+      "bInitiallyUnlocked": false,
+      "bEnabled": true,
+      "outcomes": {
+        "firstWinEffects": [
+          {
+            "type": "UnlockLevel",
+            "targetId": "level_095"
+          },
+          {
+            "type": "PlayPresentationCue",
+            "targetId": "level_094_clear"
+          }
+        ],
+        "repeatWinEffects": [],
+        "loseEffects": []
+      }
+    },
+    {
+      "levelId": "level_095",
+      "order": 113,
+      "displayName": "95",
+      "modeId": "match3",
+      "configFile": "levels/level_095.json",
+      "chapterId": "chapter_10",
+      "bInitiallyUnlocked": false,
+      "bEnabled": true,
+      "outcomes": {
+        "firstWinEffects": [
+          {
+            "type": "UnlockLevel",
+            "targetId": "slide_010"
+          },
+          {
+            "type": "UnlockLevel",
+            "targetId": "slide_010"
+          },
+          {
+            "type": "PlayPresentationCue",
+            "targetId": "level_095_clear"
+          }
+        ],
+        "repeatWinEffects": [],
+        "loseEffects": []
+      }
+    },
+    {
+      "levelId": "slide_010",
+      "order": 114,
+      "displayName": "@10",
+      "modeId": "slide_puzzle",
+      "configFile": "slidepuzzle/levels/slide_010.json",
+      "chapterId": "chapter_10",
+      "bInitiallyUnlocked": false,
+      "bEnabled": true,
+      "outcomes": {
+        "firstWinEffects": [
+          {
+            "type": "UnlockLevel",
+            "targetId": "level_096"
+          },
+          {
+            "type": "PlayPresentationCue",
+            "targetId": "slide_010_clear"
+          }
+        ],
+        "repeatWinEffects": [],
+        "loseEffects": []
+      }
+    },
+    {
+      "levelId": "level_096",
+      "order": 115,
+      "displayName": "96",
+      "modeId": "match3",
+      "configFile": "levels/level_096.json",
+      "chapterId": "chapter_10",
+      "bInitiallyUnlocked": false,
+      "bEnabled": true,
+      "outcomes": {
+        "firstWinEffects": [
+          {
+            "type": "UnlockLevel",
+            "targetId": "flow_010"
+          },
+          {
+            "type": "PlayPresentationCue",
+            "targetId": "level_096_clear"
+          }
+        ],
+        "repeatWinEffects": [],
+        "loseEffects": []
+      }
+    },
+    {
+      "levelId": "flow_010",
+      "order": 116,
+      "displayName": "#10",
+      "modeId": "particle_flow",
+      "configFile": "particleflow/levels/flow_010.json",
+      "chapterId": "chapter_10",
+      "bInitiallyUnlocked": false,
+      "bEnabled": true,
+      "outcomes": {
+        "firstWinEffects": [
+          {
+            "type": "UnlockLevel",
+            "targetId": "level_097"
+          },
+          {
+            "type": "PlayPresentationCue",
+            "targetId": "flow_010_clear"
+          }
+        ],
+        "repeatWinEffects": [],
+        "loseEffects": []
+      }
+    },
+    {
+      "levelId": "level_097",
+      "order": 117,
+      "displayName": "97",
+      "modeId": "match3",
+      "configFile": "levels/level_097.json",
+      "chapterId": "chapter_10",
+      "bInitiallyUnlocked": false,
+      "bEnabled": true,
+      "outcomes": {
+        "firstWinEffects": [
+          {
+            "type": "UnlockLevel",
+            "targetId": "level_098"
+          },
+          {
+            "type": "PlayPresentationCue",
+            "targetId": "level_097_clear"
+          }
+        ],
+        "repeatWinEffects": [],
+        "loseEffects": []
+      }
+    },
+    {
+      "levelId": "level_098",
+      "order": 118,
+      "displayName": "98",
+      "modeId": "match3",
+      "configFile": "levels/level_098.json",
+      "chapterId": "chapter_10",
+      "bInitiallyUnlocked": false,
+      "bEnabled": true,
+      "outcomes": {
+        "firstWinEffects": [
+          {
+            "type": "UnlockLevel",
+            "targetId": "level_099"
+          },
+          {
+            "type": "PlayPresentationCue",
+            "targetId": "level_098_clear"
+          }
+        ],
+        "repeatWinEffects": [],
+        "loseEffects": []
+      }
+    },
+    {
+      "levelId": "level_099",
+      "order": 119,
+      "displayName": "99",
+      "modeId": "match3",
+      "configFile": "levels/level_099.json",
+      "chapterId": "chapter_10",
+      "bInitiallyUnlocked": false,
+      "bEnabled": true,
+      "outcomes": {
+        "firstWinEffects": [
+          {
+            "type": "UnlockLevel",
+            "targetId": "level_100"
+          },
+          {
+            "type": "PlayPresentationCue",
+            "targetId": "level_099_clear"
+          }
+        ],
+        "repeatWinEffects": [],
+        "loseEffects": []
+      }
+    },
+    {
+      "levelId": "level_100",
+      "order": 120,
+      "displayName": "100",
+      "modeId": "match3",
+      "configFile": "levels/level_100.json",
+      "chapterId": "chapter_10",
+      "bInitiallyUnlocked": false,
+      "bEnabled": true,
+      "outcomes": {
+        "firstWinEffects": [
+          {
+            "type": "PlayPresentationCue",
+            "targetId": "level_100_clear"
+          }
+        ],
+        "repeatWinEffects": [],
+        "loseEffects": []
+      }
+    }
+  ]
+}

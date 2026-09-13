@@ -1,0 +1,2736 @@
+{
+  "enabled": true,
+  "globalPropertyDefaults": {
+    "TextOutlineSize": 2,
+    "GoalIconSize": 52,
+    "GoalNumberFontSize": 36
+  },
+  "iconDefs": {
+    "coin": "/Game/Images/Coin.Coin",
+    "gem": "/Game/Images/Gem.Gem",
+    "plus": "/Game/Images/Plus.Plus",
+    "shop": "/Game/Images/Shop.Shop",
+    "heart": "/Game/Images/Heart.Heart",
+    "heartempty": "/Game/Images/Heartempty.Heartempty",
+    "settings_music_on": "/Game/Images/Settings_music.Settings_music",
+    "settings_music_off": "/Game/Images/Settings_music_off.Settings_music_off",
+    "settings_effects_on": "/Game/Images/Settings_effects.Settings_effects",
+    "settings_effects_off": "/Game/Images/Settings_effects_off.Settings_effects_off",
+    "settings_vibration_on": "/Game/Images/Settings_shake.Settings_shake",
+    "settings_vibration_off": "/Game/Images/Settings_shake_off.Settings_shake_off",
+    "settings_language_zh": "/Game/Images/lancn.lancn",
+    "settings_language_en": "/Game/Images/lanen.lanen",
+    "item_hammer": "/Game/Images/Hammer.Hammer",
+    "item_shuffle": "/Game/Images/Clean.Clean",
+    "item_rocket": "/Game/Images/Rocket.Rocket",
+    "item_glove": "/Game/Images/Hands.Hands",
+    "item_hammer_un": "/Game/Images/Hammer_Un.Hammer_Un",
+    "item_shuffle_un": "/Game/Images/Clean_Un.Clean_Un",
+    "item_rocket_un": "/Game/Images/Rocket_Un.Rocket_Un",
+    "item_glove_un": "/Game/Images/Hands_Un.Hands_Un",
+    "item_finger": "/Game/Images/Finger.Finger",
+    "item_finger_un": "/Game/Images/Finger_Un.Finger_Un",
+    "goal_score": "/Game/Images/Score.Score",
+    "goal_move": "/Game/Images/Step.Step",
+    "goal_blocker": "/Game/Images/Block.Block",
+    "goal_blocker_1": "/Game/Images/Block1.Block1",
+    "goal_blocker_2": "/Game/Images/Block2.Block2",
+    "goal_blocker_3": "/Game/Images/Block3.Block3",
+    "goal_blocker_4": "/Game/Images/Block4.Block4",
+    "goal_blocker_5": "/Game/Images/Block5.Block5",
+    "goal_blocker_6": "/Game/Images/Block6.Block6",
+    "goal_blocker_7": "/Game/Images/Block7.Block7",
+    "goal_blocker_8": "/Game/Images/Block8.Block8",
+    "goal_blocker_9": "/Game/Images/Block9.Block9",
+    "goal_blocker_10": "/Game/Images/Block10.Block10",
+    "goal_blocker_11": "/Game/Images/Block11.Block11",
+    "goal_blocker_12": "/Game/Images/Block12.Block12",
+    "goal_blocker_13": "/Game/Images/Block13.Block13",
+    "goal_blocker_14": "/Game/Images/Block14.Block14",
+    "goal_blocker_15": "/Game/Images/Block15.Block15",
+    "goal_blocker_16": "/Game/Images/Block16.Block16",
+    "goal_blocker_17": "/Game/Images/Block16.Block16",
+    "goal_blocker_18": "/Game/Images/Block18.Block18",
+    "goal_blocker_19": "/Game/Images/Block19.Block19",
+    "goal_blocker_20": "/Game/Images/Block20.Block20",
+    "goal_blocker_21": "/Game/Images/Block21.Block21",
+    "goal_blocker_22": "/Game/Images/Block22.Block22",
+    "goal_blocker_23": "/Game/Images/Flow01.Flow01",
+    "goal_pipe": "/Game/Images/Pipe.Pipe",
+    "tile_1": "/Game/Images/Tile1.Tile1",
+    "tile_2": "/Game/Images/Tile2.Tile2",
+    "tile_3": "/Game/Images/Tile3.Tile3",
+    "tile_4": "/Game/Images/Tile4.Tile4",
+    "tile_5": "/Game/Images/Tile5.Tile5",
+    "tile_6": "/Game/Images/Tile6.Tile6",
+    "ultimate_normal": "/Game/Images/Insectnet_Un.Insectnet_Un",
+    "ultimate_ready": "/Game/Images/Insectnet.Insectnet",
+    "level_slider_locked": "/Game/Images/Level_Slider_Lo.Level_Slider_Lo",
+    "level_slider_uncleared": "/Game/Images/Level_Slider_Un.Level_Slider_Un",
+    "level_slider_cleared": "/Game/Images/Level_Slider_Cl_Un.Level_Slider_Cl_Un",
+    "level_slider_selected": "/Game/Images/Level_Slider.Level_Slider",
+    "level_locked": "/Game/Images/Level_Lo.Level_Lo",
+    "level_uncleared": "/Game/Images/Level_Un.Level_Un",
+    "level_cleared": "/Game/Images/Level_Cl.Level_Cl",
+    "level_cleared_unselected": "/Game/Images/Level_Cl_Un.Level_Cl_Un",
+    "level_selected": "/Game/Images/Level.Level",
+    "level_boss_locked": "/Game/Images/Level_Boss_Lo.Level_Boss_Lo",
+    "level_boss_uncleared": "/Game/Images/Level_Boss_Un.Level_Boss_Un",
+    "level_boss_cleared": "/Game/Images/Level_Boss_Cl.Level_Boss_Cl",
+    "level_boss_cleared_unselected": "/Game/Images/Level_Boss_Cl_Un.Level_Boss_Cl_Un",
+    "level_boss_selected": "/Game/Images/Level_Boss.Level_Boss",
+    "level_more_placeholder": "/Game/Images/LevelLocked.LevelLocked",
+    "star_fill": "/Game/Images/Start.Start",
+    "star_empty": "/Game/Images/StartEP.StartEP",
+    "level_full_star_badge": "/Game/Images/Stars.Stars",
+    "settle_star_fill": "/Game/Images/Start.Start",
+    "settle_star_empty": "/Game/Images/StartEP.StartEP",
+    "block_icon": "/Game/Images/Block.Block",
+    "shop_button": "/Game/Images/Button.Button",
+    "tile_clear_ng_1": "/Game/Niagara/Cleared01NG.Cleared01NG",
+    "tile_clear_ng_2": "/Game/Niagara/Cleared02NG.Cleared02NG",
+    "tile_clear_ng_3": "/Game/Niagara/Cleared03NG.Cleared03NG",
+    "tile_clear_ng_4": "/Game/Niagara/Cleared04NG.Cleared04NG",
+    "tile_clear_ng_5": "/Game/Niagara/Cleared05NG.Cleared05NG",
+    "tile_clear_ng_6": "/Game/Niagara/Cleared06NG.Cleared06NG",
+    "codex_flowboy": "/Game/Images/Flowboy.Flowboy"
+  },
+  "mapDefs": {
+    "itemIcons": {
+      "hammer": "@icon:item_hammer",
+      "shuffle": "@icon:item_shuffle",
+      "rocket": "@icon:item_rocket",
+      "glove": "@icon:item_glove",
+      "finger": "@icon:item_finger"
+    },
+    "itemIconsUn": {
+      "hammer": "@icon:item_hammer_un",
+      "shuffle": "@icon:item_shuffle_un",
+      "rocket": "@icon:item_rocket_un",
+      "glove": "@icon:item_glove_un",
+      "finger": "@icon:item_finger_un"
+    },
+    "currencyIcons": {
+      "coin": "@icon:coin",
+      "gem": "@icon:gem"
+    },
+    "collectTileIcons": {
+      "1": "@icon:tile_1",
+      "2": "@icon:tile_2",
+      "3": "@icon:tile_3",
+      "4": "@icon:tile_4",
+      "5": "@icon:tile_5",
+      "6": "@icon:tile_6",
+      "16": "@icon:goal_blocker_16"
+    },
+    "tileTypeClearNiagara": {
+      "1": "@icon:tile_clear_ng_1",
+      "2": "@icon:tile_clear_ng_2",
+      "3": "@icon:tile_clear_ng_3",
+      "4": "@icon:tile_clear_ng_4",
+      "5": "@icon:tile_clear_ng_5",
+      "6": "@icon:tile_clear_ng_6"
+    },
+    "bossLevelIconLockedByBossId": {
+      "boss_placeholder_01": "/Game/Images/Boss01_Lo.Boss01_Lo",
+      "boss_placeholder_02": "/Game/Images/Boss02_Lo.Boss02_Lo",
+      "boss_placeholder_03": "/Game/Images/Boss03_Lo.Boss03_Lo",
+      "boss_placeholder_04": "/Game/Images/Boss04_Lo.Boss04_Lo",
+      "boss_placeholder_05": "/Game/Images/Boss05_Lo.Boss05_Lo",
+      "boss_placeholder_06": "/Game/Images/Boss06_Lo.Boss06_Lo",
+      "boss_placeholder_07": "/Game/Images/Boss07_Lo.Boss07_Lo",
+      "boss_placeholder_08": "/Game/Images/Boss08_Lo.Boss08_Lo",
+      "boss_placeholder_09": "/Game/Images/Boss09_Lo.Boss09_Lo",
+      "boss_placeholder_10": "/Game/Images/Boss10_Lo.Boss10_Lo"
+    },
+    "bossLevelIconUnclearedByBossId": {
+      "boss_placeholder_01": "/Game/Images/Boss01.Boss01",
+      "boss_placeholder_02": "/Game/Images/Boss02.Boss02",
+      "boss_placeholder_03": "/Game/Images/Boss03.Boss03",
+      "boss_placeholder_04": "/Game/Images/Boss04.Boss04",
+      "boss_placeholder_05": "/Game/Images/Boss05.Boss05",
+      "boss_placeholder_06": "/Game/Images/Boss06.Boss06",
+      "boss_placeholder_07": "/Game/Images/Boss07.Boss07",
+      "boss_placeholder_08": "/Game/Images/Boss08.Boss08",
+      "boss_placeholder_09": "/Game/Images/Boss09.Boss09",
+      "boss_placeholder_10": "/Game/Images/Boss10.Boss10",
+      "boss_pvp": "/Game/Images/PvPBossFace.PvPBossFace"
+    },
+    "bossLevelIconClearedByBossId": {
+      "boss_placeholder_01": "/Game/Images/Boss01.Boss01",
+      "boss_placeholder_02": "/Game/Images/Boss02.Boss02",
+      "boss_placeholder_03": "/Game/Images/Boss03.Boss03",
+      "boss_placeholder_04": "/Game/Images/Boss04.Boss04",
+      "boss_placeholder_05": "/Game/Images/Boss05.Boss05",
+      "boss_placeholder_06": "/Game/Images/Boss06.Boss06",
+      "boss_placeholder_07": "/Game/Images/Boss07.Boss07",
+      "boss_placeholder_08": "/Game/Images/Boss08.Boss08",
+      "boss_placeholder_09": "/Game/Images/Boss09.Boss09",
+      "boss_placeholder_10": "/Game/Images/Boss10.Boss10"
+    },
+    "bossLevelIconSelectedByBossId": {
+      "boss_placeholder_01": "/Game/Images/Boss01.Boss01",
+      "boss_placeholder_02": "/Game/Images/Boss02.Boss02",
+      "boss_placeholder_03": "/Game/Images/Boss03.Boss03",
+      "boss_placeholder_04": "/Game/Images/Boss04.Boss04",
+      "boss_placeholder_05": "/Game/Images/Boss05.Boss05",
+      "boss_placeholder_06": "/Game/Images/Boss06.Boss06",
+      "boss_placeholder_07": "/Game/Images/Boss07.Boss07",
+      "boss_placeholder_08": "/Game/Images/Boss08.Boss08",
+      "boss_placeholder_09": "/Game/Images/Boss09.Boss09",
+      "boss_placeholder_10": "/Game/Images/Boss10.Boss10",
+      "boss_pvp": "/Game/Images/PvPBossFace.PvPBossFace"
+    },
+    "bossWeaknessCollectTileIcons": {
+      "1": "@icon:tile_1",
+      "2": "@icon:tile_2",
+      "3": "@icon:tile_3",
+      "4": "@icon:tile_4",
+      "5": "@icon:tile_5",
+      "6": "@icon:tile_6",
+      "16": "@icon:goal_blocker_16",
+      "20": "@icon:goal_blocker_20"
+    },
+    "itemUseNiagara": {
+      "hammer": "/Game/Niagara/HammerNG.HammerNG",
+      "shuffle": "/Game/Niagara/ShuffleNG.ShuffleNG",
+      "rocket": "/Game/Niagara/RocketNG.RocketNG",
+      "glove": "/Game/Niagara/HandsNG.HandsNG",
+      "finger": "/Game/Models/Finger/Niagara/FingerNG.FingerNG"
+    },
+    "itemSelectSounds": {
+      "hammer": "/Game/Sounds/ItemSelectedCue.ItemSelectedCue",
+      "shuffle": "/Game/Sounds/ItemSelectedCue.ItemSelectedCue",
+      "rocket": "/Game/Sounds/ItemSelectedCue.ItemSelectedCue",
+      "glove": "/Game/Sounds/ItemSelectedCue.ItemSelectedCue",
+      "finger": "/Game/Sounds/ItemSelectedCue.ItemSelectedCue"
+    },
+    "itemUseSounds": {
+      "hammer": "/Game/Sounds/HammerCue.HammerCue",
+      "shuffle": "/Game/Sounds/ShuffleCue.ShuffleCue",
+      "rocket": "/Game/Sounds/RocketCue.RocketCue",
+      "glove": "/Game/Sounds/HandsCue.HandsCue",
+      "finger": "/Game/Models/Finger/Sounds/FingerCue.FingerCue"
+    },
+    "blockerTypeMeshes": {
+      "1": "/Game/Models/block1/block1.block1",
+      "2": "/Game/Models/standblocker/standblocker.standblocker",
+      "3": "/Game/Models/block/block.block",
+      "4": "/Game/Models/paper/Paper.Paper",
+      "5": "/Game/Models/EscherichiaColi/EscherichiaColi.EscherichiaColi",
+      "6": "/Game/Models/Mold/Mold.Mold",
+      "7": "/Game/Models/spore/Spore.Spore",
+      "8": "/Game/Models/mucus/mucus.mucus",
+      "9": "/Game/Models/Soap/soap.soap",
+      "10": "",
+      "12": "/Game/Models/Duck/Duck.Duck",
+      "13": "",
+      "14": "/Game/Models/Bathtub/Bathtub.Bathtub",
+      "15": "/Game/Models/Dirtywater/Dirtywater1.Dirtywater1",
+      "16": "/Game/Models/bugspray/bugspray.bugspray",
+      "17": "/Game/Models/box/box.box",
+      "18": "/Game/Models/Drain/Drain.Drain",
+      "19": "/Game/Models/Cockroach/Cockroachlit.Cockroachlit",
+      "20": "",
+      "21": "/Game/Models/antnest/antnest.antnest",
+      "22": "",
+      "23": "/Game/Models/Gear/Gear.Gear"
+    },
+    "blockerTypeSkeletalMeshes": {
+      "5": "/Game/Models/EscherichiaColi/SKM_EscherichiaColi.SKM_EscherichiaColi",
+      "6": "/Game/Models/Mold/SKM_Mold.SKM_Mold",
+      "7": "",
+      "8": "/Game/Models/mucus/SKM_mucus.SKM_mucus",
+      "9": "",
+      "10": "/Game/Models/BigeyesN/SKM_BigeyesN.SKM_BigeyesN",
+      "11": "/Game/Models/BigNoseN/SKM_BigNoseN.SKM_BigNoseN",
+      "12": "",
+      "13": "/Game/Models/MouthN/SKM_MouthN.SKM_MouthN",
+      "14": "",
+      "15": "",
+      "18": "",
+      "20": "/Game/Models/Queen/SKM_Queen.SKM_Queen"
+    },
+    "blockerTypeIdleAnimations": {
+      "5": "/Game/Models/EscherichiaColi/Animations/EscherichiaColi_Idle.EscherichiaColi_Idle",
+      "6": "/Game/Models/Mold/Animations/MoldIdle.MoldIdle",
+      "7": "",
+      "8": "/Game/Models/mucus/Animations/mucus_Idle.mucus_Idle",
+      "9": "",
+      "10": "/Game/Models/BigeyesN/Animations/block10N_Idle.block10N_Idle",
+      "11": "/Game/Models/BigNoseN/Animations/block11N_Idle.block11N_Idle",
+      "12": "",
+      "13": "/Game/Models/MouthN/Animations/MouthNIdleAni.MouthNIdleAni",
+      "14": "",
+      "15": "",
+      "18": "",
+      "20": "/Game/Models/Queen/Animations/QueenIdleAni.QueenIdleAni"
+    },
+    "blockerTypeSneezeAnimations": {
+      "5": "",
+      "6": "",
+      "7": "",
+      "8": "",
+      "9": "",
+      "10": "",
+      "11": "/Game/Models/BigNoseN/Animations/block11N_sneeze.block11N_sneeze",
+      "12": "",
+      "13": "/Game/Models/MouthN/Animations/MouthNRunAni.MouthNRunAni",
+      "14": "",
+      "15": ""
+    },
+    "blockerTypeSpreadNiagara": {
+      "5": "/Game/Models/EscherichiaColi/Niagara/SplitNG.SplitNG",
+      "6": "/Game/Models/Mold/Niagara/MoldNG.MoldNG",
+      "7": "/Game/Models/Mold/Niagara/MoldNG.MoldNG",
+      "9": "",
+      "10": "",
+      "13": "/Game/Models/Mouth/Niagara/MouthNG.MouthNG",
+      "14": "",
+      "15": "",
+      "18": "/Game/Models/Drain/Niagara/DrainNG.DrainNG",
+      "19": "/Game/Models/Cockroach/Niagara/ChangeNG.ChangeNG",
+      "22": "/Game/Models/moss/Niagara/MossSpreadNG.MossSpreadNG"
+    },
+    "blockerTypeSpreadSounds": {
+      "5": "/Game/Models/EscherichiaColi/Sounds/SplitCue.SplitCue",
+      "6": "",
+      "7": "",
+      "9": "/Game/Models/Soap/Sounds/SoapCue.SoapCue",
+      "10": "",
+      "12": "",
+      "13": "/Game/Models/Mouth/Sounds/MouthCue.MouthCue",
+      "14": "/Game/Models/Bathtub/Sounds/SplashCue.SplashCue",
+      "15": "",
+      "18": "/Game/Models/Drain/Sounds/DrainCue.DrainCue",
+      "22": "/Game/Models/moss/Sounds/MossSpreadCue.MossSpreadCue"
+    },
+    "blockerTypeSpreadAnimations": {
+      "5": "/Game/Models/EscherichiaColi/Animations/EscherichiaColi_Split.EscherichiaColi_Split",
+      "6": "",
+      "7": "",
+      "9": "",
+      "10": "",
+      "12": "",
+      "13": "",
+      "14": "",
+      "15": ""
+    },
+    "blockerTypeMaterials": {
+      "1": "/Game/Models/block1/Material_0.Material_0",
+      "2": "/Game/Models/standblocker/standblocker_material_0.standblocker_material_0",
+      "3": "/Game/Models/block/block_material_0.block_material_0",
+      "4": "/Game/Models/paper/Paper_material_0.Paper_material_0",
+      "5": "/Game/Models/EscherichiaColi/Material_001.Material_001",
+      "6": "/Game/Models/Mold/Material_001.Material_001",
+      "7": "/Game/Models/spore/Material_0.Material_0",
+      "8": "/Game/Models/mucus/Material_001.Material_001",
+      "9": "/Game/Models/Soap/Material_0.Material_0",
+      "10": "",
+      "12": "/Game/Models/Duck/Material_001.Material_001",
+      "13": "",
+      "14": "",
+      "15": "/Game/Models/Dirtywater/DirtywaterMat.DirtywaterMat",
+      "16": "/Game/Models/bugspray/Material_0.Material_0",
+      "17": "/Game/Models/box/Material_0.Material_0",
+      "18": "/Game/Models/Drain/Material_0.Material_0",
+      "19": "/Game/Models/Cockroach/Material_0.Material_0",
+      "23": "/Game/Models/Gear/Material_0_001.Material_0_001"
+    },
+    "tileTypePoisonMaterial": "/Game/Materials/ToxicMat.ToxicMat",
+    "blockerTypeHitNiagara": {
+      "1": "",
+      "3": "",
+      "4": "",
+      "5": "",
+      "6": "",
+      "7": "",
+      "9": "",
+      "10": "",
+      "12": "",
+      "13": "",
+      "14": "",
+      "16": "",
+      "17": "",
+      "20": "/Game/Models/Queen/Niagara/QueenHitNG.QueenHitNG",
+      "21": "/Game/Models/antnest/Niagara/AntnestHitNG.AntnestHitNG",
+      "22": "/Game/Models/moss/Niagara/MossHitNG.MossHitNG"
+    },
+    "blockerTypeBreakNiagara": {
+      "1": "/Game/Niagara/BlockbrokeNG.BlockbrokeNG",
+      "3": "/Game/Niagara/Block3brokeNG.Block3brokeNG",
+      "4": "/Game/Niagara/Block4brokeNG.Block4brokeNG",
+      "5": "/Game/Niagara/Block5brokeNG.Block5brokeNG",
+      "6": "/Game/Models/Mold/Niagara/MoldNG.MoldNG",
+      "7": "/Game/Models/Mold/Niagara/MoldNG.MoldNG",
+      "8": "",
+      "9": "/Game/Models/Soap/Niagara/SoapNG.SoapNG",
+      "10": "/Game/Models/Bigeyes/Niagara/block10_breakNG.block10_breakNG",
+      "11": "/Game/Models/BigNose/Niagara/block11_breakNG.block11_breakNG",
+      "12": "/Game/Models/Duck/Niagara/DuckNG.DuckNG",
+      "13": "/Game/Models/Mouth/Niagara/MouthBreakNG.MouthBreakNG",
+      "14": "",
+      "15": "/Game/Models/Dirtywater/Niagara/DirtywaterNG.DirtywaterNG",
+      "16": "",
+      "17": "/Game/Models/box/Niagara/BoxNG.BoxNG",
+      "19": "/Game/Models/Cockroach/Niagara/BlockNG.BlockNG",
+      "20": "/Game/Models/Queen/Niagara/QueeenBrokeNG.QueeenBrokeNG",
+      "21": "/Game/Models/antnest/Niagara/AntnestBrokeNG.AntnestBrokeNG",
+      "22": "/Game/Models/moss/Niagara/MossBrokeNG.MossBrokeNG",
+      "23": "/Game/Models/Gear/Niagara/GearBrokeNG.GearBrokeNG"
+    },
+    "blockerTypeCorrosionTimeoutBreakNiagara": {
+      "8": "/Game/Models/mucus/Niagara/Mucus_BoomNG.Mucus_BoomNG"
+    },
+    "blockerTypeHitSounds": {
+      "1": "/Game/Sounds/BlockCue.BlockCue",
+      "3": "/Game/Sounds/BlockCue.BlockCue",
+      "4": "/Game/Sounds/BlockCue.BlockCue",
+      "5": "/Game/Sounds/BlockCue.BlockCue",
+      "6": "/Game/Sounds/BlockCue.BlockCue",
+      "7": "/Game/Models/Mold/Sounds/MoldCue.MoldCue",
+      "9": "/Game/Models/Soap/Sounds/SoapHitCue.SoapHitCue",
+      "10": "/Game/Sounds/Block10Cue.Block10Cue",
+      "12": "",
+      "13": "/Game/Sounds/Block10Cue.Block10Cue",
+      "14": "",
+      "15": "",
+      "16": "",
+      "17": "",
+      "20": "/Game/Models/Queen/Sounds/QueenHitCue.QueenHitCue",
+      "21": "/Game/Models/antnest/Sounds/AntnestHitCue.AntnestHitCue",
+      "22": "/Game/Models/moss/Sounds/MossHitCue.MossHitCue"
+    },
+    "blockerTypeBreakSounds": {
+      "1": "/Game/Sounds/BlockBreakCue.BlockBreakCue",
+      "3": "/Game/Sounds/BlockBreakCue.BlockBreakCue",
+      "4": "/Game/Sounds/BlockBreakCue.BlockBreakCue",
+      "5": "/Game/Models/EscherichiaColi/Sounds/BreakCue.BreakCue",
+      "6": "/Game/Models/Mold/Sounds/MoldCue.MoldCue",
+      "7": "/Game/Models/Mold/Sounds/MoldCue.MoldCue",
+      "8": "/Game/Models/mucus/Sounds/MucusCue.MucusCue",
+      "9": "/Game/Sounds/BlockBreakCue.BlockBreakCue",
+      "10": "/Game/Sounds/BlockBreak10Cue.BlockBreak10Cue",
+      "12": "",
+      "13": "/Game/Sounds/BlockBreak10Cue.BlockBreak10Cue",
+      "14": "",
+      "15": "/Game/Models/Dirtywater/Sounds/DirtywaterCue.DirtywaterCue",
+      "16": "/Game/Models/box/Sounds/BoxCue.BoxCue",
+      "17": "/Game/Models/box/Sounds/BoxCue.BoxCue",
+      "20": "/Game/Models/Queen/Sounds/QueenBrokeCue.QueenBrokeCue",
+      "21": "/Game/Models/antnest/Sounds/AntnestBrokeCue.AntnestBrokeCue",
+      "22": "/Game/Models/moss/Sounds/MossBrokeCue.MossBrokeCue",
+      "23": "/Game/Models/Gear/Sounds/GearBrokeCue.GearBrokeCue"
+    }
+  },
+  "larvaeVisual": {
+    "skeletalMeshPath": "/Game/Models/larva/larva.larva",
+    "animationPath": "/Game/Models/larva/larvaAnRunning.larvaAnRunning",
+    "convertNiagaraPath": "/Game/Models/larva/Niagara/LarvaNG.LarvaNG",
+    "convertSoundPath": "/Game/Models/larva/Sounds/LarvaCue.LarvaCue",
+    "convertNiagaraWorldOffset": {
+      "x": 0,
+      "y": 0,
+      "z": 8
+    },
+    "relativeOffset": {
+      "x": 0,
+      "y": 0,
+      "z": 200
+    },
+    "relativeRotation": {
+      "pitch": 0,
+      "yaw": 0,
+      "roll": 180
+    },
+    "scale": 1,
+    "blockAppearDelaySeconds": 1
+  },
+  "bubbleVisual": {
+    "staticMeshPath": "/Game/Models/Bubb/Bubb.Bubb",
+    "breakNiagaraPath": "/Game/Models/Bubb/Niagara/BubbNG.BubbNG",
+    "spawnNiagaraPath": "/Game/Models/Bubb/Niagara/BubbCreateNG.BubbCreateNG",
+    "spawnSoundPath": "/Game/Models/Bubb/Sounds/BubbCreateCue.BubbCreateCue",
+    "relativeOffset": {
+      "x": 0,
+      "y": 0,
+      "z": -50
+    },
+    "relativeRotation": {
+      "pitch": 0,
+      "yaw": 0,
+      "roll": 0
+    },
+    "scale": 1.3
+  },
+  "rewardBlockerFallbackDamageStageMeshes": {
+    "giftstar": "/Game/Models/giftstar/giftstar.giftstar",
+    "giftcoin": "/Game/Models/giftcoin/giftcoin.giftcoin",
+    "giftgem": "/Game/Models/giftgem/giftgem.giftgem",
+    "giftultimate": "/Game/Models/giftultimate/giftultimate.giftultimate",
+    "giftstep": "/Game/Models/giftstep/giftstep.giftstep",
+    "giftglove": "/Game/Models/gifthand/gifthand.gifthand",
+    "gifthammer": "/Game/Models/gifthammer/gifthammer.gifthammer",
+    "giftrocket": "/Game/Models/giftrocker/giftrocket.giftrocket",
+    "giftbrush": "/Game/Models/giftbrush/giftbrush.giftbrush",
+    "giftfinger": "/Game/Models/giftfinger/giftfinger.giftfinger"
+  },
+  "blockerTypeFallbackDamageStageMeshes": {
+    "9": ["/Game/Models/Soap/soap.soap", "/Game/Models/Soap/soap1.soap1", "/Game/Models/Soap/soap2.soap2"],
+    "14": ["/Game/Models/Bathtub/empty/Bathtubempty.Bathtubempty", "/Game/Models/Bathtub/Bathtub01.Bathtub01", "/Game/Models/Bathtub/Bathtub02.Bathtub02", "/Game/Models/Bathtub/Bathtub03.Bathtub03"],
+    "16": ["/Game/Models/box/box.box", "/Game/Models/bugspray/Bag/bugspraybag.bugspraybag", "/Game/Models/bugspray/bugspray.bugspray"],
+    "17": ["/Game/Models/box/box.box"],
+    "22": [
+      "/Game/Models/moss/moss1/moss1.moss1",
+      "/Game/Models/moss/moss2/moss2.moss2",
+      "/Game/Models/moss/moss3/moss3.moss3",
+      "/Game/Models/moss/moss4/moss4.moss4",
+      "/Game/Models/moss/moss5/moss5.moss5",
+      "/Game/Models/moss/moss6/moss6.moss6"
+    ]
+  },
+  "rewardBlockerFallbackBreakNiagaraPaths": {
+    "giftstar": "/Game/Models/giftstar/Niagara/GiftStarNG.GiftStarNG",
+    "giftcoin": "/Game/Models/giftcoin/Niagara/GiftCoinNG.GiftCoinNG",
+    "giftgem": "/Game/Models/giftgem/Niagara/GiftGemNG.GiftGemNG",
+    "giftultimate": "/Game/Models/giftultimate/Niagara/GiftUltimateNG.GiftUltimateNG",
+    "giftstep": "/Game/Niagara/GiftNG.GiftNG",
+    "giftglove": "/Game/Niagara/GiftNG.GiftNG",
+    "gifthammer": "/Game/Niagara/GiftNG.GiftNG",
+    "giftrocket": "/Game/Niagara/GiftNG.GiftNG",
+    "giftbrush": "/Game/Niagara/GiftNG.GiftNG",
+    "giftfinger": "/Game/Niagara/GiftNG.GiftNG"
+  },
+  "cellCustomModelFallback": {
+    "meshPath": "/Game/Models/Bubbclean/BubbcleanBoard.BubbcleanBoard"
+  },
+  "particleFlowDefaults": {
+    "CharacterSkeletalMeshPath": "/Game/Models/Flowboy/SKM_Flowboy.SKM_Flowboy",
+    "CharacterAnimBlueprintPath": "/Game/Models/Flowboy/BP_FlowboyAni.BP_FlowboyAni",
+    "CharacterRotationOffset": { "Pitch": 0, "Yaw": 0, "Roll": -50 },
+    "CharacterPositionOffset": { "x": 20, "y": 0, "z": 80 },
+    "CharacterScale": { "x": 0.8, "y": 0.8, "z": 0.8 },
+    "DeathSplitMeshAPath": "/Game/Models/Flowboy/SM_FlowboyDeadAC.SM_FlowboyDeadAC",
+    "DeathSplitMeshBPath": "/Game/Models/Flowboy/FlowboyDeadB.FlowboyDeadB",
+    "DeathSplitOffsetY": 70,
+    "DeathSplitOffsetZ": 80,
+    "DeathSplitRoll": 60,
+    "VictoryReplaceMeshPath": "/Game/Models/Flowboy/win/Flowwin.Flowwin",
+    "DeathLineNiagaraPath": "/Game/Niagara/FlowDeadLineNG.FlowDeadLineNG",
+    "DeathLineZOffset": 150,
+    "DeathLineSoundPath": "/Game/Models/Laser/Sounds/LaserCue.LaserCue",
+    "DeathLineCutSoundPath": "/Game/Models/Laser/Sounds/CutCue.CutCue",
+    "LifeLineNiagaraPath": "/Game/Niagara/FlowLifeLineNG.FlowLifeLineNG",
+    "LifeLineZOffset": 150,
+    "LifeLineSoundPath": "/Game/Models/Laser/Sounds/LaserStopCue.LaserStopCue"
+  },
+  "particleFlowScene": {
+    "laserRailMeshPath": "",
+    "laserRailLeftOffset": { "x": 0, "y": 350, "z": 200 },
+    "laserRailRightOffset": { "x": 0, "y": -350, "z": 200 },
+    "laserRailScale": 3,
+    "laserRailZOffset": 0,
+    "laserRailRotation": { "pitch": 0, "yaw": 90, "roll": 60 },
+    "laserCapMeshPath": "/Game/Models/Laser/Laser.Laser",
+    "laserCapDeathLeftOffset": { "x": 0, "y": -100, "z": 150 },
+    "laserCapDeathRightOffset": { "x": 0, "y": 100, "z": 150 },
+    "laserCapLifeLeftOffset": { "x": 0, "y": -100, "z": 150 },
+    "laserCapLifeRightOffset": { "x": 0, "y": 100, "z": 150 },
+    "laserCapDeathLeftRotation": { "pitch": 0, "yaw": -90, "roll": 0 },
+    "laserCapDeathRightRotation": { "pitch": 0, "yaw": 90, "roll": 0 },
+    "laserCapLifeLeftRotation": { "pitch": 0, "yaw": -90, "roll": 0 },
+    "laserCapLifeRightRotation": { "pitch": 0, "yaw": 90, "roll": 0 },
+    "laserCapScale": 0.5,
+    "laserCapZOffset": 0,
+    "laserCapEdgeInset": 0.0
+  },
+  "levelPresentationDefaults": {
+    "musicPath": "/Game/Music/BGM.BGM",
+    "backgroundPath": "/Game/Materials/Textures/background.background"
+  },
+  "levelPresentationByLevelId": {
+    "tower_mode": {
+      "backgroundPath": "/Game/Materials/Textures/Tower.Tower"
+    },
+    "level_matchduel": {
+      "musicPath": "/Game/Music/MatchDuelBGM.MatchDuelBGM",
+      "backgroundPath": "/Game/Materials/Textures/MatchDuel.MatchDuel"
+    },
+    "level_pvp": {
+      "musicPath": "/Game/Music/PvPBGM.PvPBGM",
+      "backgroundPath": "/Game/Materials/Textures/MatchDuel.MatchDuel"
+    },
+    "slide_puzzle_default": {
+      "musicPath": "/Game/Music/SliderBGM.SliderBGM",
+      "backgroundPath": "/Game/Materials/Textures/Slider.Slider"
+    },
+    "level_010": {
+      "backgroundPath": "/Game/Materials/Textures/BossHome01.BossHome01",
+      "musicPath": "/Game/Music/Boss01BMG.Boss01BMG"
+    },
+    "level_020": {
+      "backgroundPath": "/Game/Materials/Textures/BossHome02.BossHome02",
+      "musicPath": "/Game/Music/Boss01BMG.Boss01BMG"
+    },
+    "level_030": {
+      "backgroundPath": "/Game/Materials/Textures/BossHome03.BossHome03",
+      "musicPath": "/Game/Music/Boss01BMG.Boss01BMG"
+    },
+    "level_040": {
+      "backgroundPath": "/Game/Materials/Textures/BossHome04.BossHome04",
+      "musicPath": "/Game/Music/Boss01BMG.Boss01BMG"
+    },
+    "level_050": {
+      "backgroundPath": "/Game/Materials/Textures/BossHome05.BossHome05",
+      "musicPath": "/Game/Music/Boss01BMG.Boss01BMG"
+    },
+    "level_060": {
+      "backgroundPath": "/Game/Materials/Textures/BossHome06.BossHome06",
+      "musicPath": "/Game/Music/Boss01BMG.Boss01BMG"
+    },
+    "level_070": {
+      "backgroundPath": "/Game/Materials/Textures/BossHome07.BossHome07",
+      "musicPath": "/Game/Music/Boss01BMG.Boss01BMG"
+    },
+    "level_080": {
+      "backgroundPath": "/Game/Materials/Textures/BossHome08.BossHome08",
+      "musicPath": "/Game/Music/Boss01BMG.Boss01BMG"
+    },
+    "level_090": {
+      "backgroundPath": "/Game/Materials/Textures/BossHome09.BossHome09",
+      "musicPath": "/Game/Music/Boss01BMG.Boss01BMG"
+    },
+    "level_100": {
+      "backgroundPath": "/Game/Materials/Textures/BossHome10.BossHome10",
+      "musicPath": "/Game/Music/Boss01BMG.Boss01BMG"
+    },
+    "flow_001": {
+      "backgroundPath": "/Game/Materials/Textures/laserbg.laserbg",
+      "musicPath": "/Game/Music/FlowBGM.FlowBGM"
+    },
+    "flow_002": {
+      "backgroundPath": "/Game/Materials/Textures/laserbg.laserbg",
+      "musicPath": "/Game/Music/FlowBGM.FlowBGM"
+    },
+    "flow_003": {
+      "backgroundPath": "/Game/Materials/Textures/laserbg.laserbg",
+      "musicPath": "/Game/Music/FlowBGM.FlowBGM"
+    },
+    "flow_004": {
+      "backgroundPath": "/Game/Materials/Textures/laserbg.laserbg",
+      "musicPath": "/Game/Music/FlowBGM.FlowBGM"
+    },
+    "flow_005": {
+      "backgroundPath": "/Game/Materials/Textures/laserbg.laserbg",
+      "musicPath": "/Game/Music/FlowBGM.FlowBGM"
+    },
+    "flow_006": {
+      "backgroundPath": "/Game/Materials/Textures/laserbg.laserbg",
+      "musicPath": "/Game/Music/FlowBGM.FlowBGM"
+    },
+    "flow_007": {
+      "backgroundPath": "/Game/Materials/Textures/laserbg.laserbg",
+      "musicPath": "/Game/Music/FlowBGM.FlowBGM"
+    },
+    "flow_008": {
+      "backgroundPath": "/Game/Materials/Textures/laserbg.laserbg",
+      "musicPath": "/Game/Music/FlowBGM.FlowBGM"
+    },
+    "flow_009": {
+      "backgroundPath": "/Game/Materials/Textures/laserbg.laserbg",
+      "musicPath": "/Game/Music/FlowBGM.FlowBGM"
+    },
+    "flow_010": {
+      "backgroundPath": "/Game/Materials/Textures/laserbg.laserbg",
+      "musicPath": "/Game/Music/FlowBGM.FlowBGM"
+    }
+  },
+  "levelMapChunks": {
+    "defaults": {
+      "levelsPerChunk": 12,
+      "bossOrderOffset": -110,
+      "designWidth": 1376,
+      "designHeight": 1376,
+      "background": {
+        "texture": "/Game/Map/Map1.Map1",
+        "scaleMode": "contain",
+        "userScale": 1.0,
+        "fallbackTexture": "/Game/Map/Map.Map"
+      },
+      "pathStyle": {
+        "thickness": 0.0,
+        "lockedColor": {
+          "r": 0.0,
+          "g": 0.0,
+          "b": 0.0,
+          "a": 0.0
+        },
+        "unlockedColor": {
+          "r": 0.0,
+          "g": 0.0,
+          "b": 0.0,
+          "a": 0.0
+        },
+        "clearedColor": {
+          "r": 0.0,
+          "g": 0.0,
+          "b": 0.0,
+          "a": 0.0
+        }
+      },
+      "modeStateIconSizeByModeId": {
+        "slide_puzzle": 200.0
+      }
+    },
+    "chunkFallback": {
+      "background": {
+        "texture": "/Game/Map/Map1.Map1",
+        "fallbackTexture": "/Game/Map/Map.Map"
+      },
+      "inheritLayoutFrom": "chunk_01"
+    },
+    "chunks": {
+      "chunk_01": {
+        "orderStart": 1,
+        "orderEnd": 12,
+        "levelPositions": {
+          "flow_001": {
+            "x": 500,
+            "y": 690,
+            "iconPath": "/Game/Materials/FlowMat.FlowMat",
+            "iconSize": 200.0,
+            "iconOffsetX": 0,
+            "iconOffsetY": 0
+          },
+          "level_001": {
+            "x": 960,
+            "y": 1060
+          },
+          "level_002": {
+            "x": 670,
+            "y": 1180
+          },
+          "level_003": {
+            "x": 520,
+            "y": 1120
+          },
+          "level_004": {
+            "x": 730,
+            "y": 1000
+          },
+          "level_005": {
+            "x": 930,
+            "y": 890
+          },
+          "level_006": {
+            "x": 640,
+            "y": 750,
+            "iconPath": "/Game/Materials/Block4Mat.Block4Mat",
+            "iconSize": 260.0,
+            "iconOffsetX": 0,
+            "iconOffsetY": 150
+          },
+          "level_007": {
+            "x": 710,
+            "y": 630
+          },
+          "level_008": {
+            "x": 870,
+            "y": 600
+          },
+          "level_009": {
+            "x": 650,
+            "y": 520
+          },
+          "level_010": {
+            "x": 540,
+            "y": 320
+          },
+          "slide_001": {
+            "x": 500,
+            "y": 910
+          },
+          "level_011": {
+            "x": 730,
+            "y": 1190
+          },
+          "level_012": {
+            "x": 550,
+            "y": 1130,
+            "iconPath": "/Game/Materials/Block3Mat.Block3Mat",
+            "iconSize": 260.0,
+            "iconOffsetX": -150,
+            "iconOffsetY": 50
+          },
+          "level_013": {
+            "x": 670,
+            "y": 1050
+          },
+          "level_014": {
+            "x": 800,
+            "y": 1040
+          },
+          "level_015": {
+            "x": 920,
+            "y": 990
+          },
+          "level_016": {
+            "x": 530,
+            "y": 820
+          },
+          "level_017": {
+            "x": 870,
+            "y": 680,
+            "iconPath": "/Game/Materials/Block9Mat.Block9Mat",
+            "iconSize": 260.0,
+            "iconOffsetX": 150,
+            "iconOffsetY": 50
+          },
+          "level_018": {
+            "x": 730,
+            "y": 620
+          },
+          "level_019": {
+            "x": 540,
+            "y": 570
+          },
+          "level_020": {
+            "x": 530,
+            "y": 450
+          },
+          "slide_002": {
+            "x": 730,
+            "y": 840
+          },
+          "level_021": {
+            "x": 570,
+            "y": 1170,
+            "iconPath": "/Game/Materials/Block5Mat.Block5Mat",
+            "iconSize": 260.0,
+            "iconOffsetX": 100,
+            "iconOffsetY": 50
+          },
+          "level_022": {
+            "x": 660,
+            "y": 1040
+          },
+          "level_023": {
+            "x": 820,
+            "y": 1020
+          },
+          "level_024": {
+            "x": 920,
+            "y": 950
+          },
+          "level_025": {
+            "x": 750,
+            "y": 880
+          },
+          "level_026": {
+            "x": 450,
+            "y": 810,
+            "iconPath": "/Game/Materials/Block8Mat.Block8Mat",
+            "iconSize": 260.0,
+            "iconOffsetX": 0,
+            "iconOffsetY": 150
+          },
+          "level_027": {
+            "x": 920,
+            "y": 680
+          },
+          "level_028": {
+            "x": 660,
+            "y": 630
+          },
+          "level_029": {
+            "x": 470,
+            "y": 580
+          },
+          "level_030": {
+            "x": 530,
+            "y": 450
+          },
+          "slide_003": {
+            "x": 580,
+            "y": 830
+          },
+          "level_031": {
+            "x": 660,
+            "y": 1200,
+            "iconPath": "/Game/Materials/Block10Mat.Block10Mat",
+            "iconSize": 170.0,
+            "iconOffsetX": -150,
+            "iconOffsetY": 50
+          },
+          "level_032": {
+            "x": 650,
+            "y": 1060
+          },
+          "level_033": {
+            "x": 750,
+            "y": 950
+          },
+          "level_034": {
+            "x": 910,
+            "y": 920
+          },
+          "level_035": {
+            "x": 820,
+            "y": 760,
+            "iconPath": "/Game/Materials/Block6Mat.Block6Mat",
+            "iconSize": 260.0,
+            "iconOffsetX": -100,
+            "iconOffsetY": 90
+          },
+          "level_036": {
+            "x": 500,
+            "y": 710
+          },
+          "level_037": {
+            "x": 900,
+            "y": 580,
+            "iconPath": "/Game/Materials/Block11Mat.Block11Mat",
+            "iconSize": 170.0,
+            "iconOffsetX": 120,
+            "iconOffsetY": 50
+          },
+          "level_038": {
+            "x": 760,
+            "y": 520
+          },
+          "level_039": {
+            "x": 510,
+            "y": 470
+          },
+          "level_040": {
+            "x": 550,
+            "y": 330
+          },
+          "slide_004": {
+            "x": 600,
+            "y": 740
+          },
+          "level_041": {
+            "x": 750,
+            "y": 1150
+          },
+          "level_042": {
+            "x": 550,
+            "y": 1070
+          },
+          "level_043": {
+            "x": 920,
+            "y": 980
+          },
+          "level_044": {
+            "x": 750,
+            "y": 880
+          },
+          "level_045": {
+            "x": 620,
+            "y": 860
+          },
+          "level_046": {
+            "x": 750,
+            "y": 740,
+            "iconPath": "/Game/Materials/Block13Mat.Block13Mat",
+            "iconSize": 260.0,
+            "iconOffsetX": 150,
+            "iconOffsetY": 50
+          },
+          "level_047": {
+            "x": 630,
+            "y": 620
+          },
+          "level_048": {
+            "x": 500,
+            "y": 590
+          },
+          "level_049": {
+            "x": 630,
+            "y": 510
+          },
+          "level_050": {
+            "x": 540,
+            "y": 470
+          },
+          "slide_005": {
+            "x": 470,
+            "y": 820
+          },
+          "level_051": {
+            "x": 800,
+            "y": 1185
+          },
+          "level_052": {
+            "x": 560,
+            "y": 1000
+          },
+          "level_053": {
+            "x": 740,
+            "y": 970
+          },
+          "level_054": {
+            "x": 860,
+            "y": 920
+          },
+          "level_055": {
+            "x": 600,
+            "y": 830,
+            "iconPath": "/Game/Materials/TileAtt02Mat.TileAtt02Mat",
+            "iconSize": 180.0,
+            "iconOffsetX": -150,
+            "iconOffsetY": 50
+          },
+          "level_056": {
+            "x": 630,
+            "y": 720
+          },
+          "level_057": {
+            "x": 870,
+            "y": 680
+          },
+          "level_058": {
+            "x": 500,
+            "y": 610
+          },
+          "level_059": {
+            "x": 600,
+            "y": 550
+          },
+          "level_060": {
+            "x": 510,
+            "y": 480
+          },
+          "slide_006": {
+            "x": 510,
+            "y": 760
+          },
+          "level_061": {
+            "x": 640,
+            "y": 1070,
+            "iconPath": "/Game/Materials/Block12Mat.Block12Mat",
+            "iconSize": 150.0,
+            "iconOffsetX": -150,
+            "iconOffsetY": 50,
+            "iconSelectedScale": 1.5
+          },
+          "level_062": {
+            "x": 750,
+            "y": 1130
+          },
+          "level_063": {
+            "x": 900,
+            "y": 1070
+          },
+          "level_064": {
+            "x": 760,
+            "y": 950
+          },
+          "level_065": {
+            "x": 555,
+            "y": 890,
+            "iconPath": "/Game/Materials/Block17Mat.Block17Mat",
+            "iconSize": 220.0,
+            "iconOffsetX": -150,
+            "iconOffsetY": 50,
+            "iconSelectedScale": 1.3
+          },
+          "level_066": {
+            "x": 780,
+            "y": 770
+          },
+          "level_067": {
+            "x": 750,
+            "y": 650
+          },
+          "level_068": {
+            "x": 500,
+            "y": 600
+          },
+          "level_069": {
+            "x": 630,
+            "y": 520
+          },
+          "level_070": {
+            "x": 525,
+            "y": 470
+          },
+          "slide_007": {
+            "x": 640,
+            "y": 780
+          },
+          "level_071": {
+            "x": 680,
+            "y": 1215
+          },
+          "level_072": {
+            "x": 540,
+            "y": 1130
+          },
+          "level_073": {
+            "x": 710,
+            "y": 1040
+          },
+          "level_074": {
+            "x": 880,
+            "y": 970
+          },
+          "level_075": {
+            "x": 690,
+            "y": 900,
+            "iconPath": "/Game/Materials/Block19Mat.Block19Mat",
+            "iconSize": 220.0,
+            "iconOffsetX": -170,
+            "iconOffsetY": 50,
+            "iconSelectedScale": 1.4
+          },
+          "level_076": {
+            "x": 600,
+            "y": 760
+          },
+          "level_077": {
+            "x": 870,
+            "y": 680
+          },
+          "level_078": {
+            "x": 510,
+            "y": 590
+          },
+          "level_079": {
+            "x": 630,
+            "y": 520
+          },
+          "level_080": {
+            "x": 510,
+            "y": 470
+          },
+          "slide_008": {
+            "x": 500,
+            "y": 770
+          },
+          "level_081": {
+            "x": 540,
+            "y": 1215,
+            "iconPath": "/Game/Materials/TileAtt03Mat.TileAtt03Mat",
+            "iconSize": 150.0,
+            "iconOffsetX": 150,
+            "iconOffsetY": 50,
+            "iconSelectedScale": 1.4
+          },
+          "level_082": {
+            "x": 660,
+            "y": 1150
+          },
+          "level_083": {
+            "x": 640,
+            "y": 1000
+          },
+          "level_084": {
+            "x": 880,
+            "y": 980
+          },
+          "level_085": {
+            "x": 940,
+            "y": 890
+          },
+          "level_086": {
+            "x": 420,
+            "y": 940
+          },
+          "level_087": {
+            "x": 420,
+            "y": 710
+          },
+          "level_088": {
+            "x": 580,
+            "y": 680
+          },
+          "level_089": {
+            "x": 580,
+            "y": 570
+          },
+          "level_090": {
+            "x": 630,
+            "y": 470
+          },
+          "slide_009": {
+            "x": 870,
+            "y": 810
+          },
+          "level_091": {
+            "x": 720,
+            "y": 1200,
+            "iconPath": "/Game/Materials/Block22Mat.Block22Mat",
+            "iconSize": 230.0,
+            "iconOffsetX": 150,
+            "iconOffsetY": 50,
+            "iconSelectedScale": 1.4
+          },
+          "level_092": {
+            "x": 570,
+            "y": 1130
+          },
+          "level_093": {
+            "x": 680,
+            "y": 1050
+          },
+          "level_094": {
+            "x": 880,
+            "y": 970
+          },
+          "level_095": {
+            "x": 750,
+            "y": 860
+          },
+          "level_096": {
+            "x": 650,
+            "y": 730
+          },
+          "level_097": {
+            "x": 760,
+            "y": 610
+          },
+          "level_098": {
+            "x": 510,
+            "y": 550
+          },
+          "level_099": {
+            "x": 660,
+            "y": 490
+          },
+          "level_100": {
+            "x": 570,
+            "y": 460
+          },
+          "slide_010": {
+            "x": 540,
+            "y": 770
+          },
+          "flow_002": {
+            "x": 630,
+            "y": 735,
+            "iconPath": "/Game/Materials/FlowMat.FlowMat",
+            "iconSize": 200.0,
+            "iconOffsetX": 0,
+            "iconOffsetY": 0
+          },
+          "flow_003": {
+            "x": 750,
+            "y": 695,
+            "iconPath": "/Game/Materials/FlowMat.FlowMat",
+            "iconSize": 200.0,
+            "iconOffsetX": 0,
+            "iconOffsetY": 0
+          },
+          "flow_004": {
+            "x": 700,
+            "y": 620,
+            "iconPath": "/Game/Materials/FlowMat.FlowMat",
+            "iconSize": 200.0,
+            "iconOffsetX": 0,
+            "iconOffsetY": 0
+          },
+          "flow_005": {
+            "x": 870,
+            "y": 650,
+            "iconPath": "/Game/Materials/FlowMat.FlowMat",
+            "iconSize": 200.0,
+            "iconOffsetX": 0,
+            "iconOffsetY": 0
+          },
+          "flow_006": {
+            "x": 750,
+            "y": 700,
+            "iconPath": "/Game/Materials/FlowMat.FlowMat",
+            "iconSize": 200.0,
+            "iconOffsetX": 0,
+            "iconOffsetY": 0
+          },
+          "flow_007": {
+            "x": 900,
+            "y": 690,
+            "iconPath": "/Game/Materials/FlowMat.FlowMat",
+            "iconSize": 200.0,
+            "iconOffsetX": 0,
+            "iconOffsetY": 0
+          },
+          "flow_008": {
+            "x": 740,
+            "y": 700,
+            "iconPath": "/Game/Materials/FlowMat.FlowMat",
+            "iconSize": 200.0,
+            "iconOffsetX": 0,
+            "iconOffsetY": 0
+          },
+          "flow_009": {
+            "x": 770,
+            "y": 625,
+            "iconPath": "/Game/Materials/FlowMat.FlowMat",
+            "iconSize": 200.0,
+            "iconOffsetX": 0,
+            "iconOffsetY": 0
+          },
+          "flow_010": {
+            "x": 880,
+            "y": 650,
+            "iconPath": "/Game/Materials/FlowMat.FlowMat",
+            "iconSize": 200.0,
+            "iconOffsetX": 0,
+            "iconOffsetY": 0
+          }
+        },
+        "paths": [
+          {
+            "fromOrder": 1,
+            "toOrder": 2,
+            "type": "line"
+          },
+          {
+            "fromOrder": 2,
+            "toOrder": 3,
+            "type": "line"
+          },
+          {
+            "fromOrder": 3,
+            "toOrder": 4,
+            "type": "line"
+          },
+          {
+            "fromOrder": 4,
+            "toOrder": 5,
+            "type": "line"
+          },
+          {
+            "fromOrder": 5,
+            "toOrder": 6,
+            "type": "line"
+          },
+          {
+            "fromOrder": 6,
+            "toOrder": 7,
+            "type": "line"
+          },
+          {
+            "fromOrder": 7,
+            "toOrder": 8,
+            "type": "line"
+          },
+          {
+            "fromOrder": 8,
+            "toOrder": 9,
+            "type": "line"
+          },
+          {
+            "fromOrder": 9,
+            "toOrder": 10,
+            "type": "line"
+          },
+          {
+            "fromOrder": 10,
+            "toOrder": 11,
+            "type": "line"
+          },
+          {
+            "fromOrder": 7,
+            "toOrder": 8,
+            "type": "line"
+          },
+          {
+            "fromOrder": 8,
+            "toOrder": 9,
+            "type": "line"
+          }
+        ]
+      },
+      "chunk_02": {
+        "orderStart": 13,
+        "orderEnd": 24,
+        "background": {
+          "texture": "/Game/Map/Map2.Map2"
+        },
+        "inheritLayoutFrom": "chunk_01"
+      },
+      "chunk_03": {
+        "orderStart": 25,
+        "orderEnd": 36,
+        "background": {
+          "texture": "/Game/Map/Map3.Map3"
+        },
+        "inheritLayoutFrom": "chunk_01"
+      },
+      "chunk_04": {
+        "orderStart": 37,
+        "orderEnd": 48,
+        "background": {
+          "texture": "/Game/Map/Map4.Map4"
+        },
+        "inheritLayoutFrom": "chunk_01"
+      },
+      "chunk_05": {
+        "orderStart": 49,
+        "orderEnd": 60,
+        "background": {
+          "texture": "/Game/Map/Map5.Map5"
+        },
+        "inheritLayoutFrom": "chunk_01"
+      },
+      "chunk_06": {
+        "orderStart": 61,
+        "orderEnd": 72,
+        "background": {
+          "texture": "/Game/Map/Map6.Map6"
+        },
+        "inheritLayoutFrom": "chunk_01"
+      },
+      "chunk_07": {
+        "orderStart": 73,
+        "orderEnd": 84,
+        "background": {
+          "texture": "/Game/Map/Map7.Map7"
+        },
+        "inheritLayoutFrom": "chunk_01"
+      },
+      "chunk_08": {
+        "orderStart": 85,
+        "orderEnd": 96,
+        "background": {
+          "texture": "/Game/Map/Map8.Map8"
+        },
+        "inheritLayoutFrom": "chunk_01"
+      },
+      "chunk_09": {
+        "orderStart": 97,
+        "orderEnd": 108,
+        "background": {
+          "texture": "/Game/Map/Map9.Map9"
+        },
+        "inheritLayoutFrom": "chunk_01"
+      },
+      "chunk_10": {
+        "orderStart": 109,
+        "orderEnd": 120,
+        "background": {
+          "texture": "/Game/Map/Map10.Map10"
+        },
+        "inheritLayoutFrom": "chunk_01"
+      }
+    }
+  },
+  "groups": {
+    "widgets": {
+      "CurrencyBalanceWidget": {
+        "properties": {
+          "GoldIconSize": 80,
+          "GemIconSize": 80,
+          "PlusIconSize": 150,
+          "CartIconSize": 170,
+          "CartIconOffset": {
+            "x": 0,
+            "y": 40
+          },
+          "AmountFontSize": 36,
+          "AmountOutlineSize": 2,
+          "IconTextSpacing": 6,
+          "CurrencyGroupSpacing": 14,
+          "PlusButtonClickSound": "/Game/Sounds/ClickCue.ClickCue",
+          "GoldIconTexture": "@icon:coin",
+          "GemIconTexture": "@icon:gem",
+          "PlusIconTexture": "@icon:shop"
+        }
+      },
+      "LifeStatusWidget": {
+        "properties": {
+          "HeartIconTexture": "@icon:heart",
+          "FullHeartIconTexture": "@icon:heart",
+          "EmptyHeartIconTexture": "@icon:heartempty",
+          "HeartIconSize": 120,
+          "HeartIconTint": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          },
+          "LivesFontSize": 80,
+          "RegenFontSize": 42,
+          "LivesOutlineSize": 2,
+          "LivesTextColor": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          },
+          "LivesOutlineColor": {
+            "r": 0,
+            "g": 0,
+            "b": 0,
+            "a": 1
+          },
+          "RegenTextColor": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          },
+          "RegenOutlineColor": {
+            "r": 0,
+            "g": 0,
+            "b": 0,
+            "a": 1
+          },
+          "RegenBadgeBackgroundColor": {
+            "r": 0,
+            "g": 0,
+            "b": 0,
+            "a": 0.45
+          },
+          "RegenBadgeBorderColor": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 0
+          },
+          "RegenBadgeCornerRadius": 16,
+          "RegenBadgeBorderWidth": 5,
+          "RegenBadgePaddingX": 12,
+          "RegenBadgePaddingY": 4,
+          "NoLivesShakeSound": "/Game/Sounds/DisableCue.DisableCue",
+          "ConsumeHeartSound": "/Game/Sounds/GameStartCue.GameStartCue",
+          "ConsumeHeartFadeEndScale": 5.5,
+          "IconTextSpacing": 8,
+          "ContentHorizontalAlignment": "Right"
+        }
+      },
+      "EquippedItemsBarWidget": {
+        "properties": {
+          "MaxDisplayCount": 5,
+          "HorizontalItemSpacing": 4,
+          "ItemContentPadding": 2,
+          "ItemVisualSize": 135,
+          "CountTextRightInset": -6,
+          "CountTextBottomInset": -2,
+          "ShakeAngleAmplitude": 6,
+          "ShakeFrequency": 8,
+          "ItemIconAssets": "@map:itemIcons",
+          "ItemSelectSoundsByItemId": "@map:itemSelectSounds"
+        }
+      },
+      "BossCoinBarWidget": {
+        "properties": {
+          "DefaultCardBottomTexturePath": "/Game/Images/BossCoinCard_BG.BossCoinCard_BG"
+        }
+      },
+      "LevelGoalInfoWidget": {
+        "properties": {
+          "FiveStarRewardOverlayIcon": "/Game/Images/Start.Start",
+          "CurrentLevelFontSize": 80,
+          "LevelToGoalsSpacing": 28,
+          "GoalSectionDescriptionText": "Pass Goals",
+          "GoalSectionDescriptionFontSize": 42,
+          "GoalSectionDescriptionSpacing": 12,
+          "TextOutlineSize": 2,
+          "TextOutlineColor": {
+            "r": 0,
+            "g": 0,
+            "b": 0,
+            "a": 1
+          },
+          "TextColor": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          },
+          "TitleTextOutlineSize": 2,
+          "TitleTextOutlineColor": {
+            "r": 0,
+            "g": 0,
+            "b": 0,
+            "a": 1
+          },
+          "TitleTextColor": {
+            "r": 1,
+            "g": 0.95,
+            "b": 0.72,
+            "a": 1
+          },
+          "CurrentLevelBossIconSize": 225,
+          "BossIconToLevelTextSpacing": 8,
+          "GoalIconSize": 150,
+          "GoalNumberFontSize": 50,
+          "GoalBadgeSpacing": 8,
+          "ScoreGoalIcon": "@icon:goal_score",
+          "MoveGoalIcon": "@icon:goal_move",
+          "BlockerGoalIcon": "@icon:goal_blocker",
+          "PipeGoalIcon": "@icon:goal_pipe",
+          "PipeGoalLabelText": "∞",
+          "BossLevelDefaultIcon": "@icon:level_boss_selected",
+          "BossLevelIconByBossId": "@map:bossLevelIconSelectedByBossId",
+          "BlockerGoalTypeIcons": {
+            "1": "@icon:goal_blocker_1",
+            "2": "@icon:goal_blocker_2",
+            "3": "@icon:goal_blocker_3",
+            "4": "@icon:goal_blocker_4",
+            "5": "@icon:goal_blocker_5",
+            "6": "@icon:goal_blocker_6",
+            "7": "@icon:goal_blocker_7",
+            "8": "@icon:goal_blocker_8",
+            "9": "@icon:goal_blocker_9",
+            "10": "@icon:goal_blocker_10",
+            "11": "@icon:goal_blocker_11",
+            "12": "@icon:goal_blocker_12",
+            "13": "@icon:goal_blocker_13",
+            "14": "@icon:goal_blocker_14",
+            "15": "@icon:goal_blocker_15",
+            "16": "@icon:goal_blocker_16",
+            "17": "@icon:goal_blocker_17",
+            "18": "@icon:goal_blocker_18",
+            "19": "@icon:goal_blocker_19",
+            "20": "@icon:goal_blocker_20",
+            "21": "@icon:goal_blocker_21",
+            "22": "@icon:goal_blocker_22",
+            "23": "@icon:goal_blocker_23"
+          },
+          "CollectGoalDefaultIcon": "",
+          "CollectGoalTileTypeIcons": "@map:bossWeaknessCollectTileIcons",
+          "RewardSectionTitleText": "Rewards",
+          "RewardTitleFontSize": 42,
+          "RewardNumberFontSize": 42,
+          "RewardIconSize": 120,
+          "RewardSectionTopSpacing": 32,
+          "RewardTitleBottomSpacing": 18,
+          "RewardItemSpacing": 24,
+          "bAnimateRewardItemsSway": true,
+          "RewardSwayAngle": 2.2,
+          "RewardSwayFrequency": 1.6,
+          "LifeRewardIcon": "@icon:heart",
+          "RewardCurrencyIcons": "@map:currencyIcons",
+          "RewardItemIcons": "@map:itemIcons"
+        }
+      },
+      "LevelGoalOverviewWidget": {
+        "properties": {
+          "CollectFlyDuration": 0.3,
+          "CollectFlySpeed": 2000,
+          "CollectFlyArcHeight": 48,
+          "CollectFlyIconScale": 0.9,
+          "GoalGroupSpacing": 16,
+          "GoalIconSize": 120,
+          "GoalNumberFontSize": 50,
+          "GoalNumberOutlineSize": 2,
+          "bEnableGoalTextShadow": true,
+          "GoalTextShadowOffset": {
+            "x": 5,
+            "y": 5
+          },
+          "GoalTextShadowColor": {
+            "r": 0,
+            "g": 0,
+            "b": 0,
+            "a": 0.85
+          },
+          "bEnableGoalIconShadow": true,
+          "GoalIconShadowOffset": {
+            "x": 5,
+            "y": 5
+          },
+          "GoalIconShadowColor": {
+            "r": 0,
+            "g": 0,
+            "b": 0,
+            "a": 0.5
+          },
+          "GoalIconShadowScale": 1,
+          "GoalIconNumberSpacing": 0,
+          "ScoreGoalIcon": "@icon:goal_score",
+          "MoveGoalIcon": "@icon:goal_move",
+          "BlockerGoalIcon": "@icon:goal_blocker",
+          "PipeGoalIcon": "@icon:goal_pipe",
+          "PipeGoalLabelText": "∞",
+          "BlockerGoalTypeIcons": {
+            "1": "@icon:goal_blocker_1",
+            "2": "@icon:goal_blocker_2",
+            "3": "@icon:goal_blocker_3",
+            "4": "@icon:goal_blocker_4",
+            "5": "@icon:goal_blocker_5",
+            "6": "@icon:goal_blocker_6",
+            "7": "@icon:goal_blocker_7",
+            "8": "@icon:goal_blocker_8",
+            "9": "@icon:goal_blocker_9",
+            "10": "@icon:goal_blocker_10",
+            "11": "@icon:goal_blocker_11",
+            "12": "@icon:goal_blocker_12",
+            "13": "@icon:goal_blocker_13",
+            "14": "@icon:goal_blocker_14",
+            "15": "@icon:goal_blocker_15",
+            "16": "@icon:goal_blocker_16",
+            "17": "@icon:goal_blocker_17",
+            "18": "@icon:goal_blocker_18",
+            "19": "@icon:goal_blocker_19",
+            "20": "@icon:goal_blocker_20",
+            "21": "@icon:goal_blocker_21",
+            "22": "@icon:goal_blocker_22",
+            "23": "@icon:goal_blocker_23"
+          },
+          "CollectGoalDefaultIcon": "",
+          "CollectGoalTileTypeIcons": "@map:collectTileIcons"
+        }
+      },
+      "Match3BossWidget": {
+        "properties": {
+          "WeaknessLabelPrefixText": "Weakness",
+          "CollectGoalDefaultIcon": "",
+          "CollectGoalTileTypeIcons": "@map:bossWeaknessCollectTileIcons",
+          "WeaknessDefaultIcon": "",
+          "WeaknessIconSize": 120,
+          "WeaknessIconSpacing": 8,
+          "BossHitNiagara": "",
+          "BossHitEffectWorldOffset": {
+            "x": 0,
+            "y": 0,
+            "z": 80
+          },
+          "HpLabelPrefixText": "HP",
+          "SkillLabelPrefixText": "Skill",
+          "NoSkillForecastText": "No upcoming skill"
+        }
+      },
+      "Match3UltimateWidget": {
+        "properties": {
+          "ChargeContainerCanvasSize": {
+            "x": 200,
+            "y": 200
+          },
+          "UltimateButtonCanvasSize": {
+            "x": 240,
+            "y": 240
+          },
+          "InnerContentSpacing": 10,
+          "ChargeProgressBarThickness": 20,
+          "ChargeProgressTrackColor": {
+            "r": 0.38,
+            "g": 0.38,
+            "b": 0.38,
+            "a": 1
+          },
+          "ChargeProgressFillColor": {
+            "r": 0.19,
+            "g": 0.73,
+            "b": 0.19,
+            "a": 1
+          },
+          "ChargeProgressBorderThickness": 5,
+          "ChargeProgressBorderColor": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          },
+          "SlotVisualSize": 150,
+          "UltimateIconVisualSize": 200,
+          "ChargeSlotFrameIcon": "/Game/Images/BoxFrame.BoxFrame",
+          "ChargeSlotFrameScale": 1.5,
+          "UltimateNormalIcon": "@icon:ultimate_normal",
+          "UltimateReadyIcon": "@icon:ultimate_ready",
+          "UltimateSelectedShakeAngleDeg": 5,
+          "UltimateSelectedShakeFrequencyHz": 5,
+          "UltimateDeniedFeedbackDuration": 0.22,
+          "UltimateDeniedFeedbackShakeAmplitude": 14,
+          "UltimateDeniedFeedbackShakeFrequencyHz": 12,
+          "UltimateDeniedFeedbackMinScale": 0.9,
+          "UltimateDeniedFeedbackSound": "/Game/Sounds/LevelLockCue.LevelLockCue",
+          "UltimateReadyFeedbackSound": "/Game/Sounds/UltimateReadyCue.UltimateReadyCue",
+          "UltimateReadyFeedbackSoundsByTileType": {
+            "1": "/Game/Sounds/UltimateReadyCue.UltimateReadyCue",
+            "2": "/Game/Sounds/UltimateReadyCue.UltimateReadyCue",
+            "3": "/Game/Sounds/UltimateReadyCue.UltimateReadyCue",
+            "4": "/Game/Sounds/UltimateReadyCue.UltimateReadyCue",
+            "5": "/Game/Sounds/UltimateReadyCue.UltimateReadyCue",
+            "6": "/Game/Sounds/UltimateReadyCue.UltimateReadyCue"
+          },
+          "UltimateReadyClickSound": "/Game/Sounds/ItemSelectedCue.ItemSelectedCue",
+          "bEnableUltimateReadyCameraEffect": false
+        }
+      },
+      "SpinWheelWidget": {
+        "properties": {
+          "WheelDiameter": 560,
+          "IconOrbitRadius": 150,
+          "RewardIconSize": 100,
+          "PointerWidth": 70,
+          "PointerHeight": 81,
+          "PointerOverlap": 46,
+          "VisualSlotCount": 6,
+          "FirstRewardSlotIndex": 0,
+          "SlotAngleOffsetDeg": 0,
+          "LifeRewardIcon": "@icon:heart",
+          "RewardCurrencyIcons": "@map:currencyIcons",
+          "RewardItemIcons": "@map:itemIcons",
+          "FallbackWheelTexture": "/Game/Images/SpinWheel.SpinWheel",
+          "FallbackPointerTexture": "/Game/Images/Arrow.Arrow",
+          "SpinStartSound": "/Game/Sounds/SpinStartCue.SpinStartCue",
+          "SpinStopSound": "/Game/Sounds/SpinStopCue.SpinStopCue",
+          "SpinDurationSec": 7,
+          "RewardFlyDurationSec": 0.6,
+          "RewardFlyEndScale": 3.2,
+          "SpinEaseOutPower": 5.6,
+          "OtherIconsFadeOutDurationSec": 0.25
+        }
+      },
+      "LevelListWidget": {
+        "properties": {
+          "ItemPaddingY": 14,
+          "RowMinHeight": 80,
+          "StateIconSize": 300,
+          "GoalIconSize": 80,
+          "GoalNumberFontSize": 46,
+          "LevelIndexFontSize": 70,
+          "TextOutlineSize": 2,
+          "TextOutlineColor": {
+            "r": 0,
+            "g": 0,
+            "b": 0,
+            "a": 1
+          },
+          "StarIconSize": 120,
+          "StarFractionFontSize": 30,
+          "ClickPopDuration": 0.22,
+          "ClickPopScale": 1.14,
+          "RejectShakeDuration": 0.28,
+          "RejectShakeOffsetX": 10,
+          "RejectShakeCycles": 2.5,
+          "SelectedLoopPeriod": 1.2,
+          "SelectedScale": 1.2,
+          "SelectedSwayAngle": 2.5,
+          "bEnableSelectedStateIconOutline": false,
+          "SelectedStateIconOutlineScale": 1.18,
+          "SelectedStateIconOutlineColor": {
+            "r": 1,
+            "g": 0.82,
+            "b": 0.18,
+            "a": 1
+          },
+          "LevelStateIconLocked": "@icon:level_locked",
+          "LevelStateIconUncleared": "@icon:level_uncleared",
+          "LevelStateIconCleared": "@icon:level_cleared",
+          "LevelStateIconClearedUnselected": "@icon:level_cleared_unselected",
+          "LevelStateIconSelected": "@icon:level_selected",
+          "BossLevelStateIconLockedByBossId": "@map:bossLevelIconLockedByBossId",
+          "BossLevelStateIconUnclearedByBossId": "@map:bossLevelIconUnclearedByBossId",
+          "BossLevelStateIconClearedByBossId": "@map:bossLevelIconClearedByBossId",
+          "BossLevelStateIconSelectedByBossId": "@map:bossLevelIconSelectedByBossId",
+          "ModeLevelStateIconLockedByModeId": {
+            "slide_puzzle": "@icon:level_slider_locked"
+          },
+          "ModeLevelStateIconUnclearedByModeId": {
+            "slide_puzzle": "@icon:level_slider_uncleared"
+          },
+          "ModeLevelStateIconClearedByModeId": {
+            "slide_puzzle": "@icon:level_slider_cleared"
+          },
+          "ModeLevelStateIconSelectedByModeId": {
+            "slide_puzzle": "@icon:level_slider_selected"
+          },
+          "LevelSelectedSound": "/Game/Sounds/LevelSelectCue.LevelSelectCue",
+          "LevelSelectRejectedSound": "/Game/Sounds/LevelLockCue.LevelLockCue",
+          "MoreLevelsPlaceholderClickRejectedSound": "/Game/Sounds/LevelHolderCue.LevelHolderCue",
+          "ScoreGoalIcon": "@icon:goal_score",
+          "CollectGoalDefaultIcon": "",
+          "CollectGoalTileTypeIcons": "@map:collectTileIcons",
+          "FilledStarIcon": "@icon:star_fill",
+          "EmptyStarIcon": "@icon:star_empty",
+          "FullStarBadgeIcon": "@icon:level_full_star_badge",
+          "FullStarBadgeSize": 220,
+          "FullStarBadgeUnselectedSize": 160,
+          "MoreLevelsPlaceholderIcon": "@icon:level_more_placeholder",
+          "MoreLevelsPlaceholderIconSize": 400,
+          "MoreLevelsTextFontSize": 60
+        }
+      },
+      "LevelMapWidget": {
+        "properties": {
+          "StateIconSize": 120,
+          "LevelIndexFontSize": 50,
+          "TextOutlineSize": 2,
+          "TextOutlineColor": {
+            "r": 0,
+            "g": 0,
+            "b": 0,
+            "a": 1
+          },
+          "StarIconSize": 80,
+          "StarFractionFontSize": 40,
+          "ClickPopDuration": 0.22,
+          "ClickPopScale": 1.14,
+          "RejectShakeDuration": 0.28,
+          "RejectShakeOffsetX": 10,
+          "RejectShakeCycles": 2.5,
+          "SelectedLoopPeriod": 1.2,
+          "SelectedScale": 1.2,
+          "SelectedSwayAngle": 2.5,
+          "bEnableSelectedStateIconOutline": false,
+          "SelectedStateIconOutlineScale": 1.18,
+          "SelectedStateIconOutlineColor": {
+            "r": 1,
+            "g": 0.82,
+            "b": 0.18,
+            "a": 1
+          },
+          "LevelStateIconLocked": "@icon:level_locked",
+          "LevelStateIconUncleared": "@icon:level_uncleared",
+          "LevelStateIconCleared": "@icon:level_cleared",
+          "LevelStateIconClearedUnselected": "@icon:level_cleared_unselected",
+          "LevelStateIconSelected": "@icon:level_selected",
+          "BossLevelStateIconLockedByBossId": "@map:bossLevelIconLockedByBossId",
+          "BossLevelStateIconUnclearedByBossId": "@map:bossLevelIconUnclearedByBossId",
+          "BossLevelStateIconClearedByBossId": "@map:bossLevelIconClearedByBossId",
+          "BossLevelStateIconSelectedByBossId": "@map:bossLevelIconSelectedByBossId",
+          "ModeLevelStateIconLockedByModeId": {
+            "slide_puzzle": "@icon:level_slider_locked"
+          },
+          "ModeLevelStateIconUnclearedByModeId": {
+            "slide_puzzle": "@icon:level_slider_uncleared"
+          },
+          "ModeLevelStateIconClearedByModeId": {
+            "slide_puzzle": "@icon:level_slider_cleared"
+          },
+          "ModeLevelStateIconSelectedByModeId": {
+            "slide_puzzle": "@icon:level_slider_selected"
+          },
+          "LevelSelectedSound": "/Game/Sounds/LevelSelectCue.LevelSelectCue",
+          "LevelSelectRejectedSound": "/Game/Sounds/LevelLockCue.LevelLockCue",
+          "FilledStarIcon": "@icon:star_fill",
+          "FullStarBadgeIcon": "@icon:level_full_star_badge",
+          "FullStarBadgeSize": 90,
+          "FullStarBadgeUnselectedSize": 70,
+          "StarOffsetY": -60,
+          "PageSnapIdleDelay": 0.12
+        }
+      },
+      "LevelLoadoutSetupWidget": {
+        "properties": {
+          "InventoryItemPadding": 12,
+          "InventoryHorizontalScreenPaddingRatio": 0,
+          "LoadoutGuideMessage": "Tap an item to equip it for this level",
+          "LoadoutGuideBottomSpacing": 20,
+          "LoadoutGuideFontSize": 32,
+          "LoadoutGuideColor": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          },
+          "LoadoutGuideOutlineSize": 2,
+          "LoadoutGuideOutlineColor": {
+            "r": 0,
+            "g": 0,
+            "b": 0,
+            "a": 1
+          },
+          "LoadoutEquipSound": "/Game/Sounds/EquCue.EquCue",
+          "LoadoutUnequipSound": "/Game/Sounds/EquUnCue.EquUnCue",
+          "LoadoutItemIconSize": 112,
+          "LoadoutItemDefaultIcon": "",
+          "EquippedLoadoutItemDefaultIcon": "",
+          "LoadoutItemIcons": "@map:itemIconsUn",
+          "EquippedLoadoutItemIcons": "@map:itemIcons"
+        }
+      },
+      "Match3SettlementWidget": {
+        "properties": {
+          "VictoryTitleText": "Victory",
+          "DefeatTitleText": "Defeat",
+          "RetryButtonText": "Retry",
+          "NextButtonText": "Next",
+          "BackButtonText": "Back",
+          "TitleFontSize": 70,
+          "LabelFontSize": 20,
+          "ValueFontSize": 60,
+          "ScoreValueFontSize": 60,
+          "CollectValueFontSize": 36,
+          "TextOutlineSize": 3,
+          "TextOutlineColor": {
+            "r": 0,
+            "g": 0,
+            "b": 0,
+            "a": 1
+          },
+          "ButtonFontSize": 22,
+          "GemBalanceFontSize": 38,
+          "GemBalanceIconScale": 2,
+          "GemBalancePaddingLeft": 50,
+          "GemBalancePaddingTop": 50,
+          "StarIconSize": 100,
+          "MetricIconSize": 50,
+          "SectionSpacing": 14,
+          "TitleColor": {
+            "r": 0.97,
+            "g": 0.95,
+            "b": 0.82,
+            "a": 1
+          },
+          "LabelColor": {
+            "r": 0.86,
+            "g": 0.88,
+            "b": 0.92,
+            "a": 1
+          },
+          "ValueColor": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          },
+          "CardColor": {
+            "r": 0.07,
+            "g": 0.08,
+            "b": 0.12,
+            "a": 0
+          },
+          "BackgroundTint": {
+            "r": 0.02,
+            "g": 0.03,
+            "b": 0.06,
+            "a": 0.72
+          },
+          "BackgroundTexture": "",
+          "VictoryTitleIcon": "",
+          "DefeatTitleIcon": "",
+          "StarFilledIcon": "@icon:settle_star_fill",
+          "StarEmptyIcon": "@icon:settle_star_empty",
+          "ScoreIcon": "@icon:goal_score",
+          "TargetScoreIcon": "@icon:goal_score",
+          "UsedMoveIcon": "@icon:goal_move",
+          "RemainingMoveIcon": "@icon:goal_move",
+          "BlockerIcon": "@icon:block_icon",
+          "BlockerTypeIcons": {
+            "1": "@icon:goal_blocker_1",
+            "2": "@icon:goal_blocker_2",
+            "3": "@icon:goal_blocker_3",
+            "4": "@icon:goal_blocker_4",
+            "5": "@icon:goal_blocker_5",
+            "6": "@icon:goal_blocker_6",
+            "7": "@icon:goal_blocker_7",
+            "8": "@icon:goal_blocker_8",
+            "9": "@icon:goal_blocker_9",
+            "10": "@icon:goal_blocker_10",
+            "11": "@icon:goal_blocker_11",
+            "12": "@icon:goal_blocker_12",
+            "13": "@icon:goal_blocker_13",
+            "14": "@icon:goal_blocker_14",
+            "15": "@icon:goal_blocker_15",
+            "16": "@icon:goal_blocker_16",
+            "17": "@icon:goal_blocker_17",
+            "18": "@icon:goal_blocker_18",
+            "19": "@icon:goal_blocker_19",
+            "20": "@icon:goal_blocker_20",
+            "21": "@icon:goal_blocker_21",
+            "22": "@icon:goal_blocker_22",
+            "23": "@icon:goal_blocker_23"
+          },
+          "BossWeaknessTileIcons": "@map:bossWeaknessCollectTileIcons",
+          "CollectTileIcons": "@map:collectTileIcons",
+          "RewardTitleText": "Rewards",
+          "RewardTitleFontSize": 34,
+          "RewardAmountFontSize": 30,
+          "RewardIconSize": 130,
+          "RewardTitleBottomSpacing": 16,
+          "RewardItemSpacing": 18,
+          "RewardTitleColor": {
+            "r": 1,
+            "g": 0.95,
+            "b": 0.72,
+            "a": 1
+          },
+          "LifeRewardIcon": "@icon:heart",
+          "RewardCurrencyIcons": "@map:currencyIcons",
+          "RewardItemIcons": "@map:itemIcons",
+          "bShowRewardSection": true,
+          "bAnimateRewardItemsSway": true,
+          "RewardSwayAngle": 2.5,
+          "RewardSwayFrequency": 1.8,
+          "RetryButtonBackground": "",
+          "NextButtonBackground": "",
+          "BackButtonBackground": "",
+          "ContinueByAdButtonWidth": 620,
+          "ContinueByAdButtonHeight": 210,
+          "ContinueByAdButtonBackground": "@icon:shop_button"
+        }
+      },
+      "ShopPanelWidget": {
+        "properties": {
+          "IconSize": 150,
+          "BalanceTextSize": 40,
+          "BalanceGroupBackgroundTexture": "/Game/Images/BarBlance.BarBlance",
+          "BalanceGroupPadding": {
+            "left": 24,
+            "top": 10,
+            "right": 24,
+            "bottom": 10
+          },
+          "BalanceGroupBackgroundTint": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          },
+          "BalanceTextColor": {
+            "r": 0.96,
+            "g": 0.93,
+            "b": 0.84,
+            "a": 1
+          },
+          "BalanceTextOutlineSize": 2,
+          "BalanceTextOutlineColor": {
+            "r": 0.13,
+            "g": 0.02,
+            "b": 0.1,
+            "a": 1
+          },
+          "ProductMainTextSize": 40,
+          "ProductMainTextColor": {
+            "r": 0.86,
+            "g": 0.68,
+            "b": 0.36,
+            "a": 1
+          },
+          "ProductPriceTextSize": 36,
+          "ProductPriceTextColor": {
+            "r": 0.76,
+            "g": 0.58,
+            "b": 0.26,
+            "a": 1
+          },
+          "ProductInsufficientTextColor": {
+            "r": 1,
+            "g": 0.45,
+            "b": 0.45,
+            "a": 1
+          },
+          "ProductTextOutlineSize": 2,
+          "ProductTextOutlineColor": {
+            "r": 0.18,
+            "g": 0.1,
+            "b": 0,
+            "a": 1
+          },
+          "BuyButtonTextSize": 36,
+          "HintTextSize": 36,
+          "CoinGemGroupSpacing": 42,
+          "BalanceToProductSpacing": 150,
+          "LifeProductTopSpacing": 120,
+          "ProductRowBorderColor": {
+            "r": 0.18,
+            "g": 0.22,
+            "b": 0.28,
+            "a": 1
+          },
+          "MainContentPadding": {
+            "left": 12,
+            "top": 12,
+            "right": 12,
+            "bottom": 12
+          },
+          "ProductRowPadding": {
+            "left": 10,
+            "top": 8,
+            "right": 10,
+            "bottom": 8
+          },
+          "LifeProductContentPadding": {
+            "left": 30,
+            "top": 20,
+            "right": 30,
+            "bottom": 20
+          },
+          "ProductRowMargin": {
+            "left": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 8
+          },
+          "BuyButtonContentPadding": {
+            "left": 30,
+            "top": 30,
+            "right": 30,
+            "bottom": 30
+          },
+          "BuyButtonBrushSize": {
+            "x": 120,
+            "y": 44
+          },
+          "ProductMainTextPadding": {
+            "left": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 2
+          },
+          "ProductPriceTextPadding": {
+            "uniform": 0
+          },
+          "HintTextPadding": {
+            "uniform": 0
+          },
+          "SuccessHintPadding": {
+            "left": 0,
+            "top": 24,
+            "right": 0,
+            "bottom": 0
+          },
+          "SuccessHintDurationSeconds": 5,
+          "PurchasePulseScale": 1.18,
+          "PurchasePulseDurationSeconds": 0.16,
+          "BuyButtonNormalTexture": "@icon:shop_button",
+          "BuyButtonHoveredTexture": "@icon:shop_button",
+          "BuyButtonPressedTexture": "@icon:shop_button",
+          "BuyButtonDisabledTexture": "@icon:shop_button",
+          "BuyButtonClickSound": "/Game/Sounds/BuyCue.BuyCue",
+          "CurrencyIconById": "@map:currencyIcons",
+          "ItemIconById": "@map:itemIcons",
+          "LifeIconTexture": "@icon:heart",
+          "LifeProductBackgroundTexture": "/Game/Images/Bar.Bar"
+        }
+      },
+      "SystemSettingsWidget": {
+        "properties": {
+          "MusicOnIconTexture": "@icon:settings_music_on",
+          "MusicOffIconTexture": "@icon:settings_music_off",
+          "EffectsOnIconTexture": "@icon:settings_effects_on",
+          "EffectsOffIconTexture": "@icon:settings_effects_off",
+          "VibrationOnIconTexture": "@icon:settings_vibration_on",
+          "VibrationOffIconTexture": "@icon:settings_vibration_off",
+          "LanguageEnIconTexture": "@icon:settings_language_en",
+          "LanguageZhIconTexture": "@icon:settings_language_zh",
+          "ToggleButtonSize": {
+            "x": 180,
+            "y": 180
+          },
+          "ToggleIconSize": {
+            "x": 128,
+            "y": 128
+          },
+          "ToggleSpacing": 32
+        }
+      },
+      "PlayerTextureWidget": {
+        "properties": {
+          "BackgroundTexture": "/Game/Images/ThemeDialog.ThemeDialog",
+          "BackgroundPadding": {
+            "left": 20,
+            "top": 20,
+            "right": 20,
+            "bottom": 20
+          },
+          "SlotContentPadding": {
+            "left": 4,
+            "top": 60,
+            "right": 4,
+            "bottom": 8
+          },
+          "ContentMargin": { "left": 30, "top": 50, "right": 30, "bottom": 50 },
+          "GridPadding": { "left": 0, "top": 20, "right": 0, "bottom": 12 },
+          "TileCardBackground": "/Game/Images/ThemeBorder.ThemeBorder",
+          "TileCardHeight": 448,
+          "TileCardWidth": 263,
+          "TitlePadding": { "left": 10, "top": 70, "right": 10, "bottom": 10 },
+          "TitleFontSize": 50,
+          "DescriptionFontSize": 30,
+          "DescriptionPadding": {
+            "left": 4,
+            "top": 90,
+            "right": 4,
+            "bottom": 0
+          },
+          "DesignCanvasWidth": 921.0,
+          "DesignCanvasHeight": 2020.5,
+          "PreviewSize": 150,
+          "ButtonHeight": 80,
+          "ButtonWidth": 220,
+          "CropHintTop": 200.0,
+          "CropHintFontSize": 38.0,
+          "BossNameFontSize": 28.0,
+          "BossNameTopPadding": 18.0,
+          "ButtonPadding": { "left": 4, "top": 30, "right": 4, "bottom": 4 },
+          "PreviewPadding": { "left": 0, "top": 45, "right": 0, "bottom": 20 },
+          "ButtonBackgroundTexture": "/Game/Images/ButtonG.ButtonG",
+          "ChooseButtonColor": { "r": 0.6, "g": 0.2, "b": 0.8, "a": 1.0 },
+          "RestoreButtonColor": { "r": 0.0, "g": 0.1, "b": 0.4, "a": 1.0 },
+          "RestoreAllButtonColor": { "r": 0.6, "g": 0.2, "b": 0.8, "a": 1.0 },
+          "RestoreAllPadding": {
+            "left": 4,
+            "top": 10,
+            "right": 4,
+            "bottom": 50
+          },
+          "RestoreAllWidth": 400,
+          "RestoreAllHeight": 100,
+          "GridSlotPadding": {
+            "left": 10,
+            "top": 30,
+            "right": 10,
+            "bottom": 10
+          },
+          "CropAreaRatio": 1,
+          "CropConfirmColor": { "r": 0.0, "g": 0.8, "b": 0.0, "a": 1.0 },
+          "CropCancelColor": { "r": 1.0, "g": 0.8, "b": 0.0, "a": 1.0 },
+          "CropConfirmOffset": {
+            "left": 0,
+            "top": 0,
+            "right": 80,
+            "bottom": 140
+          },
+          "CropCancelOffset": {
+            "left": 80,
+            "top": 0,
+            "right": 0,
+            "bottom": 140
+          },
+          "CloseButtonColor": { "r": 0.0, "g": 0.7, "b": 0.0, "a": 1.0 },
+          "CloseButtonWidth": 400,
+          "CloseButtonHeight": 100,
+          "CloseButtonPadding": {
+            "left": 4,
+            "top": 10,
+            "right": 4,
+            "bottom": 50
+          },
+          "BottomButtonMargin": {
+            "left": 30,
+            "top": 0,
+            "right": 30,
+            "bottom": 50
+          },
+          "CloseButtonSound": "/Game/Sounds/ClothCue.ClothCue"
+        }
+      }
+    },
+    "match3": {
+      "Match3BoardActor": {
+        "properties": {
+          "CellSize": 110,
+          "bEnableUltimateSkill": true,
+          "UltimateVirtualItemId": "ultimate_skill",
+          "bEnableAutoSwapHint": true,
+          "AutoSwapHintDelaySeconds": 10,
+          "AutoSwapHintLoopIntervalSeconds": 2,
+          "TileVisualHeight": 30,
+          "TileVisualScale": 0.82,
+          "TileVisualInnerPadding": 30,
+          "bCastVisualShadows": false,
+          "BlockerVisualScale": 0.8,
+          "BlockerVisualInnerPadding": 20,
+          "bShowBlockerHpLabel": false,
+          "BlockerHpLabelMinValue": 2,
+          "BlockerHpLabelWorldSize": 68,
+          "BlockerHpLabelCellOffset": {
+            "x": 0.34,
+            "y": 0.34
+          },
+          "BlockerHpLabelZOffset": 36,
+          "BlockerHpLabelRotationOffset": {
+            "pitch": 90,
+            "yaw": 55,
+            "roll": 0
+          },
+          "BlockerTypeHpLabelTowardCameraOffset": {
+            "9": 24
+          },
+          "BlockerHpLabelColor": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          },
+          "BlockerHpLabelMaterial": "/Game/Materials/BlockTextMat.BlockTextMat",
+          "FloorVisualZOffset": -10,
+          "FloorVisualScale": 1,
+          "FloorVisualInnerPadding": 22,
+          "FloorVisualXYOffset": {
+            "x": 0,
+            "y": 0
+          },
+          "TileTypeMeshes": {
+            "1": "/Game/Models/Tiles/Tiles.Tiles",
+            "2": "/Game/Models/Tiles/Tiles.Tiles",
+            "3": "/Game/Models/Tiles/Tiles.Tiles",
+            "4": "/Game/Models/Tiles/Tiles.Tiles",
+            "5": "/Game/Models/Tiles/Tiles.Tiles",
+            "6": "/Game/Models/Tiles/Tiles.Tiles",
+            "7": "/Game/Models/Dirtywater/Dirtywater.Dirtywater"
+          },
+          "TileTypeSkeletalMeshes": {
+            "5": ""
+          },
+          "TileTypeIdleAnimations": {
+            "5": ""
+          },
+          "TileTypeMaterials": {
+            "1": "/Game/Models/Tiles/Tile1Mat.Tile1Mat",
+            "2": "/Game/Models/Tiles/Tile2Mat.Tile2Mat",
+            "3": "/Game/Models/Tiles/Tile3Mat.Tile3Mat",
+            "4": "/Game/Models/Tiles/Tile4Mat.Tile4Mat",
+            "5": "/Game/Models/Tiles/Tile5Mat.Tile5Mat",
+            "6": "/Game/Models/Tiles/Tile6Mat.Tile6Mat",
+            "7": "/Game/Models/Dirtywater/Material_0.Material_0"
+          },
+          "PoisonTileMaterial": "/Game/Materials/ToxicMat.ToxicMat",
+          "PoisonFlipDurationSeconds": 0.22,
+          "PoisonFlipMidScale": 0.14,
+          "SpecialTypeMeshes": {
+            "Bomb3x3": "/Game/Models/boom/Boom.Boom",
+            "ColorBomb": "/Game/Models/rainbow1/rainbow1.rainbow1",
+            "LineHorizontal": "/Game/Models/arrow/arrow.arrow",
+            "LineVertical": "/Game/Models/arrow/arrow1.arrow1"
+          },
+          "SpecialTypeMaterials": {
+            "Bomb3x3": "/Game/Models/boom/Boom_material_0.Boom_material_0",
+            "ColorBomb": "/Game/Models/rainbow1/rainbow1_material_0.rainbow1_material_0",
+            "LineHorizontal": "/Game/Models/arrow/arrow_material_0.arrow_material_0",
+            "LineVertical": "/Game/Models/arrow/arrow_material_0.arrow_material_0"
+          },
+          "SpecialTypeFallbackColors": {
+            "LineHorizontal": {
+              "r": 1,
+              "g": 0.8,
+              "b": 0.2,
+              "a": 1
+            }
+          },
+          "SpecialTypeOverlayNiagara": {
+            "LineHorizontal": "/Game/Niagara/HVNG.HVNG",
+            "LineVertical": "/Game/Niagara/HVNG.HVNG",
+            "Bomb3x3": "/Game/Niagara/BombNG.BombNG",
+            "ColorBomb": "/Game/Niagara/RainbowNG.RainbowNG"
+          },
+          "ItemUseNiagaraByItemId": "@map:itemUseNiagara",
+          "ItemUseSoundByItemId": "@map:itemUseSounds",
+          "ShuffleHapticIntensity": 0.35,
+          "ShuffleHapticDuration": 0.22,
+          "NormalClearHapticIntensity": 0.55,
+          "NormalClearHapticDuration": 0.06,
+          "SpecialClearHapticIntensity": 0.9,
+          "SpecialClearHapticDuration": 0.09,
+          "BlockerMesh": "",
+          "BlockerTypeMeshes": "@map:blockerTypeMeshes",
+          "DrainDisabledMesh": "/Game/Models/Drain/SM_DrainClose.SM_DrainClose",
+          "BlockerTypeSkeletalMeshes": "@map:blockerTypeSkeletalMeshes",
+          "BlockerTypeIdleAnimations": "@map:blockerTypeIdleAnimations",
+          "BlockerTypeSneezeAnimations": "@map:blockerTypeSneezeAnimations",
+          "BlockerSneezeApplyDelaySeconds": 0.5,
+          "BlockerSpreadNiagara": "",
+          "BlockerTypeSpreadNiagara": "@map:blockerTypeSpreadNiagara",
+          "BlockerSpreadSound": "",
+          "BlockerTypeSpreadSounds": "@map:blockerTypeSpreadSounds",
+          "BlockerTypeSpreadAnimations": "@map:blockerTypeSpreadAnimations",
+          "BlockerMaterial": "/Game/Models/block/block_material_0.block_material_0",
+          "BlockerTypeMaterials": "@map:blockerTypeMaterials",
+          "BlockerTypeHideVisual": {},
+          "BlockerTypeHideHpLabel": {
+            "5": true,
+            "9": true,
+            "10": true,
+            "11": true,
+            "12": true,
+            "13": true,
+            "19": true
+          },
+          "BlockerTypeRotationOffsets": {
+            "10": {
+              "pitch": 0,
+              "yaw": 0,
+              "roll": -30
+            },
+            "11": {
+              "pitch": 0,
+              "yaw": 0,
+              "roll": -60
+            },
+            "12": {
+              "pitch": 0,
+              "yaw": 0,
+              "roll": 0
+            },
+            "13": {
+              "pitch": 0,
+              "yaw": 0,
+              "roll": 10
+            },
+            "20": {
+              "pitch": 60,
+              "yaw": 20,
+              "roll": -20
+            }
+          },
+          "BlockerTypeScaleMultipliers": {
+            "10": 0.55,
+            "11": 0.8,
+            "13": 0.55,
+            "14": 0.55,
+            "20": 0.55
+          },
+          "bUsePipeTopologyMeshes": true,
+          "PipeStraightMesh": "/Game/Models/Pipe/Meshs/Straight.Straight",
+          "PipeCornerMesh": "/Game/Models/Pipe/Meshs/Corner.Corner",
+          "PipeCornerYawOffset": 90,
+          "PipeTeeMesh": "/Game/Models/Pipe/Meshs/Tee.Tee",
+          "PipeCrossMesh": "/Game/Models/Pipe/Meshs/Cross.Cross",
+          "PipeMeshXYOffset": {
+            "x": 0,
+            "y": -25
+          },
+          "PipeMeshZOffset": 60,
+          "PipeSourceCellMesh": "/Game/Models/Pipe/Meshs/End.End",
+          "PipeEndCellMesh": "/Game/Models/Pipe/Meshs/End.End",
+          "PipeProxyOverlayScale": 0.3,
+          "PipeProxyOverlayMaterial": "/Game/Models/Pipe/PipeSetMat.PipeSetMat",
+          "PipeBlockedMaterial": "/Game/Models/Pipe/Meshs/PipesBrokeMat.PipesBrokeMat",
+          "bEnablePipeBlockedToFlowingAlphaTransition": true,
+          "PipeBlockedToFlowingAlphaDuration": 0.2,
+          "PipeBlockedToFlowingAlphaParameter": "Alpha",
+          "PipeOpenMaterial": "/Game/Models/Pipe/Meshs/PipesOpenMat.PipesOpenMat",
+          "PipeFlowingMaterial": "/Game/Models/Pipe/Meshs/Pipes_material_0.Pipes_material_0",
+          "PipeFixedSound": "/Game/Models/Pipe/Sounds/OpenedCue.OpenedCue",
+          "PipeFlowStartedSound": "/Game/Models/Pipe/Sounds/WaterCue.WaterCue",
+          "PipeLeakNiagara": "/Game/Models/Pipe/Niagara/LeakNG.LeakNG",
+          "PipeLeakConvertInertNiagara": "/Game/Models/Mouth/Niagara/MouthNG.MouthNG",
+          "PipeLeakEffectWorldOffset": {
+            "x": 0,
+            "y": 0,
+            "z": 80
+          },
+          "PipeLeakSound": "/Game/Models/Pipe/Sounds/LeakCue.LeakCue",
+          "BlockerTypePositionOffsets": {
+            "10": {
+              "x": -60,
+              "y": 0,
+              "z": 40
+            },
+            "11": {
+              "x": 0,
+              "y": 0,
+              "z": 40
+            },
+            "13": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "20": {
+              "x": 10,
+              "y": -15,
+              "z": 100
+            }
+          },
+          "TileTypeFallbackColors": {
+            "1": {
+              "r": 0.95,
+              "g": 0.32,
+              "b": 0.32,
+              "a": 1
+            },
+            "2": {
+              "r": 0.25,
+              "g": 0.75,
+              "b": 0.36,
+              "a": 1
+            },
+            "7": {
+              "r": 0.35,
+              "g": 0.55,
+              "b": 0.65,
+              "a": 1
+            }
+          },
+          "FloorTileMesh": "/Game/Models/tileboard/tileboard.tileboard",
+          "FloorTileMaterial": "/Game/Models/tileboard/tileboardMat.tileboardMat",
+          "StickyUnderlayMesh": "/Game/Models/sticker/sticker.sticker",
+          "StickyUnderlayMaterial": "/Game/Models/sticker/Material_001.Material_001",
+          "StickyUnderlayZOffset": 10,
+          "StickyUnderlayScale": 1,
+          "StickyUnderlayInnerPadding": 0,
+          "StickyUnderlayXYOffset": {
+            "x": 0,
+            "y": 0
+          },
+          "StickyTapSound": "/Game/Sounds/StickerCue.StickerCue",
+          "BossProximityHighlightMaterialPath": "/Game/Materials/HighLightMat.HighLightMat",
+          "FingerDragHighlightMaterialPath": "/Game/Materials/HighLightMat.HighLightMat",
+          "bLimitSettlementAdContinuePerRun": false,
+          "SettlementWidgetZOrder": 60,
+          "SettlementVictoryCenterNiagara": "/Game/Niagara/VistoryNG.VistoryNG",
+          "SettlementVictoryCenterSound": "/Game/Sounds/VictoryCue.VictoryCue",
+          "SettlementVictoryCenterFeedbackDurationSeconds": 2,
+          "SettlementMoveToScoreNiagara": "/Game/Niagara/StepNG.StepNG",
+          "bEnableSettlementMoveToScore": true,
+          "SettlementMoveToScorePerMove": 30,
+          "SettlementMoveToScorePerStarDurationSeconds": 0.6,
+          "SettlementMoveToScoreMaxStepsDurationSeconds": 4,
+          "SettlementMoveToScoreBoardShakeSound": "/Game/Sounds/StepCue.StepCue",
+          "SettlementMoveToScoreSourceWidgetName": "Moves",
+          "SettlementMoveToScoreTargetWidgetName": "Score",
+          "SettlementMoveToScoreFlyTexturePath": "/Game/Images/Start.Start",
+          "SettlementMoveToScoreFlyScale": 2,
+          "SettlementMoveToScoreFlyTintColor": {
+            "r": 1,
+            "g": 0.84,
+            "b": 0,
+            "a": 1
+          },
+          "SettlementMoveToScoreParticleFlowSourceScreenOffset": {
+            "x": 0,
+            "y": 50
+          },
+          "SettlementMoveToScoreParticleFlowTargetScreenOffset": {
+            "x": 0,
+            "y": 50
+          },
+          "SettlementFailureCenterNiagara": "/Game/Niagara/DefeatNG.DefeatNG",
+          "SettlementFailureCenterSound": "/Game/Sounds/DefeatCue.DefeatCue",
+          "UltimateCastCenterNiagara": "/Game/Niagara/UltimateNG.UltimateNG",
+          "UltimateCastCenterZOffset": 200,
+          "UltimateCastCenterNiagaraByTileType": {
+            "1": "/Game/Niagara/UltimateTile1NG.UltimateTile1NG",
+            "2": "/Game/Niagara/UltimateTile2NG.UltimateTile2NG",
+            "3": "/Game/Niagara/UltimateTile3NG.UltimateTile3NG",
+            "4": "/Game/Niagara/UltimateTile4NG.UltimateTile4NG",
+            "5": "/Game/Niagara/UltimateTile5NG.UltimateTile5NG",
+            "6": "/Game/Niagara/UltimateTile6NG.UltimateTile6NG"
+          },
+          "UltimateCastCenterSound": "/Game/Sounds/UltimateCue.UltimateCue",
+          "UltimateCastCenterSoundByTileType": {
+            "1": "/Game/Sounds/Ultimate1Cue.Ultimate1Cue",
+            "2": "/Game/Sounds/Ultimate2Cue.Ultimate2Cue",
+            "3": "/Game/Sounds/Ultimate3Cue.Ultimate3Cue",
+            "4": "/Game/Sounds/Ultimate4Cue.Ultimate4Cue",
+            "5": "/Game/Sounds/Ultimate5Cue.Ultimate5Cue",
+            "6": "/Game/Sounds/Ultimate6Cue.Ultimate6Cue"
+          },
+          "DeadlockShuffleCenterNiagara": "/Game/Niagara/DeadlockNG.DeadlockNG",
+          "DeadlockShuffleCenterSound": "/Game/Sounds/DeadlockCue.DeadlockCue",
+          "BossFaceMeshPath": "/Game/Models/Bossface/Bossface.Bossface",
+          "BossFaceMeshRotationOffset": { "Pitch": -35, "Yaw": 90, "Roll": 0 },
+          "BossFaceMeshScale": 0.6,
+          "BossFaceMeshPathByBossId": {
+            "boss_placeholder_01": "/Game/Models/Bossface/Bossface.Bossface",
+            "boss_placeholder_02": "/Game/Models/Bossface/Bossface.Bossface",
+            "boss_placeholder_03": "/Game/Models/Bossface/Bossface.Bossface",
+            "boss_placeholder_04": "/Game/Models/Bossface/Bossface.Bossface",
+            "boss_placeholder_05": "/Game/Models/Bossface/Bossface.Bossface",
+            "boss_placeholder_06": "/Game/Models/Bossface/Bossface.Bossface",
+            "boss_placeholder_07": "/Game/Models/Bossface/Bossface.Bossface",
+            "boss_placeholder_08": "/Game/Models/Bossface/Bossface.Bossface",
+            "boss_placeholder_09": "/Game/Models/Bossface/Bossface.Bossface",
+            "boss_placeholder_10": "/Game/Models/Bossface/Bossface.Bossface",
+            "boss_pvp": "/Game/Models/Bossface/Bossface.Bossface"
+          },
+          "BossFaceMeshRotationOffsetByBossId": {
+            "boss_placeholder_01": { "Pitch": -35, "Yaw": 110, "Roll": 0 },
+            "boss_placeholder_02": { "Pitch": -35, "Yaw": 90, "Roll": 0 },
+            "boss_placeholder_03": { "Pitch": -35, "Yaw": 90, "Roll": 0 },
+            "boss_placeholder_04": { "Pitch": -35, "Yaw": 90, "Roll": 0 },
+            "boss_placeholder_05": { "Pitch": -35, "Yaw": 90, "Roll": 0 },
+            "boss_placeholder_06": { "Pitch": -35, "Yaw": 90, "Roll": 0 },
+            "boss_placeholder_07": { "Pitch": -35, "Yaw": 90, "Roll": 0 },
+            "boss_placeholder_08": { "Pitch": -35, "Yaw": 110, "Roll": 0 },
+            "boss_placeholder_09": { "Pitch": -35, "Yaw": 90, "Roll": 0 },
+            "boss_placeholder_10": { "Pitch": -55, "Yaw": 220, "Roll": 0 },
+            "boss_pvp": { "Pitch": -35, "Yaw": 90, "Roll": 0 }
+          },
+          "BossFaceMeshScaleByBossId": {
+            "boss_placeholder_01": 0.6,
+            "boss_placeholder_02": 1,
+            "boss_placeholder_03": 0.5,
+            "boss_placeholder_04": 0.5,
+            "boss_placeholder_05": 1,
+            "boss_placeholder_06": 1,
+            "boss_placeholder_07": 0.6,
+            "boss_placeholder_08": 0.6,
+            "boss_placeholder_09": 2,
+            "boss_placeholder_10": 0.6,
+            "boss_pvp": 1
+          },
+          "BossFaceMeshPositionOffset": { "x": 0, "y": 0, "z": 0 },
+          "BossFaceMeshPositionOffsetByBossId": {
+            "boss_placeholder_01": { "x": 0, "y": 0, "z": 0 },
+            "boss_placeholder_02": { "x": 0, "y": 0, "z": 0 },
+            "boss_placeholder_03": { "x": 0, "y": 0, "z": 5 },
+            "boss_placeholder_04": { "x": 0, "y": 0, "z": 15 },
+            "boss_placeholder_05": { "x": 0, "y": 0, "z": 0 },
+            "boss_placeholder_06": { "x": 0, "y": 0, "z": 0 },
+            "boss_placeholder_07": { "x": 0, "y": 0, "z": 0 },
+            "boss_placeholder_08": { "x": 0, "y": 0, "z": 0 },
+            "boss_placeholder_09": { "x": 0, "y": 0, "z": 0 },
+            "boss_placeholder_10": { "x": 0, "y": 0, "z": 40 },
+            "boss_pvp": { "x": 0, "y": 0, "z": 0 }
+          }
+        }
+      },
+      "Match3BasicAnimationComponent": {
+        "properties": {
+          "PlayerCustomTextureClearNiagara": "/Game/Niagara/ClearedNG.ClearedNG",
+          "bUseDistanceBasedMoveDuration": true,
+          "bStaggerAllDropsSequentially": true,
+          "bDropSequentialBottomFirst": true,
+          "bUseDistanceBasedSpawnDuration": true,
+          "SelectionWobbleFrequency": 4,
+          "SelectionWobbleYawDegrees": 4,
+          "SelectionPulseScale": 0.03,
+          "SwapSuccessDuration": 0.12,
+          "SwapFailForwardDuration": 0.08,
+          "SwapFailBackDuration": 0.1,
+          "bAnimateBlockerHitShake": true,
+          "BlockerHitShakeDuration": 0.14,
+          "BlockerHitShakeAmplitude": 14,
+          "BlockerHitShakeFrequency": 14,
+          "ClearSound": "",
+          "SwapAcceptedSound": "/Game/Sounds/AcceptCue.AcceptCue",
+          "SwapRejectedSound": "/Game/Sounds/SwapCue.SwapCue",
+          "NiagaraZOffset": 150,
+          "BlockerHitNiagara": "",
+          "BlockerBreakNiagara": "",
+          "BlockerHitSound": "",
+          "BlockerBreakSound": "",
+          "BlockerTypeHitNiagara": "@map:blockerTypeHitNiagara",
+          "BlockerTypeBreakNiagara": "@map:blockerTypeBreakNiagara",
+          "BlockerTypeCorrosionTimeoutBreakNiagara": "@map:blockerTypeCorrosionTimeoutBreakNiagara",
+          "BlockerTypeHitSounds": "@map:blockerTypeHitSounds",
+          "BlockerTypeBreakSounds": "@map:blockerTypeBreakSounds",
+          "SpecialTypeClearNiagara": {
+            "LineHorizontal": "/Game/Niagara/HClearNG.HClearNG",
+            "LineVertical": "/Game/Niagara/VClearNG.VClearNG",
+            "Bomb3x3": "/Game/Niagara/BoomNG.BoomNG",
+            "ColorBomb": "/Game/Niagara/ClearNG.ClearNG"
+          },
+          "SpecialTypeTriggerSounds": {
+            "LineHorizontal": "/Game/Sounds/HVClearCue.HVClearCue",
+            "LineVertical": "/Game/Sounds/HVClearCue.HVClearCue",
+            "Bomb3x3": "/Game/Sounds/BombCue.BombCue",
+            "ColorBomb": "/Game/Sounds/ClearCue.ClearCue"
+          },
+          "SpecialComboCenterNiagara": {
+            "line_line": "/Game/Niagara/line_lineNG.line_lineNG",
+            "line_bomb": "/Game/Niagara/line_bombNG.line_bombNG",
+            "bomb_bomb": "/Game/Niagara/bomb_bombNG.bomb_bombNG",
+            "colorbomb_line_horizontal": "/Game/Niagara/colorbomb_lineNG.colorbomb_lineNG",
+            "colorbomb_line_vertical": "/Game/Niagara/colorbomb_lineNG.colorbomb_lineNG",
+            "colorbomb_bomb": "/Game/Niagara/colorbomb_bombNG.colorbomb_bombNG",
+            "colorbomb_colorbomb": "/Game/Niagara/colorbomb_colorbombNG.colorbomb_colorbombNG"
+          },
+          "SpecialComboTriggerSounds": {
+            "line_line": "/Game/Sounds/line_lineCue.line_lineCue",
+            "line_bomb": "/Game/Sounds/line_bombCue.line_bombCue",
+            "bomb_bomb": "/Game/Sounds/bomb_bombCue.bomb_bombCue",
+            "colorbomb_line_horizontal": "/Game/Sounds/colorbomb_lineCue.colorbomb_lineCue",
+            "colorbomb_line_vertical": "/Game/Sounds/colorbomb_lineCue.colorbomb_lineCue",
+            "colorbomb_bomb": "/Game/Sounds/colorbomb_bombCue.colorbomb_bombCue",
+            "colorbomb_colorbomb": "/Game/Sounds/colorbomb_colorbombCue.colorbomb_colorbombCue"
+          },
+          "TileTypeClearNiagara": "@map:tileTypeClearNiagara",
+          "TileTypeClearSounds": {
+            "7": "/Game/Sounds/EmptyClearCue.EmptyClearCue"
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,122 @@
+{
+  "bEnabled": true,
+  "bossId": "boss_placeholder_10",
+  "displayName": "Slug",
+  "maxHp": 220,
+  "initialHp": 220,
+  "weaknesses": [
+    {
+      "tileType": 4,
+      "damagePerClear": 4
+    },
+    {
+      "tileType": 5,
+      "damagePerClear": 4
+    }
+  ],
+  "skills": [
+    {
+      "bEnabled": true,
+      "skillId": "weakness_shift",
+      "effectType": "weakness_shift",
+      "intervalMoves": 3,
+      "priority": 20,
+      "minActivePhase": 1,
+      "maxActivePhase": 3,
+      "paramA": 0,
+      "paramB": 0
+    },
+    {
+      "bEnabled": true,
+      "skillId": "land_convert",
+      "effectType": "land_convert",
+      "intervalMoves": 1,
+      "priority": 10,
+      "minActivePhase": 1,
+      "maxActivePhase": 1,
+      "paramA": 22,
+      "paramB": 0,
+      "landingScaleFactor": 0.5,
+      "landingHoldSeconds": 0.6,
+      "landingZOffset": 150,
+      "bMoveBossOnLandConvert": false,
+      "landingNiagaraPath": "/Game/Models/boss10/Niagara/Boss10ConvertNG.Boss10ConvertNG",
+      "bossFeedbackSourceBoneName": "joint3"
+    },
+    {
+      "bEnabled": true,
+      "skillId": "mutate_special_on_hit",
+      "effectType": "mutate_special_on_hit",
+      "intervalMoves": 1,
+      "priority": 30,
+      "minActivePhase": 2,
+      "maxActivePhase": 3,
+      "landingScaleFactor": 0.5,
+      "landingHoldSeconds": 0.6,
+      "paramA": 1,
+      "paramB": 0,
+      "landingNiagaraPath": "/Game/Models/boss10/Niagara/Boss10Convert1NG.Boss10Convert1NG",
+      "bossFeedbackSourceBoneName": "joint3"
+    },
+    {
+      "bEnabled": true,
+      "skillId": "poison_player_system_on_hit",
+      "effectType": "poison_player_system_on_hit",
+      "intervalMoves": 1,
+      "priority": 40,
+      "minActivePhase": 3,
+      "maxActivePhase": 3,
+      "landingScaleFactor": 0.5,
+      "landingHoldSeconds": 0.6,
+      "paramA": 2,
+      "paramB": 0,
+      "landingNiagaraPath": "/Game/Models/boss10/Niagara/Boss10FinanSkillNG.Boss10FinanSkillNG"
+    }
+  ],
+  "sealFailThreshold": 1,
+  "presentation": {
+    "skeletalMeshPath": "/Game/Models/boss10/SKM_slug.SKM_slug",
+    "transformLocation": {
+      "X": 570,
+      "Y": 0,
+      "Z": -180
+    },
+    "transformRotation": {
+      "Pitch": -40,
+      "Yaw": 0,
+      "Roll": 0
+    },
+    "transformScale": {
+      "X": 2,
+      "Y": 2,
+      "Z": 2
+    },
+    "animationPaths": [
+      "idle:/Game/Models/boss10/Animations/Boss10IdleAni.Boss10IdleAni",
+      "hit:/Game/Models/boss10/Animations/Boss10HitAni.Boss10HitAni",
+      "skill:attack:/Game/Models/boss10/Animations/Boss10FightAni.Boss10FightAni",
+      "defeat:/Game/Models/boss10/Animations/Boss10DeadAni.Boss10DeadAni"
+    ],
+    "poisonedSpecialMaterialPath": "/Game/Materials/ToxicMat.ToxicMat",
+    "victoryNiagaraPath": "/Game/Niagara/VistoryBossNG.VistoryBossNG",
+    "victoryNiagaraBossPath": "/Game/Models/boss10coin/Boss10Coin.Boss10Coin",
+    "victorySoundPath": ""
+  },
+  "bEnableRebirthPhase": false,
+  "rebirthPhases": [
+    {
+      "maxHp": 320,
+      "initialHp": 320,
+      "skeletalMeshPathOverride": "/Game/Models/boss10/boss10next/SKM_boss10next.SKM_boss10next",
+      "spawnBlockerType": 22,
+      "spawnCount": 1
+    },
+    {
+      "maxHp": 420,
+      "initialHp": 420,
+      "skeletalMeshPathOverride": "/Game/Models/boss10/boss10nextnext/SKM_boss10nextnext.SKM_boss10nextnext",
+      "spawnBlockerType": 22,
+      "spawnCount": 1
+    }
+  ]
+}

@@ -1,0 +1,61 @@
+{
+  "bEnabled": true,
+  "bossId": "boss_placeholder_01",
+  "displayName": "Earwig",
+  "maxHp": 200,
+  "initialHp": 200,
+  "weaknesses": [
+    {
+      "tileType": 3,
+      "damagePerClear": 3
+    },
+    {
+      "tileType": 4,
+      "damagePerClear": 3
+    }
+  ],
+  "skills": [
+    {
+      "bEnabled": true,
+      "skillId": "freeze_random_3",
+      "effectType": "freeze_random",
+      "intervalMoves": 5,
+      "priority": 10,
+      "paramA": 3,
+      "paramB": 2
+    }
+  ],
+  "sealFailThreshold": 1,
+  "presentation": {
+    "skeletalMeshPath": "/Game/Models/boss01/SKM_Qusou1.SKM_Qusou1",
+    "transformLocation": {
+      "X": 100,
+      "Y": 0,
+      "Z": 0
+    },
+    "transformRotation": {
+      "Pitch": -90,
+      "Yaw": 0,
+      "Roll": 0
+    },
+    "transformScale": {
+      "X": 3,
+      "Y": 3,
+      "Z": 3
+    },
+    "animationPaths": [
+      "idle:/Game/Models/boss01/Animations/Boss01_Idle.Boss01_Idle",
+      "hit:/Game/Models/boss01/Animations/Boss01_Hit.Boss01_Hit",
+      "defeat:/Game/Models/boss01/Animations/Boss01_Defeat.Boss01_Defeat",
+      "skill:freeze_random_3:/Game/Models/boss01/Animations/Boss01_Fight.Boss01_Fight",
+      "skill:freeze_random_5:/Game/Models/boss01/Animations/Boss01_Fight2.Boss01_Fight2"
+    ],
+    "frozenTileVfxPath": "/Game/Models/boss01/Niagara/FrozenNG.FrozenNG",
+    "frozenTileSfxPath": "/Game/Models/boss01/Sounds/Frozen_Cue.Frozen_Cue",
+    "unfrozenTileVfxPath": "/Game/Models/boss01/Niagara/UnFrozenNG.UnFrozenNG",
+    "unfrozenTileSfxPath": "/Game/Models/boss01/Sounds/UnFrozen_Cue.UnFrozen_Cue",
+    "victoryNiagaraPath": "/Game/Niagara/VistoryBossNG.VistoryBossNG",
+    "victoryNiagaraBossPath": "/Game/Models/boss01coin/Boss01Coin.Boss01Coin",
+    "victorySoundPath": ""
+  }
+}

@@ -1,0 +1,83 @@
+{
+  "bEnabled": true,
+  "bossId": "boss_placeholder_04",
+  "displayName": "Sowbug",
+  "maxHp": 1020,
+  "initialHp": 1020,
+  "weaknesses": [
+    {
+      "tileType": 4,
+      "damagePerClear": 10
+    }
+  ],
+  "skills": [
+    {
+      "bEnabled": true,
+      "skillId": "hard_shell",
+      "effectType": "hard_shell",
+      "priority": 30,
+      "paramA": 50,
+      "paramB": 0
+    },
+    {
+      "bEnabled": true,
+      "skillId": "weakness_shift",
+      "effectType": "weakness_shift",
+      "intervalMoves": 3,
+      "priority": 20,
+      "paramA": 0,
+      "paramB": 0
+    },
+    {
+      "bEnabled": true,
+      "skillId": "rolling_impact",
+      "effectType": "rolling_impact",
+      "intervalMoves": 5,
+      "priority": 40,
+      "paramA": 0,
+      "paramB": 0
+    }
+  ],
+  "sealFailThreshold": 1,
+  "presentation": {
+    "skeletalMeshPath": "/Game/Models/boss04/SKM_Sowbug.SKM_Sowbug",
+    "transformLocation": {
+      "X": 80,
+      "Y": 0,
+      "Z": 0
+    },
+    "transformRotation": {
+      "Pitch": -90,
+      "Yaw": 90,
+      "Roll": -90
+    },
+    "transformScale": {
+      "X": 5,
+      "Y": 5,
+      "Z": 5
+    },
+    "animationPaths": [
+      "idle:/Game/Models/boss04/Animations/boss04_Idle.boss04_Idle",
+      "hit:/Game/Models/boss04/Animations/boss04_Hit.boss04_Hit",
+      "defeat:/Game/Models/boss04/Animations/boss04_Defeat.boss04_Defeat",
+      "skill:hard_shell:/Game/Models/boss04/Animations/boss04_HardShell.boss04_HardShell",
+      "skill:weakness_shift:/Game/Models/boss04/Animations/boss04_WeaknessShift.boss04_WeaknessShift",
+      "skill:rolling_impact:/Game/Models/boss04/Animations/boss04_RollingImpact.boss04_RollingImpact"
+    ],
+    "hitVfxPath": "/Game/Niagara/BossHitNG.BossHitNG",
+    "bUseHitVfxAbsoluteTransform": false,
+    "hitVfxCenterOffset": {
+      "X": 0,
+      "Y": 0,
+      "Z": 0
+    },
+    "hitVfxRotationOffset": {
+      "Pitch": 0,
+      "Yaw": 0,
+      "Roll": 0
+    },
+    "victoryNiagaraPath": "/Game/Niagara/VistoryBossNG.VistoryBossNG",
+    "victoryNiagaraBossPath": "/Game/Models/boss04coin/Boss04Coin.Boss04Coin",
+    "victorySoundPath": ""
+  }
+}

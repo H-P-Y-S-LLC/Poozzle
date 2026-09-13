@@ -1,0 +1,93 @@
+{
+  "bEnabled": true,
+  "bossId": "boss_placeholder_07",
+  "displayName": "Gecko",
+  "maxHp": 520,
+  "initialHp": 520,
+  "weaknesses": [
+    {
+      "tileType": 6,
+      "damagePerClear": 4
+    },
+    {
+      "tileType": 4,
+      "damagePerClear": -4,
+      "bExcludeUltimateClears": true
+    }
+  ],
+  "skills": [
+    {
+      "skillId": "slime_adhesion",
+      "intervalMoves": 1,
+      "priority": 10
+    }
+  ],
+  "sealFailThreshold": 1,
+  "presentation": {
+    "skeletalMeshPath": "/Game/Models/boss07/SKM_Gecko.SKM_Gecko",
+    "transformLocation": {
+      "X": 0,
+      "Y": 0,
+      "Z": 100
+    },
+    "transformRotation": {
+      "Pitch": 0,
+      "Yaw": -90,
+      "Roll": 90
+    },
+    "transformScale": {
+      "X": 2.2,
+      "Y": 2.2,
+      "Z": 2.2
+    },
+    "randomFlight": {
+      "bEnabled": true,
+      "minSpeed": 280,
+      "maxSpeed": 360,
+      "arrivalRadius": 18,
+      "screenMarginX": 0.08,
+      "screenMarginY": 0.1,
+      "retargetMinInterval": 0.6,
+      "retargetMaxInterval": 1.4,
+      "turnInterpSpeed": 5.8,
+      "pitchAmplitudeDeg": 0,
+      "pitchFrequency": 0,
+      "minPitchDeg": -8,
+      "maxPitchDeg": 8,
+      "depthOffsetMin": -10,
+      "depthOffsetMax": 10,
+      "bUsePresentationRotationAsForwardOffset": true,
+      "bKeepUpright": true,
+      "forwardRotationOffset": {
+        "Pitch": 0,
+        "Yaw": 0,
+        "Roll": 0
+      }
+    },
+    "proximityHighlight": {
+      "bEnabled": true,
+      "forwardOffset": 30,
+      "halfLength": 80,
+      "halfWidth": 200,
+      "bDebugDrawObb": false,
+      "bEnableStickyOnArrival": true,
+      "bDisableBeforeFirstMove": true,
+      "halfHeight": 150,
+      "debugLineThickness": 3.5,
+      "bEnableTileMaterialOverride": false
+    },
+    "animationPaths": [
+      "crawl_interval:0.9",
+      "wait_interval:0.55",
+      "wait:/Game/Models/boss07/Animations/Boss07WaitAni.Boss07WaitAni",
+      "crawl:/Game/Models/boss07/Animations/Boss07CrawAni.Boss07CrawAni",
+      "hit:/Game/Models/boss07/Animations/Boss07HitAni.Boss07HitAni",
+      "heal:/Game/Models/boss07/Animations/Boss07HealAni.Boss07HealAni",
+      "defeat:/Game/Models/boss07/Animations/Boss07DefeatAni.Boss07DefeatAni"
+    ],
+    "bAttachToBoardActor": true,
+    "victoryNiagaraPath": "/Game/Niagara/VistoryBossNG.VistoryBossNG",
+    "victoryNiagaraBossPath": "/Game/Models/boss07coin/Boss07Coin.Boss07Coin",
+    "victorySoundPath": ""
+  }
+}

@@ -1,0 +1,4577 @@
+{
+  "module": "UI.ManualOverrides",
+  "entries": [
+    {
+      "key": "UI.Common.FloatingHint.AdUnavailable",
+      "text": "Rewarded ad is currently unavailable. Please try again later.",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 1,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.Common.FloatingHint.AdLoading",
+      "text": "Loading rewarded ad...",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 9,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.Common.FloatingHint.AdReady",
+      "text": "Rewarded ad is ready. Tap again to continue.",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 17,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.Common.FloatingHint.AdLoadFailed",
+      "text": "Rewarded ad failed to load. Please try again.",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 25,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.Common.FloatingHint.AdLoadTimeout",
+      "text": "Rewarded ad loading timed out. Please try again.",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 33,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3SettlementWidget.ContinueByAdLoading",
+      "text": "Loading ad...",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 41,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PlayerTextureWidget.TitleText",
+      "text": "Custom Tile Textures",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PlayerTextureWidget.DescriptionText",
+      "text": "Select a photo from your device to replace the texture of each tile. Tap a tile preview or its \"Choose\" button.",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PlayerTextureWidget.UploadButtonText",
+      "text": "Choose",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PlayerTextureWidget.RestoreButtonText",
+      "text": "Restore",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PlayerTextureWidget.RestoreAllButtonText",
+      "text": "Restore All Defaults",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PlayerTextureWidget.ConfirmRestoreAllMessage",
+      "text": "Restore all tile textures to default?\nThis cannot be undone.",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PlayerTextureWidget.TitleText.zh",
+      "text": "自定义消除纹理",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PlayerTextureWidget.DescriptionText.zh",
+      "text": "从设备中选择照片替换每个方块的纹理。点击方块预览或其\"选择\"按钮。",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PlayerTextureWidget.UploadButtonText.zh",
+      "text": "选择",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PlayerTextureWidget.RestoreButtonText.zh",
+      "text": "恢复",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PlayerTextureWidget.RestoreAllButtonText.zh",
+      "text": "恢复全部默认",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PlayerTextureWidget.ConfirmRestoreAllMessage.zh",
+      "text": "恢复所有方块纹理为默认值？\n此操作无法撤销。",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PlayerTextureWidget.CloseButton",
+      "text": "Done",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PlayerTextureWidget.CloseButton.zh",
+      "text": "完成",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PlayerTextureWidget.CropConfirmText",
+      "text": "Save",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PlayerTextureWidget.CropConfirmText.zh",
+      "text": "保存",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PlayerTextureWidget.CropCancelText",
+      "text": "Cancel",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PlayerTextureWidget.CropCancelText.zh",
+      "text": "取消",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PlayerTextureWidget.CropHintText",
+      "text": "Drag to move, scroll to zoom",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PlayerTextureWidget.CropHintText.zh",
+      "text": "拖动移动，缩放图片",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3SettlementWidget.TowerNeutralTitle",
+      "text": "Tower Mode",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 49,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3SettlementWidget.TowerVictoryTitle",
+      "text": "Climbed One Floor",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 57,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3SettlementWidget.TowerDefeatTitle",
+      "text": "Tower Run Ended",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 65,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3SettlementWidget.TowerRewardTitle",
+      "text": "Tower Rewards",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 73,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3SettlementWidget.TowerBlockerRewardTitle",
+      "text": "Tower Loot",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 81,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3SettlementWidget.TowerContinueByAd",
+      "text": "Continue tower run (+10 moves)",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 89,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3SettlementWidget.TowerContinueByGem",
+      "text": "Spend 10 gems to continue tower (+10 moves)",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 97,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3SettlementWidget.TowerEnterNextFloor",
+      "text": "Enter Floor {0}",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 105,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3SettlementWidget.TowerFloorProgressLabel",
+      "text": "Floor (Run/Best)",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 113,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3SettlementWidget.TowerScoreProgressLabel",
+      "text": "Score (Run/Best)",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 121,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3SettlementWidget.TowerRunBestPair",
+      "text": "%d/%d",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 129,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.TowerModeWidget.DynamicEndlessDescription",
+      "text": "This mode dynamically generates endless, unpredictable stages based on your real-time gameplay. As you ascend, the challenge intensifies and the difficulty scales up with every floor!\n\n※ It is highly recommended to complete the main story before diving in.",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.TowerModeWidget.DynamicEndlessDescription.zh-CN",
+      "text": "本模式将根据你的即时游玩状态，动态生成无穷尽的未知关卡。随着层数推进，挑战难度将层层压迫、相应递增！\n\n※ 强烈建议优先通关主线后再前往体验。",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.TowerModeWidget.DynamicEndlessDescription.zh",
+      "text": "本模式将根据你的即时游玩状态，动态生成无穷尽的未知关卡。随着层数推进，挑战难度将层层压迫、相应递增！\n\n※ 强烈建议优先通关主线后再前往体验。",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.TowerRunStatsWidget.BestScoreLabel",
+      "text": "Best Score",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 137,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.TowerRunStatsWidget.BestFloorLabel",
+      "text": "Best Floor",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 145,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.TowerRunStatsWidget.LastPlayedLabel",
+      "text": "Last Played",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 153,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.TowerRunStatsWidget.NoRecord",
+      "text": "Never",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 161,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3SettlementWidget.BlockerRewardTitle",
+      "text": "Instant Rewards",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3SettlementWidget.BossSkillTitle",
+      "text": "Skills",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3SettlementWidget.BossSkillEmpty",
+      "text": "No active skills",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3SettlementWidget.BlockerRewardTitle.zh-CN",
+      "text": "即时奖励",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3SettlementWidget.BossSkillTitle.zh-CN",
+      "text": "技能",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3SettlementWidget.BossSkillEmpty.zh-CN",
+      "text": "暂无激活技能",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.LevelListWidget.MoreLevelsComingSoon.zh-CN",
+      "text": "更多关卡敬请期待",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.Common.FloatingHint.AdUnavailable.zh-CN",
+      "text": "奖励广告暂时不可用，请稍后再试。",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.Common.FloatingHint.AdLoading.zh-CN",
+      "text": "正在加载奖励广告...",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.Common.FloatingHint.AdReady.zh-CN",
+      "text": "奖励广告已准备好，再点一次即可继续。",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.Common.FloatingHint.AdLoadFailed.zh-CN",
+      "text": "奖励广告加载失败，请重试。",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.Common.FloatingHint.AdLoadTimeout.zh-CN",
+      "text": "奖励广告加载超时，请重试。",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3SettlementWidget.ContinueByAdLoading.zh-CN",
+      "text": "广告加载中...",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3SettlementWidget.TowerNeutralTitle.zh-CN",
+      "text": "爬塔模式",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3SettlementWidget.TowerVictoryTitle.zh-CN",
+      "text": "成功登上一层",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3SettlementWidget.TowerDefeatTitle.zh-CN",
+      "text": "本轮爬塔结束",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3SettlementWidget.TowerRewardTitle.zh-CN",
+      "text": "爬塔奖励",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3SettlementWidget.TowerBlockerRewardTitle.zh-CN",
+      "text": "爬塔战利品",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3SettlementWidget.TowerContinueByAd.zh-CN",
+      "text": "观看广告继续爬塔（+10步）",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3SettlementWidget.TowerContinueByGem.zh-CN",
+      "text": "花费10钻石继续爬塔（+10步）",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3SettlementWidget.TowerEnterNextFloor.zh-CN",
+      "text": "进入第{0}层",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3SettlementWidget.TowerFloorProgressLabel.zh-CN",
+      "text": "层数（本轮/最佳）",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3SettlementWidget.TowerScoreProgressLabel.zh-CN",
+      "text": "分数（本轮/最佳）",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.TowerRunStatsWidget.BestScoreLabel.zh-CN",
+      "text": "最高分",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.TowerRunStatsWidget.BestFloorLabel.zh-CN",
+      "text": "最高层数",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.TowerRunStatsWidget.LastPlayedLabel.zh-CN",
+      "text": "最近游玩",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.TowerRunStatsWidget.NoRecord.zh-CN",
+      "text": "从未",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.LevelGoalInfoWidget.L43.TEXT.1.zh-CN",
+      "text": "未选择关卡",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.LevelGoalInfoWidget.L46.TEXT.2.zh-CN",
+      "text": "关卡：",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.LevelGoalInfoWidget.L49.TEXT.3.zh-CN",
+      "text": "通关目标",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.LevelGoalInfoWidget.L52.TEXT.4.zh-CN",
+      "text": "奖励",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.LevelGoalInfoWidget.L55.TEXT.5.zh-CN",
+      "text": "击败Boss",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.LevelGoalInfoWidget.L58.TEXT.6.zh-CN",
+      "text": "弱点",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.LevelGoalInfoWidget.L61.TEXT.7.zh-CN",
+      "text": "任意棋子均可造成伤害",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.LevelGoalInfoWidget.L64.TEXT.8.zh-CN",
+      "text": "技能",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.LevelGoalInfoWidget.L67.TEXT.9.zh-CN",
+      "text": "暂无激活技能",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.LevelGoalInfoWidget.L216.TEXT.1.zh-CN",
+      "text": "%s%s",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.LevelGoalInfoWidget.L249.TEXT.2.zh-CN",
+      "text": "加载关卡目标失败",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.LevelGoalInfoWidget.L372.TEXT.3.zh-CN",
+      "text": "未命名技能",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.ShopPanelWidget.L52.TEXT.1.zh-CN",
+      "text": "流程子系统初始化失败。",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.ShopPanelWidget.L147.TEXT.2.zh-CN",
+      "text": "未找到该商品，请刷新商店列表。",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.ShopPanelWidget.L153.TEXT.3.zh-CN",
+      "text": "该商品当前不可用。",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.ShopPanelWidget.L159.TEXT.4.zh-CN",
+      "text": "体力已满。",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.ShopPanelWidget.L167.TEXT.5.zh-CN",
+      "text": "流程子系统未就绪。",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.ShopPanelWidget.L182.TEXT.8.zh-CN",
+      "text": "购买成功：+%d %s",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.ShopPanelWidget.L186.TEXT.9.zh-CN",
+      "text": "购买成功：+%d 体力",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.ShopPanelWidget.L190.TEXT.10.zh-CN",
+      "text": "购买成功：+%s %s",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.ShopPanelWidget.L201.TEXT.11.zh-CN",
+      "text": "余额不足。",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.ShopPanelWidget.L209.TEXT.12.zh-CN",
+      "text": "购买失败。",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.ShopPanelWidget.L212.TEXT.13.zh-CN",
+      "text": "购买失败：%s",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.ShopPanelWidget.L440.TEXT.27.zh-CN",
+      "text": "%s：%s",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.ShopPanelWidget.L446.TEXT.28.zh-CN",
+      "text": "%s：%s",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.ShopPanelWidget.L476.TEXT.29.zh-CN",
+      "text": "商店数据尚未就绪。",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.ShopPanelWidget.L489.TEXT.30.zh-CN",
+      "text": "暂无可购买商品。",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.ShopPanelWidget.L611.TEXT.34.zh-CN",
+      "text": "不可用",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.ShopPanelWidget.L798.TEXT.35.zh-CN",
+      "text": "%s x%d（已拥有：%d）",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.ShopPanelWidget.L803.TEXT.36.zh-CN",
+      "text": "体力 x%d",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.ShopPanelWidget.L806.TEXT.37.zh-CN",
+      "text": "%s x%s",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.ShopPanelWidget.L811.TEXT.38.zh-CN",
+      "text": "价格：%s %s",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.ShopPanelWidget.L582.TEXT.39.zh-CN",
+      "text": "不足",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.ShopPanelWidget.L629.TEXT.40.zh-CN",
+      "text": "已满",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.ShopPanelWidget.L630.TEXT.41.zh-CN",
+      "text": "购买",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.Common.Currency.coin",
+      "text": "Coin",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.Common.Currency.coin.zh-CN",
+      "text": "金币",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.Common.Currency.gem",
+      "text": "Gem",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.Common.Currency.gem.zh-CN",
+      "text": "钻石",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.Common.Item.glove",
+      "text": "Glove",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.Common.Item.glove.zh-CN",
+      "text": "手套",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.Common.Item.finger",
+      "text": "Finger",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.Common.Item.finger.zh-CN",
+      "text": "手指",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.Common.Item.hammer",
+      "text": "Hammer",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.Common.Item.hammer.zh-CN",
+      "text": "锤子",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.Common.Item.rocket",
+      "text": "Rocket",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.Common.Item.rocket.zh-CN",
+      "text": "火箭",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.Common.Item.shuffle",
+      "text": "Shuffle",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.Common.Item.shuffle.zh-CN",
+      "text": "重排",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.Flow.LoadoutError.ItemNotDefined.zh-CN",
+      "text": "该道具不可用",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.Flow.LoadoutError.ItemNotOwned.zh-CN",
+      "text": "你尚未拥有该道具",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.Flow.LoadoutError.CountExceedsCap.zh-CN",
+      "text": "道具数量超出可用上限",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.Flow.LoadoutError.TotalExceedsLevelCap.zh-CN",
+      "text": "本关装配槽位已满",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.LevelLoadoutSetupWidget.L47.TEXT.1.zh-CN",
+      "text": "点击道具即可为本关装配",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.LevelLoadoutSetupWidget.L163.TEXT.1.zh-CN",
+      "text": "流程子系统未就绪",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.LevelLoadoutSetupWidget.L169.TEXT.2.zh-CN",
+      "text": "关卡子系统未就绪",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.LevelLoadoutSetupWidget.L176.TEXT.3.zh-CN",
+      "text": "请先选择关卡",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.LevelLoadoutSetupWidget.L213.TEXT.4.zh-CN",
+      "text": "流程子系统未就绪",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.LevelLoadoutSetupWidget.L219.TEXT.5.zh-CN",
+      "text": "关卡子系统未就绪",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.LevelLoadoutSetupWidget.L226.TEXT.6.zh-CN",
+      "text": "请先选择关卡",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.LevelLoadoutSetupWidget.L247.TEXT.7.zh-CN",
+      "text": "该道具无法在当前关卡装配。",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.LevelLoadoutSetupWidget.L325.TEXT.14.zh-CN",
+      "text": "应用到当前关卡",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.LevelLoadoutSetupWidget.L336.TEXT.16.zh-CN",
+      "text": "清空待装配",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.LevelLoadoutSetupWidget.L455.TEXT.19.zh-CN",
+      "text": "流程子系统未就绪",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.LevelLoadoutSetupWidget.MaxTag.zh-CN",
+      "text": "最大",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.LevelLoadoutSetupWidget.L584.TEXT.20.zh-CN",
+      "text": "暂无可用道具",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.LevelLoadoutSetupWidget.LoadoutSummary.Limited.zh-CN",
+      "text": "本关可用{0}种道具，最多装配{1}个（当前已装配{2}个）",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.LevelLoadoutSetupWidget.LoadoutSummary.Unlimited.zh-CN",
+      "text": "本关可用{0}种道具，装配数量不限（当前已装配{1}个）",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.LevelGoalInfoWidget.L49.TEXT.3.zh",
+      "text": "通关目标",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.LevelGoalInfoWidget.L52.TEXT.4.zh",
+      "text": "奖励",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.LevelLoadoutSetupWidget.L47.TEXT.1.zh",
+      "text": "点击道具即可为本关装配",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3SettlementWidget.ContinueByAd.zh-CN",
+      "text": "观看广告继续",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3SettlementWidget.ContinueByGem.zh-CN",
+      "text": "花费10钻石继续（+10步）",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3SettlementWidget.L35.TEXT.1.zh-CN",
+      "text": "胜利",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3SettlementWidget.L38.TEXT.2.zh-CN",
+      "text": "失败",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3SettlementWidget.L41.TEXT.3.zh-CN",
+      "text": "重试",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3SettlementWidget.L44.TEXT.4.zh-CN",
+      "text": "下一关",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3SettlementWidget.L47.TEXT.5.zh-CN",
+      "text": "返回",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3SettlementWidget.L50.TEXT.6.zh-CN",
+      "text": "结算",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3SettlementWidget.L53.TEXT.7.zh-CN",
+      "text": "分数",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3SettlementWidget.L56.TEXT.8.zh-CN",
+      "text": "剩余步数",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3SettlementWidget.L59.TEXT.9.zh-CN",
+      "text": "已用步数",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3SettlementWidget.L62.TEXT.10.zh-CN",
+      "text": "目标分数",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3SettlementWidget.L65.TEXT.11.zh-CN",
+      "text": "奖励",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3SettlementWidget.L68.TEXT.12.zh-CN",
+      "text": "失败原因",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3SettlementWidget.L71.TEXT.13.zh-CN",
+      "text": "击败Boss",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3SettlementWidget.L74.TEXT.14.zh-CN",
+      "text": "弱点",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3SettlementWidget.L77.TEXT.15.zh-CN",
+      "text": "任意棋子均可造成伤害",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3SettlementWidget.ContinueByAd.zh",
+      "text": "观看广告继续",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3SettlementWidget.ContinueByGem.zh",
+      "text": "花费10钻石继续（+10步）",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3SettlementWidget.L35.TEXT.1.zh",
+      "text": "胜利",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3SettlementWidget.L38.TEXT.2.zh",
+      "text": "失败",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3SettlementWidget.L41.TEXT.3.zh",
+      "text": "重试",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3SettlementWidget.L44.TEXT.4.zh",
+      "text": "下一关",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3SettlementWidget.L47.TEXT.5.zh",
+      "text": "返回",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3SettlementWidget.L50.TEXT.6.zh",
+      "text": "结算",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3SettlementWidget.L53.TEXT.7.zh",
+      "text": "分数",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3SettlementWidget.L56.TEXT.8.zh",
+      "text": "剩余步数",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3SettlementWidget.L59.TEXT.9.zh",
+      "text": "已用步数",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3SettlementWidget.L62.TEXT.10.zh",
+      "text": "目标分数",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3SettlementWidget.L65.TEXT.11.zh",
+      "text": "奖励",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3SettlementWidget.L68.TEXT.12.zh",
+      "text": "失败原因",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3SettlementWidget.L71.TEXT.13.zh",
+      "text": "击败Boss",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3SettlementWidget.L74.TEXT.14.zh",
+      "text": "弱点",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3SettlementWidget.L77.TEXT.15.zh",
+      "text": "任意棋子均可造成伤害",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3SettlementWidget.ContinueByAdMoves",
+      "text": "Watch ad to continue (+10 moves)",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3SettlementWidget.ContinueByAdReshuffle",
+      "text": "Watch ad to reshuffle and continue",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3SettlementWidget.ContinueByGemMoves",
+      "text": "Spend 10 gems to continue (+10 moves)",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3SettlementWidget.ContinueByAdMoves.zh-CN",
+      "text": "观看广告继续（+10步）",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3SettlementWidget.ContinueByAdReshuffle.zh-CN",
+      "text": "观看广告洗牌后继续",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3SettlementWidget.ContinueByGemMoves.zh-CN",
+      "text": "花费10钻石继续（+10步）",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3SettlementWidget.ContinueByAdMoves.zh",
+      "text": "观看广告继续（+10步）",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3SettlementWidget.ContinueByAdReshuffle.zh",
+      "text": "观看广告洗牌后继续",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3SettlementWidget.ContinueByGemMoves.zh",
+      "text": "花费10钻石继续（+10步）",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.Boss.WeaknessHint.boss_placeholder_09.zh-CN",
+      "text": "击打蚁后可造成伤害",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.Boss.WeaknessHint.boss_placeholder_09.zh",
+      "text": "击打蚁后可造成伤害",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.Boss.WeaknessHint.boss_placeholder_06.zh-CN",
+      "text": "旁消杀虫剂可造成伤害",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.Boss.WeaknessHint.boss_placeholder_06.zh",
+      "text": "旁消杀虫剂可造成伤害",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.Boss.DisplayName.boss_placeholder_01.zh-CN",
+      "text": "蠼螋",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.Boss.DisplayName.boss_placeholder_01.zh",
+      "text": "蠼螋",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.Boss.DisplayName.boss_placeholder_02.zh-CN",
+      "text": "蜘蛛",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.Boss.DisplayName.boss_placeholder_02.zh",
+      "text": "蜘蛛",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.Boss.DisplayName.boss_placeholder_03.zh-CN",
+      "text": "红虫",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.Boss.DisplayName.boss_placeholder_03.zh",
+      "text": "红虫",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.Boss.DisplayName.boss_placeholder_04.zh-CN",
+      "text": "鼠妇",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.Boss.DisplayName.boss_placeholder_04.zh",
+      "text": "鼠妇",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.Boss.DisplayName.boss_placeholder_05.zh-CN",
+      "text": "蛾蚋",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.Boss.DisplayName.boss_placeholder_05.zh",
+      "text": "蛾蚋",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.Boss.DisplayName.boss_placeholder_06.zh-CN",
+      "text": "蚊子",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.Boss.DisplayName.boss_placeholder_06.zh",
+      "text": "蚊子",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.Boss.DisplayName.boss_placeholder_07.zh-CN",
+      "text": "壁虎",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.Boss.DisplayName.boss_placeholder_07.zh",
+      "text": "壁虎",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.Boss.DisplayName.boss_placeholder_08.zh-CN",
+      "text": "大蟑螂",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.Boss.DisplayName.boss_placeholder_08.zh",
+      "text": "大蟑螂",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.Boss.DisplayName.boss_placeholder_09.zh-CN",
+      "text": "白蚁",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.Boss.DisplayName.boss_placeholder_09.zh",
+      "text": "白蚁",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.Boss.DisplayName.boss_placeholder_10.zh-CN",
+      "text": "蛞蝓",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.Boss.DisplayName.boss_placeholder_10.zh",
+      "text": "蛞蝓",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.Boss.DisplayName.boss_pvp.zh-CN",
+      "text": "对战 Boss",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.Boss.DisplayName.boss_pvp.zh",
+      "text": "对战 Boss",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.YourWidget.StartGame",
+      "text": "Start Game",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.YourWidget.StartGame.zh-CN",
+      "text": "开始游戏",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.YourWidget.StartGame.zh",
+      "text": "开始游戏",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.YourWidget.Score",
+      "text": "Score",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.YourWidget.Score.zh-CN",
+      "text": "分数",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.YourWidget.Score.zh",
+      "text": "分数",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.YourWidget.Moves",
+      "text": "Moves",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.YourWidget.Moves.zh-CN",
+      "text": "步数",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.YourWidget.Moves.zh",
+      "text": "步数",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.YourWidget.Replay",
+      "text": "Replay",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.YourWidget.Replay.zh-CN",
+      "text": "重玩",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.YourWidget.Replay.zh",
+      "text": "重玩",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.YourWidget.Quit",
+      "text": "Quit",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.YourWidget.Quit.zh-CN",
+      "text": "退出",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.YourWidget.Quit.zh",
+      "text": "退出",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.YourWidget.MatchBtnText",
+      "text": "Score Duel\nturn-based scoring battle,\nhighest score wins",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.YourWidget.MatchBtnText.zh-CN",
+      "text": "分值PK\n回合制收集分值，分高者胜",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.YourWidget.MatchBtnText.zh",
+      "text": "分值PK\n回合制收集分值，分高者胜",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.YourWidget.PvPBtnText",
+      "text": "HP Duel\nreal-time battle,\ndeplete the opponent's HP to win",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.YourWidget.PvPBtnText.zh-CN",
+      "text": "血量PK\n实时对战，清空对方血量者胜",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.YourWidget.PvPBtnText.zh",
+      "text": "血量PK\n实时对战，清空对方血量者胜",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.YourWidget.PvPDesc",
+      "text": "PvP lets you play two modes via real-time online matchmaking, or duel your friends with an invite code.",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.YourWidget.PvPDesc.zh-CN",
+      "text": "PVP对战可以通过实时联网匹配玩家来进行两种模式的对战，也可以通过邀请码邀请你的朋友来进行对决。",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.YourWidget.PvPDesc.zh",
+      "text": "PVP对战可以通过实时联网匹配玩家来进行两种模式的对战，也可以通过邀请码邀请你的朋友来进行对决。",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.BossCoinBarWidget.UsesFormat",
+      "text": "Uses: %d/%d",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.BossCoinBarWidget.UsesFormat.zh-CN",
+      "text": "可用: %d/%d",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.BossCoinBarWidget.UsesFormat.zh",
+      "text": "可用: %d/%d",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.BossCoinBarWidget.UsageTitle",
+      "text": "Usage",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.BossCoinBarWidget.UsageTitle.zh-CN",
+      "text": "用法",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.BossCoinBarWidget.UsageTitle.zh",
+      "text": "用法",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.BossCoinBarWidget.UsageDefault",
+      "text": "Tap card to toss. Heads = success.",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.BossCoinBarWidget.UsageDefault.zh-CN",
+      "text": "点卡投掷，正面生效。",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.BossCoinBarWidget.UsageDefault.zh",
+      "text": "点卡投掷，正面生效。",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.BossCoinBarWidget.EmptyOwned",
+      "text": "No Boss Coins unlocked yet",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.BossCoinBarWidget.EmptyOwned.zh-CN",
+      "text": "暂无已获得的 Boss 硬币",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.BossCoinBarWidget.EmptyOwned.zh",
+      "text": "暂无已获得的 Boss 硬币",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3SettlementWidget.FailureReason.ExitBeforeGoals",
+      "text": "Reached the exit before collecting all goals. Challenge failed.",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3SettlementWidget.FailureReason.ExitBeforeGoals.zh-CN",
+      "text": "未收集全部目标即到达出口，挑战失败。",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3SettlementWidget.FailureReason.ExitBeforeGoals.zh",
+      "text": "未收集全部目标即到达出口，挑战失败。",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3SettlementWidget.FailureReason.MovesExhausted",
+      "text": "Out of moves. Level goals were not completed.",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3SettlementWidget.FailureReason.GoalsUnreachable",
+      "text": "Not enough target blockers remain on the board. Goals are unreachable.",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3SettlementWidget.FailureReason.BlockerEscaped",
+      "text": "A critical blocker escaped. Challenge failed.",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3SettlementWidget.FailureReason.BoardFullySealed",
+      "text": "Frozen board area reached the failure threshold.",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3SettlementWidget.FailureReason.BossNoPossibleMove",
+      "text": "No possible moves in the Boss level. Challenge failed.",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3SettlementWidget.FailureReason.NoPossibleMove",
+      "text": "No possible moves on the current board.",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3SettlementWidget.FailureReason.MovesExhausted.zh-CN",
+      "text": "步数已耗尽，未完成当前关卡目标。",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3SettlementWidget.FailureReason.GoalsUnreachable.zh-CN",
+      "text": "当前地图剩余可击破目标不足，目标已不可达。",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3SettlementWidget.FailureReason.BlockerEscaped.zh-CN",
+      "text": "关键障碍已逃逸，挑战失败。",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3SettlementWidget.FailureReason.BoardFullySealed.zh-CN",
+      "text": "棋盘被冻结区域达到失败阈值。",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3SettlementWidget.FailureReason.BossNoPossibleMove.zh-CN",
+      "text": "Boss 关卡无可行动作，挑战失败。",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3SettlementWidget.FailureReason.NoPossibleMove.zh-CN",
+      "text": "当前棋盘无可行动作。",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3SettlementWidget.FailureReason.MovesExhausted.zh",
+      "text": "步数已耗尽，未完成当前关卡目标。",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3SettlementWidget.FailureReason.GoalsUnreachable.zh",
+      "text": "当前地图剩余可击破目标不足，目标已不可达。",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3SettlementWidget.FailureReason.BlockerEscaped.zh",
+      "text": "关键障碍已逃逸，挑战失败。",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3SettlementWidget.FailureReason.BoardFullySealed.zh",
+      "text": "棋盘被冻结区域达到失败阈值。",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3SettlementWidget.FailureReason.BossNoPossibleMove.zh",
+      "text": "Boss 关卡无可行动作，挑战失败。",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3SettlementWidget.FailureReason.NoPossibleMove.zh",
+      "text": "当前棋盘无可行动作。",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3BossWidget.Skill.hard_shell.DisplayName",
+      "text": "Hard Shell Defense",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3BossWidget.Skill.hard_shell.DisplayName.zh-CN",
+      "text": "防御力增加了",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3BossWidget.Skill.hard_shell.DisplayName.zh",
+      "text": "防御力增加了",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3BossWidget.Skill.weakness_shift.DisplayName",
+      "text": "Weakness Shift",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3BossWidget.Skill.weakness_shift.DisplayName.zh-CN",
+      "text": "弱点变换了",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3BossWidget.Skill.weakness_shift.DisplayName.zh",
+      "text": "弱点变换了",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3BossWidget.Skill.freeze_random_3.DisplayName",
+      "text": "Freeze Three Tiles",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3BossWidget.Skill.freeze_random_3.DisplayName.zh-CN",
+      "text": "三格冻结",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3BossWidget.Skill.freeze_random_3.DisplayName.zh",
+      "text": "三格冻结",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3BossWidget.Skill.freeze_random_5.DisplayName",
+      "text": "Freeze Five Tiles",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3BossWidget.Skill.freeze_random_5.DisplayName.zh-CN",
+      "text": "五格冻结",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3BossWidget.Skill.freeze_random_5.DisplayName.zh",
+      "text": "五格冻结",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3BossWidget.Skill.seal_special_3.DisplayName",
+      "text": "Seal Special Tiles",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3BossWidget.Skill.seal_special_3.DisplayName.zh-CN",
+      "text": "封印特殊块",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3BossWidget.Skill.seal_special_3.DisplayName.zh",
+      "text": "封印特殊块",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3BossWidget.Skill.convert_random_blocker_3_4.DisplayName",
+      "text": "Random Blocker Conversion",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3BossWidget.Skill.convert_random_blocker_3_4.DisplayName.zh-CN",
+      "text": "随机障碍转化",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3BossWidget.Skill.convert_random_blocker_3_4.DisplayName.zh",
+      "text": "随机障碍转化",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3BossWidget.Skill.corrode_random.DisplayName",
+      "text": "Corrode Terrain",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3BossWidget.Skill.corrode_random.DisplayName.zh-CN",
+      "text": "腐蚀扩散",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3BossWidget.Skill.corrode_random.DisplayName.zh",
+      "text": "腐蚀扩散",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3BossWidget.Skill.rolling_impact.DisplayName",
+      "text": "Rolling Impact",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3BossWidget.Skill.rolling_impact.DisplayName.zh-CN",
+      "text": "滚动冲击",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3BossWidget.Skill.rolling_impact.DisplayName.zh",
+      "text": "滚动冲击",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PvPManaBarWidget.SkillCastFormat",
+      "text": "{0}: {1}",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PvPManaBarWidget.SkillCastFormat.zh-CN",
+      "text": "{0}：{1}",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PvPManaBarWidget.SkillCastFormat.zh",
+      "text": "{0}：{1}",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3BossWidget.Skill.steal.DisplayName",
+      "text": "Steal",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3BossWidget.Skill.steal.DisplayName.zh-CN",
+      "text": "盗取",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3BossWidget.Skill.steal.DisplayName.zh",
+      "text": "盗取",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3BossWidget.Skill.land_convert.DisplayName",
+      "text": "Dive and Convert",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3BossWidget.Skill.land_convert.DisplayName.zh-CN",
+      "text": "俯冲转化",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3BossWidget.Skill.land_convert.DisplayName.zh",
+      "text": "俯冲转化",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3BossWidget.Skill.land_apply_larvae.DisplayName",
+      "text": "Dive and Infest",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3BossWidget.Skill.land_apply_larvae.DisplayName.zh-CN",
+      "text": "俯冲寄生",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3BossWidget.Skill.land_apply_larvae.DisplayName.zh",
+      "text": "俯冲寄生",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3BossWidget.Skill.slime_adhesion.DisplayName",
+      "text": "Slime Adhesion",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3BossWidget.Skill.slime_adhesion.DisplayName.zh-CN",
+      "text": "黏液附着",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3BossWidget.Skill.slime_adhesion.DisplayName.zh",
+      "text": "黏液附着",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3BossWidget.Skill.plunder.DisplayName",
+      "text": "Plunder",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3BossWidget.Skill.plunder.DisplayName.zh-CN",
+      "text": "掠夺",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3BossWidget.Skill.plunder.DisplayName.zh",
+      "text": "掠夺",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3BossWidget.Skill.mutate_special_on_hit.DisplayName",
+      "text": "Mutate Special On Hit",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3BossWidget.Skill.mutate_special_on_hit.DisplayName.zh-CN",
+      "text": "受击异变",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3BossWidget.Skill.mutate_special_on_hit.DisplayName.zh",
+      "text": "受击异变",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3BossWidget.Skill.poison_player_system_on_hit.DisplayName",
+      "text": "Poison Player System On Hit",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3BossWidget.Skill.poison_player_system_on_hit.DisplayName.zh-CN",
+      "text": "受击系统中毒",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3BossWidget.Skill.poison_player_system_on_hit.DisplayName.zh",
+      "text": "受击系统中毒",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3BossWidget.L61.TEXT.1.zh-CN",
+      "text": "Boss",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3BossWidget.L61.TEXT.1.zh",
+      "text": "Boss",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3BossWidget.L64.TEXT.2.zh-CN",
+      "text": "血量",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3BossWidget.L64.TEXT.2.zh",
+      "text": "血量",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3BossWidget.L67.TEXT.3.zh-CN",
+      "text": "技能",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3BossWidget.L67.TEXT.3.zh",
+      "text": "技能",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3BossWidget.L70.TEXT.4.en-US",
+      "text": "Weakness",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3BossWidget.L70.TEXT.4.en",
+      "text": "Weakness",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3BossWidget.L70.TEXT.4.zh-CN",
+      "text": "弱点",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3BossWidget.L70.TEXT.4.zh",
+      "text": "弱点",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3BossWidget.L73.TEXT.9.zh-CN",
+      "text": "倔强的灰会为 Boss 回血",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3BossWidget.L73.TEXT.9.zh",
+      "text": "倔强的灰会为 Boss 回血",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3BossWidget.L73.TEXT.5.zh-CN",
+      "text": "暂无即将释放技能",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3BossWidget.L73.TEXT.5.zh",
+      "text": "暂无即将释放技能",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3BossWidget.L76.TEXT.6.zh-CN",
+      "text": "{0}秒后",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3BossWidget.L76.TEXT.6.zh",
+      "text": "{0}秒后",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3BossWidget.L79.TEXT.7.zh-CN",
+      "text": "结果",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3BossWidget.L79.TEXT.7.zh",
+      "text": "结果",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3BossWidget.L113.TEXT.8.zh-CN",
+      "text": "弱点变换了",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3BossWidget.L113.TEXT.8.zh",
+      "text": "弱点变换了",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.SlidePuzzle.HUD.MovesLabel",
+      "text": "Moves",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.SlidePuzzle.HUD.MovesLabel.zh-CN",
+      "text": "步数",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.SlidePuzzle.HUD.MovesLabel.zh",
+      "text": "步数",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.SlidePuzzle.HUD.GoalLabel",
+      "text": "Goal",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.SlidePuzzle.HUD.GoalLabel.zh-CN",
+      "text": "目标",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.SlidePuzzle.HUD.GoalLabel.zh",
+      "text": "目标",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.SlidePuzzle.HUD.GloveLabel",
+      "text": "Glove Ready",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.SlidePuzzle.HUD.GloveLabel.zh-CN",
+      "text": "手套待命",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.SlidePuzzle.HUD.GloveLabel.zh",
+      "text": "手套待命",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.SlidePuzzle.Settlement.Victory",
+      "text": "Victory",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.SlidePuzzle.Settlement.Victory.zh-CN",
+      "text": "胜利",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.SlidePuzzle.Settlement.Victory.zh",
+      "text": "胜利",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.SlidePuzzle.Settlement.Failure",
+      "text": "Failed",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.SlidePuzzle.Settlement.Failure.zh-CN",
+      "text": "失败",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.SlidePuzzle.Settlement.Failure.zh",
+      "text": "失败",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.SlidePuzzle.Settlement.BestMoves",
+      "text": "Best",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.SlidePuzzle.Settlement.BestMoves.zh-CN",
+      "text": "最佳",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.SlidePuzzle.Settlement.BestMoves.zh",
+      "text": "最佳",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.SlidePuzzle.Settlement.Exit",
+      "text": "Exit",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.SlidePuzzle.Settlement.Exit.zh-CN",
+      "text": "退出",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.SlidePuzzle.Settlement.Exit.zh",
+      "text": "退出",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.SlidePuzzle.Failure.MoveExhausted",
+      "text": "Out of moves",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.SlidePuzzle.Failure.MoveExhausted.zh-CN",
+      "text": "步数耗尽",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.SlidePuzzle.Failure.MoveExhausted.zh",
+      "text": "步数耗尽",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.SlidePuzzle.Failure.NoValidMove",
+      "text": "No valid move",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.SlidePuzzle.Failure.NoValidMove.zh-CN",
+      "text": "无合法移动",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.SlidePuzzle.Failure.NoValidMove.zh",
+      "text": "无合法移动",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.SlidePuzzle.Continue.WatchAd",
+      "text": "Watch Ad +Moves",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.SlidePuzzle.Continue.WatchAd.zh-CN",
+      "text": "看广告 +步数",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.SlidePuzzle.Continue.WatchAd.zh",
+      "text": "看广告 +步数",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.SlidePuzzle.Continue.UseDiamond",
+      "text": "Use {0} Gems +Moves",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.SlidePuzzle.Continue.UseDiamond.zh-CN",
+      "text": "消耗{0}钻石 +步数",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.SlidePuzzle.Continue.UseDiamond.zh",
+      "text": "消耗{0}钻石 +步数",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3SettlementWidget.FailureReason.InstantDefeat",
+      "text": "Killed a normal cell.",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3SettlementWidget.FailureReason.InstantDefeat.zh-CN",
+      "text": "杀死了正常细胞",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PvPMatchmakingWidget.Title",
+      "text": "血量PK",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PvPMatchmakingWidget.Title.zh",
+      "text": "血量PK",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PvPMatchmakingWidget.Description",
+      "text": "Real-time PvP — beat the opponent to win. Match tiles to gain mana and cast skills.",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PvPMatchmakingWidget.Description.zh",
+      "text": "真人对战，先击败对手者胜。消除方块积累魔力，释放技能干扰对手。",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PvPMatchmakingWidget.DescriptionStake",
+      "text": " Winner takes {0} coin + {1} gem!",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PvPMatchmakingWidget.DescriptionStake.zh",
+      "text": " 胜者赢得 {0} 金币 + {1} 钻石！",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.PvP.InsufficientCoin",
+      "text": "Not enough coins (need {0})",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.PvP.InsufficientCoin.zh",
+      "text": "金币不足(需要 {0})",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.PvP.InsufficientGem",
+      "text": "Not enough gems (need {0})",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.PvP.InsufficientGem.zh",
+      "text": "钻石不足(需要 {0})",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.PvP.SkillCardCost",
+      "text": "Cost {0}",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.PvP.SkillCardCost.zh",
+      "text": "消耗 {0}",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.PvP.SkillCardCancel",
+      "text": "Cancel",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.PvP.SkillCardCancel.zh",
+      "text": "取消",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.PvP.SkillCardConfirm",
+      "text": "Confirm",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.PvP.SkillCardConfirm.zh",
+      "text": "确定",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PvPMatchmakingWidget.AutoMatch",
+      "text": "Auto Match",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PvPMatchmakingWidget.AutoMatch.zh",
+      "text": "自动匹配",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PvPMatchmakingWidget.OrText",
+      "text": "or",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PvPMatchmakingWidget.OrText.zh",
+      "text": "或",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PvPMatchmakingWidget.CreateInvite",
+      "text": "Create Invite Room",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PvPMatchmakingWidget.CreateInvite.zh",
+      "text": "创建邀请码房间",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PvPMatchmakingWidget.InviteHint",
+      "text": "Enter invite code",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PvPMatchmakingWidget.InviteHint.zh",
+      "text": "输入邀请码",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PvPMatchmakingWidget.Join",
+      "text": "Join",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PvPMatchmakingWidget.Join.zh",
+      "text": "加入",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PvPMatchmakingWidget.Copy",
+      "text": "Copy",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PvPMatchmakingWidget.Copy.zh",
+      "text": "复制",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PvPMatchmakingWidget.Cancel",
+      "text": "Cancel",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PvPMatchmakingWidget.Cancel.zh",
+      "text": "关闭",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PvPMatchmakingWidget.MatchmakingCancel",
+      "text": "Cancel Match",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PvPMatchmakingWidget.MatchmakingCancel.zh",
+      "text": "取消匹配",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PvPMatchmakingWidget.InviteCode",
+      "text": "Your code: {0}",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PvPMatchmakingWidget.InviteCode.zh",
+      "text": "你的码: {0}",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PvPMatchmakingWidget.Matching",
+      "text": "Matching",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PvPMatchmakingWidget.Matching.zh",
+      "text": "匹配中",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PvPMatchmakingWidget.MatchedTitle",
+      "text": "Match Success!",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PvPMatchmakingWidget.MatchedTitle.zh",
+      "text": "匹配成功！",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PvPMatchmakingWidget.StartBattle",
+      "text": "Start Battle",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PvPMatchmakingWidget.StartBattle.zh",
+      "text": "开始对战",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PvPResultWidget.TitleWin",
+      "text": "You Win!",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PvPResultWidget.TitleWin.zh-CN",
+      "text": "你赢了!",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PvPResultWidget.TitleWin.zh",
+      "text": "你赢了!",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PvPResultWidget.TitleLose",
+      "text": "You Lose",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PvPResultWidget.TitleLose.zh-CN",
+      "text": "你输了",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PvPResultWidget.TitleLose.zh",
+      "text": "你输了",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PvPResultWidget.TitleDraw",
+      "text": "Draw",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PvPResultWidget.TitleDraw.zh-CN",
+      "text": "平局",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PvPResultWidget.TitleDraw.zh",
+      "text": "平局",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PvPResultWidget.TitleOpponentDC",
+      "text": "Opponent Disconnected - You Win!",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PvPResultWidget.TitleOpponentDC.zh-CN",
+      "text": "对手掉线 - 你赢了!",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PvPResultWidget.TitleOpponentDC.zh",
+      "text": "对手掉线 - 你赢了!",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PvPResultWidget.TitleOpponentLeft",
+      "text": "Opponent Left - You Win!",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PvPResultWidget.TitleOpponentLeft.zh-CN",
+      "text": "对手退出 - 你赢了!",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PvPResultWidget.TitleOpponentLeft.zh",
+      "text": "对手退出 - 你赢了!",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PvPResultWidget.TitleDefault",
+      "text": "Match Ended",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PvPResultWidget.TitleDefault.zh-CN",
+      "text": "对局结束",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PvPResultWidget.TitleDefault.zh",
+      "text": "对局结束",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PvPResultWidget.Return",
+      "text": "Return",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PvPResultWidget.Return.zh-CN",
+      "text": "返回",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PvPResultWidget.Return.zh",
+      "text": "返回",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PvPResultWidget.Rematch",
+      "text": "Rematch",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PvPResultWidget.Rematch.zh-CN",
+      "text": "再来一局",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PvPResultWidget.Rematch.zh",
+      "text": "再来一局",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PvPOpponentHpBarWidget.Desc",
+      "text": "HP",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PvPOpponentHpBarWidget.Desc.zh-CN",
+      "text": "HP",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PvPOpponentHpBarWidget.Desc.zh",
+      "text": "HP",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PvPResultWidget.RewardsTitle",
+      "text": "Rewards",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PvPResultWidget.RewardsTitle.zh-CN",
+      "text": "奖励",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PvPResultWidget.RewardsTitle.zh",
+      "text": "奖励",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PvPResultWidget.RewardWin",
+      "text": "+200 Coin\n+3 Diamond",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PvPResultWidget.RewardWin.zh-CN",
+      "text": "+200 金币\n+3 钻石",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PvPResultWidget.RewardWin.zh",
+      "text": "+200 金币\n+3 钻石",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PvPResultWidget.RewardLose",
+      "text": "+30 Coin",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PvPResultWidget.RewardLose.zh-CN",
+      "text": "+30 金币",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PvPResultWidget.RewardLose.zh",
+      "text": "+30 金币",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PvPResultWidget.LocalBossName",
+      "text": "You",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PvPResultWidget.LocalBossName.zh-CN",
+      "text": "你",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PvPResultWidget.LocalBossName.zh",
+      "text": "你",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PvPResultWidget.OpponentBossName",
+      "text": "Opponent",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PvPResultWidget.OpponentBossName.zh-CN",
+      "text": "对手",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PvPResultWidget.OpponentBossName.zh",
+      "text": "对手",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PvPResultWidget.Vs",
+      "text": "VS",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PvPResultWidget.Hp",
+      "text": "HP",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PvPResultWidget.Hp.zh-CN",
+      "text": "HP",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PvPResultWidget.Hp.zh",
+      "text": "HP",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PvPResultWidget.LocalHpAlive",
+      "text": "Alive",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PvPResultWidget.LocalHpAlive.zh-CN",
+      "text": "存活",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PvPResultWidget.LocalHpAlive.zh",
+      "text": "存活",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PvPResultWidget.Mana",
+      "text": "Mana",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PvPResultWidget.Mana.zh-CN",
+      "text": "魔力",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PvPResultWidget.Mana.zh",
+      "text": "魔力",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PvPResultWidget.WaitingRematch",
+      "text": "Waiting for opponent...",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PvPResultWidget.WaitingRematch.zh-CN",
+      "text": "等待对手确认...",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PvPResultWidget.WaitingRematch.zh",
+      "text": "等待对手确认...",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PvPResultWidget.OpponentDeclined",
+      "text": "Opponent declined the rematch",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PvPResultWidget.OpponentDeclined.zh-CN",
+      "text": "对手拒绝了重赛",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PvPResultWidget.OpponentDeclined.zh",
+      "text": "对手拒绝了重赛",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PvPResultWidget.AcceptRematch",
+      "text": "Accept Rematch",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PvPResultWidget.AcceptRematch.zh-CN",
+      "text": "接受重赛",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PvPResultWidget.AcceptRematch.zh",
+      "text": "接受重赛",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PvPResultWidget.RematchStarting",
+      "text": "Starting rematch...",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PvPResultWidget.RematchStarting.zh-CN",
+      "text": "重赛开始中...",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PvPResultWidget.RematchStarting.zh",
+      "text": "重赛开始中...",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PvPResultWidget.StealTitle",
+      "text": "Stolen",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PvPResultWidget.StealTitle.zh-CN",
+      "text": "掠夺",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PvPResultWidget.StealTitle.zh",
+      "text": "掠夺",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PvPResultWidget.StealTitle.Loser",
+      "text": "Plundered",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PvPResultWidget.StealTitle.Loser.zh-CN",
+      "text": "被掠夺",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PvPResultWidget.StealTitle.Loser.zh",
+      "text": "被掠夺",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PvPResultWidget.StolenReward",
+      "text": "Stole {0} coin from opponent!",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PvPResultWidget.StolenReward.zh-CN",
+      "text": "从对手处抢夺了 {0} 金币！",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PvPResultWidget.StolenReward.zh",
+      "text": "从对手处抢夺了 {0} 金币！",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PvPResultWidget.StolenByOpponent",
+      "text": "Opponent stole {0} coin from you!",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PvPResultWidget.StolenByOpponent.zh-CN",
+      "text": "对手从你处抢走了 {0} 金币！",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PvPResultWidget.StolenByOpponent.zh",
+      "text": "对手从你处抢走了 {0} 金币！",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PvPManaBarWidget.Skill.freeze_random_5.CastEffect",
+      "text": "Random Freeze",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PvPManaBarWidget.Skill.freeze_random_5.CastEffect.zh",
+      "text": "随机冻结",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PvPManaBarWidget.Skill.freeze_random_5.CastEffect.zh-CN",
+      "text": "随机冻结",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PvPManaBarWidget.Skill.convert_random_blocker_3_4.CastEffect",
+      "text": "Random Blockers",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PvPManaBarWidget.Skill.convert_random_blocker_3_4.CastEffect.zh",
+      "text": "随机障碍",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PvPManaBarWidget.Skill.convert_random_blocker_3_4.CastEffect.zh-CN",
+      "text": "随机障碍",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PvPManaBarWidget.Skill.weakness_shift.CastEffect",
+      "text": "Weakness Shift",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PvPManaBarWidget.Skill.weakness_shift.CastEffect.zh",
+      "text": "变换弱点",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PvPManaBarWidget.Skill.weakness_shift.CastEffect.zh-CN",
+      "text": "变换弱点",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PvPManaBarWidget.Skill.rolling_impact.CastEffect",
+      "text": "Board Rebuild",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PvPManaBarWidget.Skill.rolling_impact.CastEffect.zh",
+      "text": "重组棋盘",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PvPManaBarWidget.Skill.rolling_impact.CastEffect.zh-CN",
+      "text": "重组棋盘",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PvPSkillCardWidget.Skill.freeze_random_5.Description",
+      "text": "Acts on the opponent's board: freezes 5 random tiles, blocking them from being cleared or moved.",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PvPSkillCardWidget.Skill.freeze_random_5.Description.zh",
+      "text": "作用于对手棋盘:随机冻结5个方块,冻结期间无法被消除或移动。",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PvPSkillCardWidget.Skill.freeze_random_5.Description.zh-CN",
+      "text": "作用于对手棋盘:随机冻结5个方块,冻结期间无法被消除或移动。",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PvPSkillCardWidget.Skill.convert_random_blocker_3_4.Description",
+      "text": "Randomly converts tiles on the opponent's board into blockers.",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PvPSkillCardWidget.Skill.convert_random_blocker_3_4.Description.zh",
+      "text": "随机将对手棋盘上的方块转换成障碍块。",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PvPSkillCardWidget.Skill.convert_random_blocker_3_4.Description.zh-CN",
+      "text": "随机将对手棋盘上的方块转换成障碍块。",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PvPSkillCardWidget.Skill.weakness_shift.Description",
+      "text": "Randomly switches the weakness on the opponent's board.",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PvPSkillCardWidget.Skill.weakness_shift.Description.zh",
+      "text": "随机切换我在对手棋盘上的弱点。",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PvPSkillCardWidget.Skill.weakness_shift.Description.zh-CN",
+      "text": "随机切换我在对手棋盘上的弱点。",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PvPSkillCardWidget.Skill.rolling_impact.Description",
+      "text": "Acts on the opponent's board: clears all special tiles and reshuffles the board.",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PvPSkillCardWidget.Skill.rolling_impact.Description.zh",
+      "text": "作用于对手棋盘:清除所有特殊方块并重新洗牌。",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PvPSkillCardWidget.Skill.rolling_impact.Description.zh-CN",
+      "text": "作用于对手棋盘:清除所有特殊方块并重新洗牌。",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PvPMatchmakingWidget.Cancel.zh-CN",
+      "text": "关闭",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PvPMatchmakingWidget.Cancel.zh",
+      "text": "关闭",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PvPMatchmakingWidget.Cancel.en-US",
+      "text": "Close",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PvPMatchmakingWidget.Cancel.en",
+      "text": "Close",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PvPMatchmakingWidget.Cancel",
+      "text": "关闭",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PvPOpponentHpBarWidget.LeftLabel.zh-CN",
+      "text": "我",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PvPOpponentHpBarWidget.LeftLabel.zh",
+      "text": "我",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PvPOpponentHpBarWidget.LeftLabel.en-US",
+      "text": "Me",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PvPOpponentHpBarWidget.LeftLabel.en",
+      "text": "Me",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PvPOpponentHpBarWidget.LeftLabel",
+      "text": "Me",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PvPOpponentHpBarWidget.RightLabel.zh-CN",
+      "text": "对手",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PvPOpponentHpBarWidget.RightLabel.zh",
+      "text": "对手",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PvPOpponentHpBarWidget.RightLabel.en-US",
+      "text": "Opponent",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PvPOpponentHpBarWidget.RightLabel.en",
+      "text": "Opponent",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PvPOpponentHpBarWidget.RightLabel",
+      "text": "Opponent",
+      "kind": "TEXT",
+      "sourceFile": "Content/Match3Json/localization/ui_text.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.MatchDuelHud.You",
+      "text": "You",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.MatchDuelHud.You.zh",
+      "text": "你",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.MatchDuelHud.Opponent",
+      "text": "Opponent",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.MatchDuelHud.Opponent.zh",
+      "text": "对手",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.MatchDuelHud.YourTurn",
+      "text": "Your turn",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.MatchDuelHud.YourTurn.zh",
+      "text": "你的回合",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.MatchDuelHud.OpponentTurn",
+      "text": "Opponent turn",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.MatchDuelHud.OpponentTurn.zh",
+      "text": "对方回合",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.MatchDuelHud.FinalRound",
+      "text": "Final round",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.MatchDuelHud.FinalRound.zh",
+      "text": "最后一回合",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.MatchDuelHud.Hammer",
+      "text": "Hammer",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.MatchDuelHud.Hammer.zh",
+      "text": "锤子",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.MatchDuelHud.Shuffle",
+      "text": "Shuffle",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.MatchDuelHud.Shuffle.zh",
+      "text": "洗牌",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.MatchDuelHud.Used",
+      "text": "Used",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.MatchDuelHud.Used.zh",
+      "text": "已用",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.MatchDuelHud.Gem",
+      "text": "Gem",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.MatchDuelHud.Gem.zh",
+      "text": "钻石",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.MatchDuelHud.Reward",
+      "text": "Reward",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.MatchDuelHud.Reward.zh",
+      "text": "奖励",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.MatchDuelHud.Penalty",
+      "text": "Penalty",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.MatchDuelHud.Penalty.zh",
+      "text": "惩罚",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.MatchDuelHud.Booster.firecracker",
+      "text": "Firecracker",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.MatchDuelHud.Booster.firecracker.zh",
+      "text": "鞭炮",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.MatchDuelHud.Booster.laser_gun",
+      "text": "Laser Gun",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.MatchDuelHud.Booster.laser_gun.zh",
+      "text": "激光枪",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.MatchDuelHud.Booster.magic_wand",
+      "text": "Magic Wand",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.MatchDuelHud.Booster.magic_wand.zh",
+      "text": "魔法棒",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.MatchDuelHud.TapToHammer",
+      "text": "Tap a tile to hammer it",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.MatchDuelHud.TapToHammer.zh",
+      "text": "点击一个格子使用锤子",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.MatchDuelHud.TapToCast",
+      "text": "Tap a tile to cast %s",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.MatchDuelHud.TapToCast.zh",
+      "text": "点击一个格子释放 %s",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.MatchDuelHud.OpponentDisconnected",
+      "text": "Opponent disconnected",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.MatchDuelHud.OpponentDisconnected.zh",
+      "text": "对手已断线",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.MatchDuelHud.Victory",
+      "text": "Victory",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.MatchDuelHud.Victory.zh",
+      "text": "胜利",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.MatchDuelHud.Defeat",
+      "text": "Defeat",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.MatchDuelHud.Defeat.zh",
+      "text": "失败",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.MatchDuelHud.Draw",
+      "text": "Draw",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.MatchDuelHud.Draw.zh",
+      "text": "平局",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.MatchDuelHud.Rematch",
+      "text": "Rematch",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.MatchDuelHud.Rematch.zh",
+      "text": "再来一局",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.MatchDuelHud.Leave",
+      "text": "Leave",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.MatchDuelHud.Leave.zh",
+      "text": "离开",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.MatchDuelHud.Coins",
+      "text": "Coins",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.MatchDuelHud.Coins.zh",
+      "text": "金币",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.MatchDuelMatchmaking.Title",
+      "text": "分值PK",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.MatchDuelMatchmaking.Title.zh",
+      "text": "分值PK",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.MatchDuelMatchmaking.AutoMatch",
+      "text": "Auto Match",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.MatchDuelMatchmaking.AutoMatch.zh",
+      "text": "自动匹配",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.MatchDuelMatchmaking.CreateInvite",
+      "text": "Create Invite Code",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.MatchDuelMatchmaking.CreateInvite.zh",
+      "text": "创建邀请码房间",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.MatchDuelMatchmaking.Join",
+      "text": "Join",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.MatchDuelMatchmaking.Join.zh",
+      "text": "加入",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.MatchDuelMatchmaking.Cancel",
+      "text": "Cancel",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.MatchDuelMatchmaking.Cancel.zh",
+      "text": "取消",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.MatchDuelMatchmaking.Idle",
+      "text": "Ready",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.MatchDuelMatchmaking.Idle.zh",
+      "text": "就绪",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.MatchDuelMatchmaking.Matching",
+      "text": "Matching",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.MatchDuelMatchmaking.Matching.zh",
+      "text": "匹配中",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.MatchDuelMatchmaking.Matched",
+      "text": "Matched!",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.MatchDuelMatchmaking.Matched.zh",
+      "text": "匹配成功！",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.MatchDuelMatchmaking.InviteCode",
+      "text": "Invite Code: %s",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.MatchDuelMatchmaking.InviteCode.zh",
+      "text": "邀请码：%s",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.MatchDuelMatchmaking.InviteHint",
+      "text": "Enter invite code",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.MatchDuelMatchmaking.InviteHint.zh",
+      "text": "输入邀请码",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.MatchDuelMatchmaking.EmptyCode",
+      "text": "Enter an invite code first",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.MatchDuelMatchmaking.EmptyCode.zh",
+      "text": "请先输入邀请码",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.MatchDuelMatchmaking.InsufficientStakes",
+      "text": "Insufficient funds: need {coin} coins + {gem} gems to start",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.MatchDuelMatchmaking.InsufficientStakes.zh",
+      "text": "金币或钻石不足：开局需要 {coin} 金币 + {gem} 钻石",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.MatchDuelMatchmaking.OrText",
+      "text": "or",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.MatchDuelMatchmaking.OrText.zh",
+      "text": "或",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.MatchDuelMatchmaking.Description",
+      "text": "Take turns matching on a shared board. Clear red/blue tiles to charge energy, spend it on boosters, and outscore your rival across all rounds!",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.MatchDuelMatchmaking.Description.zh",
+      "text": "轮流在同一棋盘上消除。消除红/蓝方块为能量充能，用能量释放技能，在所有回合中超越对手的得分！",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.MatchDuelMatchmaking.ChooseSkill",
+      "text": "Choose Skill",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.MatchDuelMatchmaking.ChooseSkill.zh",
+      "text": "选择技能",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.MatchDuelMatchmaking.SkillDesc.firecracker",
+      "text": "Firecracker: randomly blasts 10 tiles anywhere on the board.",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.MatchDuelMatchmaking.SkillDesc.firecracker.zh",
+      "text": "鞭炮 · 随机炸碎 10 个任意元素。",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.MatchDuelMatchmaking.SkillDesc.laser_gun",
+      "text": "Laser Gun: clears 2 rows or 2 columns from the target.",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.MatchDuelMatchmaking.SkillDesc.laser_gun.zh",
+      "text": "激光枪 · 从点击处清除 2 行或 2 列（随机横/竖）。",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.MatchDuelMatchmaking.SkillDesc.magic_wand",
+      "text": "Magic Wand: clears all tiles of the chosen color.",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.MatchDuelMatchmaking.SkillDesc.magic_wand.zh",
+      "text": "魔法棒 · 清除指定颜色的全部方块。",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.MatchDuelMatchmaking.StartBattle",
+      "text": "Start Battle",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.MatchDuelMatchmaking.StartBattle.zh",
+      "text": "开始对战",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.MatchDuelResult.TitleWin",
+      "text": "Victory",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.MatchDuelResult.TitleWin.zh",
+      "text": "胜利",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.MatchDuelResult.TitleLose",
+      "text": "Defeat",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.MatchDuelResult.TitleLose.zh",
+      "text": "失败",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.MatchDuelResult.TitleDraw",
+      "text": "Draw",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.MatchDuelResult.TitleDraw.zh",
+      "text": "平局",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.MatchDuelResult.TitleDefault",
+      "text": "Match Ended",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.MatchDuelResult.TitleDefault.zh",
+      "text": "对局结束",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.MatchDuelResult.RewardsTitle",
+      "text": "Rewards",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.MatchDuelResult.RewardsTitle.zh",
+      "text": "奖励",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.MatchDuelResult.Return",
+      "text": "Return",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.MatchDuelResult.Return.zh",
+      "text": "返回",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.MatchDuelResult.RewardWin",
+      "text": "Victory",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.MatchDuelResult.RewardWin.zh",
+      "text": "胜利",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.MatchDuelResult.RewardLose",
+      "text": "Participation",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.MatchDuelResult.RewardLose.zh",
+      "text": "参与奖",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.MatchDuelResult.VictoryReason.OpponentLeft",
+      "text": "Your opponent left the match",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.MatchDuelResult.VictoryReason.OpponentLeft.zh",
+      "text": "对方退出",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.MatchDuelHud.ExtraAction",
+      "text": "Extra Move",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.MatchDuelHud.ExtraAction.zh",
+      "text": "额外行动",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.MatchDuelHud.FinalRoundSuffix",
+      "text": " (Final round)",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.MatchDuelHud.FinalRoundSuffix.zh",
+      "text": "(最后回合)",
+      "kind": "TEXT",
+      "likelyUserFacing": true
+    }
+  ]
+}

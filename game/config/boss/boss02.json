@@ -1,0 +1,59 @@
+{
+  "bEnabled": true,
+  "bossId": "boss_placeholder_02",
+  "displayName": "Spider",
+  "maxHp": 450,
+  "initialHp": 450,
+  "weaknesses": [
+    {
+      "tileType": 4,
+      "damagePerClear": 8
+    },
+    {
+      "tileType": 5,
+      "damagePerClear": 8
+    }
+  ],
+  "skills": [
+    {
+      "bEnabled": true,
+      "skillId": "convert_random_blocker_3_4",
+      "effectType": "convert_random_blocker_3_4",
+      "intervalMoves": 2,
+      "priority": 30,
+      "paramA": 1,
+      "paramB": 3
+    }
+  ],
+  "sealFailThreshold": 1,
+  "presentation": {
+    "skeletalMeshPath": "/Game/Models/boss02/SKM_spider.SKM_spider",
+    "transformLocation": {
+      "X": 80,
+      "Y": 0,
+      "Z": 0
+    },
+    "transformRotation": {
+      "Pitch": 0,
+      "Yaw": 90,
+      "Roll": -90
+    },
+    "transformScale": {
+      "X": 2,
+      "Y": 2,
+      "Z": 2
+    },
+    "animationPaths": [
+      "idle:/Game/Models/boss02/Animations/Boss02_Idle.Boss02_Idle",
+      "hit:/Game/Models/boss02/Animations/Boss02_Hit.Boss02_Hit",
+      "defeat:/Game/Models/boss02/Animations/Boss02_Defeat.Boss02_Defeat",
+      "skill:convert_random_blocker_3_4:/Game/Models/boss02/Animations/Boss02_Fight.Boss02_Fight"
+    ],
+    "convertBlockerTileVfxPath": "/Game/Models/boss02/Niagara/ConvertNG.ConvertNG",
+    "convertBlockerTileSfxPath": "/Game/Models/boss02/Sounds/Convert_Cue.Convert_Cue",
+    "convertBlockerSourceBoneName": "joint4",
+    "victoryNiagaraPath": "/Game/Niagara/VistoryBossNG.VistoryBossNG",
+    "victoryNiagaraBossPath": "/Game/Models/boss02coin/Boss02Coin.Boss02Coin",
+    "victorySoundPath": ""
+  }
+}

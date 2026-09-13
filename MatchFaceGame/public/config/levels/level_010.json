@@ -1,0 +1,118 @@
+{
+  "LevelId": "level_010",
+  "VictoryNiagaraPath": "/Game/Niagara/VistoryBossNG.VistoryBossNG",
+  "VictoryNiagaraBossPath": "/Game/Models/boss01coin/Boss01Coin.Boss01Coin",
+  "Board": {
+    "Rows": 5,
+    "Cols": 6,
+    "Mask": ["001110", "011110", "111111", "011111", "001111"],
+    "Blocked": ["000000", "000100", "001110", "000100", "000000"],
+    "BlockedTypes": ["000000", "000400", "004440", "000400", "000000"],
+    "BlockedHP": ["000000", "000100", "001110", "000100", "000000"],
+    "BlockerTypeDefs": [
+      {
+        "TypeId": 4,
+        "bDestructible": true,
+        "DefaultHP": 1,
+        "BreakScore": -1,
+        "bDamageByAdjacentClear": true
+      }
+    ],
+    "InitialTiles": [0, 1, 2, 3, 4, 0, 1, 2, 3, 4, 1, 1, 2, 3, 4, 1, 1, 2, 3, 4, 1, 1, 2, 3, 0, 1, 3, 3, 2, 3],
+    "InitialSpecials": [],
+    "RandomSeed": 0
+  },
+  "TilePool": {
+    "TileTypes": [1, 2, 3, 4],
+    "Weights": [26, 25, 25, 24]
+  },
+  "Rules": {
+    "MinMatchCount": 3,
+    "bAllowDiagonalSwap": false,
+    "bInvalidSwapBounceBack": true,
+    "bEnsureAtLeastOneMove": true,
+    "bAvoidAutoCascadeAtStart": true,
+    "bEnableSpecialSpecialSwapCombo": true,
+    "bUseTopSpawnAfterInternalSettle": true
+  },
+  "Score": {
+    "BaseClearScore": 10,
+    "ExtraPerMoreThan3": 2,
+    "SpecialTriggerScore": 11,
+    "ComboMultiplierStep": 0.15,
+    "BlockerBreakScore": 10
+  },
+  "Goal": {
+    "TargetScore": 1680,
+    "MaxMoves": 18,
+    "Collect": [],
+    "BlockerBreakByType": []
+  },
+  "Boss": {
+    "ConfigFile": "boss/boss01.json",
+    "bEnabled": true,
+    "BossId": "boss_placeholder_01",
+    "SealFailThreshold": 1.0
+  },
+  "StarRating": {
+    "ThreeStarScore": 2268,
+    "ScoreWeight": 0.4,
+    "MoveWeight": 0.6,
+    "TwoStarThreshold": 0.3,
+    "ThreeStarThreshold": 0.5,
+    "FourStarThreshold": 0.7,
+    "FiveStarThreshold": 0.85,
+    "MinScoreFor2Star": 1040,
+    "MinScoreFor3Star": 1290,
+    "MinScoreFor4Star": 1390,
+    "MinScoreFor5Star": 1680,
+    "ScoreNormCap": 1.2
+  },
+  "SpecialCombos": [
+    {
+      "A": "ColorBomb",
+      "B": "ColorBomb",
+      "bClearWholeBoard": true,
+      "bClearAllOfOtherType": false,
+      "BombRadius": 0,
+      "bClearSwapRow": false,
+      "bClearSwapCol": false
+    },
+    {
+      "A": "ColorBomb",
+      "B": "LineHorizontal",
+      "bClearWholeBoard": false,
+      "bClearAllOfOtherType": true,
+      "BombRadius": 0,
+      "bClearSwapRow": true,
+      "bClearSwapCol": true
+    },
+    {
+      "A": "ColorBomb",
+      "B": "LineVertical",
+      "bClearWholeBoard": false,
+      "bClearAllOfOtherType": true,
+      "BombRadius": 0,
+      "bClearSwapRow": true,
+      "bClearSwapCol": true
+    },
+    {
+      "A": "Bomb3x3",
+      "B": "Bomb3x3",
+      "bClearWholeBoard": false,
+      "bClearAllOfOtherType": false,
+      "BombRadius": 2,
+      "bClearSwapRow": true,
+      "bClearSwapCol": true
+    },
+    {
+      "A": "LineHorizontal",
+      "B": "LineVertical",
+      "bClearWholeBoard": false,
+      "bClearAllOfOtherType": false,
+      "BombRadius": 1,
+      "bClearSwapRow": true,
+      "bClearSwapCol": true
+    }
+  ]
+}

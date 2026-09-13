@@ -1,0 +1,79 @@
+{
+  "skills": [
+    {
+      "skillId": "freeze_random_3",
+      "displayName": "Freeze Three Tiles",
+      "description": "Randomly freezes 3 tiles for 2 turns."
+    },
+    {
+      "skillId": "freeze_random_5",
+      "displayName": "Freeze Five Tiles",
+      "description": "Randomly freezes 5 tiles for 2 turns."
+    },
+    {
+      "skillId": "seal_special_3",
+      "displayName": "Seal Special Tiles",
+      "description": "Randomly seals 3 special tiles for 3 turns."
+    },
+    {
+      "skillId": "convert_random_blocker_3_4",
+      "displayName": "Random Blocker Conversion",
+      "description": "Every 2 moves, converts 1 to 3 tiles into blockers."
+    },
+    {
+      "skillId": "corrode_random",
+      "displayName": "Corrode Terrain",
+      "description": "Generates corroded tiles and spreads/erodes in subsequent turns."
+    },
+    {
+      "skillId": "hard_shell",
+      "displayName": "Hard Shell Defense",
+      "description": "After being hit, reduces damage taken on the next turn by 50%."
+    },
+    {
+      "skillId": "weakness_shift",
+      "displayName": "Weakness Shift",
+      "description": "Switches weakness color every 3 moves."
+    },
+    {
+      "skillId": "rolling_impact",
+      "displayName": "Rolling Impact",
+      "description": "Clears special tiles every 5 moves and triggers a shuffle."
+    },
+    {
+      "skillId": "steal",
+      "displayName": "Steal",
+      "description": "Steals target resources based on configuration (settled asynchronously by presentation and logic layers)."
+    },
+    {
+      "skillId": "land_convert",
+      "displayName": "Dive and Convert",
+      "description": "Every 3 moves, dives onto a random normal tile, stays briefly, then converts it into a puddle blocker."
+    },
+    {
+      "skillId": "land_apply_larvae",
+      "displayName": "Dive and Infest",
+      "description": "Every 2 moves, dives onto a random normal tile, stays briefly, then infests it with larvae."
+    },
+    {
+      "skillId": "slime_adhesion",
+      "displayName": "Slime Adhesion",
+      "description": "Every 1 move, creates a 2x2 sticky patch around the gecko's current crawl position by adding sticky to normal tiles."
+    },
+    {
+      "skillId": "plunder",
+      "displayName": "Plunder",
+      "description": "On each boss hit, ants plunder one random row from right to left, carrying away normal tiles and replacing them with configured blocker type (default paper ball)."
+    },
+    {
+      "skillId": "mutate_special_on_hit",
+      "displayName": "Mutate Special On Hit",
+      "description": "On each boss hit, mutates random target tiles into configured special tiles based on skill parameters."
+    },
+    {
+      "skillId": "poison_player_system_on_hit",
+      "displayName": "Poison Player System On Hit",
+      "description": "On each boss hit, poisons player special systems for a configured duration and applies toxic visual feedback."
+    }
+  ]
+}

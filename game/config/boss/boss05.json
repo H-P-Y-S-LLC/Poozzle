@@ -1,0 +1,92 @@
+{
+  "bEnabled": true,
+  "bossId": "boss_placeholder_05",
+  "displayName": "Moth Fly",
+  "maxHp": 1680,
+  "initialHp": 1680,
+  "weaknesses": [
+    {
+      "tileType": 4,
+      "damagePerClear": 7
+    }
+  ],
+  "skills": [
+    {
+      "bEnabled": true,
+      "skillId": "steal",
+      "effectType": "steal",
+      "intervalMoves": 3,
+      "intervalSecondsMin": 15,
+      "intervalSecondsMax": 30,
+      "priority": 100,
+      "paramA": 4,
+      "paramB": 2
+    },
+    {
+      "landingDiveStartSoundPath": "/Game/Models/boss05/Sounds/StartDownCue.StartDownCue",
+      "landingSoundPath": "/Game/Models/boss05/Sounds/ToWaterCue.ToWaterCue",
+      "bEnabled": true,
+      "skillId": "land_convert",
+      "effectType": "land_convert",
+      "intervalMoves": 2,
+      "priority": 80,
+      "paramA": 15,
+      "landingScaleFactor": 0.5,
+      "landingHoldSeconds": 0.5,
+      "landingZOffset": 150,
+      "landingNiagaraPath": "/Game/Models/boss05/Niagara/ToWaterNG.ToWaterNG"
+    }
+  ],
+  "sealFailThreshold": 1,
+  "presentation": {
+    "skeletalMeshPath": "/Game/Models/boss05/SKM_Mothfly.SKM_Mothfly",
+    "transformLocation": {
+      "X": 0,
+      "Y": 0,
+      "Z": 200
+    },
+    "transformRotation": {
+      "Pitch": 0,
+      "Yaw": -90,
+      "Roll": 90
+    },
+    "transformScale": {
+      "X": 2,
+      "Y": 2,
+      "Z": 2
+    },
+    "randomFlight": {
+      "bEnabled": true,
+      "minSpeed": 340,
+      "maxSpeed": 560,
+      "arrivalRadius": 24,
+      "screenMarginX": 0.02,
+      "screenMarginY": 0.02,
+      "retargetMinInterval": 0.35,
+      "retargetMaxInterval": 1.1,
+      "turnInterpSpeed": 5,
+      "pitchAmplitudeDeg": 9,
+      "pitchFrequency": 2.2,
+      "minPitchDeg": -18,
+      "maxPitchDeg": 18,
+      "depthOffsetMin": -60,
+      "depthOffsetMax": 40,
+      "bUsePresentationRotationAsForwardOffset": true,
+      "bKeepUpright": true,
+      "forwardRotationOffset": {
+        "Pitch": 0,
+        "Yaw": 0,
+        "Roll": 0
+      }
+    },
+    "animationPaths": [
+      "idle:/Game/Models/boss05/Animations/boss05_Idle.boss05_Idle",
+      "hit:/Game/Models/boss05/Animations/boss05_Hit.boss05_Hit",
+      "defeat:/Game/Models/boss05/Animations/boss05_Defeat.boss05_Defeat",
+      "skill:steal:/Game/Models/boss05/Animations/boss05_Steal.boss05_Steal"
+    ],
+    "victoryNiagaraPath": "/Game/Niagara/VistoryBossNG.VistoryBossNG",
+    "victoryNiagaraBossPath": "/Game/Models/boss05coin/Boss05Coin.Boss05Coin",
+    "victorySoundPath": ""
+  }
+}

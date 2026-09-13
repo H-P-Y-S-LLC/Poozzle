@@ -1,0 +1,239 @@
+{
+  "LevelId": "level_030",
+  "VictoryNiagaraPath": "/Game/Niagara/VistoryBossNG.VistoryBossNG",
+  "VictoryNiagaraBossPath": "/Game/Models/boss03coin/Boss03Coin.Boss03Coin",
+  "Board": {
+    "Rows": 7,
+    "Cols": 7,
+    "Mask": [
+      "1111111",
+      "1111111",
+      "1111111",
+      "1111111",
+      "1111111",
+      "1111111",
+      "1111111"
+    ],
+    "Blocked": [
+      "0000000",
+      "0001000",
+      "0001000",
+      "0011100",
+      "0001000",
+      "0001000",
+      "0000000"
+    ],
+    "BlockedTypes": [
+      "0000000",
+      "0003000",
+      "0003000",
+      "0032500",
+      "0005000",
+      "0005000",
+      "0000000"
+    ],
+    "BlockedHP": [
+      "0000000",
+      "0001000",
+      "0001000",
+      "0010100",
+      "0001000",
+      "0001000",
+      "0000000"
+    ],
+    "BlockerTypeDefs": [
+      {
+        "TypeId": 2,
+        "bDestructible": false,
+        "DefaultHP": 0,
+        "BreakScore": -1,
+        "bDamageByAdjacentClear": false
+      },
+      {
+        "TypeId": 3,
+        "bDestructible": true,
+        "DefaultHP": 2,
+        "BreakScore": 18,
+        "bDamageByAdjacentClear": true
+      },
+      {
+        "TypeId": 5,
+        "bDestructible": true,
+        "DefaultHP": 1,
+        "BreakScore": 18,
+        "bDamageByAdjacentClear": true,
+        "bSpreadEachTurn": true,
+        "SpreadCountPerTurn": 1
+      },
+      {
+        "TypeId": 8,
+        "bDestructible": true,
+        "DefaultHP": 1,
+        "BreakScore": 18,
+        "bDamageByAdjacentClear": true,
+        "bSpreadEachTurn": false,
+        "SpreadCountPerTurn": 1,
+        "bCorrodeToMaskOnTimeout": true,
+        "CorrodeDelaySeconds": 10
+      }
+    ],
+    "InitialTiles": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      1,
+      2,
+      2,
+      3,
+      4,
+      5,
+      1,
+      2,
+      3,
+      3,
+      4,
+      5,
+      1,
+      2,
+      3,
+      4,
+      4,
+      5,
+      1,
+      2,
+      3,
+      4,
+      5,
+      5,
+      1,
+      2,
+      3,
+      4,
+      5,
+      1,
+      1,
+      2,
+      3,
+      4,
+      5,
+      1,
+      2,
+      2,
+      3,
+      4,
+      5,
+      1,
+      2,
+      3
+    ],
+    "InitialSpecials": [],
+    "RandomSeed": 0
+  },
+  "TilePool": {
+    "TileTypes": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "Weights": [
+      18,
+      18,
+      20,
+      22,
+      22
+    ]
+  },
+  "Rules": {
+    "MinMatchCount": 3,
+    "bAllowDiagonalSwap": false,
+    "bInvalidSwapBounceBack": true,
+    "bEnsureAtLeastOneMove": true,
+    "bAvoidAutoCascadeAtStart": true,
+    "bEnableSpecialSpecialSwapCombo": true,
+    "bUseTopSpawnAfterInternalSettle": true
+  },
+  "Score": {
+    "BaseClearScore": 18,
+    "ExtraPerMoreThan3": 2,
+    "SpecialTriggerScore": 19,
+    "ComboMultiplierStep": 0.28,
+    "BlockerBreakScore": 18
+  },
+  "Goal": {
+    "TargetScore": 3900,
+    "MaxMoves": 48,
+    "Collect": [],
+    "BlockerBreakByType": []
+  },
+  "Boss": {
+    "ConfigFile": "boss/boss03.json",
+    "bEnabled": true,
+    "BossId": "boss_placeholder_03",
+    "SealFailThreshold": 1.0
+  },
+  "StarRating": {
+    "ThreeStarScore": 5265,
+    "ScoreWeight": 0.4,
+    "MoveWeight": 0.6,
+    "TwoStarThreshold": 0.3,
+    "ThreeStarThreshold": 0.5,
+    "FourStarThreshold": 0.7,
+    "FiveStarThreshold": 0.85,
+    "MinScoreFor2Star": 2535,
+    "MinScoreFor3Star": 3510,
+    "MinScoreFor4Star": 3550,
+    "MinScoreFor5Star": 3900,
+    "ScoreNormCap": 1.2
+  },
+  "SpecialCombos": [
+    {
+      "A": "ColorBomb",
+      "B": "ColorBomb",
+      "bClearWholeBoard": true,
+      "bClearAllOfOtherType": false,
+      "BombRadius": 0,
+      "bClearSwapRow": false,
+      "bClearSwapCol": false
+    },
+    {
+      "A": "ColorBomb",
+      "B": "LineHorizontal",
+      "bClearWholeBoard": false,
+      "bClearAllOfOtherType": true,
+      "BombRadius": 0,
+      "bClearSwapRow": true,
+      "bClearSwapCol": true
+    },
+    {
+      "A": "ColorBomb",
+      "B": "LineVertical",
+      "bClearWholeBoard": false,
+      "bClearAllOfOtherType": true,
+      "BombRadius": 0,
+      "bClearSwapRow": true,
+      "bClearSwapCol": true
+    },
+    {
+      "A": "Bomb3x3",
+      "B": "Bomb3x3",
+      "bClearWholeBoard": false,
+      "bClearAllOfOtherType": false,
+      "BombRadius": 2,
+      "bClearSwapRow": true,
+      "bClearSwapCol": true
+    },
+    {
+      "A": "LineHorizontal",
+      "B": "LineVertical",
+      "bClearWholeBoard": false,
+      "bClearAllOfOtherType": false,
+      "BombRadius": 1,
+      "bClearSwapRow": true,
+      "bClearSwapCol": true
+    }
+  ]
+}

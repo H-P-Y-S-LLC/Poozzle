@@ -1,0 +1,17 @@
+{
+  "FailureReasonFontSize": 38,
+  "Descriptions": {
+    "MovesExhausted": "Out of moves. Level goals were not completed.",
+    "SlideMoveExhausted": "Out of moves in Slide Puzzle.",
+    "GoalsUnreachable": "Not enough target blockers remain on the board. Goals are unreachable.",
+    "BlockerEscaped": "A critical blocker escaped. Challenge failed.",
+    "BoardFullySealed": "Frozen board area reached the failure threshold.",
+    "BossNoPossibleMove": "No possible moves in the Boss level. Challenge failed.",
+    "NoPossibleMove": "No possible moves on the current board.",
+    "SlideNoValidMove": "No valid move remains in Slide Puzzle.",
+    "ExitBeforeGoals": "Reached the exit before collecting all goals. Challenge failed.",
+    "SlideExitBeforeGoals": "Reached the exit before collecting all goals in Slide Puzzle.",
+    "InstantDefeat": "Killed a normal cell.",
+    "SlideInstantDefeat": "Killed a normal cell."
+  }
+}

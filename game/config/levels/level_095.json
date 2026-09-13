@@ -1,0 +1,141 @@
+{
+  "LevelId": "level_095",
+  "BoardLocationOffset": {
+    "X": -50,
+    "Y": 0,
+    "Z": 0
+  },
+  "CellSize": 90,
+  "Board": {
+    "Rows": 10,
+    "Cols": 8,
+    "Mask": ["11111111", "11111111", "11111111", "11111111", "11111111", "11111111", "11111111", "11111111", "11111111", "11111111"],
+    "Blocked": ["01000010", "00100100", "00000000", "01000010", "00100100", "00000000", "00011000", "00000000", "00000000", "00000000"],
+    "BlockedTypes": ["0M0000M0", "00M00M00", "00000000", "0M0000M0", "00M00M00", "00000000", "000MM000", "00000000", "00000000", "00000000"],
+    "BlockedHP": ["06000060", "00600600", "00000000", "06000060", "00600600", "00000000", "00066000", "00000000", "00000000", "00000000"],
+    "BlockerTypeDefs": [
+      {
+        "TypeId": 22,
+        "bDestructible": true,
+        "DefaultHP": 6,
+        "BreakScore": 30,
+        "bDamageByAdjacentClear": true,
+        "bUseDamageStageMeshesAsHp": true
+      }
+    ],
+    "Pipe": {
+      "bEnabled": false,
+      "Mask": [],
+      "BlockedMask": [],
+      "OpenMask": [],
+      "ProxyTileTypeMask": [],
+      "HPMask": [],
+      "DefaultProxyTileType": 1,
+      "DefaultHP": 1,
+      "DefaultOpenMask": 15,
+      "GoalMode": "AllOpen",
+      "Sources": [],
+      "Ends": []
+    },
+    "InitialTiles": [
+      1, 2, 3, 4, 5, 6, 1, 2, 3, 4, 5, 6, 1, 2, 3, 4, 5, 6, 1, 2, 3, 4, 5, 6, 1, 2, 3, 4, 5, 6, 1, 2, 3, 4, 5, 6, 1, 2, 3, 4, 5, 6, 1, 2, 3, 4, 5, 6, 1, 2, 3, 4, 5, 6, 1, 2, 3, 4, 5, 6, 1, 2, 3, 4, 5,
+      6, 1, 2, 3, 4, 5, 6, 1, 2, 3, 4, 5, 6, 1, 2
+    ],
+    "InitialSpecials": [],
+    "RandomSeed": 0
+  },
+  "TilePool": {
+    "TileTypes": [1, 2, 3, 4, 5, 6],
+    "Weights": [1, 1, 1, 1, 1, 1],
+    "NonRegeneratingTileTypes": [],
+    "InertTileTypes": []
+  },
+  "Rules": {
+    "MinMatchCount": 3,
+    "bAllowDiagonalSwap": false,
+    "bInvalidSwapBounceBack": true,
+    "bEnsureAtLeastOneMove": true,
+    "bAvoidAutoCascadeAtStart": true,
+    "bEnableSpecialSpecialSwapCombo": true,
+    "bUseTopSpawnAfterInternalSettle": true
+  },
+  "Score": {
+    "BaseClearScore": 50,
+    "ExtraPerMoreThan3": 20,
+    "SpecialTriggerScore": 120,
+    "ComboMultiplierStep": 0.4,
+    "BlockerBreakScore": 600
+  },
+  "Goal": {
+    "TargetScore": 4500,
+    "MaxMoves": 32,
+    "Collect": [],
+    "BlockerBreakByType": [
+      {
+        "TypeId": 22,
+        "Count": 10
+      }
+    ]
+  },
+  "StarRating": {
+    "ThreeStarScore": 4500,
+    "ScoreWeight": 0.1,
+    "MoveWeight": 0.9,
+    "TwoStarThreshold": 0.25,
+    "ThreeStarThreshold": 0.45,
+    "FourStarThreshold": 0.65,
+    "FiveStarThreshold": 0.8,
+    "MinScoreFor2Star": 2850,
+    "MinScoreFor3Star": 3750,
+    "MinScoreFor4Star": 3860,
+    "MinScoreFor5Star": 4200,
+    "ScoreNormCap": 1.2
+  },
+  "SpecialCombos": [
+    {
+      "A": "ColorBomb",
+      "B": "ColorBomb",
+      "bClearWholeBoard": true,
+      "bClearAllOfOtherType": false,
+      "BombRadius": 0,
+      "bClearSwapRow": false,
+      "bClearSwapCol": false
+    },
+    {
+      "A": "ColorBomb",
+      "B": "LineHorizontal",
+      "bClearWholeBoard": false,
+      "bClearAllOfOtherType": true,
+      "BombRadius": 0,
+      "bClearSwapRow": true,
+      "bClearSwapCol": true
+    },
+    {
+      "A": "ColorBomb",
+      "B": "LineVertical",
+      "bClearWholeBoard": false,
+      "bClearAllOfOtherType": true,
+      "BombRadius": 0,
+      "bClearSwapRow": true,
+      "bClearSwapCol": true
+    },
+    {
+      "A": "Bomb3x3",
+      "B": "Bomb3x3",
+      "bClearWholeBoard": false,
+      "bClearAllOfOtherType": false,
+      "BombRadius": 2,
+      "bClearSwapRow": true,
+      "bClearSwapCol": true
+    },
+    {
+      "A": "LineHorizontal",
+      "B": "LineVertical",
+      "bClearWholeBoard": false,
+      "bClearAllOfOtherType": false,
+      "BombRadius": 1,
+      "bClearSwapRow": true,
+      "bClearSwapCol": true
+    }
+  ]
+}

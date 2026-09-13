@@ -1,0 +1,1584 @@
+{
+  "module": "UI",
+  "generatedAtUtc": "2026-04-07T13:09:37.756466+00:00",
+  "sourceRoot": "Source/Gemer",
+  "entryCount": 193,
+  "entries": [
+    {
+      "key": "UI.UI.Widgets.LevelGoalInfoWidget.Rewards.L89.TEXT.1",
+      "text": "x%lld",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/LevelGoalInfoWidget.Rewards.cpp",
+      "sourceLine": 89,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.LevelGoalInfoWidget.Rewards.L98.TEXT.2",
+      "text": "x%d",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/LevelGoalInfoWidget.Rewards.cpp",
+      "sourceLine": 98,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.LevelGoalInfoWidget.Rewards.L103.TEXT.3",
+      "text": "x%d",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/LevelGoalInfoWidget.Rewards.cpp",
+      "sourceLine": 103,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.LevelGoalInfoWidget.L216.TEXT.1",
+      "text": "%s %s",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/LevelGoalInfoWidget.cpp",
+      "sourceLine": 216,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.LevelGoalInfoWidget.L249.TEXT.2",
+      "text": "Failed to load level goals",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/LevelGoalInfoWidget.cpp",
+      "sourceLine": 249,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.LevelGoalInfoWidget.L372.TEXT.3",
+      "text": "Unnamed skill",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/LevelGoalInfoWidget.cpp",
+      "sourceLine": 372,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.LevelGoalInfoWidget.L43.TEXT.1",
+      "text": "No level selected",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/LevelGoalInfoWidget.h",
+      "sourceLine": 43,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.LevelGoalInfoWidget.L46.TEXT.2",
+      "text": "Level:",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/LevelGoalInfoWidget.h",
+      "sourceLine": 46,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.LevelGoalInfoWidget.L49.TEXT.3",
+      "text": "Pass Goals",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/LevelGoalInfoWidget.h",
+      "sourceLine": 49,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.LevelGoalInfoWidget.L52.TEXT.4",
+      "text": "Rewards",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/LevelGoalInfoWidget.h",
+      "sourceLine": 52,
+      "likelyUserFacing": false
+    },
+    {
+      "key": "UI.UI.Widgets.LevelGoalInfoWidget.L55.TEXT.5",
+      "text": "Defeat Boss",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/LevelGoalInfoWidget.h",
+      "sourceLine": 55,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.LevelGoalInfoWidget.L58.TEXT.6",
+      "text": "Weakness",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/LevelGoalInfoWidget.h",
+      "sourceLine": 58,
+      "likelyUserFacing": false
+    },
+    {
+      "key": "UI.UI.Widgets.LevelGoalInfoWidget.L61.TEXT.7",
+      "text": "Any tile can damage",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/LevelGoalInfoWidget.h",
+      "sourceLine": 61,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.LevelGoalInfoWidget.L64.TEXT.8",
+      "text": "Skills",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/LevelGoalInfoWidget.h",
+      "sourceLine": 64,
+      "likelyUserFacing": false
+    },
+    {
+      "key": "UI.UI.Widgets.LevelGoalInfoWidget.L67.TEXT.9",
+      "text": "No active skills",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/LevelGoalInfoWidget.h",
+      "sourceLine": 67,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.LevelListWidget.L360.TEXT.4",
+      "text": "LevelSubsystem is not initialized",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/LevelListWidget.cpp",
+      "sourceLine": 360,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.LevelListWidget.L372.TEXT.5",
+      "text": "Level is not accessible",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/LevelListWidget.cpp",
+      "sourceLine": 372,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.LevelListWidget.L384.TEXT.6",
+      "text": "Failed to select level",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/LevelListWidget.cpp",
+      "sourceLine": 384,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.LevelListWidget.L713.TEXT.11",
+      "text": "%d/%d",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/LevelListWidget.cpp",
+      "sourceLine": 713,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.LevelListWidget.L40.TEXT.1",
+      "text": "Current Level",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/LevelListWidget.h",
+      "sourceLine": 40,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.LevelListWidget.L43.TEXT.2",
+      "text": "Not Selected",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/LevelListWidget.h",
+      "sourceLine": 43,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.LevelListWidget.MoreLevelsComingSoon",
+      "text": "More levels coming soon",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/LevelListWidget.h",
+      "sourceLine": 124,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.LevelLoadoutSetupWidget.L163.TEXT.1",
+      "text": "Flow subsystem is not ready",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/LevelLoadoutSetupWidget.cpp",
+      "sourceLine": 163,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.LevelLoadoutSetupWidget.L169.TEXT.2",
+      "text": "Level subsystem is not ready",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/LevelLoadoutSetupWidget.cpp",
+      "sourceLine": 169,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.LevelLoadoutSetupWidget.L176.TEXT.3",
+      "text": "Select a level first",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/LevelLoadoutSetupWidget.cpp",
+      "sourceLine": 176,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.LevelLoadoutSetupWidget.L213.TEXT.4",
+      "text": "Flow subsystem is not ready",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/LevelLoadoutSetupWidget.cpp",
+      "sourceLine": 213,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.LevelLoadoutSetupWidget.L219.TEXT.5",
+      "text": "Level subsystem is not ready",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/LevelLoadoutSetupWidget.cpp",
+      "sourceLine": 219,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.LevelLoadoutSetupWidget.L226.TEXT.6",
+      "text": "Select a level first",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/LevelLoadoutSetupWidget.cpp",
+      "sourceLine": 226,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.LevelLoadoutSetupWidget.L247.TEXT.7",
+      "text": "This item cannot be equipped for the current level.",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/LevelLoadoutSetupWidget.cpp",
+      "sourceLine": 247,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.LevelLoadoutSetupWidget.L266.TEXT.8",
+      "text": "Failed to update loadout",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/LevelLoadoutSetupWidget.cpp",
+      "sourceLine": 266,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.LevelLoadoutSetupWidget.L270.TEXT.9",
+      "text": "",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/LevelLoadoutSetupWidget.cpp",
+      "sourceLine": 270,
+      "likelyUserFacing": false
+    },
+    {
+      "key": "UI.Flow.LoadoutError.ItemNotDefined",
+      "text": "This item is not available",
+      "kind": "TEXT",
+      "sourceFile": "Flow/FlowSubsystem.PlayerState.cpp",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.Flow.LoadoutError.ItemNotOwned",
+      "text": "You don't own this item",
+      "kind": "TEXT",
+      "sourceFile": "Flow/FlowSubsystem.PlayerState.cpp",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.Flow.LoadoutError.CountExceedsCap",
+      "text": "Item count exceeds the available limit",
+      "kind": "TEXT",
+      "sourceFile": "Flow/FlowSubsystem.PlayerState.cpp",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.Flow.LoadoutError.TotalExceedsLevelCap",
+      "text": "Loadout slots are full for this level",
+      "kind": "TEXT",
+      "sourceFile": "Flow/FlowSubsystem.cpp",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.LevelLoadoutSetupWidget.L325.TEXT.14",
+      "text": "Apply To Current Level",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/LevelLoadoutSetupWidget.cpp",
+      "sourceLine": 325,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.LevelLoadoutSetupWidget.L336.TEXT.16",
+      "text": "Clear Pending",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/LevelLoadoutSetupWidget.cpp",
+      "sourceLine": 336,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.LevelLoadoutSetupWidget.L455.TEXT.19",
+      "text": "Flow subsystem is not ready",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/LevelLoadoutSetupWidget.cpp",
+      "sourceLine": 455,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.LevelLoadoutSetupWidget.L584.TEXT.20",
+      "text": "No inventory items available",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/LevelLoadoutSetupWidget.cpp",
+      "sourceLine": 584,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.LevelLoadoutSetupWidget.L47.TEXT.1",
+      "text": "Tap an item to equip it for this level",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/LevelLoadoutSetupWidget.h",
+      "sourceLine": 47,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.LevelLoadoutSetupWidget.LoadoutSummary.Limited",
+      "text": "{0} types, max {1} equipped ({2} now)",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/LevelLoadoutSetupWidget.cpp",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.LevelLoadoutSetupWidget.LoadoutSummary.Unlimited",
+      "text": "{0} types, unlimited ({1} equipped)",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/LevelLoadoutSetupWidget.cpp",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3BossWidget.Text.L94.TEXT.6",
+      "text": "{0}: {1}",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/Match3BossWidget.Text.cpp",
+      "sourceLine": 94,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3BossWidget.Text.L111.TEXT.7",
+      "text": "{0}: {1} ({2})",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/Match3BossWidget.Text.cpp",
+      "sourceLine": 111,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3BossWidget.Text.L125.TEXT.8",
+      "text": "{0}: {1} ({2})",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/Match3BossWidget.Text.cpp",
+      "sourceLine": 125,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3BossWidget.Text.L128.TEXT.9",
+      "text": "in {0} move(s)",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/Match3BossWidget.Text.cpp",
+      "sourceLine": 128,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3BossWidget.Text.L139.TEXT.10",
+      "text": "Unknown",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/Match3BossWidget.Text.cpp",
+      "sourceLine": 139,
+      "likelyUserFacing": false
+    },
+    {
+      "key": "UI.UI.Widgets.Match3BossWidget.Text.L143.TEXT.11",
+      "text": "GoalReached",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/Match3BossWidget.Text.cpp",
+      "sourceLine": 143,
+      "likelyUserFacing": false
+    },
+    {
+      "key": "UI.UI.Widgets.Match3BossWidget.Text.L146.TEXT.12",
+      "text": "BossDefeated",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/Match3BossWidget.Text.cpp",
+      "sourceLine": 146,
+      "likelyUserFacing": false
+    },
+    {
+      "key": "UI.UI.Widgets.Match3BossWidget.Text.L149.TEXT.13",
+      "text": "MovesExhausted",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/Match3BossWidget.Text.cpp",
+      "sourceLine": 149,
+      "likelyUserFacing": false
+    },
+    {
+      "key": "UI.UI.Widgets.Match3BossWidget.Text.L152.TEXT.14",
+      "text": "GoalsUnreachable",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/Match3BossWidget.Text.cpp",
+      "sourceLine": 152,
+      "likelyUserFacing": false
+    },
+    {
+      "key": "UI.UI.Widgets.Match3BossWidget.Text.L155.TEXT.15",
+      "text": "BlockerEscaped",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/Match3BossWidget.Text.cpp",
+      "sourceLine": 155,
+      "likelyUserFacing": false
+    },
+    {
+      "key": "UI.UI.Widgets.Match3BossWidget.Text.L158.TEXT.16",
+      "text": "BoardFullySealed",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/Match3BossWidget.Text.cpp",
+      "sourceLine": 158,
+      "likelyUserFacing": false
+    },
+    {
+      "key": "UI.UI.Widgets.Match3BossWidget.Text.L161.TEXT.17",
+      "text": "NoPossibleMove",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/Match3BossWidget.Text.cpp",
+      "sourceLine": 161,
+      "likelyUserFacing": false
+    },
+    {
+      "key": "UI.UI.Widgets.Match3BossWidget.Text.L165.TEXT.18",
+      "text": "None",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/Match3BossWidget.Text.cpp",
+      "sourceLine": 165,
+      "likelyUserFacing": false
+    },
+    {
+      "key": "UI.UI.Widgets.Match3BossWidget.Text.L170.TEXT.19",
+      "text": "{0}: {1}",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/Match3BossWidget.Text.cpp",
+      "sourceLine": 170,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3BossWidget.Text.L178.TEXT.20",
+      "text": "{0}: {1}/{2}",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/Match3BossWidget.Text.cpp",
+      "sourceLine": 178,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3BossWidget.View.L54.TEXT.1",
+      "text": "Last: {0}",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/Match3BossWidget.View.cpp",
+      "sourceLine": 54,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3BossWidget.View.L60.TEXT.2",
+      "text": "{0}\\nLast: {1}",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/Match3BossWidget.View.cpp",
+      "sourceLine": 60,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3BossWidget.L61.TEXT.1",
+      "text": "Boss",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/Match3BossWidget.h",
+      "sourceLine": 61,
+      "likelyUserFacing": false
+    },
+    {
+      "key": "UI.UI.Widgets.Match3BossWidget.L64.TEXT.2",
+      "text": "HP",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/Match3BossWidget.h",
+      "sourceLine": 64,
+      "likelyUserFacing": false
+    },
+    {
+      "key": "UI.UI.Widgets.Match3BossWidget.L67.TEXT.3",
+      "text": "Skill",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/Match3BossWidget.h",
+      "sourceLine": 67,
+      "likelyUserFacing": false
+    },
+    {
+      "key": "UI.UI.Widgets.Match3BossWidget.L70.TEXT.4",
+      "text": "Weakness",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/Match3BossWidget.h",
+      "sourceLine": 70,
+      "likelyUserFacing": false
+    },
+    {
+      "key": "UI.UI.Widgets.Match3BossWidget.L73.TEXT.9",
+      "text": "Stubborn Gray heals boss",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/Match3BossWidget.h",
+      "sourceLine": 73,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3BossWidget.L73.TEXT.5",
+      "text": "No upcoming skill",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/Match3BossWidget.h",
+      "sourceLine": 73,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3BossWidget.L76.TEXT.6",
+      "text": "in {0}s",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/Match3BossWidget.h",
+      "sourceLine": 76,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3BossWidget.L79.TEXT.7",
+      "text": "Result",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/Match3BossWidget.h",
+      "sourceLine": 79,
+      "likelyUserFacing": false
+    },
+    {
+      "key": "UI.UI.Widgets.Match3BossWidget.L113.TEXT.8",
+      "text": "Boss switched weakness",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/Match3BossWidget.h",
+      "sourceLine": 113,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3CodexIntroWidget.L137.TEXT.1",
+      "text": "%s\\n%s",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/Match3CodexIntroWidget.cpp",
+      "sourceLine": 137,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3CodexIntroWidget.L939.TEXT.25",
+      "text": "%d / %d",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/Match3CodexIntroWidget.cpp",
+      "sourceLine": 939,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3CodexIntroWidget.L72.TEXT.1",
+      "text": "New Codex Entry",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/Match3CodexIntroWidget.h",
+      "sourceLine": 72,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3CodexIntroWidget.L75.TEXT.2",
+      "text": "Got It",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/Match3CodexIntroWidget.h",
+      "sourceLine": 75,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3CodexIntroWidget.L78.TEXT.3",
+      "text": "Next",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/Match3CodexIntroWidget.h",
+      "sourceLine": 78,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3CodexIntroWidget.L81.TEXT.4",
+      "text": "Previous",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/Match3CodexIntroWidget.h",
+      "sourceLine": 81,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3CodexPageWidget.L84.TEXT.2",
+      "text": "%s\\n%s",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/Match3CodexPageWidget.cpp",
+      "sourceLine": 84,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3CodexPageWidget.L130.TEXT.3",
+      "text": "Close",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/Match3CodexPageWidget.cpp",
+      "sourceLine": 130,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3CodexPageWidget.L185.TEXT.4",
+      "text": "Codex Preview",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/Match3CodexPageWidget.cpp",
+      "sourceLine": 185,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3CodexPageWidget.L190.TEXT.5",
+      "text": "Blocker or Boss descriptions will appear here.",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/Match3CodexPageWidget.cpp",
+      "sourceLine": 190,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3CodexPageWidget.L195.TEXT.6",
+      "text": "If RootCanvas is bound in Blueprint, the auto layout will be attached under it.",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/Match3CodexPageWidget.cpp",
+      "sourceLine": 195,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3CodexPageWidget.L283.TEXT.7",
+      "text": "[%s] %s",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/Match3CodexPageWidget.cpp",
+      "sourceLine": 283,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3CodexPageWidget.L665.TEXT.23",
+      "text": "Codex data is not ready yet.",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/Match3CodexPageWidget.cpp",
+      "sourceLine": 665,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3SettlementWidget.Goals.L76.TEXT.1",
+      "text": "0 / 0",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/Match3SettlementWidget.Goals.cpp",
+      "sourceLine": 76,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3SettlementWidget.Goals.L186.TEXT.2",
+      "text": "Unnamed skill",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/Match3SettlementWidget.Goals.cpp",
+      "sourceLine": 186,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3SettlementWidget.Goals.L225.TEXT.3",
+      "text": "%d / %d",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/Match3SettlementWidget.Goals.cpp",
+      "sourceLine": 225,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3SettlementWidget.Goals.L240.TEXT.4",
+      "text": "%d / %d",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/Match3SettlementWidget.Goals.cpp",
+      "sourceLine": 240,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3SettlementWidget.Goals.L247.TEXT.5",
+      "text": "%d / %d",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/Match3SettlementWidget.Goals.cpp",
+      "sourceLine": 247,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3SettlementWidget.Rewards.L123.TEXT.1",
+      "text": "x%lld",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/Match3SettlementWidget.Rewards.cpp",
+      "sourceLine": 123,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3SettlementWidget.L339.TEXT.22",
+      "text": "%d / %d",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/Match3SettlementWidget.cpp",
+      "sourceLine": 339,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3SettlementWidget.L35.TEXT.1",
+      "text": "Victory",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/Match3SettlementWidget.h",
+      "sourceLine": 35,
+      "likelyUserFacing": false
+    },
+    {
+      "key": "UI.UI.Widgets.Match3SettlementWidget.L38.TEXT.2",
+      "text": "Defeat",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/Match3SettlementWidget.h",
+      "sourceLine": 38,
+      "likelyUserFacing": false
+    },
+    {
+      "key": "UI.UI.Widgets.Match3SettlementWidget.L41.TEXT.3",
+      "text": "Retry",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/Match3SettlementWidget.h",
+      "sourceLine": 41,
+      "likelyUserFacing": false
+    },
+    {
+      "key": "UI.UI.Widgets.Match3SettlementWidget.L44.TEXT.4",
+      "text": "Next",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/Match3SettlementWidget.h",
+      "sourceLine": 44,
+      "likelyUserFacing": false
+    },
+    {
+      "key": "UI.UI.Widgets.Match3SettlementWidget.L47.TEXT.5",
+      "text": "Back",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/Match3SettlementWidget.h",
+      "sourceLine": 47,
+      "likelyUserFacing": false
+    },
+    {
+      "key": "UI.UI.Widgets.Match3SettlementWidget.L50.TEXT.6",
+      "text": "Settlement",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/Match3SettlementWidget.h",
+      "sourceLine": 50,
+      "likelyUserFacing": false
+    },
+    {
+      "key": "UI.UI.Widgets.Match3SettlementWidget.L53.TEXT.7",
+      "text": "Score",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/Match3SettlementWidget.h",
+      "sourceLine": 53,
+      "likelyUserFacing": false
+    },
+    {
+      "key": "UI.UI.Widgets.Match3SettlementWidget.L56.TEXT.8",
+      "text": "Remaining Moves",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/Match3SettlementWidget.h",
+      "sourceLine": 56,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3SettlementWidget.L59.TEXT.9",
+      "text": "Used Moves",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/Match3SettlementWidget.h",
+      "sourceLine": 59,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3SettlementWidget.L62.TEXT.10",
+      "text": "Target Score",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/Match3SettlementWidget.h",
+      "sourceLine": 62,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3SettlementWidget.L65.TEXT.11",
+      "text": "Rewards",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/Match3SettlementWidget.h",
+      "sourceLine": 65,
+      "likelyUserFacing": false
+    },
+    {
+      "key": "UI.UI.Widgets.Match3SettlementWidget.L68.TEXT.12",
+      "text": "Failure Reason",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/Match3SettlementWidget.h",
+      "sourceLine": 68,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3SettlementWidget.L71.TEXT.13",
+      "text": "Defeat Boss",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/Match3SettlementWidget.h",
+      "sourceLine": 71,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3SettlementWidget.L74.TEXT.14",
+      "text": "Weakness",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/Match3SettlementWidget.h",
+      "sourceLine": 74,
+      "likelyUserFacing": false
+    },
+    {
+      "key": "UI.UI.Widgets.Match3SettlementWidget.L77.TEXT.15",
+      "text": "Any tile can damage",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/Match3SettlementWidget.h",
+      "sourceLine": 77,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3SettlementWidget.L80.TEXT.16",
+      "text": "Skills",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/Match3SettlementWidget.h",
+      "sourceLine": 80,
+      "likelyUserFacing": false
+    },
+    {
+      "key": "UI.UI.Widgets.Match3SettlementWidget.L83.TEXT.17",
+      "text": "No active skills",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/Match3SettlementWidget.h",
+      "sourceLine": 83,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.Boss.WeaknessHint.boss_placeholder_09",
+      "text": "Hit Ant Queen to deal damage",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/LevelGoalInfoWidget.cpp",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.Boss.WeaknessHint.boss_placeholder_06",
+      "text": "Adjacent clear Insecticide to deal damage",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/LevelGoalInfoWidget.cpp",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.ShopPanelWidget.L52.TEXT.1",
+      "text": "Flow subsystem initialization failed.",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/ShopPanelWidget.cpp",
+      "sourceLine": 52,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.ShopPanelWidget.L147.TEXT.2",
+      "text": "Product not found. Please refresh the shop list.",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/ShopPanelWidget.cpp",
+      "sourceLine": 147,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.ShopPanelWidget.L153.TEXT.3",
+      "text": "This product is currently unavailable.",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/ShopPanelWidget.cpp",
+      "sourceLine": 153,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.ShopPanelWidget.L159.TEXT.4",
+      "text": "Life is already full.",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/ShopPanelWidget.cpp",
+      "sourceLine": 159,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.ShopPanelWidget.L167.TEXT.5",
+      "text": "Flow subsystem is not ready.",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/ShopPanelWidget.cpp",
+      "sourceLine": 167,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.ShopPanelWidget.L172.TEXT.6",
+      "text": "shop_widget",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/ShopPanelWidget.cpp",
+      "sourceLine": 172,
+      "likelyUserFacing": false
+    },
+    {
+      "key": "UI.UI.Widgets.ShopPanelWidget.L173.TEXT.7",
+      "text": "shop_buy_%s",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/ShopPanelWidget.cpp",
+      "sourceLine": 173,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.ShopPanelWidget.L182.TEXT.8",
+      "text": "Purchase successful: +%d %s",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/ShopPanelWidget.cpp",
+      "sourceLine": 182,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.ShopPanelWidget.L186.TEXT.9",
+      "text": "Purchase successful: +%d Life",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/ShopPanelWidget.cpp",
+      "sourceLine": 186,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.ShopPanelWidget.L190.TEXT.10",
+      "text": "Purchase successful: +%s %s",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/ShopPanelWidget.cpp",
+      "sourceLine": 190,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.ShopPanelWidget.L201.TEXT.11",
+      "text": "Insufficient balance.",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/ShopPanelWidget.cpp",
+      "sourceLine": 201,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.ShopPanelWidget.L209.TEXT.12",
+      "text": "Purchase failed.",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/ShopPanelWidget.cpp",
+      "sourceLine": 209,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.ShopPanelWidget.L212.TEXT.13",
+      "text": "Purchase failed: %s",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/ShopPanelWidget.cpp",
+      "sourceLine": 212,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.ShopPanelWidget.L440.TEXT.27",
+      "text": "%s: %s",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/ShopPanelWidget.cpp",
+      "sourceLine": 440,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.ShopPanelWidget.L446.TEXT.28",
+      "text": "%s: %s",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/ShopPanelWidget.cpp",
+      "sourceLine": 446,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.ShopPanelWidget.L476.TEXT.29",
+      "text": "Shop data is not ready.",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/ShopPanelWidget.cpp",
+      "sourceLine": 476,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.ShopPanelWidget.L489.TEXT.30",
+      "text": "No products available.",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/ShopPanelWidget.cpp",
+      "sourceLine": 489,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.ShopPanelWidget.L610.TEXT.31",
+      "text": "Buy",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/ShopPanelWidget.cpp",
+      "sourceLine": 610,
+      "likelyUserFacing": false
+    },
+    {
+      "key": "UI.UI.Widgets.ShopPanelWidget.L610.TEXT.32",
+      "text": "Full",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/ShopPanelWidget.cpp",
+      "sourceLine": 610,
+      "likelyUserFacing": false
+    },
+    {
+      "key": "UI.UI.Widgets.ShopPanelWidget.L610.TEXT.33",
+      "text": "Insufficient",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/ShopPanelWidget.cpp",
+      "sourceLine": 610,
+      "likelyUserFacing": false
+    },
+    {
+      "key": "UI.UI.Widgets.ShopPanelWidget.L611.TEXT.34",
+      "text": "Unavailable",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/ShopPanelWidget.cpp",
+      "sourceLine": 611,
+      "likelyUserFacing": false
+    },
+    {
+      "key": "UI.UI.Widgets.ShopPanelWidget.L798.TEXT.35",
+      "text": "%s x%d  (Owned: %d)",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/ShopPanelWidget.cpp",
+      "sourceLine": 798,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.ShopPanelWidget.L803.TEXT.36",
+      "text": "Life x%d",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/ShopPanelWidget.cpp",
+      "sourceLine": 803,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.ShopPanelWidget.L806.TEXT.37",
+      "text": "%s x%s",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/ShopPanelWidget.cpp",
+      "sourceLine": 806,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.ShopPanelWidget.L811.TEXT.38",
+      "text": "Price: %s %s",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/ShopPanelWidget.cpp",
+      "sourceLine": 811,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3CodexPageWidget.PageTitle",
+      "text": "Codex",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/Match3CodexPageWidget.h",
+      "sourceLine": 71,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3CodexPageWidget.LockedPrefix",
+      "text": "Locked",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/Match3CodexPageWidget.h",
+      "sourceLine": 74,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3CodexPageWidget.LockedHint",
+      "text": "Not unlocked yet. Progress through levels to unlock.",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/Match3CodexPageWidget.cpp",
+      "sourceLine": 71,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3SettlementWidget.ContinueByAd",
+      "text": "Continue",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/Match3SettlementWidget.h",
+      "sourceLine": 52,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3SettlementWidget.ContinueByAdMoves",
+      "text": "Watch ad to continue (+10 moves)",
+      "kind": "TEXT",
+      "sourceFile": "Match3/Match3BoardActor.Settlement.cpp",
+      "sourceLine": 570,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3SettlementWidget.ContinueByAdReshuffle",
+      "text": "Watch ad to reshuffle and continue",
+      "kind": "TEXT",
+      "sourceFile": "Match3/Match3BoardActor.Settlement.cpp",
+      "sourceLine": 574,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3SettlementWidget.ContinueByGem",
+      "text": "Spend 10 gems to continue (+10 moves)",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/Match3SettlementWidget.h",
+      "sourceLine": 71,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.Match3SettlementWidget.ContinueByGemMoves",
+      "text": "Spend 10 gems to continue (+10 moves)",
+      "kind": "TEXT",
+      "sourceFile": "Match3/Match3BoardActor.Settlement.cpp",
+      "sourceLine": 585,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PvPOpponentHpBarWidget.Desc",
+      "text": "Opponent Progress",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/PvP/PvPOpponentHpBarWidget.cpp",
+      "sourceLine": 1,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.UI.Widgets.PvPOpponentHpBarWidget.Desc.zh-CN",
+      "text": "对手进度",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/PvP/PvPOpponentHpBarWidget.cpp",
+      "sourceLine": 2,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.MatchDuelMatchmaking.SkillDesc.firecracker.zh-CN",
+      "text": "随机炸碎任意 7 个元素",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/MatchDuel/MatchDuelMatchmakingWidget.cpp",
+      "sourceLine": 749,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "Rating.Prompt.Title",
+      "text": "Are you enjoying the game?",
+      "kind": "TEXT",
+      "sourceFile": "Platform/Rating/GemerRatingPromptSubsystem.cpp",
+      "sourceLine": 1,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "Rating.Prompt.Title.zh-CN",
+      "text": "你玩得开心吗？",
+      "kind": "TEXT",
+      "sourceFile": "Platform/Rating/GemerRatingPromptSubsystem.cpp",
+      "sourceLine": 2,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "Rating.Prompt.Subtitle",
+      "text": "Your feedback helps us make the game better",
+      "kind": "TEXT",
+      "sourceFile": "Platform/Rating/GemerRatingPromptSubsystem.cpp",
+      "sourceLine": 3,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "Rating.Prompt.Subtitle.zh-CN",
+      "text": "您的反馈能帮助我们做得更好",
+      "kind": "TEXT",
+      "sourceFile": "Platform/Rating/GemerRatingPromptSubsystem.cpp",
+      "sourceLine": 4,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "Rating.Prompt.Happy",
+      "text": "Yes!",
+      "kind": "TEXT",
+      "sourceFile": "Platform/Rating/GemerRatingPromptSubsystem.cpp",
+      "sourceLine": 5,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "Rating.Prompt.Happy.zh-CN",
+      "text": "开心",
+      "kind": "TEXT",
+      "sourceFile": "Platform/Rating/GemerRatingPromptSubsystem.cpp",
+      "sourceLine": 6,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "Rating.Prompt.Unhappy",
+      "text": "Report",
+      "kind": "TEXT",
+      "sourceFile": "Platform/Rating/GemerRatingPromptSubsystem.cpp",
+      "sourceLine": 7,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "Rating.Prompt.Unhappy.zh-CN",
+      "text": "有问题",
+      "kind": "TEXT",
+      "sourceFile": "Platform/Rating/GemerRatingPromptSubsystem.cpp",
+      "sourceLine": 8,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "Rating.Prompt.Close",
+      "text": "Not now",
+      "kind": "TEXT",
+      "sourceFile": "Platform/Rating/GemerRatingPromptSubsystem.cpp",
+      "sourceLine": 9,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "Rating.Prompt.Close.zh-CN",
+      "text": "暂不",
+      "kind": "TEXT",
+      "sourceFile": "Platform/Rating/GemerRatingPromptSubsystem.cpp",
+      "sourceLine": 10,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "Rating.Prompt.FeedbackSubject",
+      "text": "Game Feedback",
+      "kind": "TEXT",
+      "sourceFile": "Platform/Rating/GemerRatingPromptSubsystem.cpp",
+      "sourceLine": 11,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "Rating.Prompt.FeedbackSubject.zh-CN",
+      "text": "游戏反馈",
+      "kind": "TEXT",
+      "sourceFile": "Platform/Rating/GemerRatingPromptSubsystem.cpp",
+      "sourceLine": 12,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.BattleStats.Title.zh-CN",
+      "text": "对战战绩",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/Stats/BattleStatsWidget.cpp",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.BattleStats.Title",
+      "text": "Battle Records",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/Stats/BattleStatsWidget.cpp",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.BattleStats.TabAll.zh-CN",
+      "text": "总览",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/Stats/BattleStatsWidget.cpp",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.BattleStats.TabAll",
+      "text": "Overview",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/Stats/BattleStatsWidget.cpp",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.BattleStats.TabPvP.zh-CN",
+      "text": "血量PK",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/Stats/BattleStatsWidget.cpp",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.BattleStats.TabPvP",
+      "text": "HP PK",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/Stats/BattleStatsWidget.cpp",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.BattleStats.TabDuel.zh-CN",
+      "text": "分值PK",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/Stats/BattleStatsWidget.cpp",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.BattleStats.TabDuel",
+      "text": "Score PK",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/Stats/BattleStatsWidget.cpp",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.BattleStats.TotalMatches.zh-CN",
+      "text": "总场次",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/Stats/BattleStatsWidget.cpp",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.BattleStats.TotalMatches",
+      "text": "Matches",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/Stats/BattleStatsWidget.cpp",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.BattleStats.Wins.zh-CN",
+      "text": "胜场",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/Stats/BattleStatsWidget.cpp",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.BattleStats.Wins",
+      "text": "Wins",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/Stats/BattleStatsWidget.cpp",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.BattleStats.Losses.zh-CN",
+      "text": "败场",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/Stats/BattleStatsWidget.cpp",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.BattleStats.Losses",
+      "text": "Losses",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/Stats/BattleStatsWidget.cpp",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.BattleStats.Draws.zh-CN",
+      "text": "平局",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/Stats/BattleStatsWidget.cpp",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.BattleStats.Draws",
+      "text": "Draws",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/Stats/BattleStatsWidget.cpp",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.BattleStats.WinRate.zh-CN",
+      "text": "胜率",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/Stats/BattleStatsWidget.cpp",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.BattleStats.WinRate",
+      "text": "Win Rate",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/Stats/BattleStatsWidget.cpp",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.BattleStats.CurStreak.zh-CN",
+      "text": "当前连胜",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/Stats/BattleStatsWidget.cpp",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.BattleStats.CurStreak",
+      "text": "Win Streak",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/Stats/BattleStatsWidget.cpp",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.BattleStats.BestStreak.zh-CN",
+      "text": "最长连胜",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/Stats/BattleStatsWidget.cpp",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.BattleStats.BestStreak",
+      "text": "Best Streak",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/Stats/BattleStatsWidget.cpp",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.BattleStats.BestDuelScore.zh-CN",
+      "text": "单局最高分",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/Stats/BattleStatsWidget.cpp",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.BattleStats.BestDuelScore",
+      "text": "Best Score",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/Stats/BattleStatsWidget.cpp",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.BattleStats.TotalCoinEarned.zh-CN",
+      "text": "累计金币",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/Stats/BattleStatsWidget.cpp",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.BattleStats.TotalCoinEarned",
+      "text": "Coins Earned",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/Stats/BattleStatsWidget.cpp",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.BattleStats.RecentTitle.zh-CN",
+      "text": "最近对战",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/Stats/BattleStatsWidget.cpp",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.BattleStats.RecentTitle",
+      "text": "Recent Matches",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/Stats/BattleStatsWidget.cpp",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.BattleStats.ResultWin.zh-CN",
+      "text": "胜",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/Stats/BattleStatsWidget.cpp",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.BattleStats.ResultWin",
+      "text": "W",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/Stats/BattleStatsWidget.cpp",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.BattleStats.ResultLose.zh-CN",
+      "text": "负",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/Stats/BattleStatsWidget.cpp",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.BattleStats.ResultLose",
+      "text": "L",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/Stats/BattleStatsWidget.cpp",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.BattleStats.ResultDraw.zh-CN",
+      "text": "平",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/Stats/BattleStatsWidget.cpp",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.BattleStats.ResultDraw",
+      "text": "D",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/Stats/BattleStatsWidget.cpp",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.BattleStats.BotTag.zh-CN",
+      "text": "BOT",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/Stats/BattleStatsWidget.cpp",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.BattleStats.BotTag",
+      "text": "BOT",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/Stats/BattleStatsWidget.cpp",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.BattleStats.Close.zh-CN",
+      "text": "关闭",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/Stats/BattleStatsWidget.cpp",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.BattleStats.Close",
+      "text": "Close",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/Stats/BattleStatsWidget.cpp",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.BattleStats.NetCoin.zh-CN",
+      "text": "累计金币",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/Stats/BattleStatsWidget.cpp",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.BattleStats.NetCoin",
+      "text": "Coins Earned",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/Stats/BattleStatsWidget.cpp",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.BattleStats.NetGem.zh-CN",
+      "text": "累计钻石",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/Stats/BattleStatsWidget.cpp",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "UI.BattleStats.NetGem",
+      "text": "Gems Earned",
+      "kind": "TEXT",
+      "sourceFile": "UI/Widgets/Stats/BattleStatsWidget.cpp",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    }
+  ]
+}

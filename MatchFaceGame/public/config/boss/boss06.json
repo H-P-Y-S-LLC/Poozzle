@@ -1,0 +1,98 @@
+{
+  "bEnabled": true,
+  "bossId": "boss_placeholder_06",
+  "displayName": "Mosquito",
+  "maxHp": 500,
+  "initialHp": 500,
+  "weaknesses": [
+    {
+      "tileType": 16,
+      "damagePerClear": 1
+    }
+  ],
+  "blockerWeaknessTriggers": [
+    {
+      "signalTag": "insecticide_hit",
+      "damagePerTrigger": 7
+    }
+  ],
+  "skills": [
+    {
+      "landingDiveStartSoundPath": "/Game/Models/boss06/Sounds/StartDownCue.StartDownCue",
+      "landingSoundPath": "/Game/Models/boss06/Sounds/ToWaterCue.ToWaterCue",
+      "bEnabled": true,
+      "skillId": "land_apply_larvae",
+      "effectType": "land_convert",
+      "intervalMoves": 1,
+      "priority": 80,
+      "bApplyLarvaeOnLand": true,
+      "landingScaleFactor": 0.5,
+      "landingHoldSeconds": 0.5,
+      "landingZOffset": 150,
+      "landingNiagaraPath": "/Game/Models/boss06/Niagara/ToWaterNG.ToWaterNG"
+    }
+  ],
+  "sealFailThreshold": 1,
+  "presentation": {
+    "skeletalMeshPath": "/Game/Models/boss06/SKM_Mosquito.SKM_Mosquito",
+    "transformLocation": {
+      "X": 0,
+      "Y": 0,
+      "Z": 200
+    },
+    "transformRotation": {
+      "Pitch": 0,
+      "Yaw": -90,
+      "Roll": 90
+    },
+    "transformScale": {
+      "X": 1.5,
+      "Y": 1.5,
+      "Z": 1.5
+    },
+    "randomFlight": {
+      "bEnabled": true,
+      "minSpeed": 340,
+      "maxSpeed": 560,
+      "arrivalRadius": 24,
+      "screenMarginX": 0.02,
+      "screenMarginY": 0.02,
+      "retargetMinInterval": 0.35,
+      "retargetMaxInterval": 1.1,
+      "turnInterpSpeed": 5,
+      "pitchAmplitudeDeg": 9,
+      "pitchFrequency": 2.2,
+      "minPitchDeg": -18,
+      "maxPitchDeg": 18,
+      "depthOffsetMin": -60,
+      "depthOffsetMax": 40,
+      "bUsePresentationRotationAsForwardOffset": true,
+      "bKeepUpright": true,
+      "forwardRotationOffset": {
+        "Pitch": 0,
+        "Yaw": 0,
+        "Roll": 0
+      }
+    },
+    "animationPaths": [
+      "idle:/Game/Models/boss06/Animations/boss06flyani.boss06flyani",
+      "hit:/Game/Models/boss06/Animations/boss06hitani.boss06hitani",
+      "defeat:/Game/Models/boss06/Animations/boss06defeatani.boss06defeatani"
+    ],
+    "hitVfxPath": "/Game/Models/bugspray/Niagara/SprayNG.SprayNG",
+    "bUseHitVfxAbsoluteTransform": true,
+    "hitVfxWorldLocation": {
+      "X": -100,
+      "Y": 0,
+      "Z": 0
+    },
+    "hitVfxWorldRotation": {
+      "Pitch": -90,
+      "Yaw": 0,
+      "Roll": 0
+    },
+    "victoryNiagaraPath": "/Game/Niagara/VistoryBossNG.VistoryBossNG",
+    "victoryNiagaraBossPath": "/Game/Models/boss06coin/Boss06Coin.Boss06Coin",
+    "victorySoundPath": ""
+  }
+}

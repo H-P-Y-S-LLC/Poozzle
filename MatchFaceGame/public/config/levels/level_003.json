@@ -1,0 +1,178 @@
+{
+  "LevelId": "level_003",
+  "bEnableUltimateSkill": false,
+  "Board": {
+    "Rows": 5,
+    "Cols": 6,
+    "Mask": [
+      "001100",
+      "011110",
+      "111111",
+      "011110",
+      "001100"
+    ],
+    "Blocked": [
+      "000000",
+      "000000",
+      "000000",
+      "000000",
+      "000000"
+    ],
+    "BlockedTypes": [
+      "000000",
+      "000000",
+      "000000",
+      "000000",
+      "000000"
+    ],
+    "BlockerTypeDefs": [],
+    "InitialTiles": [
+      4,
+      4,
+      3,
+      2,
+      4,
+      4,
+      4,
+      4,
+      1,
+      3,
+      2,
+      4,
+      1,
+      1,
+      2,
+      1,
+      1,
+      3,
+      4,
+      3,
+      4,
+      2,
+      4,
+      4,
+      4,
+      4,
+      2,
+      4,
+      4,
+      4
+    ],
+    "InitialSpecials": [],
+    "RandomSeed": 0,
+    "BlockedHP": [
+      "000000",
+      "000000",
+      "000000",
+      "000000",
+      "000000"
+    ]
+  },
+  "TilePool": {
+    "TileTypes": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "Weights": [
+      25,
+      25,
+      25,
+      25
+    ]
+  },
+  "Rules": {
+    "MinMatchCount": 3,
+    "bAllowDiagonalSwap": false,
+    "bInvalidSwapBounceBack": true,
+    "bEnsureAtLeastOneMove": true,
+    "bAvoidAutoCascadeAtStart": true,
+    "bEnableSpecialSpecialSwapCombo": true,
+    "bUseTopSpawnAfterInternalSettle": true
+  },
+  "Score": {
+    "BaseClearScore": 7,
+    "ExtraPerMoreThan3": 2,
+    "SpecialTriggerScore": 8,
+    "ComboMultiplierStep": 0.1,
+    "BlockerBreakScore": 7
+  },
+  "Goal": {
+    "TargetScore": 477,
+    "MaxMoves": 12,
+    "Collect": [
+      {
+        "TileType": 1,
+        "Count": 8,
+        "bCountSpecialClear": true
+      },
+      {
+        "TileType": 2,
+        "Count": 8,
+        "bCountSpecialClear": true
+      }
+    ]
+  },
+  "StarRating": {
+    "ThreeStarScore": 477,
+    "ScoreWeight": 0.3,
+    "MoveWeight": 0.7,
+    "TwoStarThreshold": 0.15,
+    "ThreeStarThreshold": 0.3,
+    "FourStarThreshold": 0.5,
+    "FiveStarThreshold": 0.6,
+    "MinScoreFor2Star": 240,
+    "MinScoreFor3Star": 310,
+    "MinScoreFor4Star": 340,
+    "MinScoreFor5Star": 477,
+    "ScoreNormCap": 1.2
+  },
+  "SpecialCombos": [
+    {
+      "A": "ColorBomb",
+      "B": "ColorBomb",
+      "bClearWholeBoard": true,
+      "bClearAllOfOtherType": false,
+      "BombRadius": 0,
+      "bClearSwapRow": false,
+      "bClearSwapCol": false
+    },
+    {
+      "A": "ColorBomb",
+      "B": "LineHorizontal",
+      "bClearWholeBoard": false,
+      "bClearAllOfOtherType": true,
+      "BombRadius": 0,
+      "bClearSwapRow": true,
+      "bClearSwapCol": true
+    },
+    {
+      "A": "ColorBomb",
+      "B": "LineVertical",
+      "bClearWholeBoard": false,
+      "bClearAllOfOtherType": true,
+      "BombRadius": 0,
+      "bClearSwapRow": true,
+      "bClearSwapCol": true
+    },
+    {
+      "A": "Bomb3x3",
+      "B": "Bomb3x3",
+      "bClearWholeBoard": false,
+      "bClearAllOfOtherType": false,
+      "BombRadius": 2,
+      "bClearSwapRow": true,
+      "bClearSwapCol": true
+    },
+    {
+      "A": "LineHorizontal",
+      "B": "LineVertical",
+      "bClearWholeBoard": false,
+      "bClearAllOfOtherType": false,
+      "BombRadius": 1,
+      "bClearSwapRow": true,
+      "bClearSwapCol": true
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "generatedAtUtc": "2026-06-08T06:00:00.000000+00:00",
+  "sourceRoot": "Source/Gemer",
+  "moduleCount": 3,
+  "totalEntryCount": 146,
+  "files": [
+    "Content/Match3Json/localization/ui_texts.json",
+    "Content/Match3Json/localization/ui_text.json",
+    "Content/Match3Json/localization/guide_texts.json",
+    "Content/Match3Json/localization/codex_texts.json",
+    "Content/Match3Json/localization/pvp_matchduel_texts.json"
+  ]
+}

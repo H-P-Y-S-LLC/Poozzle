@@ -1,0 +1,296 @@
+{
+  "module": "Codex",
+  "generatedAtUtc": "2026-06-08T00:00:00.000000+00:00",
+  "sourceRoot": "Content/Match3Json/codex",
+  "entryCount": 36,
+  "entries": [
+    {
+      "key": "codex.slide04.name",
+      "text": "Klebsiella pneumoniae",
+      "kind": "TEXT",
+      "sourceFile": "codex/codex_entries_slide_puzzle.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "codex.slide04.name.zh",
+      "text": "肺炎克雷伯菌",
+      "kind": "TEXT",
+      "sourceFile": "codex/codex_entries_slide_puzzle.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "codex.slide04.desc",
+      "text": "A common bacterium found in the bloodstream. Use medication to eliminate them before they spread.",
+      "kind": "TEXT",
+      "sourceFile": "codex/codex_entries_slide_puzzle.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "codex.slide04.desc.zh",
+      "text": "血液中常见的细菌，用药物杀死它们。",
+      "kind": "TEXT",
+      "sourceFile": "codex/codex_entries_slide_puzzle.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "codex.slide04.hint",
+      "text": "Drive the pill through Klebsiella cells to kill them. Each pass delivers a dose of antibiotic.",
+      "kind": "TEXT",
+      "sourceFile": "codex/codex_entries_slide_puzzle.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "codex.slide04.hint.zh",
+      "text": "推动药丸穿过肺炎克雷伯菌将其杀死。每次经过相当于注射一剂抗生素。",
+      "kind": "TEXT",
+      "sourceFile": "codex/codex_entries_slide_puzzle.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "codex.slide01.name",
+      "text": "Staphylococcus aureus",
+      "kind": "TEXT",
+      "sourceFile": "codex/codex_entries_slide_puzzle.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "codex.slide01.name.zh",
+      "text": "金黄色葡萄球菌",
+      "kind": "TEXT",
+      "sourceFile": "codex/codex_entries_slide_puzzle.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "codex.slide01.desc",
+      "text": "A tough bacterium that can block medication on the first hit. It takes a second pass to eliminate it completely.",
+      "kind": "TEXT",
+      "sourceFile": "codex/codex_entries_slide_puzzle.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "codex.slide01.desc.zh",
+      "text": "能阻挡药物的强劲细菌，但再来一次就能杀死它们。",
+      "kind": "TEXT",
+      "sourceFile": "codex/codex_entries_slide_puzzle.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "codex.slide01.hint",
+      "text": "The first hit weakens its defense but won't kill it. Plan a route that hits it twice for a clean kill.",
+      "kind": "TEXT",
+      "sourceFile": "codex/codex_entries_slide_puzzle.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "codex.slide01.hint.zh",
+      "text": "第一次撞击会削弱其防御但无法杀死它。规划一条能两次撞击的路线来了结它。",
+      "kind": "TEXT",
+      "sourceFile": "codex/codex_entries_slide_puzzle.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "codex.slide02.name",
+      "text": "Mast Cell",
+      "kind": "TEXT",
+      "sourceFile": "codex/codex_entries_slide_puzzle.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "codex.slide02.name.zh",
+      "text": "肥大细胞",
+      "kind": "TEXT",
+      "sourceFile": "codex/codex_entries_slide_puzzle.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "codex.slide02.desc",
+      "text": "A vital immune cell that must NOT be harmed. Touching a Mast Cell triggers a fatal allergic reaction — instant game over.",
+      "kind": "TEXT",
+      "sourceFile": "codex/codex_entries_slide_puzzle.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "codex.slide02.desc.zh",
+      "text": "重要的免疫细胞，绝不能伤害它。碰到肥大细胞会引发致命的过敏反应——立即游戏结束。",
+      "kind": "TEXT",
+      "sourceFile": "codex/codex_entries_slide_puzzle.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "codex.slide02.hint",
+      "text": "Avoid Mast Cells at all costs. Study the maze and plan a route that steers clear of them entirely.",
+      "kind": "TEXT",
+      "sourceFile": "codex/codex_entries_slide_puzzle.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "codex.slide02.hint.zh",
+      "text": "不惜一切代价避开肥大细胞。研究迷宫布局，规划一条完全绕开它们的路线。",
+      "kind": "TEXT",
+      "sourceFile": "codex/codex_entries_slide_puzzle.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "codex.slide03.name",
+      "text": "Endothelial Progenitor Cell",
+      "kind": "TEXT",
+      "sourceFile": "codex/codex_entries_slide_puzzle.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "codex.slide03.name.zh",
+      "text": "内皮前体细胞",
+      "kind": "TEXT",
+      "sourceFile": "codex/codex_entries_slide_puzzle.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "codex.slide03.desc",
+      "text": "A special cell that alters the drug's movement direction upon contact. It does no harm — use it to your advantage.",
+      "kind": "TEXT",
+      "sourceFile": "codex/codex_entries_slide_puzzle.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "codex.slide03.desc.zh",
+      "text": "接触到会改变药物行进方向的特殊细胞。它不会造成伤害——正好利用它。",
+      "kind": "TEXT",
+      "sourceFile": "codex/codex_entries_slide_puzzle.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "codex.slide03.hint",
+      "text": "EPCs redirect your pill. Use them strategically to reach otherwise inaccessible areas of the maze.",
+      "kind": "TEXT",
+      "sourceFile": "codex/codex_entries_slide_puzzle.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "codex.slide03.hint.zh",
+      "text": "内皮前体细胞会改变药丸方向。巧妙利用它们抵达迷宫中的死角区域。",
+      "kind": "TEXT",
+      "sourceFile": "codex/codex_entries_slide_puzzle.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "codex.slide05.name",
+      "text": "Platelet",
+      "kind": "TEXT",
+      "sourceFile": "codex/codex_entries_slide_puzzle.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "codex.slide05.name.zh",
+      "text": "血小板",
+      "kind": "TEXT",
+      "sourceFile": "codex/codex_entries_slide_puzzle.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "codex.slide05.desc",
+      "text": "A resting platelet. Stand on it too long and it activates — you'll get trapped. Step off quickly to stay safe.",
+      "kind": "TEXT",
+      "sourceFile": "codex/codex_entries_slide_puzzle.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "codex.slide05.desc.zh",
+      "text": "安静的血小板。在上面停留太久它会活化并抓住你，赶紧离开才安全。",
+      "kind": "TEXT",
+      "sourceFile": "codex/codex_entries_slide_puzzle.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "codex.slide05.hint",
+      "text": "Don't linger on Platelets. If you stay beyond the safe time, they transform into an active state and you'll be caught.",
+      "kind": "TEXT",
+      "sourceFile": "codex/codex_entries_slide_puzzle.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "codex.slide05.hint.zh",
+      "text": "不要在血小板上停留。超过安全时间它们会变为活化态，你将被抓住。",
+      "kind": "TEXT",
+      "sourceFile": "codex/codex_entries_slide_puzzle.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "codex.flowboy.name",
+      "text": "Scaredy Cat",
+      "kind": "TEXT",
+      "sourceFile": "codex/codex_entries.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "codex.flowboy.name.zh",
+      "text": "胆小鬼",
+      "kind": "TEXT",
+      "sourceFile": "codex/codex_entries.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "codex.flowboy.desc",
+      "text": "A timid little guy who just wants to stay ahead of the rising death line. The only way out is down \u2014 keep matching tiles to clear a path and reach the green life line before it\u2019s too late.",
+      "kind": "TEXT",
+      "sourceFile": "codex/codex_entries.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "codex.flowboy.desc.zh",
+      "text": "一个胆小怕事的小家伙，只想拼命逃离不断逼近的死亡线。唯一的出路是向下\u2014\u2014不断消除方块为他开路，赶在死亡线追上之前抵达绿色生命线。",
+      "kind": "TEXT",
+      "sourceFile": "codex/codex_entries.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "codex.flowboy.hint",
+      "text": "Make matches to clear tiles above the character. Each match lets him descend further. Reach the life line to win \u2014 don\u2019t let the death line catch him!",
+      "kind": "TEXT",
+      "sourceFile": "codex/codex_entries.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    },
+    {
+      "key": "codex.flowboy.hint.zh",
+      "text": "通过消除为角色清理上方的方块。每次消除都能让他继续下坠。抵达生命线即可过关\u2014\u2014别让死亡线追上他！",
+      "kind": "TEXT",
+      "sourceFile": "codex/codex_entries.json",
+      "sourceLine": 0,
+      "likelyUserFacing": true
+    }
+  ]
+}

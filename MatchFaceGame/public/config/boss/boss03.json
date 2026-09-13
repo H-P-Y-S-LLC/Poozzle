@@ -1,0 +1,73 @@
+{
+  "bEnabled": true,
+  "bossId": "boss_placeholder_03",
+  "displayName": "Red Worm",
+  "maxHp": 720,
+  "initialHp": 720,
+  "weaknesses": [
+    {
+      "tileType": 4,
+      "damagePerClear": 6
+    },
+    {
+      "tileType": 5,
+      "damagePerClear": 7
+    }
+  ],
+  "skills": [
+    {
+      "bEnabled": true,
+      "skillId": "seal_special_3",
+      "effectType": "seal_special_random",
+      "intervalMoves": 4,
+      "priority": 10,
+      "paramA": 3,
+      "paramB": 3
+    },
+    {
+      "bEnabled": true,
+      "skillId": "corrode_random",
+      "effectType": "corrode_random",
+      "intervalMoves": 3,
+      "priority": 30,
+      "paramA": 1,
+      "paramB": 0
+    }
+  ],
+  "sealFailThreshold": 1,
+  "presentation": {
+    "skeletalMeshPath": "/Game/Models/boss03/SKM_RedWorm.SKM_RedWorm",
+    "transformLocation": {
+      "X": 80,
+      "Y": 0,
+      "Z": 0
+    },
+    "transformRotation": {
+      "Pitch": -90,
+      "Yaw": 0,
+      "Roll": 0
+    },
+    "transformScale": {
+      "X": 4,
+      "Y": 4,
+      "Z": 4
+    },
+    "animationPaths": [
+      "idle:/Game/Models/boss03/Animations/boss03_Idle.boss03_Idle",
+      "hit:/Game/Models/boss03/Animations/boss03_Hit.boss03_Hit",
+      "defeat:/Game/Models/boss03/Animations/boss03_Defeat.boss03_Defeat",
+      "skill:seal_special_3:/Game/Models/boss03/Animations/boss03_Fight.boss03_Fight",
+      "skill:corrode_random:/Game/Models/boss03/Animations/boss03_Idle.boss03_Idle"
+    ],
+    "convertBlockerTileVfxPath": "/Game/Models/boss03/Niagara/ConvertNG.ConvertNG",
+    "convertBlockerTileSfxPath": "/Game/Models/boss03/Sounds/Convert_Cue.Convert_Cue",
+    "convertBlockerSourceBoneName": "joint14",
+    "frozenTileVfxPath": "/Game/Models/boss03/Niagara/FrozenNG.FrozenNG",
+    "frozenTileSfxPath": "/Game/Models/boss03/Sounds/Frozen_Cue.Frozen_Cue",
+    "unfrozenTileVfxPath": "/Game/Models/boss03/Niagara/UnFrozenNG.UnFrozenNG",
+    "unfrozenTileSfxPath": "/Game/Models/boss03/Sounds/UnFrozen_Cue.UnFrozen_Cue",
+    "victoryNiagaraPath": "/Game/Niagara/VistoryBossNG.VistoryBossNG",
+    "victoryNiagaraBossPath": "/Game/Models/boss03coin/Boss03Coin.Boss03Coin",
+    "victorySoundPath": ""
+  }
+}

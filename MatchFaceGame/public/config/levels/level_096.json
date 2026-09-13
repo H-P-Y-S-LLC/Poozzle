@@ -1,0 +1,187 @@
+{
+  "LevelId": "level_096",
+  "Board": {
+    "Rows": 9,
+    "Cols": 9,
+    "Mask": ["111111111", "111111111", "111111111", "111111111", "111111111", "111111111", "111111111", "111111111", "111111111"],
+    "Blocked": ["100000001", "001000100", "001010100", "010010000", "001010100", "000010010", "001010100", "001000100", "100000001"],
+    "BlockedTypes": ["800000008", "00M000M00", "00M030M00", "0J00M0000", "003030300", "0000M00J0", "00M030M00", "00M000M00", "800000008"],
+    "BlockedHP": ["100000001", "006000600", "006020600", "020060000", "002020200", "000060020", "006020600", "006000600", "100000001"],
+    "BlockerTypeDefs": [
+      {
+        "TypeId": 22,
+        "bDestructible": true,
+        "DefaultHP": 6,
+        "BreakScore": 30,
+        "bDamageByAdjacentClear": true,
+        "bUseDamageStageMeshesAsHp": true
+      },
+      {
+        "TypeId": 3,
+        "bDestructible": true,
+        "DefaultHP": 2,
+        "BreakScore": 22,
+        "bDamageByAdjacentClear": true
+      },
+      {
+        "TypeId": 8,
+        "bDestructible": true,
+        "DefaultHP": 1,
+        "BreakScore": 20,
+        "bDamageByAdjacentClear": true,
+        "bCorrodeToMaskOnTimeout": true,
+        "CorrodeDelaySeconds": 10
+      },
+      {
+        "TypeId": 19,
+        "bDestructible": true,
+        "DefaultHP": 2,
+        "bDamageByAdjacentClear": true,
+        "bMovable": true,
+        "bMoveRandomEachTurn": true,
+        "bInterceptSpecialTiles": true,
+        "InterceptTargetBlockerType": 17,
+        "InterceptFlyDurationSeconds": 0.22
+      },
+      {
+        "TypeId": 17,
+        "bDestructible": true,
+        "BreakScore": 30,
+        "bDamageByAdjacentClear": true,
+        "bAdjacentDamageRequiresNormalMatch": false,
+        "bAdjacentDamageAllowSpecialExplosion": true,
+        "bImmuneToDirectHitDamage": true,
+        "bTransformOnFinalStageBreak": true,
+        "FinalStageTransformBlockerType": 3,
+        "bUseDamageStageMeshesAsHp": true
+      }
+    ],
+    "Pipe": {
+      "bEnabled": false,
+      "Mask": [],
+      "BlockedMask": [],
+      "OpenMask": [],
+      "ProxyTileTypeMask": [],
+      "HPMask": [],
+      "DefaultProxyTileType": 1,
+      "DefaultHP": 1,
+      "DefaultOpenMask": 15,
+      "GoalMode": "AllOpen",
+      "Sources": [],
+      "Ends": []
+    },
+    "InitialTiles": [
+      1, 2, 3, 4, 5, 6, 1, 2, 3, 4, 5, 6, 1, 2, 3, 4, 5, 6, 1, 2, 3, 4, 5, 6, 1, 2, 3, 4, 5, 6, 1, 2, 3, 4, 5, 6, 1, 2, 3, 4, 5, 6, 1, 2, 3, 4, 5, 6, 1, 2, 3, 4, 5, 6, 1, 2, 3, 4, 5, 6, 1, 2, 3, 4, 5,
+      6, 1, 2, 3, 4, 5, 6, 1, 2, 3, 4, 5, 6, 1, 2, 3
+    ],
+    "InitialSpecials": [],
+    "RandomSeed": 0,
+    "LarvaeMask": ["000000000", "000010000", "010000010", "001000100", "000101000", "001000100", "010000010", "000010000", "000000000"],
+    "LarvaeBlockerTypePool": [19],
+    "BlockedTransformTarget": ["345678345", "456783456", "567834567", "678345678", "783456783", "834567834", "345678345", "456783456", "567834567"]
+  },
+  "TilePool": {
+    "TileTypes": [1, 2, 3, 4, 5, 6],
+    "Weights": [1, 1, 1, 1, 1, 1],
+    "NonRegeneratingTileTypes": [],
+    "InertTileTypes": []
+  },
+  "Rules": {
+    "MinMatchCount": 3,
+    "bAllowDiagonalSwap": false,
+    "bInvalidSwapBounceBack": true,
+    "bEnsureAtLeastOneMove": true,
+    "bAvoidAutoCascadeAtStart": true,
+    "bEnableSpecialSpecialSwapCombo": true,
+    "bUseTopSpawnAfterInternalSettle": true
+  },
+  "Score": {
+    "BaseClearScore": 50,
+    "ExtraPerMoreThan3": 20,
+    "SpecialTriggerScore": 120,
+    "ComboMultiplierStep": 0.4,
+    "BlockerBreakScore": 434
+  },
+  "Goal": {
+    "TargetScore": 4880,
+    "MaxMoves": 30,
+    "Collect": [],
+    "BlockerBreakByType": [
+      {
+        "TypeId": 22,
+        "Count": 10
+      },
+      {
+        "TypeId": 3,
+        "Count": 5
+      }
+    ]
+  },
+  "StarRating": {
+    "ThreeStarScore": 4880,
+    "ScoreWeight": 0.1,
+    "MoveWeight": 0.9,
+    "TwoStarThreshold": 0.25,
+    "ThreeStarThreshold": 0.45,
+    "FourStarThreshold": 0.65,
+    "FiveStarThreshold": 0.8,
+    "MinScoreFor2Star": 3110,
+    "MinScoreFor3Star": 4090,
+    "MinScoreFor4Star": 4200,
+    "MinScoreFor5Star": 4580,
+    "ScoreNormCap": 1.2
+  },
+  "SpecialCombos": [
+    {
+      "A": "ColorBomb",
+      "B": "ColorBomb",
+      "bClearWholeBoard": true,
+      "bClearAllOfOtherType": false,
+      "BombRadius": 0,
+      "bClearSwapRow": false,
+      "bClearSwapCol": false
+    },
+    {
+      "A": "ColorBomb",
+      "B": "LineHorizontal",
+      "bClearWholeBoard": false,
+      "bClearAllOfOtherType": true,
+      "BombRadius": 0,
+      "bClearSwapRow": true,
+      "bClearSwapCol": true
+    },
+    {
+      "A": "ColorBomb",
+      "B": "LineVertical",
+      "bClearWholeBoard": false,
+      "bClearAllOfOtherType": true,
+      "BombRadius": 0,
+      "bClearSwapRow": true,
+      "bClearSwapCol": true
+    },
+    {
+      "A": "Bomb3x3",
+      "B": "Bomb3x3",
+      "bClearWholeBoard": false,
+      "bClearAllOfOtherType": false,
+      "BombRadius": 2,
+      "bClearSwapRow": true,
+      "bClearSwapCol": true
+    },
+    {
+      "A": "LineHorizontal",
+      "B": "LineVertical",
+      "bClearWholeBoard": false,
+      "bClearAllOfOtherType": false,
+      "BombRadius": 1,
+      "bClearSwapRow": true,
+      "bClearSwapCol": true
+    }
+  ],
+  "CellSize": 85,
+  "BoardLocationOffset": {
+    "X": -50,
+    "Y": 0,
+    "Z": 0
+  }
+}

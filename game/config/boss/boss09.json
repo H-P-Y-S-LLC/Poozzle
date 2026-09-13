@@ -1,0 +1,138 @@
+{
+  "bEnabled": true,
+  "bossId": "boss_placeholder_09",
+  "displayName": "White Ant",
+  "maxHp": 120,
+  "initialHp": 120,
+  "weaknesses": [
+    {
+      "tileType": 20,
+      "damagePerClear": 1
+    }
+  ],
+  "skills": [
+    {
+      "bEnabled": true,
+      "skillId": "plunder",
+      "effectType": "plunder",
+      "intervalMoves": 0,
+      "intervalHits": 2,
+      "priority": 100,
+      "paramA": 5,
+      "paramB": 21
+    }
+  ],
+  "sealFailThreshold": 1,
+  "presentation": {
+    "skeletalMeshPath": "/Game/Models/boss09/SKM_Ant.SKM_Ant",
+    "transformLocation": {
+      "X": 140,
+      "Y": 0,
+      "Z": 80
+    },
+    "transformRotation": {
+      "Pitch": 0,
+      "Yaw": 0,
+      "Roll": 0
+    },
+    "transformScale": {
+      "X": 0.9,
+      "Y": 0.9,
+      "Z": 0.9
+    },
+    "animationPaths": [
+      "idle:/Game/Models/boss09/Animations/AniStepAni.AniStepAni",
+      "hit:/Game/Models/boss09/Animations/AniHitAni.AniHitAni",
+      "defeat:/Game/Models/boss09/Animations/AniDefeatAni.AniDefeatAni"
+    ],
+    "antFormation": {
+      "bEnabled": true,
+      "antCount": 5,
+      "loopDistance": 1000,
+      "spacing": 200,
+      "moveSpeed": 180,
+      "bMoveRightToLeft": true,
+      "groupLocationOffset": {
+        "X": 0,
+        "Y": 0,
+        "Z": 0
+      },
+      "groupRotationOffset": {
+        "Pitch": 0,
+        "Yaw": 0,
+        "Roll": 0
+      },
+      "groupScale": {
+        "X": 1,
+        "Y": 1,
+        "Z": 1
+      },
+      "memberLocationOffset": {
+        "X": 0,
+        "Y": 0,
+        "Z": 0
+      },
+      "memberRotationOffset": {
+        "Pitch": 40,
+        "Yaw": 180,
+        "Roll": 0
+      },
+      "memberScale": {
+        "X": 0.8,
+        "Y": 0.8,
+        "Z": 0.8
+      }
+    },
+    "plunderFormation": {
+      "bUseDedicatedOffsets": true,
+      "groupLocationOffset": {
+        "X": 20,
+        "Y": 0,
+        "Z": -100
+      },
+      "groupRotationOffset": {
+        "Pitch": 0,
+        "Yaw": 0,
+        "Roll": 0
+      },
+      "groupScale": {
+        "X": 1,
+        "Y": 1,
+        "Z": 1
+      },
+      "memberLocationOffset": {
+        "X": 0,
+        "Y": 0,
+        "Z": 0
+      },
+      "memberRotationOffset": {
+        "Pitch": 38,
+        "Yaw": 0,
+        "Roll": 0
+      },
+      "memberScale": {
+        "X": 0.82,
+        "Y": 0.82,
+        "Z": -0.82
+      },
+      "spacing": 210,
+      "startOffscreenDistance": 900,
+      "endOffscreenDistance": 500,
+      "payloadRelativeOffset": {
+        "X": 20,
+        "Y": 100,
+        "Z": -20
+      },
+      "payloadScale": {
+        "X": 0.8,
+        "Y": 0.8,
+        "Z": 0.8
+      },
+      "skillSoundPath": "/Game/Models/boss09/Sounds/Boss09SkillCue.Boss09SkillCue",
+      "leadVfxPath": "/Game/Models/boss09/Niagara/Boss09SkillNG.Boss09SkillNG"
+    },
+    "victoryNiagaraPath": "/Game/Niagara/VistoryBossNG.VistoryBossNG",
+    "victoryNiagaraBossPath": "/Game/Models/boss09coin/Boss09Coin.Boss09Coin",
+    "victorySoundPath": ""
+  }
+}

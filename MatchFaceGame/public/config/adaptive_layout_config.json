@@ -1,0 +1,81 @@
+{
+  "_comment": "跨设备适配配置（3D 棋盘相机 + 各 GUI 等比缩放）。改此文件即可调整适配，无需重新编译。字段缺失时使用 C++/蓝图默认值。",
+  "_howToUse": "改完保存后重开关卡/界面即可生效（每次构造会重读）。搜日志 [Match3][Camera] / [Match3][Boss] / [Match3][Adaptive] 确认已加载。",
+  "_priority": "JSON 有值 > 蓝图/实例值 > C++ 默认值。",
+  "_commonFields": "通用缩放节字段：bEnableAutoScale(总开关)、extraAvailableInset(可用区域额外内缩px，越大内容越小)、maxContentWidth(内容宽度上限px，<=0=自动)、topSafeArea(顶部安全区px，叠加在控件自身RootPadding之上)、bottomSafeArea(底部安全区px，从可用高度扣除，避免内容延伸进Home指示条/底部按钮区)。",
+
+  "camera": {
+    "_comment": "正交相机宽高比自适应：保持 3D 消除区在「中央可用区」中的占比一致，避免平板/短屏上与 GUI 重叠。",
+    "_wideScreenExtraZoom": "核心调节项。1.0=仅对齐占比；调大=棋盘更小、两侧留白更多；调小=棋盘更大。仅影响宽于 referenceAspectRatio 的设备（平板/16:9），长屏手机不受影响。",
+    "bEnableAspectAdaption": true,
+    "referenceAspectRatio": 0.486,
+    "referenceOrthoWidth": 0.0,
+    "zoomOutScale": 1.0,
+    "wideScreenExtraZoom": 1.15,
+    "minOrthoWidth": 0.0
+  },
+
+  "bossWidget": {
+    "_comment": "Boss 信息栏（血量条/弱点/技能）。",
+    "_contentMaxWidth": ">0 = 用固定宽度；<=0 = 自动对齐 3D 棋盘宽度。",
+    "_contentWidthFromBoardScale": "相对棋盘宽度的系数：1.0=与棋盘同宽；<1=比棋盘更窄。",
+    "_weaknessIconSize": "弱点/治疗图标基准尺寸(px)。实际尺寸 = 此值 × 棋盘屏幕宽度占比（iPad 约 0.5）。",
+    "bEnableAutoScale": true,
+    "contentMaxWidth": 0.0,
+    "contentWidthFromBoardScale": 1.0,
+    "weaknessIconSize": 32.0,
+    "weaknessIconSpacing": 8.0
+  },
+
+  "levelLoadoutWidget": {
+    "_comment": "关卡信息页 - 装备区（LevelLoadoutWidget）。纵向排列，超出可用高度时整体等比缩小。",
+    "bEnableAutoScale": true,
+    "extraAvailableInset": 0.0,
+    "maxContentWidth": 0.0
+  },
+
+  "levelGoalWidget": {
+    "_comment": "关卡信息页 - 目标列表（LevelGoalWidget）。横向排列，过宽或过高时整体等比缩小。",
+    "bEnableAutoScale": true,
+    "extraAvailableInset": 0.0,
+    "maxContentWidth": 0.0
+  },
+
+  "shopPanelWidget": {
+    "_comment": "商店面板（ShopWidget）。内容纵向充满容器；extraAvailableInset 可用于预留底部空间。",
+    "bEnableAutoScale": true,
+    "extraAvailableInset": 0.0,
+    "maxContentWidth": 0.0
+  },
+
+  "matchmakingWidget": {
+    "_comment": "PvP / MatchDuel 匹配页（共用）。内容超出可用高度时整体等比缩小（间距与内容同步缩放）。",
+    "_safeArea": "bottomSafeArea 是解决「最下面技能说明出屏幕」的关键：只扣顶部不扣底部时内容会延伸到屏幕最底边。若底部有按钮栏/Home 指示条，调大此值。",
+    "bEnableAutoScale": true,
+    "extraAvailableInset": 0.0,
+    "maxContentWidth": 1080.0,
+    "topSafeArea": 0.0,
+    "bottomSafeArea": 80.0
+  },
+
+  "battleStatsWidget": {
+    "_comment": "对战战绩统计（BattleStatsInstWidget）。maxContentWidth 与 battle_stats_config.json::summaryCardMaxWidth 同义，此处优先。",
+    "bEnableAutoScale": true,
+    "extraAvailableInset": 0.0,
+    "maxContentWidth": 1080.0
+  },
+
+  "playerTextureWidget": {
+    "_comment": "自定义消除元素纹理设置（PlayerTexturesWidget）。整体等比缩放到屏幕。",
+    "bEnableAutoScale": true,
+    "extraAvailableInset": 0.0,
+    "maxContentWidth": 0.0
+  },
+
+  "towerStatsWidget": {
+    "_comment": "塔模式战绩面板（TowerStatsWidget）。行距被压缩时改用整体等比缩放；extraAvailableInset 可给内容留出更多空隙。",
+    "bEnableAutoScale": true,
+    "extraAvailableInset": 0.0,
+    "maxContentWidth": 0.0
+  }
+}

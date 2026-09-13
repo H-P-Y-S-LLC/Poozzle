@@ -1,0 +1,114 @@
+{
+  "LevelId": "level_004",
+  "bEnableUltimateSkill": true,
+  "InitialUltimateReadyTileType": 3,
+  "Board": {
+    "Rows": 8,
+    "Cols": 5,
+    "Mask": ["11111", "11111", "11111", "11111", "11111", "11111", "11111", "11111"],
+    "Blocked": ["00000", "00000", "00000", "00000", "00000", "00000", "00000", "00000"],
+    "BlockedTypes": ["00000", "00000", "00000", "00000", "00000", "00000", "00000", "00000"],
+    "BlockerTypeDefs": [],
+    "InitialTiles": [1, 2, 1, 4, 2, 2, 2, 4, 3, 2, 3, 4, 3, 1, 1, 4, 3, 2, 2, 4, 1, 3, 2, 4, 3, 2, 2, 4, 1, 2, 1, 4, 3, 1, 2, 4, 3, 2, 2, 4],
+    "InitialSpecials": [],
+    "RandomSeed": 0,
+    "BlockedHP": ["00000", "00000", "00000", "00000", "00000", "00000", "00000", "00000"]
+  },
+  "TilePool": {
+    "TileTypes": [1, 2, 3, 4],
+    "Weights": [25, 25, 25, 25]
+  },
+  "Rules": {
+    "MinMatchCount": 3,
+    "bAllowDiagonalSwap": false,
+    "bInvalidSwapBounceBack": true,
+    "bEnsureAtLeastOneMove": true,
+    "bAvoidAutoCascadeAtStart": true,
+    "bEnableSpecialSpecialSwapCombo": true,
+    "bUseTopSpawnAfterInternalSettle": true
+  },
+  "Score": {
+    "BaseClearScore": 7,
+    "ExtraPerMoreThan3": 2,
+    "SpecialTriggerScore": 8,
+    "ComboMultiplierStep": 0.1,
+    "BlockerBreakScore": 7
+  },
+  "Goal": {
+    "TargetScore": 672,
+    "MaxMoves": 10,
+    "Collect": [
+      {
+        "TileType": 1,
+        "Count": 10,
+        "bCountSpecialClear": true
+      },
+      {
+        "TileType": 2,
+        "Count": 10,
+        "bCountSpecialClear": true
+      }
+    ]
+  },
+  "StarRating": {
+    "ThreeStarScore": 672,
+    "ScoreWeight": 0.35,
+    "MoveWeight": 0.65,
+    "TwoStarThreshold": 0.15,
+    "ThreeStarThreshold": 0.3,
+    "MinScoreFor2Star": 340,
+    "MinScoreFor3Star": 450,
+    "ScoreNormCap": 1.2,
+    "FourStarThreshold": 0.5,
+    "FiveStarThreshold": 0.6,
+    "MinScoreFor4Star": 490,
+    "MinScoreFor5Star": 672
+  },
+  "SpecialCombos": [
+    {
+      "A": "ColorBomb",
+      "B": "ColorBomb",
+      "bClearWholeBoard": true,
+      "bClearAllOfOtherType": false,
+      "BombRadius": 0,
+      "bClearSwapRow": false,
+      "bClearSwapCol": false
+    },
+    {
+      "A": "ColorBomb",
+      "B": "LineHorizontal",
+      "bClearWholeBoard": false,
+      "bClearAllOfOtherType": true,
+      "BombRadius": 0,
+      "bClearSwapRow": true,
+      "bClearSwapCol": true
+    },
+    {
+      "A": "ColorBomb",
+      "B": "LineVertical",
+      "bClearWholeBoard": false,
+      "bClearAllOfOtherType": true,
+      "BombRadius": 0,
+      "bClearSwapRow": true,
+      "bClearSwapCol": true
+    },
+    {
+      "A": "Bomb3x3",
+      "B": "Bomb3x3",
+      "bClearWholeBoard": false,
+      "bClearAllOfOtherType": false,
+      "BombRadius": 2,
+      "bClearSwapRow": true,
+      "bClearSwapCol": true
+    },
+    {
+      "A": "LineHorizontal",
+      "B": "LineVertical",
+      "bClearWholeBoard": false,
+      "bClearAllOfOtherType": false,
+      "BombRadius": 1,
+      "bClearSwapRow": true,
+      "bClearSwapCol": true
+    }
+  ]
+}

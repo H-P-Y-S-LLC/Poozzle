@@ -1,0 +1,6 @@
+{
+  "maxLives": 5,
+  "initialLives": 5,
+  "regenIntervalSec": 1800,
+  "entryCostPerLevel": 1
+}

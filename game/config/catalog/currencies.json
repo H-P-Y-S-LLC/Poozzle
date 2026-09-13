@@ -1,0 +1,18 @@
+{
+  "currencies": [
+    {
+      "id": "coin",
+      "name": "Coin",
+      "initial": 500,
+      "max": 9999999,
+      "bVisible": true
+    },
+    {
+      "id": "gem",
+      "name": "Gem",
+      "initial": 50,
+      "max": 999999,
+      "bVisible": true
+    }
+  ]
+}
