@@ -38,56 +38,82 @@ export class BoardView {
 
   /** Per-frame idle/selection animation. */
   update(dt: number): void {
-    for (const obj of this.tiles) {
-      if (obj && obj.userData.spin) obj.rotation.y += dt * 0.8;
+    for (let i = 0; i < this.tiles.length; i++) {
+      const obj = this.tiles[i];
+      if (obj && obj.userData.spin && i !== this.selected) obj.rotation.y += dt * 0.8;
     }
     this.vfx.update(dt);
     if (this.selected === null) return;
     const mesh = this.tiles[this.selected];
     if (!mesh) return;
     this.wiggleT += dt;
-    const { row, col } = this.board.coord(this.selected);
-    const base = this.cellWorld(row, col);
-    // horizontal (screen left/right = world X) sway only; no vertical motion
-    mesh.position.x = base.x + Math.sin(this.wiggleT * 20) * 0.09;
-    mesh.position.y = base.y;
-    mesh.position.z = base.z;
+    // slight twisting rotation (yaw) instead of horizontal sliding
+    mesh.rotation.y = Math.sin(this.wiggleT * 10) * 0.35;
   }
 
-  /** Animate a swap between two cells. Invalid swaps bounce back. */
+  /** Animate a swap between two cells. Invalid/blocked swaps bounce back. */
   animateSwap(a: { row: number; col: number }, b: { row: number; col: number }, accepted: boolean): Promise<void> {
     const ia = this.board.index(a.row, a.col);
     const ib = this.board.index(b.row, b.col);
     const ma = this.tiles[ia];
     const mb = this.tiles[ib];
-    if (!ma || !mb) return Promise.resolve();
-    const pa = ma.position.clone();
-    const pb = mb.position.clone();
+    if (!ma && !mb) return Promise.resolve();
+    const pa = ma ? ma.position.clone() : this.cellWorld(a.row, a.col);
+    const pb = mb ? mb.position.clone() : this.cellWorld(b.row, b.col);
+
     if (accepted) {
+      if (!ma || !mb) return Promise.resolve();
       // keep index -> mesh mapping consistent with the logic state
       this.tiles[ia] = mb;
       this.tiles[ib] = ma;
-    }
-    return this.animate(0.16, (k) => {
-      const ease = Easing.easeInOutQuad(k);
-      ma.position.lerpVectors(pa, pb, ease);
-      mb.position.lerpVectors(pb, pa, ease);
-    }).then(() => {
-      if (accepted) {
-        ma.position.copy(pb);
-        mb.position.copy(pa);
-        return Promise.resolve();
-      }
-      // bounce back
       return this.animate(0.16, (k) => {
         const ease = Easing.easeInOutQuad(k);
-        ma.position.lerpVectors(pb, pa, ease);
-        mb.position.lerpVectors(pa, pb, ease);
+        ma.position.lerpVectors(pa, pb, ease);
+        mb.position.lerpVectors(pb, pa, ease);
       }).then(() => {
-        ma.position.copy(pa);
-        mb.position.copy(pb);
+        ma.position.copy(pb);
+        mb.position.copy(pa);
       });
-    });
+    }
+
+    // bounce: the active piece lunges halfway then springs back with overshoot;
+    // the target (blocker / immovable) shakes to show it was bumped.
+    const activeObj: THREE.Object3D | null = ma ?? this.blockers.get(ia) ?? null;
+    const targetObj: THREE.Object3D | null = mb ?? this.blockers.get(ib) ?? null;
+    const paActive = activeObj ? activeObj.position.clone() : this.cellWorld(a.row, a.col);
+    const pbTarget = targetObj ? targetObj.position.clone() : this.cellWorld(b.row, b.col);
+    const midA = paActive.clone().lerp(pbTarget, 0.62);
+
+    const bounce = this.animate(0.12, (k) => {
+      const ease = Easing.easeOutQuad(k);
+      if (activeObj) activeObj.position.lerpVectors(paActive, midA, ease);
+    })
+      .then(() =>
+        this.animate(0.46, (k) => {
+          // elastic return overshoots past the origin, giving a springy rebound
+          const ease = Easing.easeOutElastic(k);
+          if (activeObj) activeObj.position.lerpVectors(midA, paActive, ease);
+        })
+      )
+      .then(() => {
+        if (activeObj) activeObj.position.copy(paActive);
+      });
+
+    const shake = targetObj
+      ? this.animate(0.42, (k) => {
+          const decay = 1 - k;
+          const s = Math.sin(k * Math.PI * 9) * 0.28 * decay;
+          targetObj.rotation.z = s;
+          targetObj.rotation.y = s * 0.5;
+          targetObj.position.x = pbTarget.x + s * 0.16;
+        }).then(() => {
+          targetObj.rotation.z = 0;
+          targetObj.rotation.y = 0;
+          targetObj.position.copy(pbTarget);
+        })
+      : Promise.resolve();
+
+    return Promise.all([bounce, shake]).then(() => undefined);
   }
 
   cellWorld(row: number, col: number): THREE.Vector3 {
@@ -192,13 +218,7 @@ export class BoardView {
   setSelected(index: number | null): void {
     if (this.selected !== null && this.selected !== index) {
       const prev = this.tiles[this.selected];
-      if (prev) {
-        const { row, col } = this.board.coord(this.selected);
-        const base = this.cellWorld(row, col);
-        prev.position.x = base.x;
-        prev.position.y = base.y;
-        prev.position.z = base.z;
-      }
+      if (prev && !prev.userData.spin) prev.rotation.y = 0;
     }
     this.selected = index;
     this.wiggleT = 0;

@@ -15,6 +15,8 @@ export interface ControllerCallbacks {
   onSwap: (a: Coord, b: Coord) => void;
   onActivate: (c: Coord) => void;
   onSelect?: (c: Coord) => void;
+  /** Swap toward an immovable target: play a half-swap bounce (no move consumed). */
+  onBlockedSwap?: (a: Coord, b: Coord) => void;
 }
 
 export class BoardController {
@@ -104,11 +106,11 @@ export class BoardController {
     const a = this.downCell;
     const target: Coord = { row: a.row + dr, col: a.col + dc };
     if (target.row < 0 || target.row >= this.board.rows || target.col < 0 || target.col >= this.board.cols) return;
-    if (!this.canSwap(a, target)) return;
 
     this.dragTriggered = true;
     this.clearSelection();
-    this.cb.onSwap(a, target);
+    if (this.canSwap(a, target)) this.cb.onSwap(a, target);
+    else this.cb.onBlockedSwap?.(a, target);
   }
 
   private pointerUp(e: PointerEvent): void {
@@ -162,9 +164,11 @@ export class BoardController {
       this.clearSelection();
       return;
     }
-    if (this.canSwap(a, cell)) {
+    const adjacent = Math.abs(a.row - cell.row) + Math.abs(a.col - cell.col) === 1;
+    if (adjacent) {
       this.clearSelection();
-      this.cb.onSwap(a, cell);
+      if (this.canSwap(a, cell)) this.cb.onSwap(a, cell);
+      else this.cb.onBlockedSwap?.(a, cell);
       return;
     }
     if (this.board.isSwappable(idx) && (c.TileType > 0 || c.SpecialType !== SpecialType.None)) {

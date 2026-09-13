@@ -42,18 +42,16 @@ export class LevelMapView {
     entries: ManifestEntry[],
     save: MapSaveState,
     meta: Map<string, LevelBossMeta>,
-    onPick: (entry: ManifestEntry) => void,
-    onClose: () => void
+    onPick: (entry: ManifestEntry) => void
   ): void {
     this.layer.classList.remove("hidden");
     this.layer.innerHTML = "";
 
     const panel = el("div", "map3d-panel");
     const header = el("div", "map3d-header");
-    const back = button(this.i18n.t("back"), "btn ghost", onClose);
     const title = el("h2", "map3d-title");
     title.textContent = this.i18n.t("selectLevel");
-    header.append(back, title, el("span", "map3d-spacer"));
+    header.append(title);
     panel.appendChild(header);
 
     const scroller = el("div", "map-scroll");
@@ -94,6 +92,7 @@ export class LevelMapView {
 
     let currentEl: HTMLElement | null = null;
     let latestOrder = -Infinity;
+    let suppressClick = false;
 
     sorted.forEach((entry, i) => {
       const state = stateOf(entry);
@@ -105,6 +104,7 @@ export class LevelMapView {
       node.style.top = `${pos.y}px`;
       node.disabled = state === "locked";
       node.addEventListener("click", () => {
+        if (suppressClick) return;
         if (state !== "locked") onPick(entry);
       });
 
@@ -143,6 +143,51 @@ export class LevelMapView {
     scroller.appendChild(track);
     panel.appendChild(scroller);
     this.layer.appendChild(panel);
+
+    // drag to scroll vertically (mouse + touch), no scrollbar.
+    // Capture is only taken once a real drag starts, so node clicks still work.
+    let pointerId: number | null = null;
+    let dragging = false;
+    let startY = 0;
+    let startTop = 0;
+    scroller.addEventListener("pointerdown", (e) => {
+      pointerId = e.pointerId;
+      dragging = false;
+      suppressClick = false;
+      startY = e.clientY;
+      startTop = scroller.scrollTop;
+    });
+    scroller.addEventListener("pointermove", (e) => {
+      if (pointerId !== e.pointerId) return;
+      const dy = e.clientY - startY;
+      if (!dragging) {
+        if (Math.abs(dy) <= 6) return;
+        dragging = true;
+        suppressClick = true;
+        scroller.classList.add("dragging");
+        try {
+          scroller.setPointerCapture(e.pointerId);
+        } catch {
+          /* ignore */
+        }
+      }
+      scroller.scrollTop = startTop - dy;
+    });
+    const endDrag = (e: PointerEvent): void => {
+      if (pointerId !== e.pointerId) return;
+      if (dragging) {
+        try {
+          scroller.releasePointerCapture(e.pointerId);
+        } catch {
+          /* ignore */
+        }
+      }
+      pointerId = null;
+      dragging = false;
+      scroller.classList.remove("dragging");
+    };
+    scroller.addEventListener("pointerup", endDrag);
+    scroller.addEventListener("pointercancel", endDrag);
 
     // auto-scroll so the current/latest level is centered
     if (currentEl) {
@@ -232,13 +277,5 @@ function el(tag: string, cls: string): HTMLElement {
   const e = document.createElement(tag);
   e.className = cls;
   return e;
-}
-
-function button(text: string, cls: string, onClick: () => void): HTMLButtonElement {
-  const b = document.createElement("button");
-  b.className = cls;
-  b.textContent = text;
-  b.addEventListener("click", onClick);
-  return b;
 }
 

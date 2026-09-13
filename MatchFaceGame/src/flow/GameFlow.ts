@@ -37,6 +37,8 @@ interface SaveData {
   unlocked: string[];
   stars: Record<string, number>;
   best: Record<string, number>;
+  /** Last level the player entered; used to auto-resume on next visit. */
+  lastPlayed: string;
 }
 
 export class GameFlow {
@@ -179,6 +181,7 @@ export class GameFlow {
       if (requestedIndex >= 0) {
         await this.startLevel(requestedIndex);
       } else {
+        // level map is the home screen; the player picks a level from there
         this.openLevelSelect();
       }
     } catch (err) {
@@ -193,6 +196,8 @@ export class GameFlow {
     const entry = this.entries[index];
     if (!entry) return;
     this.index = index;
+    this.save.lastPlayed = entry.levelId;
+    persist(this.save);
     this.hud.setLoading(true);
     this.hud.hideOverlay();
     this.mapView.hide();
@@ -224,6 +229,7 @@ export class GameFlow {
         onSwap: (a, b) => void this.handleSwap(a, b),
         onActivate: (c) => void this.handleActivate(c),
         onSelect: () => this.audio.play("select"),
+        onBlockedSwap: (a, b) => void this.handleBlockedSwap(a, b),
       });
       this.hud.update(board, entry.displayName || entry.levelId);
       log.info(
@@ -367,6 +373,18 @@ export class GameFlow {
     }
   }
 
+  /** Drag/tap toward a blocker or any immovable target: half-swap, then bounce. */
+  private async handleBlockedSwap(a: { row: number; col: number }, b: { row: number; col: number }): Promise<void> {
+    if (!this.view) return;
+    this.busy = true;
+    try {
+      this.audio.play("swapInvalid");
+      await this.view.animateSwap(a, b, false);
+    } finally {
+      this.busy = false;
+    }
+  }
+
   private checkFinish(): void {
     if (!this.board) return;
     if (!this.board.levelFinished) return;
@@ -377,6 +395,9 @@ export class GameFlow {
       this.save.stars[entry.levelId] = Math.max(this.save.stars[entry.levelId] ?? 0, snap.stars);
       this.save.best[entry.levelId] = Math.max(this.save.best[entry.levelId] ?? 0, snap.score);
       this.unlockNext(entry);
+      // progress points at the newly unlocked next level, so resuming continues forward
+      const next = this.nextEntry(entry);
+      if (next) this.save.lastPlayed = next.levelId;
       persist(this.save);
     }
     const reason = snap.victory
@@ -410,12 +431,21 @@ export class GameFlow {
     return this.board;
   }
 
+  private nextEntry(entry: ManifestEntry): ManifestEntry | undefined {
+    const sorted = [...this.entries].sort((a, b) => a.order - b.order);
+    const idx = sorted.findIndex((e) => e.levelId === entry.levelId);
+    return idx >= 0 ? sorted[idx + 1] : undefined;
+  }
+
   private unlockNext(entry: ManifestEntry): void {
     const unlocked = new Set(this.save.unlocked);
     for (const eff of entry.outcomes.firstWinEffects) {
-      if (eff.type === "UnlockLevel" && eff.targetId) unlocked.add(eff.targetId);
+      if (eff.type === "UnlockLevel" && eff.targetId && this.entries.some((e) => e.levelId === eff.targetId)) {
+        unlocked.add(eff.targetId);
+      }
     }
-    const next = this.entries.find((e) => e.order === entry.order + 1);
+    // orders are not necessarily sequential, so unlock the next level in sequence
+    const next = this.nextEntry(entry);
     if (next) unlocked.add(next.levelId);
     this.save.unlocked = [...unlocked];
   }
@@ -431,8 +461,7 @@ export class GameFlow {
           this.mapView.hide();
           void this.startLevel(i);
         }
-      },
-      () => this.mapView.hide()
+      }
     );
   }
 }
@@ -442,12 +471,17 @@ function loadSave(): SaveData {
     const raw = localStorage.getItem(SAVE_KEY);
     if (raw) {
       const parsed = JSON.parse(raw) as SaveData;
-      return { unlocked: parsed.unlocked ?? [], stars: parsed.stars ?? {}, best: parsed.best ?? {} };
+      return {
+        unlocked: parsed.unlocked ?? [],
+        stars: parsed.stars ?? {},
+        best: parsed.best ?? {},
+        lastPlayed: parsed.lastPlayed ?? "",
+      };
     }
   } catch {
     /* ignore */
   }
-  return { unlocked: [], stars: {}, best: {} };
+  return { unlocked: [], stars: {}, best: {}, lastPlayed: "" };
 }
 
 function persist(data: SaveData): void {
