@@ -27,7 +27,10 @@ export class BoardController {
   private board: BoardLogic;
   private cb: ControllerCallbacks;
   private selected: Coord | null = null;
-  private aiming = false;
+  private aimCallback: ((c: Coord) => void) | null = null;
+  private pathMode = false;
+  private pathHandler: ((path: Coord[]) => void) | null = null;
+  private path: Coord[] = [];
 
   private activeId: number | null = null;
   private downCell: Coord | null = null;
@@ -81,10 +84,18 @@ export class BoardController {
     const idx = this.board.index(cell.row, cell.col);
     if (!this.board.cells[idx].bUsable) return;
 
-    if (this.aiming && this.cb.onUltimate) {
-      this.aiming = false;
+    if (this.pathMode) {
+      this.activeId = e.pointerId;
+      this.path = [cell];
+      this.scene.renderer.domElement.setPointerCapture?.(e.pointerId);
+      return;
+    }
+
+    if (this.aimCallback) {
+      const cb = this.aimCallback;
+      this.aimCallback = null;
       this.clearSelection();
-      this.cb.onUltimate(cell);
+      cb(cell);
       return;
     }
 
@@ -99,13 +110,33 @@ export class BoardController {
     }
   }
 
-  setAiming(on: boolean): void {
-    this.aiming = on;
+  /** Aim mode: the next tap on a cell is routed to `handler` (defaults to onUltimate). */
+  setAiming(on: boolean, handler?: (c: Coord) => void): void {
+    this.aimCallback = on ? (handler ?? this.cb.onUltimate ?? null) : null;
+    if (on) this.clearSelection();
+  }
+
+  /** Finger tool: press + drag collects a path of cells, released -> handler(path). */
+  setPathMode(on: boolean, handler?: (path: Coord[]) => void): void {
+    this.pathMode = on;
+    this.pathHandler = on ? (handler ?? null) : null;
+    this.path = [];
     if (on) this.clearSelection();
   }
 
   private pointerMove(e: PointerEvent): void {
-    if (this.aiming) return;
+    if (this.pathMode) {
+      if (this.activeId !== e.pointerId) return;
+      const cell = this.view.cellFromScreen(e.clientX, e.clientY);
+      if (!cell) return;
+      const last = this.path[this.path.length - 1];
+      if (!last || last.row !== cell.row || last.col !== cell.col) {
+        const idx = this.board.index(cell.row, cell.col);
+        if (this.board.cells[idx]?.bUsable) this.path.push(cell);
+      }
+      return;
+    }
+    if (this.aimCallback) return;
     if (this.activeId !== e.pointerId || !this.downCell || this.dragTriggered) return;
     const dx = e.clientX - this.downX;
     const dy = e.clientY - this.downY;
@@ -130,6 +161,19 @@ export class BoardController {
   }
 
   private pointerUp(e: PointerEvent): void {
+    if (this.pathMode) {
+      if (this.activeId !== e.pointerId) return;
+      try {
+        this.scene.renderer.domElement.releasePointerCapture(e.pointerId);
+      } catch {
+        /* ignore */
+      }
+      const path = this.path;
+      this.path = [];
+      this.resetGesture();
+      if (path.length > 0) this.pathHandler?.(path);
+      return;
+    }
     if (this.activeId !== e.pointerId) return;
     try {
       this.scene.renderer.domElement.releasePointerCapture(e.pointerId);

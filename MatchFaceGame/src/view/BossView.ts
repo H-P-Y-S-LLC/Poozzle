@@ -10,6 +10,13 @@ import type { BoardEvent } from "../logic/BoardLogic.js";
 import { generateBossModel, type BossModel } from "../proc/BossShapeGenerator.js";
 import { bossShapeParams } from "../proc/BossShapeParams.js";
 
+/** Horizontal (screen-vertical axis) turn applied to the side profile. */
+const BOSS_VIEW_YAW_DEG = 30;
+/** Slight forward tilt (screen-horizontal axis) for extra depth. */
+const BOSS_VIEW_PITCH_DEG = 30;
+/** Roll around the depth axis (dip the model downward on screen). */
+const BOSS_VIEW_ROLL_DEG = -15;
+
 export class BossView {
   private scene: SceneRoot;
   private model: BossModel;
@@ -38,6 +45,20 @@ export class BossView {
       new THREE.Vector3(1, 0, 0)
     );
     this.baseQuat.setFromRotationMatrix(basis);
+    const pitch = new THREE.Quaternion().setFromAxisAngle(
+      new THREE.Vector3(1, 0, 0),
+      THREE.MathUtils.degToRad(BOSS_VIEW_PITCH_DEG)
+    );
+    const yaw = new THREE.Quaternion().setFromAxisAngle(
+      new THREE.Vector3(0, 0, 1),
+      THREE.MathUtils.degToRad(BOSS_VIEW_YAW_DEG)
+    );
+    this.baseQuat.premultiply(pitch).premultiply(yaw);
+    const roll = new THREE.Quaternion().setFromAxisAngle(
+      new THREE.Vector3(0, 1, 0),
+      THREE.MathUtils.degToRad(BOSS_VIEW_ROLL_DEG)
+    );
+    this.baseQuat.premultiply(roll);
     g.quaternion.copy(this.baseQuat);
 
     // thicken the dorsal axis so the side profile has presence

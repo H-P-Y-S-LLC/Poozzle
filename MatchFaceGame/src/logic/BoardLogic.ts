@@ -1470,6 +1470,176 @@ export class BoardLogic {
     }
   }
 
+  // ─────────────────────────────── items ───────────────────────────────
+
+  /**
+   * Tool items (§5.9/§5.10). They never consume a move. Handlers are pure board
+   * mutations returning the animation event stream; inventory/limit bookkeeping
+   * lives in the flow layer.
+   */
+  useHammer(coord: Coord): SwapResult {
+    return this.runItem((events) => {
+      const idx = this.index(coord.row, coord.col);
+      const c = this.cells[idx];
+      if (!c.bUsable) return false;
+      if (c.BlockerType > 0) {
+        if (!c.bBlockerDestructible) return false;
+        c.BlockerHP = 1; // force-break regardless of HP/immunity
+        events.push({ type: "blockerHit", hits: [this.hitBlocker(idx)] });
+        this.resolveCascade(new Set([idx]), ClearTriggerType.HammerTool, true);
+        return true;
+      }
+      if (c.TileType > 0 || c.SpecialType !== SpecialType.None) {
+        this.resolveCascade(new Set([idx]), ClearTriggerType.HammerTool, true);
+        return true;
+      }
+      return false;
+    });
+  }
+
+  useRocket(coord: Coord): SwapResult {
+    return this.runItem((events) => {
+      const clear = new Set<number>();
+      const hits: BlockerHitEvent["hits"] = [];
+      for (let dr = -1; dr <= 1; dr++) {
+        for (let dc = -1; dc <= 1; dc++) {
+          const r = coord.row + dr;
+          const col = coord.col + dc;
+          if (r < 0 || r >= this.rows || col < 0 || col >= this.cols) continue;
+          const idx = r * this.cols + col;
+          const c = this.cells[idx];
+          if (!c.bUsable) continue;
+          if (c.BlockerType > 0 && c.bBlockerDestructible && c.BlockerHP > 0) {
+            c.BlockerHP = 1; // force-break in the blast
+            hits.push(this.hitBlocker(idx));
+          }
+          clear.add(idx);
+        }
+      }
+      if (hits.length) events.push({ type: "blockerHit", hits });
+      if (clear.size === 0) return hits.length > 0;
+      this.resolveCascade(clear, ClearTriggerType.RocketTool, true);
+      return true;
+    });
+  }
+
+  /** Shuffle tool: re-shuffle all tiles until the board has a move and no free match. */
+  useShuffle(): SwapResult {
+    return this.runItem((events) => {
+      let ev = this.shuffleAllTiles();
+      let guard = 0;
+      while (!(this.hasAnyPossibleMove() && this.computeMatches().matched.size === 0) && guard++ < 40) {
+        ev = this.shuffleAllTiles();
+      }
+      events.push(ev);
+      return true;
+    });
+  }
+
+  /** Glove tool: swap any two cells (subject to Glove* rules). Cascades if a match forms. */
+  useGlove(a: Coord, b: Coord): SwapResult {
+    return this.runItem(() => {
+      const ia = this.index(a.row, a.col);
+      const ib = this.index(b.row, b.col);
+      if (ia === ib) return false;
+      if (!this.canGloveSwap(ia) || !this.canGloveSwap(ib)) return false;
+      const ca = this.cells[ia];
+      const cb = this.cells[ib];
+      this.swapCellPayload(ca, cb);
+      if (this.computeMatches().matched.size > 0) {
+        this.resolveCascade(null, ClearTriggerType.NormalMatch, false);
+      } else {
+        this.events.push({ type: "refresh" });
+      }
+      return true;
+    });
+  }
+
+  /** Finger tool: clear the tiles/blockers along the dragged path. */
+  useFinger(indices: number[]): SwapResult {
+    return this.runItem(() => {
+      const clear = new Set<number>();
+      for (const idx of indices) {
+        const c = this.cells[idx];
+        if (!c || !c.bUsable) continue;
+        if (c.BlockerType > 0) continue; // finger clears elements, not blockers
+        if (c.TileType > 0 || c.SpecialType !== SpecialType.None) clear.add(idx);
+      }
+      if (clear.size === 0) return false;
+      this.resolveCascade(clear, ClearTriggerType.FingerTool, true);
+      return true;
+    });
+  }
+
+  private runItem(apply: (events: BoardEvent[]) => boolean): SwapResult {
+    this.events = [];
+    const reject = (): SwapResult => ({
+      accepted: false,
+      combo: false,
+      events: this.events,
+      victory: this.victory,
+      finished: this.levelFinished,
+      finishReason: this.lastFinishReason,
+    });
+    if (this.levelFinished || this.state !== BoardState.Idle) return reject();
+    this.ultimateCountedThisTurn = true; // tools never charge the ultimate
+    const ok = apply(this.events);
+    if (!ok) return reject();
+    this.state = BoardState.Idle;
+    this.evaluateFinishState();
+    return {
+      accepted: true,
+      combo: false,
+      events: this.events,
+      victory: this.victory,
+      finished: this.levelFinished,
+      finishReason: this.lastFinishReason,
+    };
+  }
+
+  /** Glove swappability under Rules.Glove* (§2.4.4). */
+  canGloveSwap(idx: number): boolean {
+    const c = this.cells[idx];
+    if (!c || !c.bUsable) return false;
+    const r = this.config.Rules;
+    if (c.bSticky && !r.bGloveAllowStickyCell) return false;
+    if (c.bLarvae && !r.bGloveAllowLarvaeCell) return false;
+    if (c.bBubble && !r.bGloveAllowPipeCell) return false;
+    if (this.isFrozen(idx) && !r.bGloveAllowFrozenCell) return false;
+    if (c.bMovementLocked && !r.bGloveAllowMovementLockedCell) return false;
+    if (r.GloveDisallowTileTypes.includes(c.TileType)) return false;
+    if (c.BlockerType > 0 && (!r.bGloveAllowBlockers || r.GloveDisallowBlockerTypeIds.includes(c.BlockerType))) {
+      return false;
+    }
+    if (c.BlockerType === 0 && c.SpecialType !== SpecialType.None && !r.bGloveAllowSpecialTiles) return false;
+    if (c.BlockerType === 0 && c.SpecialType === SpecialType.None && c.TileType > 0 && !r.bGloveAllowNormalTiles) {
+      return false;
+    }
+    return true;
+  }
+
+  private swapCellPayload(a: Cell, b: Cell): void {
+    const fields: Array<keyof Cell> = [
+      "TileType",
+      "SpecialType",
+      "BlockerType",
+      "bBlockerDestructible",
+      "BlockerHP",
+      "BlockerTransformTarget",
+      "RewardVariantId",
+      "bSticky",
+      "bLarvae",
+      "bBubble",
+      "bPoisoned",
+      "bSpecialPoisoned",
+    ];
+    for (const f of fields) {
+      const tmp = a[f];
+      (a as unknown as Record<string, unknown>)[f] = b[f];
+      (b as unknown as Record<string, unknown>)[f] = tmp;
+    }
+  }
+
   // ─────────────────────────────── blockers ───────────────────────────────
 
   /**

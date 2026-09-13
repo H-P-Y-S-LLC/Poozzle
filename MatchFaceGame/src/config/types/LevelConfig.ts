@@ -86,6 +86,17 @@ export interface RulesDef {
   bUseTopSpawnAfterInternalSettle: boolean;
   bEnableSpecialSpecialSwapCombo: boolean;
   bDrainSuctionCountsForCollectGoal: boolean;
+  bEnableGloveTool: boolean;
+  bGloveAllowNormalTiles: boolean;
+  bGloveAllowSpecialTiles: boolean;
+  bGloveAllowBlockers: boolean;
+  bGloveAllowStickyCell: boolean;
+  bGloveAllowLarvaeCell: boolean;
+  bGloveAllowPipeCell: boolean;
+  bGloveAllowFrozenCell: boolean;
+  bGloveAllowMovementLockedCell: boolean;
+  GloveDisallowTileTypes: number[];
+  GloveDisallowBlockerTypeIds: number[];
 }
 
 export interface ScoreDef {
@@ -401,6 +412,21 @@ export function parseLevelConfig(json: JsonObject): LevelConfig {
         "bDrainSuctionCountsForCollectGoal",
         DEFAULTS.rules.bDrainSuctionCountsForCollectGoal
       ),
+      bEnableGloveTool: ciBool(rulesRaw, "bEnableGloveTool", DEFAULTS.rules.bEnableGloveTool),
+      bGloveAllowNormalTiles: ciBool(rulesRaw, "bGloveAllowNormalTiles", DEFAULTS.rules.bGloveAllowNormalTiles),
+      bGloveAllowSpecialTiles: ciBool(rulesRaw, "bGloveAllowSpecialTiles", DEFAULTS.rules.bGloveAllowSpecialTiles),
+      bGloveAllowBlockers: ciBool(rulesRaw, "bGloveAllowBlockers", DEFAULTS.rules.bGloveAllowBlockers),
+      bGloveAllowStickyCell: ciBool(rulesRaw, "bGloveAllowStickyCell", DEFAULTS.rules.bGloveAllowStickyCell),
+      bGloveAllowLarvaeCell: ciBool(rulesRaw, "bGloveAllowLarvaeCell", DEFAULTS.rules.bGloveAllowLarvaeCell),
+      bGloveAllowPipeCell: ciBool(rulesRaw, "bGloveAllowPipeCell", DEFAULTS.rules.bGloveAllowPipeCell),
+      bGloveAllowFrozenCell: ciBool(rulesRaw, "bGloveAllowFrozenCell", DEFAULTS.rules.bGloveAllowFrozenCell),
+      bGloveAllowMovementLockedCell: ciBool(
+        rulesRaw,
+        "bGloveAllowMovementLockedCell",
+        DEFAULTS.rules.bGloveAllowMovementLockedCell
+      ),
+      GloveDisallowTileTypes: ciNumArr(rulesRaw, "GloveDisallowTileTypes"),
+      GloveDisallowBlockerTypeIds: ciNumArr(rulesRaw, "GloveDisallowBlockerTypeIds"),
     },
     Score: {
       BaseClearScore: ciNum(scoreRaw, "BaseClearScore", DEFAULTS.score.BaseClearScore),

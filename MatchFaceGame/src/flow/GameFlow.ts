@@ -5,7 +5,7 @@
 import type { ConfigLoader, LevelBossMeta } from "../config/ConfigLoader.js";
 import { selectMatch3Levels, type ManifestEntry } from "../config/LevelManifest.js";
 import { parseThemeConfig, type LevelMapConfig } from "../config/ThemeConfig.js";
-import { BoardState, FinishReason } from "../logic/Match3Types.js";
+import { BoardState, FinishReason, type Coord } from "../logic/Match3Types.js";
 import { BoardLogic } from "../logic/BoardLogic.js";
 import { SceneRoot } from "../view/SceneRoot.js";
 import { BoardView } from "../view/BoardView.js";
@@ -19,7 +19,16 @@ import { elementIconDataURL } from "../proc/ElementIconFactory.js";
 import { blockerIconDataURL } from "../proc/BlockerIconFactory.js";
 import { tileColor } from "../proc/Palette.js";
 import { bossCoinIconDataURL } from "../proc/BossCoinIconFactory.js";
+import { itemIconDataURL } from "../proc/ItemIconFactory.js";
 import { coinProbability, type BossCoinConfig, type BossCoinSkill } from "../config/BossCoinConfig.js";
+import type { ItemCatalog, ItemDef } from "../config/ItemConfig.js";
+import type {
+  CurrencyCatalog,
+  ItemLevelLimitsConfig,
+  ProductCatalog,
+  RewardBundle,
+  RewardRulesConfig,
+} from "../config/EconomyConfig.js";
 import type { BoardEvent } from "../logic/BoardLogic.js";
 import * as THREE from "three";
 import type { I18n } from "../ui/i18n.js";
@@ -31,6 +40,8 @@ const SAVE_KEY = "matchface.save.v1";
 const BOSS_COIN_TOSSES_PER_LEVEL = 3;
 /** Seconds without an elimination before the board hints a valid swap. */
 const IDLE_HINT_SECONDS = 30;
+/** Starter inventory granted on first run (each item). */
+const STARTER_ITEMS = 3;
 
 const DEFAULT_LEVEL_MAP: LevelMapConfig = {
   levelsPerChunk: 12,
@@ -47,6 +58,12 @@ interface SaveData {
   best: Record<string, number>;
   /** Boss ids whose skill coin has been earned (defeat a boss -> earn its coin). */
   bossCoins: string[];
+  /** Item id -> owned count. */
+  items: Record<string, number>;
+  /** Currency id -> amount (coin / gem). */
+  wallet: Record<string, number>;
+  /** levelId -> itemId -> equipped count. */
+  loadouts: Record<string, Record<string, number>>;
   /** Last level the player entered; used to auto-resume on next visit. */
   lastPlayed: string;
 }
@@ -73,6 +90,7 @@ export class GameFlow {
   private lastClearedForUlt: { index: number; tileType: number } | null = null;
   private lastUltCount = 0;
   private lastUltElement = 0;
+  private shopBtn: HTMLButtonElement | null = null;
   private aiming = false;
   private idleResetAt = performance.now();
   private hinting = false;
@@ -81,6 +99,15 @@ export class GameFlow {
   private bossMeta = new Map<string, LevelBossMeta>();
   private bossCoinConfig: BossCoinConfig | null = null;
   private currentBossId = "";
+  private itemCatalog: ItemCatalog | null = null;
+  private currencyCatalog: CurrencyCatalog | null = null;
+  private rewardRules: RewardRulesConfig | null = null;
+  private itemLimits: ItemLevelLimitsConfig | null = null;
+  private products: ProductCatalog | null = null;
+  private itemUses = new Map<string, number>();
+  private equipped = new Map<string, number>();
+  private activeItem: string | null = null;
+  private gloveFirst: Coord | null = null;
   private listenerForward = new THREE.Vector3();
 
   constructor(container: HTMLElement, loader: ConfigLoader, i18n: I18n, hud: HudView, uiRoot: HTMLElement) {
@@ -95,6 +122,7 @@ export class GameFlow {
     this.buildToolbar();
     this.hud.useButton.addEventListener("click", () => this.onUltimateButton());
     this.hud.bossCoinTrayEl.addEventListener("click", (e) => this.onBossCoinTrayClick(e));
+    this.hud.itemBarEl.addEventListener("click", (e) => this.onItemBarClick(e));
     const unlock = () => {
       this.audio.resume();
       this.music.start();
@@ -175,6 +203,11 @@ export class GameFlow {
     mapBtn.className = "btn ghost";
     mapBtn.textContent = this.i18n.t("map");
     mapBtn.addEventListener("click", () => this.openLevelSelect());
+    const shopBtn = document.createElement("button");
+    shopBtn.className = "btn ghost";
+    shopBtn.textContent = "商店";
+    shopBtn.addEventListener("click", () => this.openShop());
+    this.shopBtn = shopBtn;
     const langBtn = document.createElement("button");
     langBtn.className = "btn ghost";
     langBtn.textContent = this.i18n.lang === "en" ? "中文" : "EN";
@@ -202,7 +235,7 @@ export class GameFlow {
       musicBtn.textContent = muted ? "🎵̶" : "🎵";
       musicBtn.classList.toggle("active", !muted);
     });
-    bar.append(soundBtn, musicBtn, mapBtn, langBtn);
+    bar.append(soundBtn, musicBtn, shopBtn, mapBtn, langBtn);
     this.container.appendChild(bar);
   }
 
@@ -230,6 +263,44 @@ export class GameFlow {
       } catch (err) {
         log.warn("boss_coin_skills.json unavailable, boss coins disabled", err);
       }
+
+      // item catalog — optional; grant starter stock on first run
+      try {
+        this.itemCatalog = await this.loader.loadItems();
+        if (Object.keys(this.save.items).length === 0) {
+          for (const it of this.itemCatalog.items) this.save.items[it.id] = STARTER_ITEMS;
+          persist(this.save);
+        }
+      } catch (err) {
+        log.warn("catalog/items.json unavailable, items disabled", err);
+      }
+
+      // economy: currencies, rewards, loadout limits, shop, life
+      try {
+        this.currencyCatalog = await this.loader.loadCurrencies();
+        if (Object.keys(this.save.wallet).length === 0) {
+          for (const c of this.currencyCatalog.currencies) this.save.wallet[c.id] = c.initial;
+          persist(this.save);
+        }
+      } catch (err) {
+        log.warn("catalog/currencies.json unavailable", err);
+      }
+      try {
+        this.rewardRules = await this.loader.loadRewardRules();
+      } catch (err) {
+        log.warn("reward/reward_rules.json unavailable", err);
+      }
+      try {
+        this.itemLimits = await this.loader.loadItemLevelLimits();
+      } catch (err) {
+        log.warn("catalog/item_level_limits.json unavailable", err);
+      }
+      try {
+        this.products = await this.loader.loadProducts();
+      } catch (err) {
+        log.warn("catalog/products.json unavailable", err);
+      }
+      this.refreshWallet();
 
       // seed unlock state
       const unlocked = new Set(this.save.unlocked);
@@ -262,6 +333,7 @@ export class GameFlow {
     this.hud.setLoading(true);
     this.hud.hideOverlay();
     this.mapView.hide();
+    if (this.shopBtn) this.shopBtn.classList.add("hidden"); // shop entry is map-only
     this.endAim();
     this.lastUltCount = 0;
     this.lastUltElement = 0;
@@ -270,6 +342,9 @@ export class GameFlow {
     this.celebrating = false;
     this.resetIdleHint();
     this.hinting = false;
+    this.itemUses.clear();
+    this.equipped = this.buildEquipped(entry.levelId);
+    this.cancelItem();
     this.busy = true;
 
     try {
@@ -301,11 +376,13 @@ export class GameFlow {
       });
       this.hud.update(board, entry.displayName || entry.levelId);
       this.setupBossCoin(board, isBoss ? bossConfig!.bossId : "");
+      this.refreshItems();
       log.info(
         `level ${entry.levelId} seed=${board.randomSeed} size=${board.rows}x${board.cols} boss=${bossConfig?.bossId ?? "-"}`
       );
     } finally {
       this.busy = false;
+      this.refreshItems(); // enable the equipped item buttons now that loading is done
       this.hud.setLoading(false);
     }
   }
@@ -591,13 +668,18 @@ export class GameFlow {
     const snap = this.board.snapshot();
     this.audio.play(snap.victory ? "victory" : "defeat");
     if (snap.victory) {
+      const firstTime = this.save.stars[entry.levelId] === undefined;
       this.save.stars[entry.levelId] = Math.max(this.save.stars[entry.levelId] ?? 0, snap.stars);
       this.save.best[entry.levelId] = Math.max(this.save.best[entry.levelId] ?? 0, snap.score);
       this.awardBossCoin();
+      this.applyRewards(entry.levelId, true, firstTime, snap.stars);
       this.unlockNext(entry);
       // progress points at the newly unlocked next level, so resuming continues forward
       const next = this.nextEntry(entry);
       if (next) this.save.lastPlayed = next.levelId;
+      persist(this.save);
+    } else {
+      this.applyRewards(entry.levelId, false, false, snap.stars);
       persist(this.save);
     }
     const reason = snap.victory
@@ -713,6 +795,170 @@ export class GameFlow {
     }
   }
 
+  // ─────────────────────────────── items ───────────────────────────────
+
+  private itemDefs(): ItemDef[] {
+    const cat = this.itemCatalog;
+    if (!cat) return [];
+    const board = this.board;
+    const gloveEnabled = board ? board.config.Rules.bEnableGloveTool : true;
+    return cat.items.filter(
+      (i) => (i.usableInModes.length === 0 || i.usableInModes.includes("match3")) && (i.id !== "glove" || gloveEnabled)
+    );
+  }
+
+  /** Build the equipped set for a level from the saved loadout (or auto-fill). */
+  private buildEquipped(levelId: string): Map<string, number> {
+    const out = new Map<string, number>();
+    if (!this.itemCatalog) return out;
+    const limits = this.itemLimits?.levelLimits.get(levelId);
+    const totalCap = limits?.totalLoadoutCap ?? 0;
+    if (totalCap <= 0) return out;
+    const capOf = (id: string) => limits?.perItemEquipCaps.find((c) => c.itemId === id)?.cap ?? 0;
+    const owned = (id: string) => this.save.items[id] ?? 0;
+    const saved = this.save.loadouts[levelId];
+    let sum = 0;
+    for (const it of this.itemCatalog.items) {
+      const want = saved ? saved[it.id] ?? 0 : capOf(it.id);
+      const v = Math.max(0, Math.min(want, capOf(it.id), owned(it.id), totalCap - sum));
+      if (v > 0) {
+        out.set(it.id, v);
+        sum += v;
+      }
+    }
+    return out;
+  }
+
+  private refreshItems(): void {
+    const defs = this.itemDefs().filter((d) => (this.equipped.get(d.id) ?? 0) > 0);
+    if (defs.length === 0 || !this.board) {
+      this.hud.updateItems([]);
+      return;
+    }
+    this.hud.updateItems(
+      defs.map((d) => {
+        const remaining = Math.max(0, (this.equipped.get(d.id) ?? 0) - (this.itemUses.get(d.id) ?? 0));
+        const enabled = remaining > 0 && !this.busy && !this.celebrating && !this.hinting;
+        return {
+          id: d.id,
+          count: remaining,
+          enabled: enabled || this.activeItem === d.id,
+          icon: itemIconDataURL(d.id, 40, !enabled && this.activeItem !== d.id),
+          title: `${d.name}：本关剩余 ${remaining}`,
+        };
+      })
+    );
+  }
+
+  private onItemBarClick(e: MouseEvent): void {
+    const btn = (e.target as HTMLElement | null)?.closest<HTMLElement>(".item-btn");
+    const id = btn?.dataset.item;
+    if (id) this.onItemClick(id);
+  }
+
+  private onItemClick(id: string): void {
+    const board = this.board;
+    if (!board || this.busy || this.celebrating || board.levelFinished) return;
+    if (this.activeItem === id) {
+      this.cancelItem();
+      return;
+    }
+    const def = this.itemDefs().find((d) => d.id === id);
+    if (!def) return;
+    const remaining = Math.max(0, (this.equipped.get(id) ?? 0) - (this.itemUses.get(id) ?? 0));
+    if (remaining <= 0) return;
+
+    this.cancelItem();
+    this.activeItem = id;
+    this.gloveFirst = null;
+    this.hud.setItemAiming(id);
+    this.audio.play("select");
+
+    if (id === "shuffle") {
+      this.cancelItem();
+      void this.executeItem("shuffle");
+    } else if (id === "finger") {
+      this.controller?.setPathMode(true, (path) => this.onItemPath(path));
+    } else {
+      this.controller?.setAiming(true, (c) => this.onItemTarget(c));
+    }
+    this.refreshItems();
+  }
+
+  private cancelItem(): void {
+    this.activeItem = null;
+    this.gloveFirst = null;
+    this.hud.setItemAiming(null);
+    this.controller?.setAiming(false);
+    this.controller?.setPathMode(false);
+  }
+
+  private onItemTarget(c: Coord): void {
+    const id = this.activeItem;
+    if (!id) return;
+    if (id === "glove") {
+      if (!this.gloveFirst) {
+        this.gloveFirst = c;
+        this.controller?.setAiming(true, (n) => this.onItemTarget(n));
+        return;
+      }
+      const a = this.gloveFirst;
+      this.cancelItem();
+      void this.executeItem("glove", { a, b: c });
+      return;
+    }
+    this.cancelItem();
+    void this.executeItem(id, { coord: c });
+  }
+
+  private onItemPath(path: Coord[]): void {
+    const id = this.activeItem;
+    if (!id) return;
+    this.cancelItem();
+    void this.executeItem("finger", { path });
+  }
+
+  private async executeItem(id: string, opts: { coord?: Coord; a?: Coord; b?: Coord; path?: Coord[] } = {}): Promise<void> {
+    const board = this.board;
+    if (!board) return;
+    let res: ReturnType<BoardLogic["useHammer"]> | null = null;
+    if (id === "hammer" && opts.coord) res = board.useHammer(opts.coord);
+    else if (id === "rocket" && opts.coord) res = board.useRocket(opts.coord);
+    else if (id === "shuffle") res = board.useShuffle();
+    else if (id === "glove" && opts.a && opts.b) res = board.useGlove(opts.a, opts.b);
+    else if (id === "finger" && opts.path) {
+      const indices = opts.path.map((p) => board.index(p.row, p.col));
+      res = board.useFinger(indices);
+    }
+    if (!res || !res.accepted) {
+      this.refreshItems();
+      return;
+    }
+
+    this.busy = true;
+    try {
+      this.consumeItem(id);
+      this.audio.play(id === "rocket" ? "specialExplode" : id === "hammer" ? "blockerBreak" : "skill");
+      if (this.view && res.events.length) {
+        await this.view.playEvents(res.events, (e) => this.onBoardEvent(e));
+      }
+      this.bossView?.onEvents(res.events);
+      this.hud.update(board, this.entries[this.index].displayName);
+      this.resetIdleHint();
+      this.checkFinish();
+    } finally {
+      this.busy = false;
+      this.refreshItems();
+    }
+  }
+
+  private consumeItem(id: string): void {
+    const count = this.save.items[id] ?? 0;
+    if (count > 0) this.save.items[id] = count - 1;
+    this.itemUses.set(id, (this.itemUses.get(id) ?? 0) + 1);
+    persist(this.save);
+  }
+
   private nextEntry(entry: ManifestEntry): ManifestEntry | undefined {
     const sorted = [...this.entries].sort((a, b) => a.order - b.order);
     const idx = sorted.findIndex((e) => e.levelId === entry.levelId);
@@ -733,18 +979,133 @@ export class GameFlow {
   }
 
   private openLevelSelect(): void {
+    this.hud.hidePanels();
+    if (this.shopBtn) this.shopBtn.classList.remove("hidden"); // shop entry on the map page
     this.mapView.show(
       [...this.entries].sort((a, b) => a.order - b.order),
       { unlocked: new Set(this.save.unlocked), stars: this.save.stars },
       this.bossMeta,
       (e) => {
         const i = this.entries.indexOf(e);
-        if (i >= 0) {
-          this.mapView.hide();
-          void this.startLevel(i);
-        }
+        if (i >= 0) this.openLoadout(e);
       }
     );
+  }
+
+  // ───────────────────────────── loadout / shop / rewards ─────────────────────────────
+
+  private refreshWallet(): void {
+    this.hud.updateWallet({
+      coin: this.save.wallet["coin"] ?? 0,
+      gem: this.save.wallet["gem"] ?? 0,
+    });
+  }
+
+  /** Pre-level loadout picker; honors catalog/item_level_limits.json caps. */
+  private openLoadout(entry: ManifestEntry): void {
+    const i = this.entries.indexOf(entry);
+    if (i < 0) return;
+    const limits = this.itemLimits?.levelLimits.get(entry.levelId);
+    const totalCap = limits?.totalLoadoutCap ?? 0;
+    const defs = this.itemDefs();
+    const items = defs
+      .map((d) => ({
+        id: d.id,
+        name: d.name,
+        icon: itemIconDataURL(d.id, 40),
+        cap: limits?.perItemEquipCaps.find((c) => c.itemId === d.id)?.cap ?? 0,
+        owned: this.save.items[d.id] ?? 0,
+      }))
+      .filter((d) => d.cap > 0);
+    const initial = this.save.loadouts[entry.levelId] ?? {};
+    this.hud.showLoadout(
+      { title: "装配道具", levelLabel: entry.displayName || entry.levelId, totalCap, items, initial },
+      (selection) => {
+        this.save.loadouts[entry.levelId] = selection;
+        persist(this.save);
+        this.hud.hidePanels();
+        void this.startLevel(i);
+      },
+      () => this.hud.hidePanels()
+    );
+  }
+
+  private openShop(): void {
+    if (!this.products) {
+      this.hud.hidePanels();
+      return;
+    }
+    const itemName = (id: string) => this.itemCatalog?.items.find((d) => d.id === id)?.name ?? id;
+    const list = this.products.products
+      .filter((p) => p.type.toLowerCase() !== "lifepack" && p.grant.lifeAmount <= 0)
+      .map((p) => {
+        const label = `${itemName(p.grant.itemId)} ×${p.grant.itemCount}`;
+        return {
+          id: p.id,
+          label,
+          desc: "关卡内可使用的道具",
+          priceLabel: `${p.currencyId === "gem" ? "◆" : "◎"} ${p.amount}`,
+          icon: itemIconDataURL(p.grant.itemId, 40),
+          affordable: (this.save.wallet[p.currencyId] ?? 0) >= p.amount,
+        };
+      });
+    this.hud.showShop(
+      {
+        title: "商店",
+        wallet: { coin: this.save.wallet["coin"] ?? 0, gem: this.save.wallet["gem"] ?? 0 },
+        products: list,
+      },
+      (id) => this.buyProduct(id),
+      () => this.hud.hidePanels()
+    );
+  }
+
+  private buyProduct(id: string): void {
+    const p = this.products?.products.find((x) => x.id === id);
+    if (!p) return;
+    const have = this.save.wallet[p.currencyId] ?? 0;
+    if (have < p.amount) return;
+    this.save.wallet[p.currencyId] = have - p.amount;
+    if (p.grant.itemId && p.grant.itemCount > 0) {
+      const stack = this.itemCatalog?.items.find((d) => d.id === p.grant.itemId)?.stackMax ?? 999;
+      this.save.items[p.grant.itemId] = Math.min(stack, (this.save.items[p.grant.itemId] ?? 0) + p.grant.itemCount);
+    }
+    this.audio.play("skill");
+    persist(this.save);
+    this.refreshWallet();
+    this.openShop();
+  }
+
+  private applyRewards(levelId: string, victory: boolean, firstTime: boolean, stars: number): void {
+    const rules = this.rewardRules;
+    if (!rules) return;
+    const lr = rules.levelRules.get(levelId);
+    const mode = rules.modeRules.find((m) => m.modeId === "match3");
+    if (victory) {
+      const bundle = firstTime
+        ? lr?.firstWin ?? lr?.repeatWin ?? mode?.firstWin ?? mode?.win
+        : lr?.repeatWin ?? lr?.firstWin ?? mode?.win;
+      if (bundle) this.applyBundle(bundle);
+      if (stars >= 5 && lr?.fiveStarBonus) this.applyBundle(lr.fiveStarBonus);
+    } else {
+      const bundle = lr?.lose ?? mode?.lose;
+      if (bundle) this.applyBundle(bundle);
+    }
+    this.refreshWallet();
+  }
+
+  private applyBundle(bundle: RewardBundle): void {
+    for (const c of bundle.currencies) {
+      if (!c.currencyId || c.amount === 0) continue;
+      const def = this.currencyCatalog?.currencies.find((x) => x.id === c.currencyId);
+      const max = def?.max && def.max > 0 ? def.max : Number.MAX_SAFE_INTEGER;
+      this.save.wallet[c.currencyId] = Math.max(0, Math.min(max, (this.save.wallet[c.currencyId] ?? 0) + c.amount));
+    }
+    for (const it of bundle.items) {
+      if (!it.itemId || it.count <= 0) continue;
+      const stack = this.itemCatalog?.items.find((d) => d.id === it.itemId)?.stackMax ?? 999;
+      this.save.items[it.itemId] = Math.min(stack, (this.save.items[it.itemId] ?? 0) + it.count);
+    }
   }
 }
 
@@ -758,13 +1119,16 @@ function loadSave(): SaveData {
         stars: parsed.stars ?? {},
         best: parsed.best ?? {},
         bossCoins: parsed.bossCoins ?? [],
+        items: parsed.items ?? {},
+        wallet: parsed.wallet ?? {},
+        loadouts: parsed.loadouts ?? {},
         lastPlayed: parsed.lastPlayed ?? "",
       };
     }
   } catch {
     /* ignore */
   }
-  return { unlocked: [], stars: {}, best: {}, bossCoins: [], lastPlayed: "" };
+  return { unlocked: [], stars: {}, best: {}, bossCoins: [], items: {}, wallet: {}, loadouts: {}, lastPlayed: "" };
 }
 
 function persist(data: SaveData): void {

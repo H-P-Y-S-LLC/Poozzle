@@ -37,6 +37,10 @@ export class HudView {
   private bossCoinLabel: HTMLElement;
   private coinOverlay: HTMLElement;
   private coinBusy = false;
+  private itemBar: HTMLElement;
+  private itemButtons = new Map<string, HTMLButtonElement>();
+  private walletEl: HTMLElement;
+  private panelRoot: HTMLElement;
   private goalChips = new Map<number, HTMLElement>();
   private blockerChips = new Map<number, HTMLElement>();
   private goalSig = "";
@@ -79,6 +83,133 @@ export class HudView {
 
     this.coinOverlay = div("coin-toss hidden");
     root.appendChild(this.coinOverlay);
+
+    this.itemBar = div("item-bar hidden");
+    root.appendChild(this.itemBar);
+
+    this.walletEl = div("hud-wallet hidden");
+    root.appendChild(this.walletEl);
+
+    this.panelRoot = div("panel-root hidden");
+    root.appendChild(this.panelRoot);
+  }
+
+  /** Top-left currency wallet (coin / gem / lives). */
+  updateWallet(state: { coin: number; gem: number; lives?: number }): void {
+    this.walletEl.classList.remove("hidden");
+    const lives = state.lives === undefined ? "" : `<span class="wallet-item"><b>♥</b>${state.lives}</span>`;
+    this.walletEl.innerHTML =
+      `<span class="wallet-item"><b>◎</b>${state.coin}</span>` +
+      `<span class="wallet-item"><b>◆</b>${state.gem}</span>` +
+      lives;
+  }
+
+  hidePanels(): void {
+    this.panelRoot.classList.add("hidden");
+    this.panelRoot.innerHTML = "";
+  }
+
+  /** Pre-level loadout picker. */
+  showLoadout(
+    cfg: { title: string; levelLabel: string; totalCap: number; items: Array<{ id: string; name: string; icon: string; cap: number; owned: number }>; initial: Record<string, number> },
+    onStart: (selection: Record<string, number>) => void,
+    onCancel: () => void
+  ): void {
+    this.panelRoot.classList.remove("hidden");
+    this.panelRoot.innerHTML = "";
+    const panel = div("sheet");
+    panel.innerHTML = `<h2>${cfg.title}</h2><p class="sheet-sub">${cfg.levelLabel} · 最多携带 ${cfg.totalCap} 个道具</p>`;
+
+    const selected: Record<string, number> = { ...cfg.initial };
+    const rows = div("loadout-list");
+    const footer = div("sheet-actions");
+    const countEl = document.createElement("span");
+    const startBtn = mkButton("开始", () => onStart(selected), "primary");
+    const cancelBtn = mkButton("取消", onCancel, "ghost");
+
+    const sum = () => Object.values(selected).reduce((a, b) => a + b, 0);
+    const refresh = (): void => {
+      countEl.textContent = `已选 ${sum()}/${cfg.totalCap}`;
+      startBtn.disabled = false;
+      for (const row of Array.from(rows.children) as HTMLElement[]) {
+        const id = row.dataset.item ?? "";
+        const def = cfg.items.find((i) => i.id === id);
+        if (!def) continue;
+        const val = selected[id] ?? 0;
+        (row.querySelector(".lo-val") as HTMLElement).textContent = String(val);
+        const plus = row.querySelector<HTMLButtonElement>(".lo-plus");
+        const minus = row.querySelector<HTMLButtonElement>(".lo-minus");
+        if (plus) plus.disabled = val >= def.cap || val >= def.owned || sum() >= cfg.totalCap;
+        if (minus) minus.disabled = val <= 0;
+      }
+    };
+
+    for (const it of cfg.items) {
+      selected[it.id] = selected[it.id] ?? 0;
+      const row = div("loadout-row");
+      row.dataset.item = it.id;
+      row.innerHTML =
+        `<img src="${it.icon}" alt="" />` +
+        `<span class="lo-name">${it.name}</span>` +
+        `<span class="lo-owned">拥有 ${it.owned} · 上限 ${it.cap}</span>` +
+        `<button class="lo-minus">−</button><span class="lo-val">0</span><button class="lo-plus">+</button>`;
+      row.querySelector<HTMLButtonElement>(".lo-minus")?.addEventListener("click", () => {
+        selected[it.id] = Math.max(0, (selected[it.id] ?? 0) - 1);
+        refresh();
+      });
+      row.querySelector<HTMLButtonElement>(".lo-plus")?.addEventListener("click", () => {
+        if ((selected[it.id] ?? 0) >= it.cap || (selected[it.id] ?? 0) >= it.owned || sum() >= cfg.totalCap) return;
+        selected[it.id] = (selected[it.id] ?? 0) + 1;
+        refresh();
+      });
+      rows.appendChild(row);
+    }
+
+    footer.append(countEl, cancelBtn, startBtn);
+    panel.append(rows, footer);
+    this.panelRoot.appendChild(panel);
+    refresh();
+  }
+
+  /** Shop sheet; call again to re-render after a purchase. */
+  showShop(
+    cfg: {
+      title: string;
+      wallet: { coin: number; gem: number };
+      products: Array<{ id: string; label: string; desc: string; priceLabel: string; icon: string; affordable: boolean }>;
+    },
+    onBuy: (id: string) => void,
+    onClose: () => void
+  ): void {
+    this.panelRoot.classList.remove("hidden");
+    this.panelRoot.innerHTML = "";
+    const panel = div("sheet");
+    panel.innerHTML =
+      `<h2>${cfg.title}</h2>` +
+      `<p class="sheet-sub">◎ ${cfg.wallet.coin} · ◆ ${cfg.wallet.gem}</p>`;
+    const list = div("shop-list");
+    for (const p of cfg.products) {
+      const row = div("shop-row");
+      row.innerHTML =
+        `<img src="${p.icon}" alt="" />` +
+        `<span class="shop-info"><b>${p.label}</b><i>${p.desc}</i></span>` +
+        `<span class="shop-price">${p.priceLabel}</span>`;
+      const buy = document.createElement("button");
+      buy.className = "btn primary";
+      buy.textContent = "购买";
+      buy.disabled = !p.affordable;
+      buy.addEventListener("click", () => onBuy(p.id));
+      row.appendChild(buy);
+      list.appendChild(row);
+    }
+    const actions = div("sheet-actions");
+    actions.appendChild(mkButton("关闭", onClose, "ghost"));
+    panel.append(list, actions);
+    this.panelRoot.appendChild(panel);
+  }
+
+  get itemBarEl(): HTMLElement {
+    return this.itemBar;
   }
 
   get bossCoinTrayEl(): HTMLElement {
@@ -199,6 +330,34 @@ export class HudView {
       btn.innerHTML = `<img src="${c.icon}" alt="" />`;
       this.bossCoinCoins.appendChild(btn);
     }
+  }
+
+  /** Refresh the item bar. `enabled` reflects inventory + per-level limit. */
+  updateItems(items: Array<{ id: string; count: number; enabled: boolean; icon: string; title: string }>): void {
+    if (items.length === 0) {
+      this.itemBar.classList.add("hidden");
+      return;
+    }
+    this.itemBar.classList.remove("hidden");
+    const sig = items.map((i) => `${i.id}:${i.count}:${i.enabled ? 1 : 0}`).join("|");
+    if (this.itemBar.dataset.sig === sig) return;
+    this.itemBar.dataset.sig = sig;
+    this.itemBar.innerHTML = "";
+    this.itemButtons.clear();
+    for (const it of items) {
+      const btn = document.createElement("button");
+      btn.className = "item-btn";
+      btn.dataset.item = it.id;
+      btn.disabled = !it.enabled;
+      btn.title = it.title;
+      btn.innerHTML = `<img src="${it.icon}" alt="" /><span class="item-count">${it.count}</span>`;
+      this.itemBar.appendChild(btn);
+      this.itemButtons.set(it.id, btn);
+    }
+  }
+
+  setItemAiming(id: string | null): void {
+    for (const [key, btn] of this.itemButtons) btn.classList.toggle("selected", key === id);
   }
 
   get bossCoinIsBusy(): boolean {

@@ -1,0 +1,87 @@
+{
+  "products": [
+    {
+      "id": "buy_hammer_x1",
+      "type": "Item",
+      "price": {
+        "currencyId": "coin",
+        "amount": 200
+      },
+      "grant": {
+        "itemId": "hammer",
+        "itemCount": 1
+      },
+      "dailyLimit": 0,
+      "bEnabled": true
+    },
+    {
+      "id": "buy_shuffle_x1",
+      "type": "Item",
+      "price": {
+        "currencyId": "coin",
+        "amount": 350
+      },
+      "grant": {
+        "itemId": "shuffle",
+        "itemCount": 1
+      },
+      "dailyLimit": 0,
+      "bEnabled": true
+    },
+    {
+      "id": "buy_rocket_x1",
+      "type": "Item",
+      "price": {
+        "currencyId": "coin",
+        "amount": 800
+      },
+      "grant": {
+        "itemId": "rocket",
+        "itemCount": 1
+      },
+      "dailyLimit": 0,
+      "bEnabled": true
+    },
+    {
+      "id": "buy_glove_x1",
+      "type": "Item",
+      "price": {
+        "currencyId": "coin",
+        "amount": 500
+      },
+      "grant": {
+        "itemId": "glove",
+        "itemCount": 1
+      },
+      "dailyLimit": 0,
+      "bEnabled": true
+    },
+    {
+      "id": "buy_finger_x1",
+      "type": "Item",
+      "price": {
+        "currencyId": "coin",
+        "amount": 1000
+      },
+      "grant": {
+        "itemId": "finger",
+        "itemCount": 1
+      },
+      "dailyLimit": 0,
+      "bEnabled": true
+    },
+    {
+      "id": "buy_life_x1",
+      "type": "LifePack",
+      "price": {
+        "currencyId": "gem",
+        "amount": 50
+      },
+      "grant": {
+        "lifeAmount": 1
+      },
+      "dailyLimit": 0,
+      "bEnabled": true
+    }
+  ]
+}

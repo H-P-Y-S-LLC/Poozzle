@@ -1,0 +1,5300 @@
+{
+  "modeRules": [
+    {
+      "modeId": "match3",
+      "win": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 120
+          }
+        ],
+        "items": [
+          {
+            "itemId": "shuffle",
+            "count": 1
+          }
+        ],
+        "lives": 0
+      },
+      "lose": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 20
+          }
+        ],
+        "items": [],
+        "lives": 0
+      }
+    },
+    {
+      "modeId": "slide_puzzle",
+      "firstWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 80
+          }
+        ],
+        "items": [],
+        "lives": 1
+      },
+      "win": {
+        "currencies": [],
+        "items": [],
+        "lives": 0
+      },
+      "lose": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 15
+          }
+        ],
+        "items": [],
+        "lives": 0
+      }
+    },
+    {
+      "modeId": "pvp",
+      "win": {
+        "currencies": [],
+        "items": [],
+        "lives": 0
+      },
+      "lose": {
+        "currencies": [],
+        "items": [],
+        "lives": 0
+      }
+    },
+    {
+      "modeId": "matchduel",
+      "win": {
+        "currencies": [],
+        "items": [],
+        "lives": 0
+      },
+      "lose": {
+        "currencies": [],
+        "items": [],
+        "lives": 0
+      }
+    }
+  ],
+  "levelRules": [
+    {
+      "levelId": "level_001",
+      "firstWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 90
+          }
+        ],
+        "items": [],
+        "lives": 1
+      },
+      "repeatWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 30
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "lose": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 5
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "fiveStarBonus": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 21
+          }
+        ],
+        "items": [],
+        "lives": 0
+      }
+    },
+    {
+      "levelId": "level_002",
+      "firstWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 94
+          }
+        ],
+        "items": [],
+        "lives": 1
+      },
+      "repeatWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 31
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "lose": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 5
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "fiveStarBonus": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 21
+          }
+        ],
+        "items": [],
+        "lives": 0
+      }
+    },
+    {
+      "levelId": "level_003",
+      "firstWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 98
+          }
+        ],
+        "items": [],
+        "lives": 1
+      },
+      "repeatWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 32
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "lose": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 5
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "fiveStarBonus": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 22
+          }
+        ],
+        "items": [],
+        "lives": 0
+      }
+    },
+    {
+      "levelId": "level_004",
+      "firstWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 102
+          }
+        ],
+        "items": [],
+        "lives": 1
+      },
+      "repeatWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 33
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "lose": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 6
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "fiveStarBonus": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 23
+          }
+        ],
+        "items": [],
+        "lives": 0
+      }
+    },
+    {
+      "levelId": "level_005",
+      "firstWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 106
+          }
+        ],
+        "items": [
+          {
+            "itemId": "hammer",
+            "count": 1
+          }
+        ],
+        "lives": 1
+      },
+      "repeatWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 34
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "lose": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 6
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "fiveStarBonus": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 23
+          }
+        ],
+        "items": [
+          {
+            "itemId": "shuffle",
+            "count": 1
+          }
+        ],
+        "lives": 0
+      }
+    },
+    {
+      "levelId": "level_006",
+      "firstWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 110
+          }
+        ],
+        "items": [],
+        "lives": 1
+      },
+      "repeatWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 35
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "lose": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 6
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "fiveStarBonus": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 24
+          }
+        ],
+        "items": [],
+        "lives": 0
+      }
+    },
+    {
+      "levelId": "level_007",
+      "firstWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 114
+          }
+        ],
+        "items": [
+          {
+            "itemId": "glove",
+            "count": 1
+          }
+        ],
+        "lives": 1
+      },
+      "repeatWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 36
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "lose": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 7
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "fiveStarBonus": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 25
+          }
+        ],
+        "items": [],
+        "lives": 0
+      }
+    },
+    {
+      "levelId": "level_008",
+      "firstWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 118
+          }
+        ],
+        "items": [
+          {
+            "itemId": "shuffle",
+            "count": 1
+          }
+        ],
+        "lives": 1
+      },
+      "repeatWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 37
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "lose": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 7
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "fiveStarBonus": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 25
+          }
+        ],
+        "items": [],
+        "lives": 0
+      }
+    },
+    {
+      "levelId": "level_009",
+      "firstWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 122
+          }
+        ],
+        "items": [],
+        "lives": 1
+      },
+      "repeatWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 38
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "lose": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 7
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "fiveStarBonus": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 26
+          }
+        ],
+        "items": [],
+        "lives": 0
+      }
+    },
+    {
+      "levelId": "level_010",
+      "firstWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 126
+          },
+          {
+            "currencyId": "gem",
+            "amount": 5
+          }
+        ],
+        "items": [
+          {
+            "itemId": "shuffle",
+            "count": 1
+          }
+        ],
+        "lives": 1
+      },
+      "repeatWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 39
+          },
+          {
+            "currencyId": "gem",
+            "amount": 1
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "lose": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 8
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "fiveStarBonus": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 27
+          }
+        ],
+        "items": [],
+        "lives": 0
+      }
+    },
+    {
+      "levelId": "level_011",
+      "firstWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 130
+          }
+        ],
+        "items": [],
+        "lives": 1
+      },
+      "repeatWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 40
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "lose": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 8
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "fiveStarBonus": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 28
+          }
+        ],
+        "items": [],
+        "lives": 0
+      }
+    },
+    {
+      "levelId": "level_012",
+      "firstWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 134
+          }
+        ],
+        "items": [
+          {
+            "itemId": "rocket",
+            "count": 1
+          }
+        ],
+        "lives": 1
+      },
+      "repeatWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 41
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "lose": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 8
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "fiveStarBonus": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 28
+          }
+        ],
+        "items": [],
+        "lives": 0
+      }
+    },
+    {
+      "levelId": "level_013",
+      "firstWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 138
+          }
+        ],
+        "items": [],
+        "lives": 1
+      },
+      "repeatWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 42
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "lose": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 9
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "fiveStarBonus": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 29
+          }
+        ],
+        "items": [],
+        "lives": 0
+      }
+    },
+    {
+      "levelId": "level_014",
+      "firstWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 142
+          }
+        ],
+        "items": [],
+        "lives": 1
+      },
+      "repeatWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 43
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "lose": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 9
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "fiveStarBonus": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 30
+          }
+        ],
+        "items": [],
+        "lives": 0
+      }
+    },
+    {
+      "levelId": "level_015",
+      "firstWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 146
+          }
+        ],
+        "items": [
+          {
+            "itemId": "hammer",
+            "count": 1
+          }
+        ],
+        "lives": 1
+      },
+      "repeatWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 44
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "lose": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 9
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "fiveStarBonus": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 30
+          }
+        ],
+        "items": [
+          {
+            "itemId": "shuffle",
+            "count": 1
+          }
+        ],
+        "lives": 0
+      }
+    },
+    {
+      "levelId": "level_016",
+      "firstWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 150
+          }
+        ],
+        "items": [],
+        "lives": 1
+      },
+      "repeatWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 45
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "lose": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 10
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "fiveStarBonus": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 31
+          }
+        ],
+        "items": [],
+        "lives": 0
+      }
+    },
+    {
+      "levelId": "level_017",
+      "firstWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 154
+          }
+        ],
+        "items": [
+          {
+            "itemId": "glove",
+            "count": 1
+          }
+        ],
+        "lives": 1
+      },
+      "repeatWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 46
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "lose": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 10
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "fiveStarBonus": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 32
+          }
+        ],
+        "items": [],
+        "lives": 0
+      }
+    },
+    {
+      "levelId": "level_018",
+      "firstWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 158
+          }
+        ],
+        "items": [
+          {
+            "itemId": "shuffle",
+            "count": 1
+          }
+        ],
+        "lives": 1
+      },
+      "repeatWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 47
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "lose": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 10
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "fiveStarBonus": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 32
+          }
+        ],
+        "items": [],
+        "lives": 0
+      }
+    },
+    {
+      "levelId": "level_019",
+      "firstWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 162
+          }
+        ],
+        "items": [],
+        "lives": 1
+      },
+      "repeatWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 48
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "lose": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 11
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "fiveStarBonus": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 33
+          }
+        ],
+        "items": [],
+        "lives": 0
+      }
+    },
+    {
+      "levelId": "level_020",
+      "firstWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 166
+          },
+          {
+            "currencyId": "gem",
+            "amount": 8
+          }
+        ],
+        "items": [
+          {
+            "itemId": "shuffle",
+            "count": 1
+          }
+        ],
+        "lives": 1
+      },
+      "repeatWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 49
+          },
+          {
+            "currencyId": "gem",
+            "amount": 1
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "lose": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 11
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "fiveStarBonus": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 34
+          }
+        ],
+        "items": [],
+        "lives": 0
+      }
+    },
+    {
+      "levelId": "level_021",
+      "firstWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 170
+          }
+        ],
+        "items": [],
+        "lives": 1
+      },
+      "repeatWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 50
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "lose": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 11
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "fiveStarBonus": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 35
+          }
+        ],
+        "items": [],
+        "lives": 0
+      }
+    },
+    {
+      "levelId": "level_022",
+      "firstWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 174
+          }
+        ],
+        "items": [],
+        "lives": 1
+      },
+      "repeatWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 51
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "lose": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 12
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "fiveStarBonus": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 35
+          }
+        ],
+        "items": [],
+        "lives": 0
+      }
+    },
+    {
+      "levelId": "level_023",
+      "firstWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 178
+          }
+        ],
+        "items": [],
+        "lives": 1
+      },
+      "repeatWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 52
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "lose": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 12
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "fiveStarBonus": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 36
+          }
+        ],
+        "items": [],
+        "lives": 0
+      }
+    },
+    {
+      "levelId": "level_024",
+      "firstWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 182
+          }
+        ],
+        "items": [
+          {
+            "itemId": "rocket",
+            "count": 1
+          }
+        ],
+        "lives": 1
+      },
+      "repeatWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 53
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "lose": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 12
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "fiveStarBonus": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 37
+          }
+        ],
+        "items": [],
+        "lives": 0
+      }
+    },
+    {
+      "levelId": "level_025",
+      "firstWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 186
+          }
+        ],
+        "items": [
+          {
+            "itemId": "hammer",
+            "count": 1
+          }
+        ],
+        "lives": 1
+      },
+      "repeatWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 54
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "lose": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 13
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "fiveStarBonus": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 37
+          }
+        ],
+        "items": [
+          {
+            "itemId": "shuffle",
+            "count": 1
+          },
+          {
+            "itemId": "glove",
+            "count": 1
+          }
+        ],
+        "lives": 0
+      }
+    },
+    {
+      "levelId": "level_026",
+      "firstWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 190
+          }
+        ],
+        "items": [],
+        "lives": 1
+      },
+      "repeatWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 55
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "lose": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 13
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "fiveStarBonus": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 38
+          }
+        ],
+        "items": [],
+        "lives": 0
+      }
+    },
+    {
+      "levelId": "level_027",
+      "firstWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 194
+          }
+        ],
+        "items": [
+          {
+            "itemId": "glove",
+            "count": 1
+          }
+        ],
+        "lives": 1
+      },
+      "repeatWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 56
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "lose": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 13
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "fiveStarBonus": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 39
+          }
+        ],
+        "items": [],
+        "lives": 0
+      }
+    },
+    {
+      "levelId": "level_028",
+      "firstWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 198
+          }
+        ],
+        "items": [
+          {
+            "itemId": "shuffle",
+            "count": 1
+          }
+        ],
+        "lives": 1
+      },
+      "repeatWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 57
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "lose": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 14
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "fiveStarBonus": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 39
+          }
+        ],
+        "items": [],
+        "lives": 0
+      }
+    },
+    {
+      "levelId": "level_029",
+      "firstWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 202
+          }
+        ],
+        "items": [],
+        "lives": 1
+      },
+      "repeatWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 58
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "lose": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 14
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "fiveStarBonus": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 40
+          }
+        ],
+        "items": [],
+        "lives": 0
+      }
+    },
+    {
+      "levelId": "level_030",
+      "firstWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 206
+          },
+          {
+            "currencyId": "gem",
+            "amount": 12
+          }
+        ],
+        "items": [
+          {
+            "itemId": "shuffle",
+            "count": 1
+          }
+        ],
+        "lives": 1
+      },
+      "repeatWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 59
+          },
+          {
+            "currencyId": "gem",
+            "amount": 1
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "lose": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 14
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "fiveStarBonus": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 41
+          }
+        ],
+        "items": [],
+        "lives": 0
+      }
+    },
+    {
+      "levelId": "level_031",
+      "firstWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 210
+          }
+        ],
+        "items": [],
+        "lives": 1
+      },
+      "repeatWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 60
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "lose": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 15
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "fiveStarBonus": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 43
+          }
+        ],
+        "items": [],
+        "lives": 0
+      }
+    },
+    {
+      "levelId": "level_032",
+      "firstWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 214
+          }
+        ],
+        "items": [
+          {
+            "itemId": "glove",
+            "count": 1
+          }
+        ],
+        "lives": 1
+      },
+      "repeatWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 61
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "lose": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 15
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "fiveStarBonus": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 43
+          }
+        ],
+        "items": [],
+        "lives": 0
+      }
+    },
+    {
+      "levelId": "level_033",
+      "firstWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 218
+          }
+        ],
+        "items": [],
+        "lives": 1
+      },
+      "repeatWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 62
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "lose": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 15
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "fiveStarBonus": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 44
+          }
+        ],
+        "items": [],
+        "lives": 0
+      }
+    },
+    {
+      "levelId": "level_034",
+      "firstWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 222
+          }
+        ],
+        "items": [],
+        "lives": 1
+      },
+      "repeatWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 63
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "lose": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 16
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "fiveStarBonus": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 45
+          }
+        ],
+        "items": [],
+        "lives": 0
+      }
+    },
+    {
+      "levelId": "level_035",
+      "firstWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 226
+          }
+        ],
+        "items": [
+          {
+            "itemId": "hammer",
+            "count": 1
+          }
+        ],
+        "lives": 1
+      },
+      "repeatWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 64
+          },
+          {
+            "currencyId": "gem",
+            "amount": 1
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "lose": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 16
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "fiveStarBonus": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 46
+          }
+        ],
+        "items": [
+          {
+            "itemId": "shuffle",
+            "count": 1
+          }
+        ],
+        "lives": 0
+      }
+    },
+    {
+      "levelId": "level_036",
+      "firstWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 230
+          }
+        ],
+        "items": [
+          {
+            "itemId": "rocket",
+            "count": 1
+          }
+        ],
+        "lives": 1
+      },
+      "repeatWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 65
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "lose": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 16
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "fiveStarBonus": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 46
+          }
+        ],
+        "items": [],
+        "lives": 0
+      }
+    },
+    {
+      "levelId": "level_037",
+      "firstWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 234
+          }
+        ],
+        "items": [],
+        "lives": 1
+      },
+      "repeatWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 66
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "lose": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 17
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "fiveStarBonus": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 47
+          }
+        ],
+        "items": [],
+        "lives": 0
+      }
+    },
+    {
+      "levelId": "level_038",
+      "firstWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 238
+          }
+        ],
+        "items": [
+          {
+            "itemId": "shuffle",
+            "count": 1
+          }
+        ],
+        "lives": 1
+      },
+      "repeatWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 67
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "lose": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 17
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "fiveStarBonus": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 48
+          }
+        ],
+        "items": [],
+        "lives": 0
+      }
+    },
+    {
+      "levelId": "level_039",
+      "firstWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 242
+          }
+        ],
+        "items": [],
+        "lives": 1
+      },
+      "repeatWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 68
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "lose": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 17
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "fiveStarBonus": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 48
+          }
+        ],
+        "items": [],
+        "lives": 0
+      }
+    },
+    {
+      "levelId": "level_040",
+      "firstWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 246
+          },
+          {
+            "currencyId": "gem",
+            "amount": 16
+          }
+        ],
+        "items": [
+          {
+            "itemId": "shuffle",
+            "count": 1
+          }
+        ],
+        "lives": 1
+      },
+      "repeatWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 69
+          },
+          {
+            "currencyId": "gem",
+            "amount": 1
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "lose": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 18
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "fiveStarBonus": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 49
+          }
+        ],
+        "items": [],
+        "lives": 0
+      }
+    },
+    {
+      "levelId": "level_041",
+      "firstWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 250
+          }
+        ],
+        "items": [],
+        "lives": 1
+      },
+      "repeatWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 70
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "lose": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 18
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "fiveStarBonus": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 50
+          }
+        ],
+        "items": [],
+        "lives": 0
+      }
+    },
+    {
+      "levelId": "level_042",
+      "firstWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 254
+          }
+        ],
+        "items": [
+          {
+            "itemId": "glove",
+            "count": 1
+          }
+        ],
+        "lives": 1
+      },
+      "repeatWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 71
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "lose": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 18
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "fiveStarBonus": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 51
+          }
+        ],
+        "items": [],
+        "lives": 0
+      }
+    },
+    {
+      "levelId": "level_043",
+      "firstWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 258
+          }
+        ],
+        "items": [],
+        "lives": 1
+      },
+      "repeatWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 72
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "lose": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 19
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "fiveStarBonus": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 51
+          }
+        ],
+        "items": [
+          {
+            "itemId": "glove",
+            "count": 1
+          }
+        ],
+        "lives": 0
+      }
+    },
+    {
+      "levelId": "level_044",
+      "firstWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 262
+          }
+        ],
+        "items": [],
+        "lives": 1
+      },
+      "repeatWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 73
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "lose": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 19
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "fiveStarBonus": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 52
+          }
+        ],
+        "items": [],
+        "lives": 0
+      }
+    },
+    {
+      "levelId": "level_045",
+      "firstWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 266
+          }
+        ],
+        "items": [
+          {
+            "itemId": "hammer",
+            "count": 1
+          }
+        ],
+        "lives": 1
+      },
+      "repeatWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 74
+          },
+          {
+            "currencyId": "gem",
+            "amount": 1
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "lose": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 19
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "fiveStarBonus": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 53
+          }
+        ],
+        "items": [
+          {
+            "itemId": "shuffle",
+            "count": 1
+          }
+        ],
+        "lives": 0
+      }
+    },
+    {
+      "levelId": "level_046",
+      "firstWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 270
+          }
+        ],
+        "items": [],
+        "lives": 1
+      },
+      "repeatWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 75
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "lose": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 20
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "fiveStarBonus": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 54
+          }
+        ],
+        "items": [],
+        "lives": 0
+      }
+    },
+    {
+      "levelId": "level_047",
+      "firstWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 274
+          }
+        ],
+        "items": [],
+        "lives": 1
+      },
+      "repeatWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 76
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "lose": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 20
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "fiveStarBonus": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 54
+          }
+        ],
+        "items": [],
+        "lives": 0
+      }
+    },
+    {
+      "levelId": "level_048",
+      "firstWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 278
+          }
+        ],
+        "items": [
+          {
+            "itemId": "rocket",
+            "count": 1
+          },
+          {
+            "itemId": "shuffle",
+            "count": 1
+          }
+        ],
+        "lives": 1
+      },
+      "repeatWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 77
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "lose": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 20
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "fiveStarBonus": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 55
+          }
+        ],
+        "items": [],
+        "lives": 0
+      }
+    },
+    {
+      "levelId": "level_049",
+      "firstWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 282
+          }
+        ],
+        "items": [],
+        "lives": 1
+      },
+      "repeatWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 78
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "lose": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 21
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "fiveStarBonus": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 56
+          }
+        ],
+        "items": [],
+        "lives": 0
+      }
+    },
+    {
+      "levelId": "level_050",
+      "firstWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 286
+          },
+          {
+            "currencyId": "gem",
+            "amount": 20
+          }
+        ],
+        "items": [
+          {
+            "itemId": "shuffle",
+            "count": 1
+          }
+        ],
+        "lives": 1
+      },
+      "repeatWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 79
+          },
+          {
+            "currencyId": "gem",
+            "amount": 1
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "lose": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 21
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "fiveStarBonus": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 56
+          }
+        ],
+        "items": [
+          {
+            "itemId": "hammer",
+            "count": 1
+          }
+        ],
+        "lives": 0
+      }
+    },
+    {
+      "levelId": "level_051",
+      "firstWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 290
+          }
+        ],
+        "items": [],
+        "lives": 1
+      },
+      "repeatWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 80
+          },
+          {
+            "currencyId": "gem",
+            "amount": 1
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "lose": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 21
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "fiveStarBonus": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 57
+          }
+        ],
+        "items": [],
+        "lives": 0
+      }
+    },
+    {
+      "levelId": "level_052",
+      "firstWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 294
+          }
+        ],
+        "items": [
+          {
+            "itemId": "glove",
+            "count": 1
+          }
+        ],
+        "lives": 1
+      },
+      "repeatWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 81
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "lose": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 22
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "fiveStarBonus": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 58
+          }
+        ],
+        "items": [],
+        "lives": 0
+      }
+    },
+    {
+      "levelId": "level_053",
+      "firstWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 298
+          }
+        ],
+        "items": [],
+        "lives": 1
+      },
+      "repeatWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 82
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "lose": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 22
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "fiveStarBonus": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 59
+          }
+        ],
+        "items": [
+          {
+            "itemId": "glove",
+            "count": 1
+          }
+        ],
+        "lives": 0
+      }
+    },
+    {
+      "levelId": "level_054",
+      "firstWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 302
+          }
+        ],
+        "items": [],
+        "lives": 1
+      },
+      "repeatWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 83
+          },
+          {
+            "currencyId": "gem",
+            "amount": 1
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "lose": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 22
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "fiveStarBonus": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 59
+          }
+        ],
+        "items": [],
+        "lives": 0
+      }
+    },
+    {
+      "levelId": "level_055",
+      "firstWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 306
+          }
+        ],
+        "items": [
+          {
+            "itemId": "hammer",
+            "count": 1
+          }
+        ],
+        "lives": 1
+      },
+      "repeatWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 84
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "lose": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 23
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "fiveStarBonus": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 60
+          }
+        ],
+        "items": [
+          {
+            "itemId": "shuffle",
+            "count": 1
+          }
+        ],
+        "lives": 0
+      }
+    },
+    {
+      "levelId": "level_056",
+      "firstWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 310
+          }
+        ],
+        "items": [],
+        "lives": 1
+      },
+      "repeatWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 85
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "lose": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 23
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "fiveStarBonus": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 61
+          }
+        ],
+        "items": [],
+        "lives": 0
+      }
+    },
+    {
+      "levelId": "level_057",
+      "firstWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 314
+          }
+        ],
+        "items": [],
+        "lives": 1
+      },
+      "repeatWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 86
+          },
+          {
+            "currencyId": "gem",
+            "amount": 1
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "lose": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 23
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "fiveStarBonus": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 61
+          }
+        ],
+        "items": [],
+        "lives": 0
+      }
+    },
+    {
+      "levelId": "level_058",
+      "firstWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 318
+          }
+        ],
+        "items": [
+          {
+            "itemId": "shuffle",
+            "count": 1
+          }
+        ],
+        "lives": 1
+      },
+      "repeatWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 87
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "lose": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 24
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "fiveStarBonus": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 62
+          }
+        ],
+        "items": [],
+        "lives": 0
+      }
+    },
+    {
+      "levelId": "level_059",
+      "firstWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 322
+          }
+        ],
+        "items": [],
+        "lives": 1
+      },
+      "repeatWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 88
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "lose": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 24
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "fiveStarBonus": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 63
+          }
+        ],
+        "items": [],
+        "lives": 0
+      }
+    },
+    {
+      "levelId": "level_060",
+      "firstWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 326
+          },
+          {
+            "currencyId": "gem",
+            "amount": 24
+          }
+        ],
+        "items": [
+          {
+            "itemId": "rocket",
+            "count": 1
+          },
+          {
+            "itemId": "shuffle",
+            "count": 1
+          }
+        ],
+        "lives": 1
+      },
+      "repeatWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 89
+          },
+          {
+            "currencyId": "gem",
+            "amount": 1
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "lose": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 24
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "fiveStarBonus": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 64
+          }
+        ],
+        "items": [
+          {
+            "itemId": "hammer",
+            "count": 1
+          }
+        ],
+        "lives": 0
+      }
+    },
+    {
+      "levelId": "level_061",
+      "firstWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 330
+          }
+        ],
+        "items": [],
+        "lives": 1
+      },
+      "repeatWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 90
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "lose": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 25
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "fiveStarBonus": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 66
+          }
+        ],
+        "items": [],
+        "lives": 0
+      }
+    },
+    {
+      "levelId": "level_062",
+      "firstWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 334
+          }
+        ],
+        "items": [
+          {
+            "itemId": "glove",
+            "count": 1
+          }
+        ],
+        "lives": 1
+      },
+      "repeatWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 91
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "lose": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 25
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "fiveStarBonus": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 67
+          }
+        ],
+        "items": [],
+        "lives": 0
+      }
+    },
+    {
+      "levelId": "level_063",
+      "firstWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 338
+          }
+        ],
+        "items": [],
+        "lives": 1
+      },
+      "repeatWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 92
+          },
+          {
+            "currencyId": "gem",
+            "amount": 1
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "lose": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 25
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "fiveStarBonus": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 68
+          }
+        ],
+        "items": [
+          {
+            "itemId": "glove",
+            "count": 1
+          }
+        ],
+        "lives": 0
+      }
+    },
+    {
+      "levelId": "level_064",
+      "firstWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 342
+          }
+        ],
+        "items": [],
+        "lives": 1
+      },
+      "repeatWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 93
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "lose": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 26
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "fiveStarBonus": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 68
+          }
+        ],
+        "items": [],
+        "lives": 0
+      }
+    },
+    {
+      "levelId": "level_065",
+      "firstWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 346
+          }
+        ],
+        "items": [
+          {
+            "itemId": "hammer",
+            "count": 1
+          }
+        ],
+        "lives": 1
+      },
+      "repeatWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 94
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "lose": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 26
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "fiveStarBonus": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 69
+          }
+        ],
+        "items": [
+          {
+            "itemId": "shuffle",
+            "count": 1
+          }
+        ],
+        "lives": 0
+      }
+    },
+    {
+      "levelId": "level_066",
+      "firstWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 350
+          }
+        ],
+        "items": [],
+        "lives": 1
+      },
+      "repeatWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 95
+          },
+          {
+            "currencyId": "gem",
+            "amount": 1
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "lose": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 26
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "fiveStarBonus": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 70
+          }
+        ],
+        "items": [],
+        "lives": 0
+      }
+    },
+    {
+      "levelId": "level_067",
+      "firstWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 354
+          }
+        ],
+        "items": [],
+        "lives": 1
+      },
+      "repeatWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 96
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "lose": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 27
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "fiveStarBonus": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 71
+          }
+        ],
+        "items": [],
+        "lives": 0
+      }
+    },
+    {
+      "levelId": "level_068",
+      "firstWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 358
+          }
+        ],
+        "items": [
+          {
+            "itemId": "shuffle",
+            "count": 1
+          }
+        ],
+        "lives": 1
+      },
+      "repeatWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 97
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "lose": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 27
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "fiveStarBonus": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 71
+          }
+        ],
+        "items": [],
+        "lives": 0
+      }
+    },
+    {
+      "levelId": "level_069",
+      "firstWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 362
+          }
+        ],
+        "items": [],
+        "lives": 1
+      },
+      "repeatWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 98
+          },
+          {
+            "currencyId": "gem",
+            "amount": 1
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "lose": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 27
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "fiveStarBonus": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 72
+          }
+        ],
+        "items": [],
+        "lives": 0
+      }
+    },
+    {
+      "levelId": "level_070",
+      "firstWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 366
+          },
+          {
+            "currencyId": "gem",
+            "amount": 28
+          }
+        ],
+        "items": [
+          {
+            "itemId": "shuffle",
+            "count": 1
+          }
+        ],
+        "lives": 1
+      },
+      "repeatWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 99
+          },
+          {
+            "currencyId": "gem",
+            "amount": 1
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "lose": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 28
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "fiveStarBonus": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 73
+          }
+        ],
+        "items": [
+          {
+            "itemId": "hammer",
+            "count": 1
+          }
+        ],
+        "lives": 0
+      }
+    },
+    {
+      "levelId": "level_071",
+      "firstWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 370
+          }
+        ],
+        "items": [],
+        "lives": 1
+      },
+      "repeatWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 100
+          },
+          {
+            "currencyId": "gem",
+            "amount": 1
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "lose": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 28
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "fiveStarBonus": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 74
+          }
+        ],
+        "items": [],
+        "lives": 0
+      }
+    },
+    {
+      "levelId": "level_072",
+      "firstWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 374
+          }
+        ],
+        "items": [
+          {
+            "itemId": "rocket",
+            "count": 1
+          }
+        ],
+        "lives": 1
+      },
+      "repeatWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 101
+          },
+          {
+            "currencyId": "gem",
+            "amount": 1
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "lose": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 28
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "fiveStarBonus": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 74
+          }
+        ],
+        "items": [],
+        "lives": 0
+      }
+    },
+    {
+      "levelId": "level_073",
+      "firstWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 378
+          }
+        ],
+        "items": [
+          {
+            "itemId": "glove",
+            "count": 1
+          }
+        ],
+        "lives": 1
+      },
+      "repeatWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 102
+          },
+          {
+            "currencyId": "gem",
+            "amount": 1
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "lose": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 29
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "fiveStarBonus": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 75
+          }
+        ],
+        "items": [
+          {
+            "itemId": "glove",
+            "count": 1
+          }
+        ],
+        "lives": 0
+      }
+    },
+    {
+      "levelId": "level_074",
+      "firstWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 382
+          }
+        ],
+        "items": [],
+        "lives": 1
+      },
+      "repeatWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 103
+          },
+          {
+            "currencyId": "gem",
+            "amount": 1
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "lose": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 29
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "fiveStarBonus": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 76
+          }
+        ],
+        "items": [],
+        "lives": 0
+      }
+    },
+    {
+      "levelId": "level_075",
+      "firstWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 386
+          }
+        ],
+        "items": [
+          {
+            "itemId": "hammer",
+            "count": 1
+          }
+        ],
+        "lives": 1
+      },
+      "repeatWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 104
+          },
+          {
+            "currencyId": "gem",
+            "amount": 1
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "lose": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 29
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "fiveStarBonus": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 76
+          }
+        ],
+        "items": [
+          {
+            "itemId": "shuffle",
+            "count": 1
+          }
+        ],
+        "lives": 0
+      }
+    },
+    {
+      "levelId": "level_076",
+      "firstWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 390
+          }
+        ],
+        "items": [],
+        "lives": 1
+      },
+      "repeatWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 105
+          },
+          {
+            "currencyId": "gem",
+            "amount": 1
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "lose": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 30
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "fiveStarBonus": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 77
+          }
+        ],
+        "items": [],
+        "lives": 0
+      }
+    },
+    {
+      "levelId": "level_077",
+      "firstWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 394
+          }
+        ],
+        "items": [],
+        "lives": 1
+      },
+      "repeatWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 106
+          },
+          {
+            "currencyId": "gem",
+            "amount": 1
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "lose": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 30
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "fiveStarBonus": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 78
+          }
+        ],
+        "items": [],
+        "lives": 0
+      }
+    },
+    {
+      "levelId": "level_078",
+      "firstWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 398
+          }
+        ],
+        "items": [
+          {
+            "itemId": "shuffle",
+            "count": 1
+          }
+        ],
+        "lives": 1
+      },
+      "repeatWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 107
+          },
+          {
+            "currencyId": "gem",
+            "amount": 1
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "lose": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 30
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "fiveStarBonus": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 79
+          }
+        ],
+        "items": [],
+        "lives": 0
+      }
+    },
+    {
+      "levelId": "level_079",
+      "firstWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 402
+          }
+        ],
+        "items": [],
+        "lives": 1
+      },
+      "repeatWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 108
+          },
+          {
+            "currencyId": "gem",
+            "amount": 1
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "lose": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 31
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "fiveStarBonus": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 79
+          }
+        ],
+        "items": [],
+        "lives": 0
+      }
+    },
+    {
+      "levelId": "level_080",
+      "firstWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 406
+          },
+          {
+            "currencyId": "gem",
+            "amount": 32
+          }
+        ],
+        "items": [
+          {
+            "itemId": "shuffle",
+            "count": 1
+          }
+        ],
+        "lives": 1
+      },
+      "repeatWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 109
+          },
+          {
+            "currencyId": "gem",
+            "amount": 1
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "lose": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 31
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "fiveStarBonus": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 80
+          }
+        ],
+        "items": [
+          {
+            "itemId": "hammer",
+            "count": 1
+          }
+        ],
+        "lives": 0
+      }
+    },
+    {
+      "levelId": "level_081",
+      "firstWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 410
+          }
+        ],
+        "items": [],
+        "lives": 1
+      },
+      "repeatWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 110
+          },
+          {
+            "currencyId": "gem",
+            "amount": 1
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "lose": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 31
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "fiveStarBonus": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 83
+          }
+        ],
+        "items": [],
+        "lives": 0
+      }
+    },
+    {
+      "levelId": "level_082",
+      "firstWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 414
+          }
+        ],
+        "items": [],
+        "lives": 1
+      },
+      "repeatWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 111
+          },
+          {
+            "currencyId": "gem",
+            "amount": 1
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "lose": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 32
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "fiveStarBonus": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 84
+          }
+        ],
+        "items": [],
+        "lives": 0
+      }
+    },
+    {
+      "levelId": "level_083",
+      "firstWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 418
+          }
+        ],
+        "items": [
+          {
+            "itemId": "glove",
+            "count": 1
+          }
+        ],
+        "lives": 1
+      },
+      "repeatWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 112
+          },
+          {
+            "currencyId": "gem",
+            "amount": 1
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "lose": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 32
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "fiveStarBonus": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 85
+          }
+        ],
+        "items": [
+          {
+            "itemId": "glove",
+            "count": 1
+          }
+        ],
+        "lives": 0
+      }
+    },
+    {
+      "levelId": "level_084",
+      "firstWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 422
+          }
+        ],
+        "items": [
+          {
+            "itemId": "rocket",
+            "count": 1
+          }
+        ],
+        "lives": 1
+      },
+      "repeatWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 113
+          },
+          {
+            "currencyId": "gem",
+            "amount": 1
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "lose": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 32
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "fiveStarBonus": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 85
+          }
+        ],
+        "items": [],
+        "lives": 0
+      }
+    },
+    {
+      "levelId": "level_085",
+      "firstWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 426
+          }
+        ],
+        "items": [
+          {
+            "itemId": "hammer",
+            "count": 1
+          }
+        ],
+        "lives": 1
+      },
+      "repeatWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 114
+          },
+          {
+            "currencyId": "gem",
+            "amount": 1
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "lose": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 33
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "fiveStarBonus": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 86
+          }
+        ],
+        "items": [
+          {
+            "itemId": "shuffle",
+            "count": 1
+          }
+        ],
+        "lives": 0
+      }
+    },
+    {
+      "levelId": "level_086",
+      "firstWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 430
+          }
+        ],
+        "items": [],
+        "lives": 1
+      },
+      "repeatWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 115
+          },
+          {
+            "currencyId": "gem",
+            "amount": 1
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "lose": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 33
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "fiveStarBonus": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 87
+          }
+        ],
+        "items": [],
+        "lives": 0
+      }
+    },
+    {
+      "levelId": "level_087",
+      "firstWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 434
+          }
+        ],
+        "items": [
+          {
+            "itemId": "glove",
+            "count": 2
+          }
+        ],
+        "lives": 1
+      },
+      "repeatWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 116
+          },
+          {
+            "currencyId": "gem",
+            "amount": 1
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "lose": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 33
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "fiveStarBonus": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 88
+          }
+        ],
+        "items": [],
+        "lives": 0
+      }
+    },
+    {
+      "levelId": "level_088",
+      "firstWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 438
+          }
+        ],
+        "items": [
+          {
+            "itemId": "shuffle",
+            "count": 1
+          }
+        ],
+        "lives": 1
+      },
+      "repeatWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 117
+          },
+          {
+            "currencyId": "gem",
+            "amount": 1
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "lose": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 34
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "fiveStarBonus": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 88
+          }
+        ],
+        "items": [],
+        "lives": 0
+      }
+    },
+    {
+      "levelId": "level_089",
+      "firstWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 442
+          }
+        ],
+        "items": [],
+        "lives": 1
+      },
+      "repeatWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 118
+          },
+          {
+            "currencyId": "gem",
+            "amount": 1
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "lose": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 34
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "fiveStarBonus": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 89
+          }
+        ],
+        "items": [],
+        "lives": 0
+      }
+    },
+    {
+      "levelId": "level_090",
+      "firstWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 446
+          },
+          {
+            "currencyId": "gem",
+            "amount": 36
+          }
+        ],
+        "items": [
+          {
+            "itemId": "shuffle",
+            "count": 1
+          }
+        ],
+        "lives": 1
+      },
+      "repeatWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 119
+          },
+          {
+            "currencyId": "gem",
+            "amount": 1
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "lose": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 34
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "fiveStarBonus": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 90
+          }
+        ],
+        "items": [
+          {
+            "itemId": "shuffle",
+            "count": 1
+          }
+        ],
+        "lives": 0
+      }
+    },
+    {
+      "levelId": "level_091",
+      "firstWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 450
+          }
+        ],
+        "items": [],
+        "lives": 1
+      },
+      "repeatWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 120
+          },
+          {
+            "currencyId": "gem",
+            "amount": 1
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "lose": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 35
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "fiveStarBonus": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 91
+          }
+        ],
+        "items": [],
+        "lives": 0
+      }
+    },
+    {
+      "levelId": "level_092",
+      "firstWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 454
+          }
+        ],
+        "items": [],
+        "lives": 1
+      },
+      "repeatWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 121
+          },
+          {
+            "currencyId": "gem",
+            "amount": 1
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "lose": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 35
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "fiveStarBonus": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 91
+          }
+        ],
+        "items": [],
+        "lives": 0
+      }
+    },
+    {
+      "levelId": "level_093",
+      "firstWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 458
+          }
+        ],
+        "items": [
+          {
+            "itemId": "glove",
+            "count": 1
+          }
+        ],
+        "lives": 1
+      },
+      "repeatWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 122
+          },
+          {
+            "currencyId": "gem",
+            "amount": 1
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "lose": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 35
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "fiveStarBonus": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 92
+          }
+        ],
+        "items": [
+          {
+            "itemId": "glove",
+            "count": 2
+          }
+        ],
+        "lives": 0
+      }
+    },
+    {
+      "levelId": "level_094",
+      "firstWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 462
+          }
+        ],
+        "items": [],
+        "lives": 1
+      },
+      "repeatWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 123
+          },
+          {
+            "currencyId": "gem",
+            "amount": 1
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "lose": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 36
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "fiveStarBonus": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 93
+          }
+        ],
+        "items": [],
+        "lives": 0
+      }
+    },
+    {
+      "levelId": "level_095",
+      "firstWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 466
+          }
+        ],
+        "items": [
+          {
+            "itemId": "hammer",
+            "count": 1
+          }
+        ],
+        "lives": 1
+      },
+      "repeatWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 124
+          },
+          {
+            "currencyId": "gem",
+            "amount": 1
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "lose": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 36
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "fiveStarBonus": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 94
+          }
+        ],
+        "items": [
+          {
+            "itemId": "shuffle",
+            "count": 1
+          }
+        ],
+        "lives": 0
+      }
+    },
+    {
+      "levelId": "level_096",
+      "firstWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 470
+          }
+        ],
+        "items": [
+          {
+            "itemId": "rocket",
+            "count": 1
+          }
+        ],
+        "lives": 1
+      },
+      "repeatWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 125
+          },
+          {
+            "currencyId": "gem",
+            "amount": 1
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "lose": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 36
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "fiveStarBonus": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 95
+          }
+        ],
+        "items": [],
+        "lives": 0
+      }
+    },
+    {
+      "levelId": "level_097",
+      "firstWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 474
+          }
+        ],
+        "items": [
+          {
+            "itemId": "glove",
+            "count": 2
+          }
+        ],
+        "lives": 1
+      },
+      "repeatWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 126
+          },
+          {
+            "currencyId": "gem",
+            "amount": 1
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "lose": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 37
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "fiveStarBonus": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 95
+          }
+        ],
+        "items": [],
+        "lives": 0
+      }
+    },
+    {
+      "levelId": "level_098",
+      "firstWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 478
+          }
+        ],
+        "items": [
+          {
+            "itemId": "shuffle",
+            "count": 1
+          }
+        ],
+        "lives": 1
+      },
+      "repeatWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 127
+          },
+          {
+            "currencyId": "gem",
+            "amount": 1
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "lose": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 37
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "fiveStarBonus": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 96
+          }
+        ],
+        "items": [],
+        "lives": 0
+      }
+    },
+    {
+      "levelId": "level_099",
+      "firstWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 482
+          }
+        ],
+        "items": [],
+        "lives": 1
+      },
+      "repeatWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 128
+          },
+          {
+            "currencyId": "gem",
+            "amount": 1
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "lose": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 37
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "fiveStarBonus": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 97
+          }
+        ],
+        "items": [],
+        "lives": 0
+      }
+    },
+    {
+      "levelId": "level_100",
+      "firstWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 486
+          },
+          {
+            "currencyId": "gem",
+            "amount": 40
+          }
+        ],
+        "items": [
+          {
+            "itemId": "shuffle",
+            "count": 1
+          }
+        ],
+        "lives": 1
+      },
+      "repeatWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 129
+          },
+          {
+            "currencyId": "gem",
+            "amount": 1
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "lose": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 38
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "fiveStarBonus": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 98
+          }
+        ],
+        "items": [
+          {
+            "itemId": "rocket",
+            "count": 1
+          }
+        ],
+        "lives": 0
+      }
+    },
+    {
+      "levelId": "flow_001",
+      "firstWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 80
+          }
+        ],
+        "items": [],
+        "lives": 1
+      },
+      "repeatWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 100
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "lose": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 15
+          }
+        ],
+        "items": [],
+        "lives": 0
+      }
+    },
+    {
+      "levelId": "flow_002",
+      "firstWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 84
+          }
+        ],
+        "items": [],
+        "lives": 1
+      },
+      "repeatWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 100
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "lose": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 15
+          }
+        ],
+        "items": [],
+        "lives": 0
+      }
+    },
+    {
+      "levelId": "flow_003",
+      "firstWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 88
+          }
+        ],
+        "items": [],
+        "lives": 1
+      },
+      "repeatWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 100
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "lose": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 15
+          }
+        ],
+        "items": [],
+        "lives": 0
+      }
+    },
+    {
+      "levelId": "flow_004",
+      "firstWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 92
+          }
+        ],
+        "items": [],
+        "lives": 1
+      },
+      "repeatWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 100
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "lose": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 15
+          }
+        ],
+        "items": [],
+        "lives": 0
+      }
+    },
+    {
+      "levelId": "flow_005",
+      "firstWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 96
+          }
+        ],
+        "items": [],
+        "lives": 1
+      },
+      "repeatWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 100
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "lose": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 15
+          }
+        ],
+        "items": [],
+        "lives": 0
+      }
+    },
+    {
+      "levelId": "flow_006",
+      "firstWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 100
+          }
+        ],
+        "items": [],
+        "lives": 1
+      },
+      "repeatWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 100
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "lose": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 15
+          }
+        ],
+        "items": [],
+        "lives": 0
+      }
+    },
+    {
+      "levelId": "flow_007",
+      "firstWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 104
+          }
+        ],
+        "items": [],
+        "lives": 1
+      },
+      "repeatWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 100
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "lose": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 15
+          }
+        ],
+        "items": [],
+        "lives": 0
+      }
+    },
+    {
+      "levelId": "flow_008",
+      "firstWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 108
+          }
+        ],
+        "items": [],
+        "lives": 1
+      },
+      "repeatWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 100
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "lose": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 15
+          }
+        ],
+        "items": [],
+        "lives": 0
+      }
+    },
+    {
+      "levelId": "flow_009",
+      "firstWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 112
+          }
+        ],
+        "items": [],
+        "lives": 1
+      },
+      "repeatWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 100
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "lose": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 15
+          }
+        ],
+        "items": [],
+        "lives": 0
+      }
+    },
+    {
+      "levelId": "flow_010",
+      "firstWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 116
+          }
+        ],
+        "items": [],
+        "lives": 1
+      },
+      "repeatWin": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 100
+          }
+        ],
+        "items": [],
+        "lives": 0
+      },
+      "lose": {
+        "currencies": [
+          {
+            "currencyId": "coin",
+            "amount": 15
+          }
+        ],
+        "items": [],
+        "lives": 0
+      }
+    }
+  ]
+}

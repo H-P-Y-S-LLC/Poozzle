@@ -1,0 +1,1804 @@
+{
+  "levelLimits": [
+    {
+      "levelId": "level_001",
+      "totalLoadoutCap": 2,
+      "perItemEquipCaps": [
+        {
+          "itemId": "hammer",
+          "cap": 1
+        },
+        {
+          "itemId": "shuffle",
+          "cap": 1
+        },
+        {
+          "itemId": "rocket",
+          "cap": 0
+        }
+      ]
+    },
+    {
+      "levelId": "level_002",
+      "totalLoadoutCap": 2,
+      "perItemEquipCaps": [
+        {
+          "itemId": "hammer",
+          "cap": 1
+        },
+        {
+          "itemId": "shuffle",
+          "cap": 1
+        },
+        {
+          "itemId": "rocket",
+          "cap": 0
+        }
+      ]
+    },
+    {
+      "levelId": "level_003",
+      "totalLoadoutCap": 2,
+      "perItemEquipCaps": [
+        {
+          "itemId": "hammer",
+          "cap": 1
+        },
+        {
+          "itemId": "shuffle",
+          "cap": 1
+        },
+        {
+          "itemId": "rocket",
+          "cap": 0
+        }
+      ]
+    },
+    {
+      "levelId": "level_004",
+      "totalLoadoutCap": 2,
+      "perItemEquipCaps": [
+        {
+          "itemId": "hammer",
+          "cap": 1
+        },
+        {
+          "itemId": "shuffle",
+          "cap": 1
+        },
+        {
+          "itemId": "rocket",
+          "cap": 0
+        }
+      ]
+    },
+    {
+      "levelId": "level_005",
+      "totalLoadoutCap": 2,
+      "perItemEquipCaps": [
+        {
+          "itemId": "hammer",
+          "cap": 1
+        },
+        {
+          "itemId": "shuffle",
+          "cap": 1
+        },
+        {
+          "itemId": "rocket",
+          "cap": 0
+        }
+      ]
+    },
+    {
+      "levelId": "level_006",
+      "totalLoadoutCap": 2,
+      "perItemEquipCaps": [
+        {
+          "itemId": "hammer",
+          "cap": 1
+        },
+        {
+          "itemId": "shuffle",
+          "cap": 1
+        },
+        {
+          "itemId": "rocket",
+          "cap": 0
+        }
+      ]
+    },
+    {
+      "levelId": "level_007",
+      "totalLoadoutCap": 2,
+      "perItemEquipCaps": [
+        {
+          "itemId": "hammer",
+          "cap": 1
+        },
+        {
+          "itemId": "shuffle",
+          "cap": 1
+        },
+        {
+          "itemId": "rocket",
+          "cap": 0
+        }
+      ]
+    },
+    {
+      "levelId": "level_008",
+      "totalLoadoutCap": 2,
+      "perItemEquipCaps": [
+        {
+          "itemId": "hammer",
+          "cap": 1
+        },
+        {
+          "itemId": "shuffle",
+          "cap": 1
+        },
+        {
+          "itemId": "rocket",
+          "cap": 0
+        }
+      ]
+    },
+    {
+      "levelId": "level_009",
+      "totalLoadoutCap": 2,
+      "perItemEquipCaps": [
+        {
+          "itemId": "hammer",
+          "cap": 1
+        },
+        {
+          "itemId": "shuffle",
+          "cap": 1
+        },
+        {
+          "itemId": "rocket",
+          "cap": 0
+        }
+      ]
+    },
+    {
+      "levelId": "level_010",
+      "totalLoadoutCap": 2,
+      "perItemEquipCaps": [
+        {
+          "itemId": "hammer",
+          "cap": 1
+        },
+        {
+          "itemId": "shuffle",
+          "cap": 1
+        },
+        {
+          "itemId": "rocket",
+          "cap": 0
+        }
+      ]
+    },
+    {
+      "levelId": "level_011",
+      "totalLoadoutCap": 2,
+      "perItemEquipCaps": [
+        {
+          "itemId": "hammer",
+          "cap": 1
+        },
+        {
+          "itemId": "shuffle",
+          "cap": 1
+        },
+        {
+          "itemId": "rocket",
+          "cap": 1
+        }
+      ]
+    },
+    {
+      "levelId": "level_012",
+      "totalLoadoutCap": 2,
+      "perItemEquipCaps": [
+        {
+          "itemId": "hammer",
+          "cap": 1
+        },
+        {
+          "itemId": "shuffle",
+          "cap": 1
+        },
+        {
+          "itemId": "rocket",
+          "cap": 1
+        }
+      ]
+    },
+    {
+      "levelId": "level_013",
+      "totalLoadoutCap": 2,
+      "perItemEquipCaps": [
+        {
+          "itemId": "hammer",
+          "cap": 1
+        },
+        {
+          "itemId": "shuffle",
+          "cap": 1
+        },
+        {
+          "itemId": "rocket",
+          "cap": 1
+        }
+      ]
+    },
+    {
+      "levelId": "level_014",
+      "totalLoadoutCap": 2,
+      "perItemEquipCaps": [
+        {
+          "itemId": "hammer",
+          "cap": 1
+        },
+        {
+          "itemId": "shuffle",
+          "cap": 1
+        },
+        {
+          "itemId": "rocket",
+          "cap": 1
+        }
+      ]
+    },
+    {
+      "levelId": "level_015",
+      "totalLoadoutCap": 2,
+      "perItemEquipCaps": [
+        {
+          "itemId": "hammer",
+          "cap": 1
+        },
+        {
+          "itemId": "shuffle",
+          "cap": 1
+        },
+        {
+          "itemId": "rocket",
+          "cap": 1
+        }
+      ]
+    },
+    {
+      "levelId": "level_016",
+      "totalLoadoutCap": 2,
+      "perItemEquipCaps": [
+        {
+          "itemId": "hammer",
+          "cap": 1
+        },
+        {
+          "itemId": "shuffle",
+          "cap": 1
+        },
+        {
+          "itemId": "rocket",
+          "cap": 1
+        }
+      ]
+    },
+    {
+      "levelId": "level_017",
+      "totalLoadoutCap": 2,
+      "perItemEquipCaps": [
+        {
+          "itemId": "hammer",
+          "cap": 1
+        },
+        {
+          "itemId": "shuffle",
+          "cap": 1
+        },
+        {
+          "itemId": "rocket",
+          "cap": 1
+        }
+      ]
+    },
+    {
+      "levelId": "level_018",
+      "totalLoadoutCap": 2,
+      "perItemEquipCaps": [
+        {
+          "itemId": "hammer",
+          "cap": 1
+        },
+        {
+          "itemId": "shuffle",
+          "cap": 1
+        },
+        {
+          "itemId": "rocket",
+          "cap": 1
+        }
+      ]
+    },
+    {
+      "levelId": "level_019",
+      "totalLoadoutCap": 2,
+      "perItemEquipCaps": [
+        {
+          "itemId": "hammer",
+          "cap": 1
+        },
+        {
+          "itemId": "shuffle",
+          "cap": 1
+        },
+        {
+          "itemId": "rocket",
+          "cap": 1
+        }
+      ]
+    },
+    {
+      "levelId": "level_020",
+      "totalLoadoutCap": 2,
+      "perItemEquipCaps": [
+        {
+          "itemId": "hammer",
+          "cap": 1
+        },
+        {
+          "itemId": "shuffle",
+          "cap": 1
+        },
+        {
+          "itemId": "rocket",
+          "cap": 1
+        }
+      ]
+    },
+    {
+      "levelId": "level_021",
+      "totalLoadoutCap": 3,
+      "perItemEquipCaps": [
+        {
+          "itemId": "hammer",
+          "cap": 2
+        },
+        {
+          "itemId": "shuffle",
+          "cap": 1
+        },
+        {
+          "itemId": "rocket",
+          "cap": 1
+        }
+      ]
+    },
+    {
+      "levelId": "level_022",
+      "totalLoadoutCap": 3,
+      "perItemEquipCaps": [
+        {
+          "itemId": "hammer",
+          "cap": 2
+        },
+        {
+          "itemId": "shuffle",
+          "cap": 1
+        },
+        {
+          "itemId": "rocket",
+          "cap": 1
+        }
+      ]
+    },
+    {
+      "levelId": "level_023",
+      "totalLoadoutCap": 3,
+      "perItemEquipCaps": [
+        {
+          "itemId": "hammer",
+          "cap": 2
+        },
+        {
+          "itemId": "shuffle",
+          "cap": 1
+        },
+        {
+          "itemId": "rocket",
+          "cap": 1
+        }
+      ]
+    },
+    {
+      "levelId": "level_024",
+      "totalLoadoutCap": 3,
+      "perItemEquipCaps": [
+        {
+          "itemId": "hammer",
+          "cap": 2
+        },
+        {
+          "itemId": "shuffle",
+          "cap": 1
+        },
+        {
+          "itemId": "rocket",
+          "cap": 1
+        }
+      ]
+    },
+    {
+      "levelId": "level_025",
+      "totalLoadoutCap": 3,
+      "perItemEquipCaps": [
+        {
+          "itemId": "hammer",
+          "cap": 2
+        },
+        {
+          "itemId": "shuffle",
+          "cap": 1
+        },
+        {
+          "itemId": "rocket",
+          "cap": 1
+        }
+      ]
+    },
+    {
+      "levelId": "level_026",
+      "totalLoadoutCap": 3,
+      "perItemEquipCaps": [
+        {
+          "itemId": "hammer",
+          "cap": 2
+        },
+        {
+          "itemId": "shuffle",
+          "cap": 1
+        },
+        {
+          "itemId": "rocket",
+          "cap": 1
+        }
+      ]
+    },
+    {
+      "levelId": "level_027",
+      "totalLoadoutCap": 3,
+      "perItemEquipCaps": [
+        {
+          "itemId": "hammer",
+          "cap": 2
+        },
+        {
+          "itemId": "shuffle",
+          "cap": 1
+        },
+        {
+          "itemId": "rocket",
+          "cap": 1
+        }
+      ]
+    },
+    {
+      "levelId": "level_028",
+      "totalLoadoutCap": 3,
+      "perItemEquipCaps": [
+        {
+          "itemId": "hammer",
+          "cap": 2
+        },
+        {
+          "itemId": "shuffle",
+          "cap": 1
+        },
+        {
+          "itemId": "rocket",
+          "cap": 1
+        }
+      ]
+    },
+    {
+      "levelId": "level_029",
+      "totalLoadoutCap": 3,
+      "perItemEquipCaps": [
+        {
+          "itemId": "hammer",
+          "cap": 2
+        },
+        {
+          "itemId": "shuffle",
+          "cap": 1
+        },
+        {
+          "itemId": "rocket",
+          "cap": 1
+        }
+      ]
+    },
+    {
+      "levelId": "level_030",
+      "totalLoadoutCap": 3,
+      "perItemEquipCaps": [
+        {
+          "itemId": "hammer",
+          "cap": 2
+        },
+        {
+          "itemId": "shuffle",
+          "cap": 1
+        },
+        {
+          "itemId": "rocket",
+          "cap": 1
+        }
+      ]
+    },
+    {
+      "levelId": "level_031",
+      "totalLoadoutCap": 3,
+      "perItemEquipCaps": [
+        {
+          "itemId": "hammer",
+          "cap": 2
+        },
+        {
+          "itemId": "shuffle",
+          "cap": 2
+        },
+        {
+          "itemId": "rocket",
+          "cap": 1
+        }
+      ]
+    },
+    {
+      "levelId": "level_032",
+      "totalLoadoutCap": 3,
+      "perItemEquipCaps": [
+        {
+          "itemId": "hammer",
+          "cap": 2
+        },
+        {
+          "itemId": "shuffle",
+          "cap": 2
+        },
+        {
+          "itemId": "rocket",
+          "cap": 1
+        }
+      ]
+    },
+    {
+      "levelId": "level_033",
+      "totalLoadoutCap": 3,
+      "perItemEquipCaps": [
+        {
+          "itemId": "hammer",
+          "cap": 2
+        },
+        {
+          "itemId": "shuffle",
+          "cap": 2
+        },
+        {
+          "itemId": "rocket",
+          "cap": 1
+        }
+      ]
+    },
+    {
+      "levelId": "level_034",
+      "totalLoadoutCap": 3,
+      "perItemEquipCaps": [
+        {
+          "itemId": "hammer",
+          "cap": 2
+        },
+        {
+          "itemId": "shuffle",
+          "cap": 2
+        },
+        {
+          "itemId": "rocket",
+          "cap": 1
+        }
+      ]
+    },
+    {
+      "levelId": "level_035",
+      "totalLoadoutCap": 3,
+      "perItemEquipCaps": [
+        {
+          "itemId": "hammer",
+          "cap": 2
+        },
+        {
+          "itemId": "shuffle",
+          "cap": 2
+        },
+        {
+          "itemId": "rocket",
+          "cap": 1
+        }
+      ]
+    },
+    {
+      "levelId": "level_036",
+      "totalLoadoutCap": 3,
+      "perItemEquipCaps": [
+        {
+          "itemId": "hammer",
+          "cap": 2
+        },
+        {
+          "itemId": "shuffle",
+          "cap": 2
+        },
+        {
+          "itemId": "rocket",
+          "cap": 1
+        }
+      ]
+    },
+    {
+      "levelId": "level_037",
+      "totalLoadoutCap": 3,
+      "perItemEquipCaps": [
+        {
+          "itemId": "hammer",
+          "cap": 2
+        },
+        {
+          "itemId": "shuffle",
+          "cap": 2
+        },
+        {
+          "itemId": "rocket",
+          "cap": 1
+        }
+      ]
+    },
+    {
+      "levelId": "level_038",
+      "totalLoadoutCap": 3,
+      "perItemEquipCaps": [
+        {
+          "itemId": "hammer",
+          "cap": 2
+        },
+        {
+          "itemId": "shuffle",
+          "cap": 2
+        },
+        {
+          "itemId": "rocket",
+          "cap": 1
+        }
+      ]
+    },
+    {
+      "levelId": "level_039",
+      "totalLoadoutCap": 3,
+      "perItemEquipCaps": [
+        {
+          "itemId": "hammer",
+          "cap": 2
+        },
+        {
+          "itemId": "shuffle",
+          "cap": 2
+        },
+        {
+          "itemId": "rocket",
+          "cap": 1
+        }
+      ]
+    },
+    {
+      "levelId": "level_040",
+      "totalLoadoutCap": 3,
+      "perItemEquipCaps": [
+        {
+          "itemId": "hammer",
+          "cap": 2
+        },
+        {
+          "itemId": "shuffle",
+          "cap": 2
+        },
+        {
+          "itemId": "rocket",
+          "cap": 1
+        }
+      ]
+    },
+    {
+      "levelId": "level_041",
+      "totalLoadoutCap": 4,
+      "perItemEquipCaps": [
+        {
+          "itemId": "hammer",
+          "cap": 3
+        },
+        {
+          "itemId": "shuffle",
+          "cap": 2
+        },
+        {
+          "itemId": "rocket",
+          "cap": 2
+        }
+      ]
+    },
+    {
+      "levelId": "level_042",
+      "totalLoadoutCap": 4,
+      "perItemEquipCaps": [
+        {
+          "itemId": "hammer",
+          "cap": 3
+        },
+        {
+          "itemId": "shuffle",
+          "cap": 2
+        },
+        {
+          "itemId": "rocket",
+          "cap": 2
+        }
+      ]
+    },
+    {
+      "levelId": "level_043",
+      "totalLoadoutCap": 4,
+      "perItemEquipCaps": [
+        {
+          "itemId": "hammer",
+          "cap": 3
+        },
+        {
+          "itemId": "shuffle",
+          "cap": 2
+        },
+        {
+          "itemId": "rocket",
+          "cap": 2
+        }
+      ]
+    },
+    {
+      "levelId": "level_044",
+      "totalLoadoutCap": 4,
+      "perItemEquipCaps": [
+        {
+          "itemId": "hammer",
+          "cap": 3
+        },
+        {
+          "itemId": "shuffle",
+          "cap": 2
+        },
+        {
+          "itemId": "rocket",
+          "cap": 2
+        }
+      ]
+    },
+    {
+      "levelId": "level_045",
+      "totalLoadoutCap": 4,
+      "perItemEquipCaps": [
+        {
+          "itemId": "hammer",
+          "cap": 3
+        },
+        {
+          "itemId": "shuffle",
+          "cap": 2
+        },
+        {
+          "itemId": "rocket",
+          "cap": 2
+        }
+      ]
+    },
+    {
+      "levelId": "level_046",
+      "totalLoadoutCap": 4,
+      "perItemEquipCaps": [
+        {
+          "itemId": "hammer",
+          "cap": 3
+        },
+        {
+          "itemId": "shuffle",
+          "cap": 2
+        },
+        {
+          "itemId": "rocket",
+          "cap": 2
+        }
+      ]
+    },
+    {
+      "levelId": "level_047",
+      "totalLoadoutCap": 4,
+      "perItemEquipCaps": [
+        {
+          "itemId": "hammer",
+          "cap": 3
+        },
+        {
+          "itemId": "shuffle",
+          "cap": 2
+        },
+        {
+          "itemId": "rocket",
+          "cap": 2
+        }
+      ]
+    },
+    {
+      "levelId": "level_048",
+      "totalLoadoutCap": 4,
+      "perItemEquipCaps": [
+        {
+          "itemId": "hammer",
+          "cap": 3
+        },
+        {
+          "itemId": "shuffle",
+          "cap": 2
+        },
+        {
+          "itemId": "rocket",
+          "cap": 2
+        }
+      ]
+    },
+    {
+      "levelId": "level_049",
+      "totalLoadoutCap": 4,
+      "perItemEquipCaps": [
+        {
+          "itemId": "hammer",
+          "cap": 3
+        },
+        {
+          "itemId": "shuffle",
+          "cap": 2
+        },
+        {
+          "itemId": "rocket",
+          "cap": 2
+        }
+      ]
+    },
+    {
+      "levelId": "level_050",
+      "totalLoadoutCap": 4,
+      "perItemEquipCaps": [
+        {
+          "itemId": "hammer",
+          "cap": 3
+        },
+        {
+          "itemId": "shuffle",
+          "cap": 2
+        },
+        {
+          "itemId": "rocket",
+          "cap": 2
+        }
+      ]
+    },
+    {
+      "levelId": "level_051",
+      "totalLoadoutCap": 4,
+      "perItemEquipCaps": [
+        {
+          "itemId": "hammer",
+          "cap": 4
+        },
+        {
+          "itemId": "shuffle",
+          "cap": 3
+        },
+        {
+          "itemId": "rocket",
+          "cap": 2
+        }
+      ]
+    },
+    {
+      "levelId": "level_052",
+      "totalLoadoutCap": 4,
+      "perItemEquipCaps": [
+        {
+          "itemId": "hammer",
+          "cap": 4
+        },
+        {
+          "itemId": "shuffle",
+          "cap": 3
+        },
+        {
+          "itemId": "rocket",
+          "cap": 2
+        }
+      ]
+    },
+    {
+      "levelId": "level_053",
+      "totalLoadoutCap": 4,
+      "perItemEquipCaps": [
+        {
+          "itemId": "hammer",
+          "cap": 4
+        },
+        {
+          "itemId": "shuffle",
+          "cap": 3
+        },
+        {
+          "itemId": "rocket",
+          "cap": 2
+        }
+      ]
+    },
+    {
+      "levelId": "level_054",
+      "totalLoadoutCap": 4,
+      "perItemEquipCaps": [
+        {
+          "itemId": "hammer",
+          "cap": 4
+        },
+        {
+          "itemId": "shuffle",
+          "cap": 3
+        },
+        {
+          "itemId": "rocket",
+          "cap": 2
+        }
+      ]
+    },
+    {
+      "levelId": "level_055",
+      "totalLoadoutCap": 4,
+      "perItemEquipCaps": [
+        {
+          "itemId": "hammer",
+          "cap": 4
+        },
+        {
+          "itemId": "shuffle",
+          "cap": 3
+        },
+        {
+          "itemId": "rocket",
+          "cap": 2
+        }
+      ]
+    },
+    {
+      "levelId": "level_056",
+      "totalLoadoutCap": 4,
+      "perItemEquipCaps": [
+        {
+          "itemId": "hammer",
+          "cap": 4
+        },
+        {
+          "itemId": "shuffle",
+          "cap": 3
+        },
+        {
+          "itemId": "rocket",
+          "cap": 2
+        }
+      ]
+    },
+    {
+      "levelId": "level_057",
+      "totalLoadoutCap": 4,
+      "perItemEquipCaps": [
+        {
+          "itemId": "hammer",
+          "cap": 4
+        },
+        {
+          "itemId": "shuffle",
+          "cap": 3
+        },
+        {
+          "itemId": "rocket",
+          "cap": 2
+        }
+      ]
+    },
+    {
+      "levelId": "level_058",
+      "totalLoadoutCap": 4,
+      "perItemEquipCaps": [
+        {
+          "itemId": "hammer",
+          "cap": 4
+        },
+        {
+          "itemId": "shuffle",
+          "cap": 3
+        },
+        {
+          "itemId": "rocket",
+          "cap": 2
+        }
+      ]
+    },
+    {
+      "levelId": "level_059",
+      "totalLoadoutCap": 4,
+      "perItemEquipCaps": [
+        {
+          "itemId": "hammer",
+          "cap": 4
+        },
+        {
+          "itemId": "shuffle",
+          "cap": 3
+        },
+        {
+          "itemId": "rocket",
+          "cap": 2
+        }
+      ]
+    },
+    {
+      "levelId": "level_060",
+      "totalLoadoutCap": 4,
+      "perItemEquipCaps": [
+        {
+          "itemId": "hammer",
+          "cap": 4
+        },
+        {
+          "itemId": "shuffle",
+          "cap": 3
+        },
+        {
+          "itemId": "rocket",
+          "cap": 2
+        }
+      ]
+    },
+    {
+      "levelId": "level_061",
+      "totalLoadoutCap": 5,
+      "perItemEquipCaps": [
+        {
+          "itemId": "hammer",
+          "cap": 5
+        },
+        {
+          "itemId": "shuffle",
+          "cap": 3
+        },
+        {
+          "itemId": "rocket",
+          "cap": 3
+        }
+      ]
+    },
+    {
+      "levelId": "level_062",
+      "totalLoadoutCap": 5,
+      "perItemEquipCaps": [
+        {
+          "itemId": "hammer",
+          "cap": 5
+        },
+        {
+          "itemId": "shuffle",
+          "cap": 3
+        },
+        {
+          "itemId": "rocket",
+          "cap": 3
+        }
+      ]
+    },
+    {
+      "levelId": "level_063",
+      "totalLoadoutCap": 5,
+      "perItemEquipCaps": [
+        {
+          "itemId": "hammer",
+          "cap": 5
+        },
+        {
+          "itemId": "shuffle",
+          "cap": 3
+        },
+        {
+          "itemId": "rocket",
+          "cap": 3
+        }
+      ]
+    },
+    {
+      "levelId": "level_064",
+      "totalLoadoutCap": 5,
+      "perItemEquipCaps": [
+        {
+          "itemId": "hammer",
+          "cap": 5
+        },
+        {
+          "itemId": "shuffle",
+          "cap": 3
+        },
+        {
+          "itemId": "rocket",
+          "cap": 3
+        }
+      ]
+    },
+    {
+      "levelId": "level_065",
+      "totalLoadoutCap": 5,
+      "perItemEquipCaps": [
+        {
+          "itemId": "hammer",
+          "cap": 5
+        },
+        {
+          "itemId": "shuffle",
+          "cap": 3
+        },
+        {
+          "itemId": "rocket",
+          "cap": 3
+        }
+      ]
+    },
+    {
+      "levelId": "level_066",
+      "totalLoadoutCap": 5,
+      "perItemEquipCaps": [
+        {
+          "itemId": "hammer",
+          "cap": 5
+        },
+        {
+          "itemId": "shuffle",
+          "cap": 3
+        },
+        {
+          "itemId": "rocket",
+          "cap": 3
+        }
+      ]
+    },
+    {
+      "levelId": "level_067",
+      "totalLoadoutCap": 5,
+      "perItemEquipCaps": [
+        {
+          "itemId": "hammer",
+          "cap": 5
+        },
+        {
+          "itemId": "shuffle",
+          "cap": 3
+        },
+        {
+          "itemId": "rocket",
+          "cap": 3
+        }
+      ]
+    },
+    {
+      "levelId": "level_068",
+      "totalLoadoutCap": 5,
+      "perItemEquipCaps": [
+        {
+          "itemId": "hammer",
+          "cap": 5
+        },
+        {
+          "itemId": "shuffle",
+          "cap": 3
+        },
+        {
+          "itemId": "rocket",
+          "cap": 3
+        }
+      ]
+    },
+    {
+      "levelId": "level_069",
+      "totalLoadoutCap": 5,
+      "perItemEquipCaps": [
+        {
+          "itemId": "hammer",
+          "cap": 5
+        },
+        {
+          "itemId": "shuffle",
+          "cap": 3
+        },
+        {
+          "itemId": "rocket",
+          "cap": 3
+        }
+      ]
+    },
+    {
+      "levelId": "level_070",
+      "totalLoadoutCap": 5,
+      "perItemEquipCaps": [
+        {
+          "itemId": "hammer",
+          "cap": 5
+        },
+        {
+          "itemId": "shuffle",
+          "cap": 3
+        },
+        {
+          "itemId": "rocket",
+          "cap": 3
+        }
+      ]
+    },
+    {
+      "levelId": "level_071",
+      "totalLoadoutCap": 5,
+      "perItemEquipCaps": [
+        {
+          "itemId": "hammer",
+          "cap": 6
+        },
+        {
+          "itemId": "shuffle",
+          "cap": 4
+        },
+        {
+          "itemId": "rocket",
+          "cap": 3
+        }
+      ]
+    },
+    {
+      "levelId": "level_072",
+      "totalLoadoutCap": 5,
+      "perItemEquipCaps": [
+        {
+          "itemId": "hammer",
+          "cap": 6
+        },
+        {
+          "itemId": "shuffle",
+          "cap": 4
+        },
+        {
+          "itemId": "rocket",
+          "cap": 3
+        }
+      ]
+    },
+    {
+      "levelId": "level_073",
+      "totalLoadoutCap": 5,
+      "perItemEquipCaps": [
+        {
+          "itemId": "hammer",
+          "cap": 6
+        },
+        {
+          "itemId": "shuffle",
+          "cap": 4
+        },
+        {
+          "itemId": "rocket",
+          "cap": 3
+        }
+      ]
+    },
+    {
+      "levelId": "level_074",
+      "totalLoadoutCap": 5,
+      "perItemEquipCaps": [
+        {
+          "itemId": "hammer",
+          "cap": 6
+        },
+        {
+          "itemId": "shuffle",
+          "cap": 4
+        },
+        {
+          "itemId": "rocket",
+          "cap": 3
+        }
+      ]
+    },
+    {
+      "levelId": "level_075",
+      "totalLoadoutCap": 5,
+      "perItemEquipCaps": [
+        {
+          "itemId": "hammer",
+          "cap": 6
+        },
+        {
+          "itemId": "shuffle",
+          "cap": 4
+        },
+        {
+          "itemId": "rocket",
+          "cap": 3
+        }
+      ]
+    },
+    {
+      "levelId": "level_076",
+      "totalLoadoutCap": 5,
+      "perItemEquipCaps": [
+        {
+          "itemId": "hammer",
+          "cap": 6
+        },
+        {
+          "itemId": "shuffle",
+          "cap": 4
+        },
+        {
+          "itemId": "rocket",
+          "cap": 3
+        }
+      ]
+    },
+    {
+      "levelId": "level_077",
+      "totalLoadoutCap": 5,
+      "perItemEquipCaps": [
+        {
+          "itemId": "hammer",
+          "cap": 6
+        },
+        {
+          "itemId": "shuffle",
+          "cap": 4
+        },
+        {
+          "itemId": "rocket",
+          "cap": 3
+        }
+      ]
+    },
+    {
+      "levelId": "level_078",
+      "totalLoadoutCap": 5,
+      "perItemEquipCaps": [
+        {
+          "itemId": "hammer",
+          "cap": 6
+        },
+        {
+          "itemId": "shuffle",
+          "cap": 4
+        },
+        {
+          "itemId": "rocket",
+          "cap": 3
+        }
+      ]
+    },
+    {
+      "levelId": "level_079",
+      "totalLoadoutCap": 5,
+      "perItemEquipCaps": [
+        {
+          "itemId": "hammer",
+          "cap": 6
+        },
+        {
+          "itemId": "shuffle",
+          "cap": 4
+        },
+        {
+          "itemId": "rocket",
+          "cap": 3
+        }
+      ]
+    },
+    {
+      "levelId": "level_080",
+      "totalLoadoutCap": 5,
+      "perItemEquipCaps": [
+        {
+          "itemId": "hammer",
+          "cap": 6
+        },
+        {
+          "itemId": "shuffle",
+          "cap": 4
+        },
+        {
+          "itemId": "rocket",
+          "cap": 3
+        }
+      ]
+    },
+    {
+      "levelId": "level_081",
+      "totalLoadoutCap": 6,
+      "perItemEquipCaps": [
+        {
+          "itemId": "hammer",
+          "cap": 7
+        },
+        {
+          "itemId": "shuffle",
+          "cap": 4
+        },
+        {
+          "itemId": "rocket",
+          "cap": 4
+        }
+      ]
+    },
+    {
+      "levelId": "level_082",
+      "totalLoadoutCap": 6,
+      "perItemEquipCaps": [
+        {
+          "itemId": "hammer",
+          "cap": 7
+        },
+        {
+          "itemId": "shuffle",
+          "cap": 4
+        },
+        {
+          "itemId": "rocket",
+          "cap": 4
+        }
+      ]
+    },
+    {
+      "levelId": "level_083",
+      "totalLoadoutCap": 6,
+      "perItemEquipCaps": [
+        {
+          "itemId": "hammer",
+          "cap": 7
+        },
+        {
+          "itemId": "shuffle",
+          "cap": 4
+        },
+        {
+          "itemId": "rocket",
+          "cap": 4
+        }
+      ]
+    },
+    {
+      "levelId": "level_084",
+      "totalLoadoutCap": 6,
+      "perItemEquipCaps": [
+        {
+          "itemId": "hammer",
+          "cap": 7
+        },
+        {
+          "itemId": "shuffle",
+          "cap": 4
+        },
+        {
+          "itemId": "rocket",
+          "cap": 4
+        }
+      ]
+    },
+    {
+      "levelId": "level_085",
+      "totalLoadoutCap": 6,
+      "perItemEquipCaps": [
+        {
+          "itemId": "hammer",
+          "cap": 7
+        },
+        {
+          "itemId": "shuffle",
+          "cap": 4
+        },
+        {
+          "itemId": "rocket",
+          "cap": 4
+        }
+      ]
+    },
+    {
+      "levelId": "level_086",
+      "totalLoadoutCap": 6,
+      "perItemEquipCaps": [
+        {
+          "itemId": "hammer",
+          "cap": 7
+        },
+        {
+          "itemId": "shuffle",
+          "cap": 4
+        },
+        {
+          "itemId": "rocket",
+          "cap": 4
+        }
+      ]
+    },
+    {
+      "levelId": "level_087",
+      "totalLoadoutCap": 6,
+      "perItemEquipCaps": [
+        {
+          "itemId": "hammer",
+          "cap": 7
+        },
+        {
+          "itemId": "shuffle",
+          "cap": 4
+        },
+        {
+          "itemId": "rocket",
+          "cap": 4
+        }
+      ]
+    },
+    {
+      "levelId": "level_088",
+      "totalLoadoutCap": 6,
+      "perItemEquipCaps": [
+        {
+          "itemId": "hammer",
+          "cap": 7
+        },
+        {
+          "itemId": "shuffle",
+          "cap": 4
+        },
+        {
+          "itemId": "rocket",
+          "cap": 4
+        }
+      ]
+    },
+    {
+      "levelId": "level_089",
+      "totalLoadoutCap": 6,
+      "perItemEquipCaps": [
+        {
+          "itemId": "hammer",
+          "cap": 7
+        },
+        {
+          "itemId": "shuffle",
+          "cap": 4
+        },
+        {
+          "itemId": "rocket",
+          "cap": 4
+        }
+      ]
+    },
+    {
+      "levelId": "level_090",
+      "totalLoadoutCap": 6,
+      "perItemEquipCaps": [
+        {
+          "itemId": "hammer",
+          "cap": 7
+        },
+        {
+          "itemId": "shuffle",
+          "cap": 4
+        },
+        {
+          "itemId": "rocket",
+          "cap": 4
+        }
+      ]
+    },
+    {
+      "levelId": "level_091",
+      "totalLoadoutCap": 7,
+      "perItemEquipCaps": [
+        {
+          "itemId": "hammer",
+          "cap": 8
+        },
+        {
+          "itemId": "shuffle",
+          "cap": 5
+        },
+        {
+          "itemId": "rocket",
+          "cap": 5
+        }
+      ]
+    },
+    {
+      "levelId": "level_092",
+      "totalLoadoutCap": 7,
+      "perItemEquipCaps": [
+        {
+          "itemId": "hammer",
+          "cap": 8
+        },
+        {
+          "itemId": "shuffle",
+          "cap": 5
+        },
+        {
+          "itemId": "rocket",
+          "cap": 5
+        }
+      ]
+    },
+    {
+      "levelId": "level_093",
+      "totalLoadoutCap": 7,
+      "perItemEquipCaps": [
+        {
+          "itemId": "hammer",
+          "cap": 8
+        },
+        {
+          "itemId": "shuffle",
+          "cap": 5
+        },
+        {
+          "itemId": "rocket",
+          "cap": 5
+        }
+      ]
+    },
+    {
+      "levelId": "level_094",
+      "totalLoadoutCap": 7,
+      "perItemEquipCaps": [
+        {
+          "itemId": "hammer",
+          "cap": 8
+        },
+        {
+          "itemId": "shuffle",
+          "cap": 5
+        },
+        {
+          "itemId": "rocket",
+          "cap": 5
+        }
+      ]
+    },
+    {
+      "levelId": "level_095",
+      "totalLoadoutCap": 7,
+      "perItemEquipCaps": [
+        {
+          "itemId": "hammer",
+          "cap": 8
+        },
+        {
+          "itemId": "shuffle",
+          "cap": 5
+        },
+        {
+          "itemId": "rocket",
+          "cap": 5
+        }
+      ]
+    },
+    {
+      "levelId": "level_096",
+      "totalLoadoutCap": 7,
+      "perItemEquipCaps": [
+        {
+          "itemId": "hammer",
+          "cap": 8
+        },
+        {
+          "itemId": "shuffle",
+          "cap": 5
+        },
+        {
+          "itemId": "rocket",
+          "cap": 5
+        }
+      ]
+    },
+    {
+      "levelId": "level_097",
+      "totalLoadoutCap": 7,
+      "perItemEquipCaps": [
+        {
+          "itemId": "hammer",
+          "cap": 8
+        },
+        {
+          "itemId": "shuffle",
+          "cap": 5
+        },
+        {
+          "itemId": "rocket",
+          "cap": 5
+        }
+      ]
+    },
+    {
+      "levelId": "level_098",
+      "totalLoadoutCap": 7,
+      "perItemEquipCaps": [
+        {
+          "itemId": "hammer",
+          "cap": 8
+        },
+        {
+          "itemId": "shuffle",
+          "cap": 5
+        },
+        {
+          "itemId": "rocket",
+          "cap": 5
+        }
+      ]
+    },
+    {
+      "levelId": "level_099",
+      "totalLoadoutCap": 7,
+      "perItemEquipCaps": [
+        {
+          "itemId": "hammer",
+          "cap": 8
+        },
+        {
+          "itemId": "shuffle",
+          "cap": 5
+        },
+        {
+          "itemId": "rocket",
+          "cap": 5
+        }
+      ]
+    },
+    {
+      "levelId": "level_100",
+      "totalLoadoutCap": 7,
+      "perItemEquipCaps": [
+        {
+          "itemId": "hammer",
+          "cap": 8
+        },
+        {
+          "itemId": "shuffle",
+          "cap": 5
+        },
+        {
+          "itemId": "rocket",
+          "cap": 5
+        }
+      ]
+    }
+  ]
+}

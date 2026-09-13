@@ -14,6 +14,19 @@ import {
 } from "./types/BossConfig.js";
 import { createLogger } from "../core/Logger.js";
 import { parseBossCoinConfig, type BossCoinConfig } from "./BossCoinConfig.js";
+import { parseItemCatalog, type ItemCatalog } from "./ItemConfig.js";
+import {
+  parseCurrencies,
+  parseItemLevelLimits,
+  parseLifePolicy,
+  parseProducts,
+  parseRewardRules,
+  type CurrencyCatalog,
+  type ItemLevelLimitsConfig,
+  type LifePolicy,
+  type ProductCatalog,
+  type RewardRulesConfig,
+} from "./EconomyConfig.js";
 
 const log = createLogger("ConfigLoader");
 
@@ -40,6 +53,12 @@ export class ConfigLoader {
   private levelCache = new Map<string, LevelConfig>();
   private rawCache = new Map<string, JsonObject>();
   private bossCoinCache: BossCoinConfig | null = null;
+  private itemCache: ItemCatalog | null = null;
+  private currencyCache: CurrencyCatalog | null = null;
+  private rewardCache: RewardRulesConfig | null = null;
+  private itemLimitCache: ItemLevelLimitsConfig | null = null;
+  private productCache: ProductCatalog | null = null;
+  private lifeCache: LifePolicy | null = null;
 
   constructor(base: string = DEFAULT_CONFIG_BASE) {
     this.base = base.replace(/\/+$/, "");
@@ -80,6 +99,44 @@ export class ConfigLoader {
     const json = await fetchJson(this.url("boss/boss_coin_skills.json"));
     this.bossCoinCache = parseBossCoinConfig(json);
     return this.bossCoinCache;
+  }
+
+  /** Item definitions (catalog/items.json). */
+  async loadItems(): Promise<ItemCatalog> {
+    if (this.itemCache) return this.itemCache;
+    const json = await fetchJson(this.url("catalog/items.json"));
+    this.itemCache = parseItemCatalog(json);
+    return this.itemCache;
+  }
+
+  async loadCurrencies(): Promise<CurrencyCatalog> {
+    if (this.currencyCache) return this.currencyCache;
+    this.currencyCache = parseCurrencies(await fetchJson(this.url("catalog/currencies.json")));
+    return this.currencyCache;
+  }
+
+  async loadRewardRules(): Promise<RewardRulesConfig> {
+    if (this.rewardCache) return this.rewardCache;
+    this.rewardCache = parseRewardRules(await fetchJson(this.url("reward/reward_rules.json")));
+    return this.rewardCache;
+  }
+
+  async loadItemLevelLimits(): Promise<ItemLevelLimitsConfig> {
+    if (this.itemLimitCache) return this.itemLimitCache;
+    this.itemLimitCache = parseItemLevelLimits(await fetchJson(this.url("catalog/item_level_limits.json")));
+    return this.itemLimitCache;
+  }
+
+  async loadProducts(): Promise<ProductCatalog> {
+    if (this.productCache) return this.productCache;
+    this.productCache = parseProducts(await fetchJson(this.url("catalog/products.json")));
+    return this.productCache;
+  }
+
+  async loadLifePolicy(): Promise<LifePolicy> {
+    if (this.lifeCache) return this.lifeCache;
+    this.lifeCache = parseLifePolicy(await fetchJson(this.url("life/life_policy.json")));
+    return this.lifeCache;
   }
 
   /**
