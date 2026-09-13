@@ -33,7 +33,13 @@ export interface BossConvertEvent extends BossEventBase {
   skillId: string;
   indices: number[];
 }
-export type BossEvent = BossHpEvent | BossSkillEvent | BossPhaseEvent | BossConvertEvent;
+export interface BossTargetsEvent extends BossEventBase {
+  type: "bossTargets";
+  skillId: string;
+  indices: number[];
+  color: number;
+}
+export type BossEvent = BossHpEvent | BossSkillEvent | BossPhaseEvent | BossConvertEvent | BossTargetsEvent;
 
 export interface BossBoardAdapter {
   readonly adapterRows: number;
@@ -58,7 +64,7 @@ export interface BossBoardAdapter {
   }>;
   adapterTileTypes(): number[];
   adapterRollRandomTileType(): number;
-  adapterFreezeRandom(count: number, turns: number, onlySpecial: boolean): number;
+  adapterFreezeRandom(count: number, turns: number, onlySpecial: boolean): number[];
   adapterTickFrozen(): void;
   adapterFrozenUsableRatio(): number;
   adapterConvertToBlocker(indices: number[], type: number, hp: number): void;
@@ -408,7 +414,8 @@ export class BossRuntime {
     if (FREEZE_NAMES.has(e) || this.isSeal(skill)) {
       const count = skill.paramA > 0 ? skill.paramA : e.includes("random_5") ? 5 : 3;
       const turns = skill.paramB > 0 ? skill.paramB : this.isSeal(skill) ? 3 : 2;
-      this.adapter.adapterFreezeRandom(count, turns, this.isSeal(skill));
+      const idxs = this.adapter.adapterFreezeRandom(count, turns, this.isSeal(skill));
+      if (idxs.length) events.push({ type: "bossTargets", skillId: skill.skillId, indices: idxs, color: 0x7fe3ff });
       return true;
     }
     if (CONVERT_BLOCKER_NAMES.has(e)) {
@@ -420,7 +427,7 @@ export class BossRuntime {
       return true;
     }
     if (LAND_NAMES.has(e)) {
-      if (skill.bApplyLarvaeOnLand) this.addRandomLarvae(skill);
+      if (skill.bApplyLarvaeOnLand) this.addRandomLarvae(skill, events);
       else this.landConvert(skill, events);
       return true;
     }
@@ -468,7 +475,10 @@ export class BossRuntime {
       const def = defs.find((d) => d.TypeId === type);
       this.adapter.adapterConvertToBlocker([idx], type, Math.max(1, def?.DefaultHP ?? 1));
     }
-    if (chosen.length) events.push({ type: "bossConvert", skillId: skill.skillId, indices: chosen });
+    if (chosen.length) {
+      events.push({ type: "bossConvert", skillId: skill.skillId, indices: chosen });
+      events.push({ type: "bossTargets", skillId: skill.skillId, indices: chosen, color: 0xff8c42 });
+    }
   }
 
   private corrodeRandom(skill: BossSkill, events: BoardEvent[]): void {
@@ -485,7 +495,10 @@ export class BossRuntime {
       const def = this.adapter.adapterBlockerDefs().find((d) => d.TypeId === type);
       this.adapter.adapterConvertToBlocker([idx], type, Math.max(1, def?.DefaultHP ?? 1));
     }
-    if (chosen.length) events.push({ type: "bossConvert", skillId: skill.skillId, indices: chosen });
+    if (chosen.length) {
+      events.push({ type: "bossConvert", skillId: skill.skillId, indices: chosen });
+      events.push({ type: "bossTargets", skillId: skill.skillId, indices: chosen, color: 0x6fa84a });
+    }
   }
 
   private landConvert(skill: BossSkill, events: BoardEvent[]): void {
@@ -499,15 +512,20 @@ export class BossRuntime {
     const count = Math.min(skill.paramB > 0 ? skill.paramB : 1, candidates.length);
     const chosen = candidates.slice(0, count);
     this.adapter.adapterConvertToBlocker(chosen, type, Math.max(1, def.DefaultHP));
-    if (chosen.length) events.push({ type: "bossConvert", skillId: skill.skillId, indices: chosen });
+    if (chosen.length) {
+      events.push({ type: "bossConvert", skillId: skill.skillId, indices: chosen });
+      events.push({ type: "bossTargets", skillId: skill.skillId, indices: chosen, color: 0x9a7b4f });
+    }
   }
 
-  private addRandomLarvae(skill: BossSkill): void {
+  private addRandomLarvae(skill: BossSkill, events: BoardEvent[]): void {
     const candidates = this.normalTileCandidates();
     if (candidates.length === 0) return;
     this.adapter.shuffleArray(candidates);
     const count = Math.min(skill.paramB > 0 ? skill.paramB : 1, candidates.length);
-    this.adapter.adapterAddLarvae(candidates.slice(0, count));
+    const chosen = candidates.slice(0, count);
+    this.adapter.adapterAddLarvae(chosen);
+    if (chosen.length) events.push({ type: "bossTargets", skillId: skill.skillId, indices: chosen, color: 0xd4c24a });
   }
 
   private applyWeaknessShift(): boolean {

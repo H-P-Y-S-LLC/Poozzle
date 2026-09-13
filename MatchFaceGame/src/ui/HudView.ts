@@ -3,9 +3,9 @@
  * Spec: Documents/ThreeJsWebPortDevDoc.md §5.9.
  */
 import type { BoardLogic } from "../logic/BoardLogic.js";
-import { SpecialType } from "../logic/Match3Types.js";
 import type { ManifestEntry } from "../config/LevelManifest.js";
 import { elementIconDataURL } from "../proc/ElementIconFactory.js";
+import { blockerIconDataURL } from "../proc/BlockerIconFactory.js";
 import type { I18n } from "./i18n.js";
 
 export interface SettlementInfo {
@@ -24,6 +24,7 @@ export class HudView {
   private overlay: HTMLElement;
   private loading: HTMLElement;
   private goalChips = new Map<number, HTMLElement>();
+  private blockerChips = new Map<number, HTMLElement>();
   private goalSig = "";
 
   constructor(root: HTMLElement, i18n: I18n) {
@@ -54,10 +55,15 @@ export class HudView {
     );
 
     const goals = board.collectProgress();
-    const sig = goals.map((g) => `${g.tileType}:${g.required}`).join("|");
+    const blockerGoals = board.blockerProgress();
+    const sig =
+      goals.map((g) => `t${g.tileType}:${g.required}`).join("|") +
+      "||" +
+      blockerGoals.map((g) => `b${g.typeId}:${g.required}`).join("|");
     if (sig !== this.goalSig) {
       this.goalSig = sig;
       this.goalChips.clear();
+      this.blockerChips.clear();
       this.goalRow.innerHTML = "";
       for (const g of goals) {
         const chip = div("goal-chip");
@@ -72,15 +78,49 @@ export class HudView {
         this.goalRow.appendChild(chip);
         this.goalChips.set(g.tileType, chip);
       }
+      for (const g of blockerGoals) {
+        const chip = div("goal-chip goal-blocker");
+        const img = document.createElement("img");
+        img.className = "goal-icon";
+        img.src = blockerIconDataURL(g.typeId);
+        img.alt = `blocker ${g.typeId}`;
+        const label = document.createElement("b");
+        label.className = "goal-count";
+        label.textContent = `${g.current}/${g.required}`;
+        chip.append(img, label);
+        this.goalRow.appendChild(chip);
+        this.blockerChips.set(g.typeId, chip);
+      }
     } else {
       for (const g of goals) {
         const chip = this.goalChips.get(g.tileType);
         const count = chip?.querySelector(".goal-count") as HTMLElement | null;
         if (count) count.textContent = `${g.current}/${g.required}`;
       }
+      for (const g of blockerGoals) {
+        const chip = this.blockerChips.get(g.typeId);
+        const count = chip?.querySelector(".goal-count") as HTMLElement | null;
+        if (count) count.textContent = `${g.current}/${g.required}`;
+      }
     }
 
     this.renderBoss(board);
+  }
+
+  /** Screen center of a blocker goal chip (typeId 0 = total). */
+  blockerChipCenter(typeId: number): { x: number; y: number } | null {
+    const chip = this.blockerChips.get(typeId) ?? this.blockerChips.get(0);
+    if (!chip) return null;
+    const r = chip.getBoundingClientRect();
+    return { x: r.left + r.width / 2, y: r.top + r.height / 2 };
+  }
+
+  popBlockerGoal(typeId: number): void {
+    const chip = this.blockerChips.get(typeId) ?? this.blockerChips.get(0);
+    if (!chip) return;
+    chip.classList.remove("pop");
+    void chip.offsetWidth;
+    chip.classList.add("pop");
   }
 
   /** Screen center of a goal chip (for fly-to-goal animation), or null. */
@@ -115,7 +155,13 @@ export class HudView {
     for (const w of boss.weaknessTileTypes()) {
       const chip = document.createElement("span");
       chip.className = "weak-chip";
-      chip.innerHTML = `<i style="background:${tileColorHex(w.tileType)}"></i>×${w.damage}`;
+      const img = document.createElement("img");
+      img.className = "weak-icon";
+      img.src = elementIconDataURL(w.tileType);
+      img.alt = `weakness ${w.tileType}`;
+      const txt = document.createElement("span");
+      txt.textContent = `×${w.damage}`;
+      chip.append(img, txt);
       weak.appendChild(chip);
     }
     wrap.append(label, bar, weak);
@@ -236,18 +282,4 @@ function mkButton(text: string, onClick: () => void, variant: "primary" | "ghost
   b.textContent = text;
   b.addEventListener("click", onClick);
   return b;
-}
-
-function tileColorHex(tileType: number): string {
-  const map: Record<number, string> = {
-    1: "#FF5A5F",
-    2: "#FFB020",
-    3: "#2ED47A",
-    4: "#2D9CFF",
-    5: "#A55CFF",
-    6: "#FF7A45",
-    7: "#8C6A3F",
-  };
-  void SpecialType;
-  return map[tileType] ?? "#888";
 }

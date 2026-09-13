@@ -23,6 +23,9 @@ import type { BlockerTypeDef, LevelConfig } from "../config/types/LevelConfig.js
 import type { BossConfig } from "../config/types/BossConfig.js";
 import { BossRuntime, type BossEvent } from "./BossRuntime.js";
 
+/** Blockers stay fixed; set true to re-enable per-turn movable/spread (§3.9). */
+const ENABLE_TURN_BLOCKER_DYNAMICS = false;
+
 export interface ClearBatchEvent {
   type: "clear";
   batchId: number;
@@ -868,7 +871,7 @@ export class BoardLogic {
       for (const s of spawnIndices) clear.delete(s);
 
       // blockers adjacent damage
-      const blockerHits = this.damageAdjacentBlockers(clear, trigger);
+      const blockerHits = this.damageBlockers(clear, trigger);
       if (blockerHits.length) this.events.push({ type: "blockerHit", hits: blockerHits });
 
       // clear cells + collect
@@ -984,11 +987,52 @@ export class BoardLogic {
     }));
   }
 
+  /** Blocker-break goal progress (typeId 0 = total blocker count). */
+  blockerProgress(): Array<{ typeId: number; current: number; required: number }> {
+    const goal = this.config.Goal;
+    if (goal.BlockerBreakByType.length > 0) {
+      return goal.BlockerBreakByType.map((g) => ({
+        typeId: g.TypeId,
+        current: Math.min(this.brokenBlockerTypeCounts.get(g.TypeId) ?? 0, g.Count),
+        required: g.Count,
+      }));
+    }
+    if (goal.TargetBlockerBreakCount > 0) {
+      return [{ typeId: 0, current: Math.min(this.brokenBlockerCount, goal.TargetBlockerBreakCount), required: goal.TargetBlockerBreakCount }];
+    }
+    return [];
+  }
+
   // ─────────────────────────────── blockers ───────────────────────────────
 
-  private damageAdjacentBlockers(clear: Set<number>, _trigger: ClearTriggerType): BlockerHitEvent["hits"] {
+  /**
+   * Damage blockers: first by direct hit (a blocker sitting inside the special
+   * effect area, e.g. a line/bomb path), then by adjacent clear.
+   */
+  private damageBlockers(clear: Set<number>, trigger: ClearTriggerType): BlockerHitEvent["hits"] {
     const hits: BlockerHitEvent["hits"] = [];
     const damaged = new Set<number>();
+
+    // direct hits: blockers occupying a cleared cell
+    for (const idx of clear) {
+      const c = this.cells[idx];
+      if (!c.bUsable || c.BlockerType <= 0 || !c.bBlockerDestructible || c.BlockerHP <= 0) continue;
+      if (damaged.has(idx)) continue;
+      const def = this.blockerDef(c);
+      const bypassImmunity =
+        trigger === ClearTriggerType.SpecialExplosion && def?.bAdjacentDamageAllowSpecialExplosion === true;
+      if (def?.bImmuneToDirectHitDamage && !bypassImmunity) continue;
+      damaged.add(idx);
+      hits.push(this.hitBlocker(idx));
+    }
+
+    // adjacent (collateral) damage from cleared tiles.
+    // Special-block sweeps (line/bomb/color) are "direct clear": they only
+    // damage blockers in the cells they pass through, never the neighbours.
+    if (trigger === ClearTriggerType.SpecialExplosion) {
+      return hits.filter(Boolean) as BlockerHitEvent["hits"];
+    }
+
     for (const idx of clear) {
       const c = this.cells[idx];
       if (!c.bUsable || c.BlockerType > 0 || c.bBubble) continue;
@@ -1052,14 +1096,43 @@ export class BoardLogic {
 
   // ─────────────────────────────── gravity ───────────────────────────────
 
-  /** Mode A (§3.6.1): compact within gravity segments, then top refill. */
+  /**
+   * Gravity: pieces fall vertically first; when vertical is blocked they may
+   * slide diagonally (down-left / down-right). Blockers never move and refill
+   * only fills the empties left at the top of each segment.
+   */
   applyGravityAndRefill(): {
     moves: FallEvent["moves"];
     spawns: SpawnEvent["spawns"];
   } {
     const moves: FallEvent["moves"] = [];
-    const spawns: SpawnEvent["spawns"] = [];
+    let guard = 0;
+    while (guard++ < 200) {
+      if (this.gravityVertical(moves)) continue; // vertical has priority
+      if (this.gravityDiagonal(moves)) continue; // then diagonal
+      break;
+    }
 
+    const spawns: SpawnEvent["spawns"] = [];
+    for (let col = 0; col < this.cols; col++) {
+      for (let row = 0; row < this.rows; row++) {
+        const idx = row * this.cols + col;
+        if (this.isSolidForGravity(idx)) continue;
+        const c = this.cells[idx];
+        if (c.BlockerType > 0) continue; // never fill a blocker cell
+        if (c.TileType === 0 && c.SpecialType === SpecialType.None) {
+          const t = this.rollRandomTileType();
+          c.TileType = t;
+          spawns.push({ index: idx, tileType: t });
+        }
+      }
+    }
+    return { moves, spawns };
+  }
+
+  /** One vertical compaction step; returns true when something moved. */
+  private gravityVertical(moves: FallEvent["moves"]): boolean {
+    let changed = false;
     for (let col = 0; col < this.cols; col++) {
       let row = this.rows - 1;
       while (row >= 0) {
@@ -1068,7 +1141,6 @@ export class BoardLogic {
           row--;
           continue;
         }
-        // segment [top..row] of gravity cells
         let top = row;
         while (top - 1 >= 0 && !this.isSolidForGravity((top - 1) * this.cols + col)) top--;
 
@@ -1082,7 +1154,6 @@ export class BoardLogic {
           c.TileType = 0;
           c.SpecialType = SpecialType.None;
         }
-
         let write = row;
         for (let e = entries.length - 1; e >= 0; e--) {
           const entry = entries[e];
@@ -1092,21 +1163,53 @@ export class BoardLogic {
           c.SpecialType = entry.special;
           if (entry.from !== to) {
             moves.push({ from: entry.from, to, tileType: entry.tileType, special: entry.special });
+            changed = true;
           }
           write--;
         }
-        // refill remaining cells [top..write]
-        for (let r = top; r <= write; r++) {
-          const i = r * this.cols + col;
-          const t = this.rollRandomTileType();
-          this.cells[i].TileType = t;
-          spawns.push({ index: i, tileType: t });
-        }
-
         row = top - 1;
       }
     }
-    return { moves, spawns };
+    return changed;
+  }
+
+  /** One diagonal step for pieces whose cell below is blocked; returns true if moved. */
+  private gravityDiagonal(moves: FallEvent["moves"]): boolean {
+    let moved = false;
+    for (let row = this.rows - 2; row >= 0; row--) {
+      for (let col = 0; col < this.cols; col++) {
+        const idx = row * this.cols + col;
+        const c = this.cells[idx];
+        if (this.isSolidForGravity(idx)) continue;
+        if (c.TileType === 0 && c.SpecialType === SpecialType.None) continue;
+
+        const below = (row + 1) * this.cols + col;
+        const canFallDown = !this.isSolidForGravity(below) && this.isEmptyCell(below);
+        if (canFallDown) continue; // vertical handles it first
+
+        const dirs = this.prng.next() < 0.5 ? [-1, 1] : [1, -1];
+        for (const dc of dirs) {
+          const nc = col + dc;
+          if (nc < 0 || nc >= this.cols) continue;
+          const j = (row + 1) * this.cols + nc;
+          if (this.isSolidForGravity(j) || !this.isEmptyCell(j)) continue;
+          const t = this.cells[j];
+          t.TileType = c.TileType;
+          t.SpecialType = c.SpecialType;
+          moves.push({ from: idx, to: j, tileType: c.TileType, special: c.SpecialType });
+          c.TileType = 0;
+          c.SpecialType = SpecialType.None;
+          moved = true;
+          break;
+        }
+      }
+    }
+    return moved;
+  }
+
+  private isEmptyCell(idx: number): boolean {
+    const c = this.cells[idx];
+    return c.bUsable && c.BlockerType === 0 && c.TileType === 0 && c.SpecialType === SpecialType.None;
   }
 
   /**
@@ -1114,6 +1217,8 @@ export class BoardLogic {
    * Returns true if the board changed (caller emits a refresh).
    */
   private applyTurnBlockers(): { changed: boolean; escaped: boolean } {
+    // Design rule: blockers are static — they never fall or move on their own.
+    if (!ENABLE_TURN_BLOCKER_DYNAMICS) return { changed: false, escaped: false };
     if (this.usedMoves <= this.lastBlockerMove) return { changed: false, escaped: false };
     this.lastBlockerMove = this.usedMoves;
     let changed = false;
@@ -1461,7 +1566,7 @@ export class BoardLogic {
     return false;
   }
 
-  adapterFreezeRandom(count: number, turns: number, onlySpecial: boolean): number {
+  adapterFreezeRandom(count: number, turns: number, onlySpecial: boolean): number[] {
     const cand: number[] = [];
     for (let i = 0; i < this.cells.length; i++) {
       const c = this.cells[i];
@@ -1472,8 +1577,8 @@ export class BoardLogic {
       cand.push(i);
     }
     this.prng.shuffle(cand);
-    const applied = Math.min(count, cand.length);
-    for (let k = 0; k < applied; k++) this.freezeCell(cand[k], turns);
+    const applied = cand.slice(0, Math.min(count, cand.length));
+    for (const idx of applied) this.freezeCell(idx, turns);
     return applied;
   }
 

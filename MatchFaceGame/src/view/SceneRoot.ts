@@ -18,6 +18,7 @@ export class SceneRoot {
   private running = false;
   private onFrame: ((dt: number) => void) | null = null;
   private boardSize = { rows: 7, cols: 7 };
+  private bossStrip = 0;
   private readonly boardPlane = new THREE.Plane(new THREE.Vector3(0, 1, 0), 0);
   private readonly raycaster = new THREE.Raycaster();
 
@@ -77,7 +78,7 @@ export class SceneRoot {
 
     const floor = new THREE.Mesh(new THREE.BoxGeometry(w + 1, 0.6, d + 1), floorMaterial());
     floor.name = "floor";
-    floor.position.y = -0.5;
+    floor.position.y = -0.3; // top surface at y = 0 so pieces rest on the board
     floor.receiveShadow = true;
     this.boardRoot.add(floor);
 
@@ -91,19 +92,39 @@ export class SceneRoot {
     this.fitCamera(w, d);
   }
 
+  /** Reserve extra world-space at the top of the view for the boss strip. */
+  setBossStrip(worldUnits: number): void {
+    this.bossStrip = Math.max(0, worldUnits);
+    this.fitCamera(this.boardSize.cols, this.boardSize.rows);
+  }
+
   private fitCamera(w: number, d: number): void {
     const aspect = (this.container.clientWidth || window.innerWidth) / (this.container.clientHeight || window.innerHeight);
     const marginX = 1.35;
     const marginY = 1.5; // extra room for HUD bars top/bottom
-    let halfH = (d / 2) * marginY;
-    let halfW = (w / 2) * marginX;
+    const baseHalfH = (d / 2) * marginY;
+    const needW = (w / 2) * marginX;
+
+    // cover the board horizontally + vertically at the viewport aspect
+    let halfW = needW;
+    let halfH = baseHalfH;
     if (halfW / halfH < aspect) halfW = halfH * aspect;
     else halfH = halfW / aspect;
 
-    this.camera.left = -halfW;
-    this.camera.right = halfW;
-    this.camera.top = halfH;
-    this.camera.bottom = -halfH;
+    // asymmetric frustum: extra space at the top for the boss strip
+    let top = halfH + this.bossStrip;
+    let bottom = -halfH;
+    let hw = ((top - bottom) / 2) * aspect;
+    if (hw < needW) {
+      const span = (needW * 2) / aspect;
+      top += span - (top - bottom);
+      hw = needW;
+    }
+
+    this.camera.left = -hw;
+    this.camera.right = hw;
+    this.camera.top = top;
+    this.camera.bottom = bottom;
     // Pure top-down view: look straight down -Y, with board -Z as screen-up.
     this.camera.position.set(0, 60, 0);
     this.camera.up.set(0, 0, -1);

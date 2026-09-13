@@ -4,6 +4,18 @@
  * asset gallery so what you see in the gallery matches the game.
  */
 import * as THREE from "three";
+import { Prng } from "../core/Prng.js";
+
+/** Deterministic, shared geometry cache (same look on every rebuild). */
+const geoCache = new Map<string, THREE.BufferGeometry>();
+function cachedGeo(key: string, build: () => THREE.BufferGeometry): THREE.BufferGeometry {
+  let g = geoCache.get(key);
+  if (!g) {
+    g = build();
+    geoCache.set(key, g);
+  }
+  return g;
+}
 
 interface Spec {
   color: number;
@@ -88,8 +100,7 @@ export function makeBlockerObject(typeId: number): THREE.Group {
       break;
     }
     case 4: {
-      const geo = new THREE.IcosahedronGeometry(0.36, 1);
-      jitter(geo, 0.1);
+      const geo = cachedGeo("paper", () => jitter(new THREE.IcosahedronGeometry(0.36, 1), 0.1, 1337));
       add(group, geo, mat, [0, 0.36, 0]);
       break;
     }
@@ -112,8 +123,7 @@ export function makeBlockerObject(typeId: number): THREE.Group {
       break;
     }
     case 8: {
-      const geo = new THREE.IcosahedronGeometry(0.36, 2);
-      dent(geo, 0.12);
+      const geo = cachedGeo("corrode", () => dent(new THREE.IcosahedronGeometry(0.36, 2), 0.12));
       add(group, geo, mat, [0, 0.36, 0]);
       break;
     }
@@ -214,16 +224,23 @@ export function blockerColor(typeId: number): number {
   return (SPECS[typeId] ?? { color: 0x8a8578 }).color;
 }
 
-function jitter(geo: THREE.BufferGeometry, amount: number): void {
+function jitter(geo: THREE.BufferGeometry, amount: number, seed: number): THREE.BufferGeometry {
   const pos = geo.getAttribute("position") as THREE.BufferAttribute;
+  const rnd = new Prng(seed);
   for (let i = 0; i < pos.count; i++) {
-    pos.setXYZ(i, pos.getX(i) + (Math.random() - 0.5) * amount, pos.getY(i) + (Math.random() - 0.5) * amount, pos.getZ(i) + (Math.random() - 0.5) * amount);
+    pos.setXYZ(
+      i,
+      pos.getX(i) + (rnd.next() - 0.5) * amount,
+      pos.getY(i) + (rnd.next() - 0.5) * amount,
+      pos.getZ(i) + (rnd.next() - 0.5) * amount
+    );
   }
   pos.needsUpdate = true;
   geo.computeVertexNormals();
+  return geo;
 }
 
-function dent(geo: THREE.BufferGeometry, amount: number): void {
+function dent(geo: THREE.BufferGeometry, amount: number): THREE.BufferGeometry {
   const pos = geo.getAttribute("position") as THREE.BufferAttribute;
   const v = new THREE.Vector3();
   for (let i = 0; i < pos.count; i++) {
@@ -233,4 +250,5 @@ function dent(geo: THREE.BufferGeometry, amount: number): void {
   }
   pos.needsUpdate = true;
   geo.computeVertexNormals();
+  return geo;
 }

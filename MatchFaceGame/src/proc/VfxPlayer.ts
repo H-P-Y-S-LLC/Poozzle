@@ -37,6 +37,8 @@ interface Particle {
   r: number;
   g: number;
   b: number;
+  gravity: number;
+  drag: number;
 }
 
 export class VfxPlayer {
@@ -96,7 +98,7 @@ export class VfxPlayer {
     this.points.frustumCulled = false;
     parent.add(this.points);
     for (let i = 0; i < MAX; i++) {
-      this.pool.push({ alive: false, x: 0, y: 0, z: 0, vx: 0, vy: 0, vz: 0, life: 0, max: 1, size: 0.1, r: 1, g: 1, b: 1 });
+      this.pool.push({ alive: false, x: 0, y: 0, z: 0, vx: 0, vy: 0, vz: 0, life: 0, max: 1, size: 0.1, r: 1, g: 1, b: 1, gravity: 7, drag: 1.4 });
     }
   }
 
@@ -165,6 +167,36 @@ export class VfxPlayer {
     this.fx.push({ mesh, mat, life: 0.45, max: 0.45, kind: "ring", to: radius });
   }
 
+  /** Particles streaming from `from` toward `to`, bursting on arrival. */
+  projectile(from: THREE.Vector3, to: THREE.Vector3, color: THREE.Color, count = 16): void {
+    const dir = new THREE.Vector3().subVectors(to, from);
+    const dist = dir.length() || 1;
+    dir.normalize();
+    const life = 0.5;
+    const speed = dist / life;
+    for (let i = 0; i < count; i++) {
+      const p = this.pool[this.cursor];
+      this.cursor = (this.cursor + 1) % MAX;
+      p.alive = true;
+      p.x = from.x + (this.rnd.next() - 0.5) * 0.25;
+      p.y = from.y + (this.rnd.next() - 0.5) * 0.25;
+      p.z = from.z + (this.rnd.next() - 0.5) * 0.25;
+      const sp = speed * (0.85 + this.rnd.next() * 0.3);
+      p.vx = dir.x * sp + (this.rnd.next() - 0.5) * 0.5;
+      p.vy = dir.y * sp + (this.rnd.next() - 0.5) * 0.5;
+      p.vz = dir.z * sp + (this.rnd.next() - 0.5) * 0.5;
+      p.life = life;
+      p.max = life;
+      p.size = 0.09 + this.rnd.next() * 0.07;
+      p.r = color.r;
+      p.g = color.g;
+      p.b = color.b;
+      p.gravity = 0;
+      p.drag = 0;
+    }
+    window.setTimeout(() => this.burst(to, color, 12, 2.4), Math.round(life * 1000 * 0.8));
+  }
+
   update(dt: number): void {
     this.updateFx(dt);
     // keep point size consistent regardless of viewport/frustum
@@ -188,8 +220,8 @@ export class VfxPlayer {
         this.size[i] = 0;
         continue;
       }
-      p.vy -= 7 * dt;
-      const damp = Math.max(0, 1 - 1.4 * dt);
+      p.vy -= p.gravity * dt;
+      const damp = Math.max(0, 1 - p.drag * dt);
       p.vx *= damp;
       p.vz *= damp;
       p.x += p.vx * dt;

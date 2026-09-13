@@ -4,11 +4,11 @@
  */
 import * as THREE from "three";
 import type { SceneRoot } from "./SceneRoot.js";
-import type { BoardLogic, BoardEvent, ClearBatchEvent, FallEvent, SpawnEvent } from "../logic/BoardLogic.js";
+import type { BoardLogic, BoardEvent, ClearBatchEvent, FallEvent, SpawnEvent, BlockerHitEvent } from "../logic/BoardLogic.js";
 import { SpecialType } from "../logic/Match3Types.js";
 import { makeFaceObject } from "../proc/TileFaceFactory.js";
 import { makeSpecialObject } from "../proc/SpecialFactory.js";
-import { makeBlockerObject } from "../proc/BlockerFactory.js";
+import { makeBlockerObject, blockerColor } from "../proc/BlockerFactory.js";
 import { fitObject } from "../proc/fit.js";
 import { VfxPlayer } from "../proc/VfxPlayer.js";
 import { stateMaterial } from "../proc/MaterialFactory.js";
@@ -159,7 +159,7 @@ export class BoardView {
     const inner = special !== SpecialType.None ? makeSpecialObject(special) : makeFaceObject(tileType);
     const outer = new THREE.Group();
     outer.add(inner);
-    fitObject(inner, special !== SpecialType.None ? 0.9 : 0.82, false);
+    fitObject(inner, special !== SpecialType.None ? 0.86 : 0.8, true);
     outer.userData.tileType = special !== SpecialType.None ? 0 : tileType;
     outer.userData.special = special;
     outer.userData.spin = inner.userData.spin === true;
@@ -180,7 +180,7 @@ export class BoardView {
     const inner = makeBlockerObject(typeId);
     const obj = new THREE.Group();
     obj.add(inner);
-    fitObject(inner, 0.9, true);
+    fitObject(inner, 0.8, true);
     obj.position.copy(this.cellWorld(row, col));
     obj.traverse((o) => {
       const m = o as THREE.Mesh;
@@ -256,6 +256,9 @@ export class BoardView {
         case "spawn":
           await this.animSpawn(ev);
           break;
+        case "blockerHit":
+          this.animBlockerHit(ev);
+          break;
         case "shuffle":
           await this.animShuffle();
           break;
@@ -312,22 +315,26 @@ export class BoardView {
   }
 
   private animFall(ev: FallEvent): Promise<void> {
-    const items = ev.moves
-      .map((mv) => {
-        const mesh = this.tiles[mv.from];
-        if (!mesh) return null;
-        this.tiles[mv.from] = null;
-        this.tiles[mv.to] = mesh;
-        const { row, col } = this.board.coord(mv.to);
-        return { mesh, from: mesh.position.clone(), to: this.cellWorld(row, col) };
-      })
-      .filter(Boolean) as Array<{ mesh: THREE.Object3D; from: THREE.Vector3; to: THREE.Vector3 }>;
+    // collapse chained moves (vertical then diagonal) of the same piece
+    const plan = new Map<THREE.Object3D, { from: THREE.Vector3; to: THREE.Vector3 }>();
+    for (const mv of ev.moves) {
+      const mesh = this.tiles[mv.from];
+      if (!mesh) continue;
+      this.tiles[mv.from] = null;
+      this.tiles[mv.to] = mesh;
+      const { row, col } = this.board.coord(mv.to);
+      const to = this.cellWorld(row, col);
+      const existing = plan.get(mesh);
+      if (existing) existing.to.copy(to);
+      else plan.set(mesh, { from: mesh.position.clone(), to });
+    }
+    const items = [...plan.entries()];
     if (items.length === 0) return Promise.resolve();
     return this.animate(0.2, (k) => {
       const ease = Easing.easeOutQuad(k);
-      for (const it of items) {
-        it.mesh.position.lerpVectors(it.from, it.to, ease);
-        it.mesh.position.y = Math.sin(ease * Math.PI) * 0.18;
+      for (const [mesh, it] of items) {
+        mesh.position.lerpVectors(it.from, it.to, ease);
+        mesh.position.y = Math.sin(ease * Math.PI) * 0.18;
       }
     });
   }
@@ -391,6 +398,14 @@ export class BoardView {
     return { x: (v.x * 0.5 + 0.5) * rect.width + rect.left, y: (-v.y * 0.5 + 0.5) * rect.height + rect.top };
   }
 
+  /** Boss skill projectile: particles stream from the boss to a target cell. */
+  bossProjectile(from: { x: number; y: number; z: number }, toIndex: number, color: number): void {
+    const { row, col } = this.board.coord(toIndex);
+    const to = this.cellWorld(row, col);
+    to.y += 0.25;
+    this.vfx.projectile(new THREE.Vector3(from.x, from.y, from.z), to, new THREE.Color(color), 16);
+  }
+
   /** Approximate on-screen size of one cell, in pixels. */
   cellPixelSize(): { x: number; y: number } {
     const a = this.worldToScreen(this.cellWorld(0, 0));
@@ -451,6 +466,33 @@ export class BoardView {
       colorHex = tileColor(tileType).main;
     }
     this.vfx.burst(obj.position, new THREE.Color(parseInt(colorHex.slice(1), 16)), count, speed);
+  }
+
+  /**
+   * Blocker damage/death. Broken blockers vanish immediately and emit a
+   * distinct grey "stone debris" burst (different from element shatter).
+   */
+  private animBlockerHit(ev: BlockerHitEvent): void {
+    for (const hit of ev.hits) {
+      const { row, col } = this.board.coord(hit.index);
+      const pos = this.cellWorld(row, col);
+      const color = new THREE.Color(blockerColor(hit.blockerType));
+      const center = new THREE.Vector3(pos.x, pos.y + 0.28, pos.z);
+      if (!hit.broken) {
+        this.vfx.burst(center, color, 8, 2.0);
+        continue;
+      }
+      // remove the blocker mesh right away
+      const obj = this.blockers.get(hit.index);
+      if (obj) {
+        this.root.remove(obj);
+        this.blockers.delete(hit.index);
+      }
+      // heavy chunk burst + shockwave ring => clearly distinct from tile clears
+      this.vfx.burst(center, color, 26, 3.4);
+      this.vfx.burst(new THREE.Vector3(pos.x, pos.y + 0.1, pos.z), new THREE.Color(0xf0f0f0), 12, 2.2);
+      this.vfx.shockwave(pos, color, 1.5);
+    }
   }
 
   private animate(duration: number, apply: (k: number) => void): Promise<void> {

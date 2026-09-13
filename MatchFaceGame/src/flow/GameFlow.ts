@@ -16,6 +16,7 @@ import { BossView } from "../view/BossView.js";
 import { AudioBus } from "../audio/AudioBus.js";
 import { MusicGenerator } from "../audio/MusicGenerator.js";
 import { elementIconDataURL } from "../proc/ElementIconFactory.js";
+import { blockerIconDataURL } from "../proc/BlockerIconFactory.js";
 import type { BoardEvent } from "../logic/BoardLogic.js";
 import * as THREE from "three";
 import type { I18n } from "../ui/i18n.js";
@@ -215,13 +216,12 @@ export class GameFlow {
 
       const level = await this.loader.loadLevel(entry.configFile);
       const bossConfig = level.Boss.bEnabled ? await this.loader.resolveBoss(level.Boss.raw) : null;
+      const isBoss = !!(bossConfig && bossConfig.bEnabled);
       this.scene.layoutBoard(level.Board.Rows, level.Board.Cols);
+      this.scene.setBossStrip(isBoss ? 3.8 : 0);
       const board = new BoardLogic(level, undefined, bossConfig);
       const view = new BoardView(this.scene, board);
-      this.bossView =
-        bossConfig && bossConfig.bEnabled
-          ? new BossView(this.scene, bossConfig.bossId, level.Board.Rows, level.Board.Cols)
-          : null;
+      this.bossView = isBoss ? new BossView(this.scene, bossConfig!.bossId, level.Board.Rows, 2.0) : null;
       this.board = board;
       this.view = view;
       this.controller = new BoardController(this.scene, view, board, {
@@ -253,11 +253,13 @@ export class GameFlow {
           this.audio.playAt("shatter", { pitch: 0.9 + i * 0.09 }, this.cellPos(e.indices[i]));
         }
         this.spawnGoalFlights(e.clearedTiles);
+        this.spawnWeaknessFlights(e.clearedTiles);
         break;
       }
       case "blockerHit": {
         const broken = e.hits.find((h) => h.broken);
         if (broken) this.audio.playAt("blockerBreak", {}, this.cellPos(broken.index));
+        this.spawnBlockerFlights(e.hits);
         break;
       }
       case "bossHp":
@@ -268,6 +270,11 @@ export class GameFlow {
       case "bossConvert":
         this.audio.playAt("skill", {}, this.bossPos());
         break;
+      case "bossTargets": {
+        this.audio.playAt("skill", {}, this.bossPos());
+        this.spawnBossProjectiles(e.indices, e.color);
+        break;
+      }
       default:
         break;
     }
@@ -304,15 +311,68 @@ export class GameFlow {
       const start = this.view.worldToScreen(this.view.cellWorld(row, col));
       const end = this.hud.goalChipCenter(ct.tileType);
       if (!end) continue;
-      this.flyGhost(ct.tileType, start, end);
+      const type = ct.tileType;
+      this.flyGhost(elementIconDataURL(type), start, end, () => this.hud.popGoal(type));
       spawned++;
     }
   }
 
-  private flyGhost(tileType: number, start: { x: number; y: number }, end: { x: number; y: number }): void {
+  /** Fly broken blockers to their blocker goal chip, then pop it. */
+  private spawnBlockerFlights(hits: Array<{ index: number; blockerType: number; broken: boolean }>): void {
+    if (!this.board || !this.view) return;
+    const progress = this.board.blockerProgress();
+    if (progress.length === 0) return;
+    let spawned = 0;
+    for (const hit of hits) {
+      if (!hit.broken) continue;
+      if (spawned >= 6) break;
+      const end = this.hud.blockerChipCenter(hit.blockerType);
+      if (!end) continue;
+      const { row, col } = this.board.coord(hit.index);
+      const start = this.view.worldToScreen(this.view.cellWorld(row, col));
+      const type = hit.blockerType;
+      this.flyGhost(blockerIconDataURL(type), start, end, () => this.hud.popBlockerGoal(type));
+      spawned++;
+    }
+  }
+
+  /** Fly cleared weakness elements to the boss, then trigger its hit reaction. */
+  private spawnWeaknessFlights(cleared: Array<{ index: number; tileType: number; special: number }>): void {
+    const board = this.board;
+    const view = this.view;
+    const bossView = this.bossView;
+    const boss = board?.boss;
+    if (!board || !view || !bossView || !boss) return;
+    const weak = new Set(boss.weaknessTileTypes().map((w) => w.tileType));
+    if (weak.size === 0) return;
+    const gp = bossView.group.position;
+    const end = view.worldToScreen(new THREE.Vector3(gp.x, gp.y + 0.5, gp.z));
+    let spawned = 0;
+    for (const ct of cleared) {
+      if (ct.special !== 0 || ct.tileType <= 0) continue;
+      if (!weak.has(ct.tileType)) continue;
+      if (spawned >= 6) break;
+      const { row, col } = board.coord(ct.index);
+      const start = view.worldToScreen(view.cellWorld(row, col));
+      this.flyGhost(elementIconDataURL(ct.tileType), start, end, () => bossView.hit(1));
+      spawned++;
+    }
+  }
+
+  /** Boss skill particles streaming from the boss to each affected cell. */
+  private spawnBossProjectiles(indices: number[], color = 0x9fbcff): void {
+    const bv = this.bossView;
+    const view = this.view;
+    if (!bv || !view || indices.length === 0) return;
+    const gp = bv.group.position;
+    const from = { x: gp.x, y: gp.y + 0.4, z: gp.z };
+    for (const idx of indices.slice(0, 12)) view.bossProjectile(from, idx, color);
+  }
+
+  private flyGhost(src: string, start: { x: number; y: number }, end: { x: number; y: number }, onArrive: () => void): void {
     const img = document.createElement("img");
     img.className = "collect-ghost";
-    img.src = elementIconDataURL(tileType);
+    img.src = src;
     img.style.left = `${start.x}px`;
     img.style.top = `${start.y}px`;
     document.body.appendChild(img);
@@ -323,7 +383,7 @@ export class GameFlow {
       if (finished) return;
       finished = true;
       img.remove();
-      this.hud.popGoal(tileType);
+      onArrive();
     };
     requestAnimationFrame(() => {
       img.style.transform = `translate(${dx}px, ${dy}px) scale(0.45) rotate(180deg)`;

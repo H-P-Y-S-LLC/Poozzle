@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { BoardLogic } from "../../src/logic/BoardLogic.js";
-import { SpecialType } from "../../src/logic/Match3Types.js";
+import { SpecialType, ClearTriggerType } from "../../src/logic/Match3Types.js";
 import { parseLevelConfig } from "../../src/config/types/LevelConfig.js";
 
 function makeLevel(overrides: Record<string, unknown> = {}) {
@@ -139,5 +139,90 @@ describe("BoardLogic", () => {
     });
     const board = new BoardLogic(level);
     expect(board.ensureSolvableAfterDeadlock()).toBe(false);
+  });
+
+  it("blockers never move and pieces fall diagonally around them", () => {
+    const level = parseLevelConfig({
+      LevelId: "diag",
+      Board: {
+        Rows: 3,
+        Cols: 3,
+        Mask: ["111", "111", "111"],
+        BlockedTypes: ["000", "000", "010"], // a blocker at (2,1)
+        InitialTiles: [0, 0, 0, 0, 3, 0, 0, 0, 0], // a single tile at (1,1)
+      },
+      TilePool: { TileTypes: [1, 2], Weights: [1, 1] },
+      Rules: { MinMatchCount: 3, bAvoidAutoCascadeAtStart: false, bEnsureAtLeastOneMove: false },
+      Goal: { MaxMoves: 10, Collect: [] },
+    });
+    const board = new BoardLogic(level, 123);
+    // isolate a single piece above the blocker
+    for (const c of board.cells) if (c.BlockerType === 0) c.TileType = 0;
+    board.cells[1 * 3 + 1].TileType = 3;
+    // blocker fixed in place
+    expect(board.cells[2 * 3 + 1].BlockerType).toBe(1);
+    const { moves } = board.applyGravityAndRefill();
+    // the tile cannot fall straight (blocker below) -> it slides diagonally to row 2
+    const landed = [2 * 3 + 0, 2 * 3 + 2].filter((i) => board.cells[i].TileType === 3);
+    expect(landed.length).toBe(1);
+    expect(board.cells[1 * 3 + 1].TileType).not.toBe(3);
+    expect(board.cells[2 * 3 + 1].BlockerType).toBe(1);
+    void moves;
+  });
+
+  it("a line special directly breaks a blocker in its path", () => {
+    const level = parseLevelConfig({
+      LevelId: "lineblock",
+      Board: {
+        Rows: 3,
+        Cols: 3,
+        Mask: ["111", "111", "111"],
+        BlockedTypes: ["001", "000", "000"], // blocker at (0,2)
+        BlockerTypeDefs: [{ TypeId: 1, bDestructible: true, DefaultHP: 1 }],
+        InitialSpecials: [{ Row: 0, Col: 0, SpecialType: "LineHorizontal" }],
+      },
+      TilePool: { TileTypes: [1, 2], Weights: [1, 1] },
+      Rules: { MinMatchCount: 3, bAvoidAutoCascadeAtStart: false, bEnsureAtLeastOneMove: false },
+      Goal: { MaxMoves: 10, Collect: [] },
+    });
+    const board = new BoardLogic(level, 5);
+    expect(board.cells[0 * 3 + 2].BlockerType).toBe(1);
+    const res = board.activateSpecialAt({ row: 0, col: 0 });
+    expect(res.accepted).toBe(true);
+    expect(board.cells[0 * 3 + 2].BlockerType).toBe(0);
+  });
+
+  it("special sweeps do NOT deal adjacent (collateral) damage, normal matches do", () => {
+    const make = () =>
+      parseLevelConfig({
+        LevelId: "collateral",
+        Board: {
+          Rows: 3,
+          Cols: 3,
+          Mask: ["111", "111", "111"],
+          BlockedTypes: ["100", "000", "000"], // blocker at (0,0)
+          BlockerTypeDefs: [{ TypeId: 1, bDestructible: true, DefaultHP: 3, bDamageByAdjacentClear: true }],
+        },
+        TilePool: { TileTypes: [1, 2], Weights: [1, 1] },
+        Rules: { MinMatchCount: 3, bAvoidAutoCascadeAtStart: false, bEnsureAtLeastOneMove: false },
+        Goal: { MaxMoves: 10, Collect: [] },
+      });
+
+    // SpecialExplosion clears cell (1,0) but must NOT damage the adjacent blocker.
+    const special = new BoardLogic(make(), 1) as unknown as {
+      damageBlockers: (s: Set<number>, t: ClearTriggerType) => unknown;
+      cells: Array<{ BlockerType: number; BlockerHP: number }>;
+    };
+    special.damageBlockers(new Set([1 * 3 + 0]), ClearTriggerType.SpecialExplosion);
+    expect(special.cells[0].BlockerType).toBe(1);
+    expect(special.cells[0].BlockerHP).toBe(3);
+
+    // A normal match clearing (1,0) DOES deal adjacent damage.
+    const normal = new BoardLogic(make(), 1) as unknown as {
+      damageBlockers: (s: Set<number>, t: ClearTriggerType) => unknown;
+      cells: Array<{ BlockerType: number; BlockerHP: number }>;
+    };
+    normal.damageBlockers(new Set([1 * 3 + 0]), ClearTriggerType.NormalMatch);
+    expect(normal.cells[0].BlockerHP).toBe(2);
   });
 });

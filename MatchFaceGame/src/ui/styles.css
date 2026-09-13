@@ -362,7 +362,7 @@ canvas {
 
 .hud-boss {
   position: absolute;
-  bottom: 58px;
+  top: 64px;
   left: 0;
   right: 0;
   display: flex;
@@ -372,10 +372,11 @@ canvas {
 
 .boss-hud {
   width: min(420px, 86vw);
-  background: var(--panel);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 8px 12px;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  padding: 0 12px;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.85);
 }
 
 .boss-bar-label {
@@ -423,6 +424,12 @@ canvas {
   display: inline-block;
 }
 
+.weak-chip .weak-icon {
+  width: 20px;
+  height: 20px;
+  display: block;
+}
+
 .goal-chip {
   display: flex;
   align-items: center;
@@ -442,6 +449,15 @@ canvas {
   width: 22px;
   height: 22px;
   display: block;
+}
+
+.goal-chip.goal-blocker {
+  border-color: rgba(255, 214, 10, 0.55);
+}
+
+.goal-chip.goal-blocker .goal-icon {
+  width: 24px;
+  height: 24px;
 }
 
 .goal-count {
