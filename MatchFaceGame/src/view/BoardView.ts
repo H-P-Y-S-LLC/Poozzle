@@ -8,7 +8,8 @@ import type { BoardLogic, BoardEvent, ClearBatchEvent, FallEvent, SpawnEvent, Bl
 import { SpecialType } from "../logic/Match3Types.js";
 import { makeFaceObject } from "../proc/TileFaceFactory.js";
 import { makeSpecialObject } from "../proc/SpecialFactory.js";
-import { makeBlockerObject, blockerColor } from "../proc/BlockerFactory.js";
+import { makeBlockerSprite } from "../proc/BlockerSpriteFactory.js";
+import { blockerColor } from "../proc/BlockerFactory.js";
 import { fitObject } from "../proc/fit.js";
 import { VfxPlayer } from "../proc/VfxPlayer.js";
 import { stateMaterial } from "../proc/MaterialFactory.js";
@@ -26,6 +27,9 @@ export class BoardView {
   private overlays = new Map<number, THREE.Mesh>();
   private selected: number | null = null;
   private wiggleT = 0;
+  private animT = 0;
+  /** Strictly increasing draw order for flat sprites (stable transparent sort). */
+  private spriteOrder = 1;
   private vfx: VfxPlayer;
 
   constructor(scene: SceneRoot, board: BoardLogic) {
@@ -38,17 +42,36 @@ export class BoardView {
 
   /** Per-frame idle/selection animation. */
   update(dt: number): void {
+    this.animT += dt;
     for (let i = 0; i < this.tiles.length; i++) {
       const obj = this.tiles[i];
-      if (obj && obj.userData.spin && i !== this.selected) obj.rotation.y += dt * 0.8;
+      if (!obj) continue;
+      if (obj.userData.spin && i !== this.selected) obj.rotation.y += dt * 0.8;
+      const ring = obj.userData.pulseRing as THREE.Mesh | undefined;
+      if (ring) {
+        const k = 0.5 + 0.5 * Math.sin(this.animT * 4);
+        (ring.material as THREE.MeshBasicMaterial).opacity = 0.25 + 0.4 * k;
+        ring.scale.setScalar(0.94 + 0.12 * k);
+      }
+      const pu = obj.userData.particlesUpdate as ((t: number) => void) | undefined;
+      if (pu) pu(this.animT);
+    }
+    for (const obj of this.blockers.values()) {
+      const pu = obj.userData.particlesUpdate as ((t: number) => void) | undefined;
+      if (pu) pu(this.animT);
     }
     this.vfx.update(dt);
     if (this.selected === null) return;
     const mesh = this.tiles[this.selected];
     if (!mesh) return;
     this.wiggleT += dt;
-    // slight twisting rotation (yaw) instead of horizontal sliding
-    mesh.rotation.y = Math.sin(this.wiggleT * 10) * 0.35;
+    if (mesh.userData.isFlatSprite) {
+      // flat sprites: breathing scale (in-plane) reads better than a spin
+      mesh.scale.setScalar(1 + Math.sin(this.wiggleT * 8) * 0.07);
+    } else {
+      // slight twisting rotation (yaw) instead of horizontal sliding
+      mesh.rotation.y = Math.sin(this.wiggleT * 10) * 0.35;
+    }
   }
 
   /**
@@ -141,12 +164,17 @@ export class BoardView {
         if (activeObj) activeObj.position.copy(paActive);
       });
 
+    const flatTarget = !!targetObj?.userData.isFlatSprite;
     const shake = targetObj
       ? this.animate(0.42, (k) => {
           const decay = 1 - k;
           const s = Math.sin(k * Math.PI * 9) * 0.28 * decay;
-          targetObj.rotation.z = s;
-          targetObj.rotation.y = s * 0.5;
+          if (flatTarget) {
+            // flat sprites: nudge only (any rotation reads as jitter)
+          } else {
+            targetObj.rotation.z = s;
+            targetObj.rotation.y = s * 0.5;
+          }
           targetObj.position.x = pbTarget.x + s * 0.16;
         }).then(() => {
           targetObj.rotation.z = 0;
@@ -201,10 +229,12 @@ export class BoardView {
     const inner = special !== SpecialType.None ? makeSpecialObject(special) : makeFaceObject(tileType);
     const outer = new THREE.Group();
     outer.add(inner);
-    fitObject(inner, special !== SpecialType.None ? 0.86 : 0.8, true);
+    fitObject(inner, special !== SpecialType.None ? 0.98 : 0.8, true);
     outer.userData.tileType = special !== SpecialType.None ? 0 : tileType;
     outer.userData.special = special;
     outer.userData.spin = inner.userData.spin === true;
+    outer.userData.isFlatSprite = inner.userData.isFlatSprite === true;
+    outer.userData.particlesUpdate = inner.userData.particlesUpdate;
     return outer;
   }
 
@@ -212,6 +242,10 @@ export class BoardView {
     const { row, col } = this.board.coord(index);
     const pos = this.cellWorld(row, col);
     const mesh = this.makeTileMesh(tileType, special);
+    const ord = this.spriteOrder++;
+    mesh.traverse((o) => {
+      if (!(o as THREE.Points).isPoints) o.renderOrder = ord; // keep particles under the sprite
+    });
     this.root.add(mesh);
     mesh.position.copy(pos);
     mesh.scale.setScalar(instant ? 1 : 0.001);
@@ -219,16 +253,17 @@ export class BoardView {
   }
 
   private spawnBlockerMesh(index: number, row: number, col: number, typeId: number): void {
-    const inner = makeBlockerObject(typeId);
-    const obj = new THREE.Group();
-    obj.add(inner);
-    fitObject(inner, 0.8, true);
+    const obj = makeBlockerSprite(typeId);
+    fitObject(obj, 0.8, true);
     obj.position.copy(this.cellWorld(row, col));
+    const ord = this.spriteOrder++;
     obj.traverse((o) => {
+      if ((o as THREE.Points).isPoints) return; // particles stay under the sprite
+      o.renderOrder = ord;
       const m = o as THREE.Mesh;
       if (m.isMesh) {
-        m.castShadow = true;
-        m.receiveShadow = true;
+        m.castShadow = false;
+        m.receiveShadow = false;
       }
     });
     this.root.add(obj);
@@ -250,6 +285,7 @@ export class BoardView {
     if (existing) return;
     const { row, col } = this.board.coord(index);
     const shell = new THREE.Mesh(new THREE.SphereGeometry(0.52, 16, 12), stateMaterial(need));
+    shell.renderOrder = 50000; // state overlays above the flat sprites
     shell.position.copy(this.cellWorld(row, col));
     this.root.add(shell);
     this.overlays.set(index, shell);
@@ -260,7 +296,10 @@ export class BoardView {
   setSelected(index: number | null): void {
     if (this.selected !== null && this.selected !== index) {
       const prev = this.tiles[this.selected];
-      if (prev && !prev.userData.spin) prev.rotation.y = 0;
+      if (prev) {
+        if (prev.userData.isFlatSprite) prev.scale.setScalar(1);
+        else if (!prev.userData.spin) prev.rotation.y = 0;
+      }
     }
     this.selected = index;
     this.wiggleT = 0;
@@ -344,8 +383,16 @@ export class BoardView {
     }
     return this.animate(0.16, (k) => {
       for (const m of meshes) {
-        m.scale.setScalar(Math.max(0.001, 1 - k));
-        m.rotation.y = k * Math.PI;
+        const flat = m.userData.isFlatSprite === true;
+        // flat sprites must not spin (in-plane rotation reads as jitter);
+        // they shrink + fade instead
+        m.scale.setScalar(Math.max(0.001, flat ? 1 - k * k : 1 - k));
+        if (flat) {
+          const mat = (m.children[0] as THREE.Mesh | undefined)?.material as THREE.MeshBasicMaterial | undefined;
+          if (mat && mat.transparent) mat.opacity = 1 - k;
+        } else {
+          m.rotation.y = k * Math.PI;
+        }
       }
       for (const s of ev.specialsSpawned) {
         const m = this.tiles[s.index];
@@ -411,7 +458,7 @@ export class BoardView {
       const e = Easing.easeInCubic(k);
       out.forEach((o, i) => {
         o.position.y = outFrom[i].y + e * 3.2;
-        o.rotation.y = e * Math.PI * 2;
+        if (o.userData.isFlatSprite !== true) o.rotation.y = e * Math.PI * 2;
         o.scale.setScalar(Math.max(0.001, 1 - e));
       });
     }).then(() => {
@@ -551,15 +598,17 @@ export class BoardView {
   private animateBlockerDamage(obj: THREE.Object3D): Promise<void> {
     const base = obj.position.clone();
     const baseScale = obj.scale.x;
+    const flat = !!obj.userData.isFlatSprite;
     return this.animate(0.22, (k) => {
       const wob = Math.sin(k * Math.PI * 4) * (1 - k) * 0.06;
       obj.position.set(base.x + wob, base.y, base.z);
       obj.scale.setScalar(baseScale * (1 + Math.sin(k * Math.PI) * 0.14));
-      obj.rotation.z = Math.sin(k * Math.PI * 3) * (1 - k) * 0.2;
+      if (!flat) obj.rotation.z = Math.sin(k * Math.PI * 3) * (1 - k) * 0.2;
     }).then(() => {
       obj.position.copy(base);
       obj.scale.setScalar(baseScale);
       obj.rotation.z = 0;
+      obj.rotation.y = 0;
     });
   }
 
@@ -569,13 +618,16 @@ export class BoardView {
     this.vfx.shockwave(pos, color, 1.5);
     const baseScale = obj.scale.x;
     const baseY = obj.position.y;
+    const flat = !!obj.userData.isFlatSprite;
     return this.animate(0.3, (k) => {
       // brief puff up, then collapse while spinning out
       const s = k < 0.3 ? 1 + k * 0.6 : Math.max(0.001, 1.18 * (1 - (k - 0.3) / 0.7));
       obj.scale.setScalar(baseScale * s);
       obj.position.y = baseY + k * 0.35;
-      obj.rotation.y = k * Math.PI * 2;
-      obj.rotation.z = k * 1.1;
+      if (!flat) {
+        obj.rotation.y = k * Math.PI * 2;
+        obj.rotation.z = k * 1.1;
+      } // flat sprite blockers: no spin, just puff + collapse
     }).then(() => {
       this.root.remove(obj);
     });

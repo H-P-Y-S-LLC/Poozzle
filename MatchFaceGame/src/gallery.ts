@@ -8,11 +8,11 @@ import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import { makeFaceObject } from "./proc/TileFaceFactory.js";
 import { makeSpecialObject } from "./proc/SpecialFactory.js";
-import { makeBlockerObject } from "./proc/BlockerFactory.js";
+import { makeBlockerSprite } from "./proc/BlockerSpriteFactory.js";
 import { generateBossModel } from "./proc/BossShapeGenerator.js";
 import { BOSS_SHAPE_PARAMS, bossShapeParams } from "./proc/BossShapeParams.js";
 import { SpecialType } from "./logic/Match3Types.js";
-import { buildItemModel } from "./proc/ItemIconFactory.js";
+import { itemIconCanvas } from "./proc/ItemIconFactory.js";
 import { bossCoinIconCanvas } from "./proc/BossCoinIconFactory.js";
 
 interface Item {
@@ -20,6 +20,8 @@ interface Item {
   id: string;
   name: string;
   build: () => THREE.Object3D;
+  /** Preferred thumbnail camera (flat sprite groups look right from the top). */
+  view?: "iso" | "top";
 }
 
 const ELEMENT_NAMES: Record<number, string> = {
@@ -73,8 +75,7 @@ const ITEM_NAMES: Record<string, string> = {
   finger: "Finger 手指",
 };
 
-/** BossCoin: gold disc with the boss emblem on the face and a dark back. */
-function buildCoinModel(bossId: string): THREE.Group {
+/** BossCoin: gold disc with the boss emblem on the face and a dark back. */function buildCoinModel(bossId: string): THREE.Group {
   const g = new THREE.Group();
   const emblem = new THREE.CanvasTexture(bossCoinIconCanvas(bossId, 256));
   emblem.colorSpace = THREE.SRGBColorSpace;
@@ -87,16 +88,28 @@ function buildCoinModel(bossId: string): THREE.Group {
   return g;
 }
 
+/** Flat canvas icon as a horizontal plane (matches in-game sprite style). */
+function flatIconPlane(canvas: HTMLCanvasElement): THREE.Mesh {
+  const tex = new THREE.CanvasTexture(canvas);
+  tex.colorSpace = THREE.SRGBColorSpace;
+  const mesh = new THREE.Mesh(
+    new THREE.PlaneGeometry(1, 1),
+    new THREE.MeshBasicMaterial({ map: tex, transparent: true, side: THREE.DoubleSide, depthWrite: false })
+  );
+  mesh.rotation.x = -Math.PI / 2;
+  return mesh;
+}
+
 function buildItems(): Item[] {
   const items: Item[] = [];
   for (let t = 1; t <= 7; t++) {
-    items.push({ group: "Elements 消除元素", id: `Tile ${t}`, name: ELEMENT_NAMES[t], build: () => makeFaceObject(t) });
+    items.push({ group: "Elements 消除元素", id: `Tile ${t}`, name: ELEMENT_NAMES[t], build: () => makeFaceObject(t), view: "top" });
   }
   for (const st of [SpecialType.LineHorizontal, SpecialType.LineVertical, SpecialType.Bomb3x3, SpecialType.ColorBomb]) {
-    items.push({ group: "Specials 特殊块", id: `Special ${st}`, name: SPECIAL_NAMES[st], build: () => makeSpecialObject(st) });
+    items.push({ group: "Specials 特殊块", id: `Special ${st}`, name: SPECIAL_NAMES[st], build: () => makeSpecialObject(st), view: "top" });
   }
   for (let t = 1; t <= 23; t++) {
-    items.push({ group: "Blockers 障碍块", id: `TypeId ${t}`, name: BLOCKER_NAMES[t], build: () => makeBlockerObject(t) });
+    items.push({ group: "Blockers 障碍块", id: `TypeId ${t}`, name: BLOCKER_NAMES[t], build: () => makeBlockerSprite(t), view: "top" });
   }
   let bossIndex = 0;
   for (const id of Object.keys(BOSS_SHAPE_PARAMS)) {
@@ -110,7 +123,7 @@ function buildItems(): Item[] {
     });
   }
   for (const id of Object.keys(ITEM_NAMES)) {
-    items.push({ group: "Items 道具", id: `Item · ${id}`, name: ITEM_NAMES[id], build: () => buildItemModel(id) });
+    items.push({ group: "Items 道具", id: `Item · ${id}`, name: ITEM_NAMES[id], build: () => flatIconPlane(itemIconCanvas(id)), view: "top" });
   }
   let coinIndex = 0;
   for (const id of Object.keys(BOSS_SHAPE_PARAMS)) {
@@ -333,7 +346,7 @@ function main(): void {
     const card = document.createElement("figure");
     card.className = "gallery-card";
     const img = document.createElement("img");
-    img.src = renderItem(item, "iso");
+    img.src = renderItem(item, item.view ?? "iso");
     img.alt = item.name;
     const cap = document.createElement("figcaption");
     cap.innerHTML = `<b>${item.name}</b><span>${item.id}</span>`;

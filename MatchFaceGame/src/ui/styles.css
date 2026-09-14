@@ -138,6 +138,41 @@ body {
   transform: translate(-50%, -50%);
 }
 
+/* chapter theming for the long track */
+.chapter-band {
+  position: absolute;
+  left: 0;
+  right: 0;
+  border-radius: 22px;
+  pointer-events: none;
+}
+
+.chapter-motif {
+  position: absolute;
+  width: 54px;
+  height: 48px;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  opacity: 0.32;
+}
+
+.chapter-motif svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+/* the next level to play gets an unmistakable pulsing halo */
+.map-node.current {
+  animation: nodePulse 1.6s ease-in-out infinite;
+  z-index: 3;
+}
+
+@keyframes nodePulse {
+  0%, 100% { box-shadow: 0 0 0 3px rgba(255, 214, 10, 0.3), 0 0 16px rgba(255, 214, 10, 0.35); }
+  50% { box-shadow: 0 0 0 5px rgba(255, 214, 10, 0.45), 0 0 30px rgba(255, 214, 10, 0.6); }
+}
+
 .map-chunk {
   position: relative;
   flex: 0 0 auto;
@@ -194,14 +229,16 @@ body {
   box-shadow: 0 0 0 3px rgba(76, 154, 255, 0.28);
 }
 
-.map-node.cleared {
-  border-color: var(--gold);
-  background: rgba(255, 214, 10, 0.16);
-}
-
 .map-node.locked {
   opacity: 0.5;
   cursor: not-allowed;
+}
+/* cleared levels are fully opaque so progress reads instantly */
+.map-node.cleared {
+  border-color: var(--gold);
+  background: #2b2610;
+  color: var(--gold);
+  opacity: 1;
 }
 
 .map-node-num {
@@ -225,25 +262,65 @@ body {
 
 /* boss node with animated procedural figure */
 .map-node.boss-node {
-  width: 88px;
-  height: 88px;
-  border-radius: 20px;
-  border-color: var(--gold);
-  background: rgba(255, 214, 10, 0.12);
+  width: 158px;
+  height: 158px;
+  border-radius: 30px;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
   overflow: visible;
+  z-index: 2;
+  opacity: 1; /* never fade the boss itself, even when locked */
 }
 
 .map-node.boss-node.cleared {
-  box-shadow: 0 0 0 3px rgba(255, 214, 10, 0.25);
+  box-shadow: none;
 }
 
 .boss-fig-wrap {
-  width: 74px;
-  height: 70px;
+  position: relative;
+  width: 140px;
+  height: 132px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
+
+.boss-decor {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 250px;
+  height: 250px;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.bf-decor-svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+@keyframes bfdFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+@keyframes bfdSway {
+  0%, 100% { transform: rotate(-6deg); }
+  50% { transform: rotate(6deg); }
+}
+@keyframes bfdDash {
+  to { stroke-dashoffset: -40; }
+}
+@keyframes bfdPulse {
+  0%, 100% { transform: scale(0.96); opacity: 0.22; }
+  50% { transform: scale(1.05); opacity: 0.5; }
+}
+.bfd-float { animation: bfdFloat 3s ease-in-out infinite; }
+.bfd-sway { animation: bfdSway 3.6s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+.bfd-dash { animation: bfdDash 3s linear infinite; }
+.bfd-pulse { animation: bfdPulse 3.4s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
 
 .map-boss-label {
   position: absolute;
@@ -1140,4 +1217,185 @@ body.aim-mode #game-root canvas {
 
 .hud-toolbar .hidden {
   display: none;
+}
+
+/* ───────────────────────── mobile / portrait optimization ───────────────────────── */
+
+html,
+body {
+  overscroll-behavior: none;
+}
+
+@media (max-width: 620px) {
+  /* top bars: safe-area + compact */
+  .hud-top {
+    top: calc(52px + env(safe-area-inset-top));
+    padding: 4px 8px;
+    gap: 8px;
+  }
+  .hud-stat {
+    font-size: 11px;
+    padding: 3px 8px;
+  }
+  .hud-stat .hud-value {
+    font-size: 13px;
+  }
+  .hud-wallet {
+    top: calc(8px + env(safe-area-inset-top));
+    left: 8px;
+    font-size: 12px;
+    padding: 4px 8px;
+    gap: 8px;
+  }
+  .hud-toolbar {
+    top: calc(8px + env(safe-area-inset-top));
+    right: 8px;
+    gap: 6px;
+  }
+  .hud-toolbar .btn {
+    padding: 8px 12px;
+    font-size: 12px;
+    min-height: 36px;
+  }
+
+  /* boss strip labels */
+  .hud-boss {
+    top: calc(56px + env(safe-area-inset-top));
+  }
+  .boss-hud {
+    width: min(92vw, 520px);
+  }
+
+  /* bottom cluster: keep item bar / coins / ultimate / goals from colliding */
+  .hud-goals {
+    bottom: calc(10px + env(safe-area-inset-bottom));
+    padding: 0 6px;
+    gap: 6px;
+  }
+  .goal-chip {
+    font-size: 11px;
+  }
+  .ultimate-wrap {
+    right: 8px;
+    bottom: calc(64px + env(safe-area-inset-bottom));
+    padding: 6px;
+    gap: 6px;
+  }
+  .ultimate-slot {
+    width: 34px;
+    height: 34px;
+  }
+  .ultimate-slot img {
+    width: 26px;
+    height: 26px;
+  }
+  .ultimate-use {
+    padding: 10px 12px;
+    font-size: 13px;
+  }
+  .bosscoin-tray {
+    right: 8px;
+    bottom: calc(148px + env(safe-area-inset-bottom));
+    padding: 6px 8px;
+    max-width: 46vw;
+  }
+  .bosscoin-coin {
+    width: 44px;
+    height: 44px;
+  }
+  .bosscoin-coins {
+    max-width: 40vw;
+    gap: 6px;
+  }
+  .item-bar {
+    left: 8px;
+    bottom: calc(64px + env(safe-area-inset-bottom));
+    padding: 6px;
+    gap: 6px;
+  }
+  .item-btn {
+    width: 44px;
+    height: 44px;
+    padding: 5px;
+  }
+
+  /* panels & settlement */
+  .sheet {
+    width: 94vw;
+    max-height: 78vh;
+    padding: 14px;
+  }
+  .hud-overlay {
+    width: 92vw;
+  }
+
+  /* level map */
+  .map3d-panel {
+    width: 100vw;
+    height: 100vh;
+    height: 100dvh;
+  }
+  .map-scroll {
+    padding: 0 4px;
+  }
+  .map-node {
+    width: 40px;
+    height: 40px;
+    font-size: 13px;
+  }
+  .map-node.boss-node {
+    width: 116px;
+    height: 116px;
+    border-radius: 22px;
+  }
+  .boss-fig-wrap {
+    width: 104px;
+    height: 98px;
+  }
+  .boss-decor {
+    width: 190px;
+    height: 190px;
+  }
+  .chapter-motif {
+    width: 40px;
+    height: 36px;
+    opacity: 0.26;
+  }
+}
+
+@media (max-width: 380px) {
+  .hud-toolbar .btn {
+    padding: 7px 9px;
+    font-size: 11px;
+  }
+  .ultimate-slot {
+    width: 30px;
+    height: 30px;
+  }
+  .map-node.boss-node {
+    width: 100px;
+    height: 100px;
+  }
+  .boss-decor {
+    width: 165px;
+    height: 165px;
+  }
+}
+
+/* short landscape phones: pull bottom cluster up less aggressively */
+@media (max-height: 460px) and (orientation: landscape) {
+  .hud-goals {
+    bottom: calc(6px + env(safe-area-inset-bottom));
+  }
+  .ultimate-wrap {
+    bottom: calc(46px + env(safe-area-inset-bottom));
+  }
+  .item-bar {
+    bottom: calc(46px + env(safe-area-inset-bottom));
+  }
+  .bosscoin-tray {
+    right: 8px;
+    top: calc(48px + env(safe-area-inset-top));
+    bottom: auto;
+  }
 }

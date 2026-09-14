@@ -96,6 +96,7 @@ export class VfxPlayer {
     });
     this.points = new THREE.Points(this.geo, this.mat);
     this.points.frustumCulled = false;
+    this.points.renderOrder = 100000; // always above flat sprites
     parent.add(this.points);
     for (let i = 0; i < MAX; i++) {
       this.pool.push({ alive: false, x: 0, y: 0, z: 0, vx: 0, vy: 0, vz: 0, life: 0, max: 1, size: 0.1, r: 1, g: 1, b: 1, gravity: 7, drag: 1.4 });
@@ -138,6 +139,7 @@ export class VfxPlayer {
       depthWrite: false,
     });
     const mesh = new THREE.Mesh(geo, mat);
+    mesh.renderOrder = 100001;
     mesh.position.copy(position);
     mesh.position.y = 0.34;
     if (horizontal) mesh.scale.set(0.02, 1, 1);
@@ -160,6 +162,7 @@ export class VfxPlayer {
       depthWrite: false,
     });
     const mesh = new THREE.Mesh(geo, mat);
+    mesh.renderOrder = 100001;
     mesh.position.copy(position);
     mesh.position.y = 0.3;
     mesh.rotation.x = -Math.PI / 2;

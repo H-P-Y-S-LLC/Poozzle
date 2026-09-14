@@ -1,138 +1,232 @@
 /**
- * 3D "face" element factory. Base geometry + palette come from the spec
- * (§5.3.1 / §5.4.1); the facial features are added on top so MatchFace tiles
- * really show a face. Features face +Y (the board is viewed top-down).
+ * Flat-drawn element tiles (variant design): elements are 2D canvas sprites so
+ * they read clearly as "clearable symbols", distinct from 3D blockers.
+ * Silhouettes keep the shape grammar (§5.4.1); faces stay minimal (dot eyes +
+ * simple mouth) to preserve the simple style.
  */
 import * as THREE from "three";
-import { makeTileGeometry } from "./ShapeFactory.js";
-import { tileMaterial } from "./MaterialFactory.js";
 import { TILE_PALETTE, tileColor } from "./Palette.js";
 
-const featureCache = new Map<string, THREE.BufferGeometry>();
-function geo(key: string, make: () => THREE.BufferGeometry): THREE.BufferGeometry {
-  let g = featureCache.get(key);
-  if (!g) {
-    g = make();
-    featureCache.set(key, g);
+const textureCache = new Map<number, THREE.CanvasTexture>();
+const TEX = 256;
+
+type Shape = "roundedBox" | "sphere" | "icosa" | "octa" | "cylinder" | "hexPrism" | "flattenedBlob" | string;
+
+function shapePath(g: CanvasRenderingContext2D, shape: Shape, cx: number, cy: number, r: number): void {
+  g.beginPath();
+  switch (shape) {
+    case "roundedBox": {
+      const s = r * 0.86;
+      const k = s * 0.32;
+      g.moveTo(cx - s + k, cy - s);
+      g.arcTo(cx + s, cy - s, cx + s, cy + s, k);
+      g.arcTo(cx + s, cy + s, cx - s, cy + s, k);
+      g.arcTo(cx - s, cy + s, cx - s, cy - s, k);
+      g.arcTo(cx - s, cy - s, cx + s, cy - s, k);
+      g.closePath();
+      break;
+    }
+    case "icosa":
+    case "hexPrism": {
+      for (let i = 0; i < 6; i++) {
+        const a = (Math.PI / 3) * i - Math.PI / 2;
+        const x = cx + Math.cos(a) * r;
+        const y = cy + Math.sin(a) * r;
+        i === 0 ? g.moveTo(x, y) : g.lineTo(x, y);
+      }
+      g.closePath();
+      break;
+    }
+    case "octa": {
+      g.moveTo(cx, cy - r);
+      g.lineTo(cx + r * 0.82, cy);
+      g.lineTo(cx, cy + r);
+      g.lineTo(cx - r * 0.82, cy);
+      g.closePath();
+      break;
+    }
+    case "flattenedBlob": {
+      g.ellipse(cx, cy, r * 1.06, r * 0.72, 0, 0, Math.PI * 2);
+      break;
+    }
+    default: // sphere / cylinder (top view = circle)
+      g.arc(cx, cy, r, 0, Math.PI * 2);
   }
-  return g;
 }
 
-function darkMaterial(tileType: number): THREE.MeshStandardMaterial {
-  const c = tileColor(tileType);
-  return new THREE.MeshStandardMaterial({ color: parseInt(c.dark.slice(1), 16), roughness: 0.5, flatShading: true });
+function drawFace(g: CanvasRenderingContext2D, tileType: number, cx: number, cy: number, r: number): void {
+  const ink = "rgba(16,16,24,0.92)";
+  const eyeR = r * 0.16;
+  const eyeDX = r * 0.34;
+  const eyeY = cy - r * 0.06;
+  const mouthY = cy + r * 0.4;
+
+  const dot = (x: number): void => {
+    g.fillStyle = ink;
+    g.beginPath();
+    g.arc(x, eyeY, eyeR, 0, Math.PI * 2);
+    g.fill();
+    // tiny highlight
+    g.fillStyle = "rgba(255,255,255,0.85)";
+    g.beginPath();
+    g.arc(x - eyeR * 0.3, eyeY - eyeR * 0.35, eyeR * 0.32, 0, Math.PI * 2);
+    g.fill();
+  };
+  const closedEye = (x: number): void => {
+    g.strokeStyle = ink;
+    g.lineWidth = r * 0.075;
+    g.lineCap = "round";
+    g.beginPath();
+    g.arc(x, eyeY + eyeR * 0.4, eyeR * 0.9, Math.PI * 1.15, Math.PI * 1.85);
+    g.stroke();
+  };
+  const arcMouth = (up: boolean, w: number): void => {
+    g.strokeStyle = ink;
+    g.lineWidth = r * 0.08;
+    g.lineCap = "round";
+    g.beginPath();
+    if (up) g.arc(cx, mouthY - r * 0.12, w, Math.PI * 0.15, Math.PI * 0.85);
+    else g.arc(cx, mouthY - r * 0.28, w, Math.PI * 1.15, Math.PI * 1.85);
+    g.stroke();
+  };
+
+  switch (tileType) {
+    case 1: // happy
+      dot(cx - eyeDX);
+      dot(cx + eyeDX);
+      arcMouth(false, r * 0.34);
+      break;
+    case 2: // surprised
+      dot(cx - eyeDX);
+      dot(cx + eyeDX);
+      g.fillStyle = ink;
+      g.beginPath();
+      g.ellipse(cx, mouthY, r * 0.14, r * 0.18, 0, 0, Math.PI * 2);
+      g.fill();
+      break;
+    case 3: // sleepy
+      closedEye(cx - eyeDX);
+      closedEye(cx + eyeDX);
+      g.fillStyle = ink;
+      g.beginPath();
+      g.ellipse(cx, mouthY, r * 0.08, r * 0.1, 0, 0, Math.PI * 2);
+      g.fill();
+      break;
+    case 4: // angry
+      dot(cx - eyeDX);
+      dot(cx + eyeDX);
+      g.strokeStyle = ink;
+      g.lineWidth = r * 0.07;
+      g.lineCap = "round";
+      for (const sx of [-1, 1]) {
+        g.beginPath();
+        g.moveTo(cx + sx * (eyeDX - r * 0.17), eyeY - r * 0.4);
+        g.lineTo(cx + sx * (eyeDX + r * 0.17), eyeY - r * 0.26);
+        g.stroke();
+      }
+      arcMouth(true, r * 0.3);
+      break;
+    case 5: // wink
+      dot(cx - eyeDX);
+      closedEye(cx + eyeDX);
+      arcMouth(false, r * 0.34);
+      break;
+    case 6: // grin
+      dot(cx - eyeDX);
+      dot(cx + eyeDX);
+      arcMouth(false, r * 0.42);
+      break;
+    default: // mud / inert
+      closedEye(cx - eyeDX);
+      closedEye(cx + eyeDX);
+      g.strokeStyle = ink;
+      g.lineWidth = r * 0.06;
+      g.lineCap = "round";
+      g.beginPath();
+      g.moveTo(cx - r * 0.14, mouthY);
+      g.lineTo(cx + r * 0.14, mouthY);
+      g.stroke();
+      break;
+  }
 }
 
-function eyeMaterial(): THREE.MeshStandardMaterial {
-  return new THREE.MeshStandardMaterial({ color: 0x101018, roughness: 0.3, flatShading: true });
+function makeTexture(tileType: number): THREE.CanvasTexture {
+  const c = document.createElement("canvas");
+  c.width = TEX;
+  c.height = TEX;
+  const g = c.getContext("2d")!;
+  const cx = TEX / 2;
+  const cy = TEX / 2;
+  const r = TEX * 0.4;
+  const col = tileColor(tileType);
+  const shape = (TILE_PALETTE[tileType]?.shape ?? "sphere") as Shape;
+
+  // soft contact shadow inside the sprite so it doesn't float
+  g.save();
+  g.shadowColor = "rgba(0,0,0,0.35)";
+  g.shadowBlur = TEX * 0.06;
+  g.shadowOffsetY = TEX * 0.025;
+  g.fillStyle = "rgba(0,0,0,0.9)";
+  shapePath(g, shape, cx, cy, r);
+  g.fill();
+  g.restore();
+
+  // body with a gentle top-lit gradient
+  const grad = g.createRadialGradient(cx - r * 0.3, cy - r * 0.35, r * 0.15, cx, cy, r * 1.15);
+  grad.addColorStop(0, lightenHex(col.main, 0.28));
+  grad.addColorStop(0.65, col.main);
+  grad.addColorStop(1, col.dark);
+  g.fillStyle = grad;
+  shapePath(g, shape, cx, cy, r);
+  g.fill();
+
+  // crisp rim
+  g.strokeStyle = col.dark;
+  g.lineWidth = TEX * 0.018;
+  shapePath(g, shape, cx, cy, r);
+  g.stroke();
+
+  drawFace(g, tileType, cx, cy, r);
+
+  const tex = new THREE.CanvasTexture(c);
+  tex.colorSpace = THREE.SRGBColorSpace;
+  tex.anisotropy = 4;
+  return tex;
 }
 
-function mouthMaterial(tileType: number): THREE.MeshStandardMaterial {
-  return darkMaterial(tileType);
-}
-
-function shapeIsRound(tileType: number): boolean {
-  const shape = TILE_PALETTE[tileType]?.shape;
-  return shape === "sphere" || shape === "icosa" || shape === "octa";
+function lightenHex(hex: string, t: number): string {
+  const n = parseInt(hex.slice(1), 16);
+  const r = (n >> 16) & 255;
+  const g = (n >> 8) & 255;
+  const b = n & 255;
+  const m = (v: number) => Math.round(v + (255 - v) * t);
+  return `rgb(${m(r)},${m(g)},${m(b)})`;
 }
 
 export function makeFaceObject(tileType: number): THREE.Group {
   const group = new THREE.Group();
-  const geoBase = makeTileGeometry(tileType);
-  const base = new THREE.Mesh(geoBase, tileMaterial(tileType));
-  base.castShadow = true;
-  base.receiveShadow = true;
-  group.add(base);
-
-  geoBase.computeBoundingBox();
-  const bb = geoBase.boundingBox!;
-  const topY = bb.max.y;
-  const round = shapeIsRound(tileType);
-
-  const eyeGeo = geo("face-eye", () => new THREE.SphereGeometry(0.075, 10, 8));
-  const pupilGeo = geo("face-pupil", () => new THREE.SphereGeometry(0.03, 8, 6));
-
-  // surface height for a feature offset from the top center
-  const surf = (dx: number, dz: number): number => {
-    if (!round) return topY + 0.02;
-    const r = topY;
-    const d2 = dx * dx + dz * dz;
-    return Math.sqrt(Math.max(0.02, r * r - d2)) - 0.02;
-  };
-
-  const eyeZ = 0.1;
-  const eyeSpec: Array<{ x: number; scale: number; brow: number }> = [];
-  // expression per tile type
-  switch (tileType) {
-    case 1: // coral - happy
-      eyeSpec.push({ x: -0.15, scale: 1, brow: 0 }, { x: 0.15, scale: 1, brow: 0 });
-      break;
-    case 2: // amber - surprised (big eyes)
-      eyeSpec.push({ x: -0.16, scale: 1.25, brow: 0 }, { x: 0.16, scale: 1.25, brow: 0 });
-      break;
-    case 3: // mint - sleepy
-      eyeSpec.push({ x: -0.15, scale: 0.85, brow: 0 }, { x: 0.15, scale: 0.85, brow: 0 });
-      break;
-    case 4: // sky - angry (brows)
-      eyeSpec.push({ x: -0.15, scale: 1, brow: 0.5 }, { x: 0.15, scale: 1, brow: -0.5 });
-      break;
-    case 5: // violet - wink
-      eyeSpec.push({ x: -0.15, scale: 1, brow: 0 }, { x: 0.15, scale: 0.5, brow: 0 });
-      break;
-    default: // peach / mud - neutral
-      eyeSpec.push({ x: -0.15, scale: 1, brow: 0 }, { x: 0.15, scale: 1, brow: 0 });
-      break;
+  let tex = textureCache.get(tileType);
+  if (!tex) {
+    tex = makeTexture(tileType);
+    textureCache.set(tileType, tex);
   }
-
-  const eyeMat = eyeMaterial();
-  const pupilMat = new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.25 });
-  for (const e of eyeSpec) {
-    const y = surf(e.x, eyeZ) + 0.06 * e.scale;
-    const eye = new THREE.Mesh(eyeGeo, eyeMat);
-    eye.position.set(e.x, y, eyeZ);
-    eye.scale.setScalar(e.scale);
-    group.add(eye);
-    const pupil = new THREE.Mesh(pupilGeo, pupilMat);
-    pupil.position.set(e.x + 0.015, y + 0.045 * e.scale, eyeZ + 0.02);
-    group.add(pupil);
-    if (e.brow !== 0) {
-      const brow = new THREE.Mesh(geo("face-brow", () => new THREE.BoxGeometry(0.14, 0.03, 0.04)), darkMaterial(tileType));
-      brow.position.set(e.x, y + 0.11, eyeZ + 0.02);
-      brow.rotation.z = e.brow;
-      group.add(brow);
-    }
-  }
-
-  // mouth per expression
-  const mouthZ = 0.24;
-  const mouthY = surf(0, mouthZ) + 0.03;
-  const mMat = mouthMaterial(tileType);
-  if (tileType === 2) {
-    // surprised: round O
-    const m = new THREE.Mesh(geo("face-mouth-o", () => new THREE.TorusGeometry(0.06, 0.028, 8, 14)), mMat);
-    m.position.set(0, mouthY, mouthZ);
-    m.rotation.x = -Math.PI / 2;
-    group.add(m);
-  } else {
-    const dir = tileType === 4 ? -1 : 1; // angry frown else smile
-    const arc = new THREE.Mesh(
-      geo(`face-mouth-arc-${dir}`, () => {
-        const t = new THREE.TorusGeometry(0.12, 0.03, 6, 16, Math.PI);
-        return t;
-      }),
-      mMat
-    );
-    arc.position.set(0, mouthY, mouthZ - 0.05);
-    arc.rotation.x = -Math.PI / 2;
-    arc.rotation.z = dir > 0 ? 0 : Math.PI;
-    group.add(arc);
-    if (tileType === 1 || tileType === 6) {
-      // add a small tongue-ish bar for a grin
-      const bar = new THREE.Mesh(geo("face-mouth-bar", () => new THREE.BoxGeometry(0.16, 0.03, 0.05)), mMat);
-      bar.position.set(0, mouthY - 0.01, mouthZ);
-      group.add(bar);
-    }
-  }
-
+  const plane = new THREE.Mesh(
+    new THREE.PlaneGeometry(1, 1),
+    new THREE.MeshBasicMaterial({
+      map: tex,
+      transparent: true,
+      side: THREE.DoubleSide,
+      // coplanar sprites must NOT write depth or they z-fight/flicker on swap
+      depthWrite: false,
+      polygonOffset: true,
+      polygonOffsetFactor: -2,
+      polygonOffsetUnits: -2,
+    })
+  );
+  plane.rotation.x = -Math.PI / 2; // lie flat on the board, face up
+  plane.position.y = 0.02;
+  plane.userData.isFlatSprite = true;
+  group.userData.isFlatSprite = true;
+  group.add(plane);
   return group;
 }
