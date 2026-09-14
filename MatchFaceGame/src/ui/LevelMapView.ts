@@ -24,6 +24,7 @@ export class LevelMapView {
   private i18n: I18n;
   private cfg: LevelMapConfig;
   private layer: HTMLElement;
+  private inertiaRaf = 0;
 
   constructor(uiRoot: HTMLElement, i18n: I18n, cfg: LevelMapConfig) {
     this.i18n = i18n;
@@ -34,8 +35,14 @@ export class LevelMapView {
   }
 
   hide(): void {
+    this.stopInertia();
     this.layer.classList.add("hidden");
     this.layer.innerHTML = "";
+  }
+
+  private stopInertia(): void {
+    if (this.inertiaRaf) cancelAnimationFrame(this.inertiaRaf);
+    this.inertiaRaf = 0;
   }
 
   get visible(): boolean {
@@ -50,6 +57,7 @@ export class LevelMapView {
   ): void {
     this.layer.classList.remove("hidden");
     this.layer.innerHTML = "";
+    this.stopInertia();
 
     const panel = el("div", "map3d-panel");
     const header = el("div", "map3d-header");
@@ -265,24 +273,36 @@ export class LevelMapView {
     panel.appendChild(scroller);
     this.layer.appendChild(panel);
 
-    // drag to scroll vertically (mouse + touch), no scrollbar.
-    // Capture is only taken once a real drag starts, so node clicks still work.
+    // Drag-to-scroll:
+    //  - touch: left to the browser (native momentum + acceleration + damping)
+    //  - mouse: custom drag with velocity sampling and inertial decay
     let pointerId: number | null = null;
     let dragging = false;
     let startY = 0;
     let startTop = 0;
+    let lastY = 0;
+    let lastT = 0;
+    let vel = 0; // px / ms (finger direction)
+
+    const maxTop = (): number => Math.max(0, scroller.scrollHeight - scroller.clientHeight);
+    const clampTop = (v: number): number => Math.max(0, Math.min(maxTop(), v));
+
     scroller.addEventListener("pointerdown", (e) => {
+      if (e.pointerType === "touch") return; // native scroll handles touch
+      this.stopInertia();
       pointerId = e.pointerId;
       dragging = false;
       suppressClick = false;
-      startY = e.clientY;
+      startY = lastY = e.clientY;
       startTop = scroller.scrollTop;
+      lastT = performance.now();
+      vel = 0;
     });
     scroller.addEventListener("pointermove", (e) => {
-      if (pointerId !== e.pointerId) return;
+      if (e.pointerType === "touch" || pointerId !== e.pointerId) return;
       const dy = e.clientY - startY;
       if (!dragging) {
-        if (Math.abs(dy) <= 6) return;
+        if (Math.abs(dy) <= 4) return;
         dragging = true;
         suppressClick = true;
         scroller.classList.add("dragging");
@@ -292,15 +312,40 @@ export class LevelMapView {
           /* ignore */
         }
       }
-      scroller.scrollTop = startTop - dy;
+      const now = performance.now();
+      const dt = Math.max(1, now - lastT);
+      vel = (e.clientY - lastY) / dt;
+      lastY = e.clientY;
+      lastT = now;
+      // follow the pointer 1:1, with resistance past the ends
+      const max = maxTop();
+      let v = startTop - dy;
+      if (v < 0) v *= 0.5;
+      else if (v > max) v = max + (v - max) * 0.5;
+      scroller.scrollTop = v;
     });
     const endDrag = (e: PointerEvent): void => {
-      if (pointerId !== e.pointerId) return;
+      if (e.pointerType === "touch" || pointerId !== e.pointerId) return;
       if (dragging) {
         try {
           scroller.releasePointerCapture(e.pointerId);
         } catch {
           /* ignore */
+        }
+        scroller.scrollTop = clampTop(scroller.scrollTop);
+        // inertial fling with friction
+        let v = -vel * 16;
+        if (Math.abs(v) > 4) {
+          const step = (): void => {
+            v *= 0.94;
+            if (Math.abs(v) < 0.4) {
+              this.inertiaRaf = 0;
+              return;
+            }
+            scroller.scrollTop = clampTop(scroller.scrollTop + v);
+            this.inertiaRaf = requestAnimationFrame(step);
+          };
+          this.inertiaRaf = requestAnimationFrame(step);
         }
       }
       pointerId = null;

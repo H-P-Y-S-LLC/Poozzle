@@ -113,7 +113,8 @@ body {
   position: relative;
   scrollbar-width: none;
   -ms-overflow-style: none;
-  touch-action: none;
+  touch-action: pan-y; /* native touch scrolling keeps its own momentum */
+  -webkit-overflow-scrolling: touch;
   overscroll-behavior: contain;
   cursor: grab;
 }
