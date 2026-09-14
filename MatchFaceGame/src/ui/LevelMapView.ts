@@ -8,6 +8,7 @@ import type { ManifestEntry } from "../config/LevelManifest.js";
 import type { LevelBossMeta } from "../config/ConfigLoader.js";
 import type { LevelMapConfig } from "../config/ThemeConfig.js";
 import { bossShapeParams, type BossShapeParams } from "../proc/BossShapeParams.js";
+import { pixelSVG } from "../proc/pixel.js";
 import type { I18n } from "./i18n.js";
 
 export interface MapSaveState {
@@ -17,8 +18,8 @@ export interface MapSaveState {
 
 type NodeState = "locked" | "unlocked" | "cleared";
 
-const SPACING = 132;
-const MARGIN = 140;
+const SPACING = 112;
+const MARGIN = 116;
 
 export class LevelMapView {
   private i18n: I18n;
@@ -240,7 +241,15 @@ export class LevelMapView {
         const decor = el("div", "boss-decor");
         decor.innerHTML = bossDecorSVG(id, p);
         wrap.appendChild(decor);
-        wrap.insertAdjacentHTML("beforeend", bossFigureSVG(p));
+        const figure = el("div", "boss-fig-holder");
+        const svg = bossFigureSVG(p);
+        figure.innerHTML = svg;
+        wrap.appendChild(figure);
+        // swap the vector figure for crisp pixel art once rasterized
+        const svgSized = svg.replace("<svg ", '<svg width="64" height="62" ');
+        rasterizeBossPixel(svgSized, id).then((px) => {
+          if (px && figure.isConnected) figure.innerHTML = px;
+        });
         node.appendChild(wrap);
         const label = el("span", "map-boss-label");
         label.textContent = entry.displayName || entry.levelId.replace(/\D/g, "");
@@ -375,6 +384,40 @@ function pathColor(state: NodeState, style: LevelMapConfig["pathStyle"]): string
 function hexA(hex: string, a: number): string {
   const n = parseInt(hex.slice(1), 16);
   return `rgba(${(n >> 16) & 255},${(n >> 8) & 255},${n & 255},${a})`;
+}
+
+// ── crisp pixel-art boss figures (rasterize the vector figure once, then resample) ──
+const bossPixelCache = new Map<string, string>();
+const bossPixelPending = new Map<string, Promise<string>>();
+
+function rasterizeBossPixel(svgSized: string, key: string): Promise<string> {
+  const hit = bossPixelCache.get(key);
+  if (hit) return Promise.resolve(hit);
+  const pending = bossPixelPending.get(key);
+  if (pending) return pending;
+  const task = new Promise<string>((resolve) => {
+    const img = new Image();
+    img.onload = () => {
+      const PX = 28;
+      const c = document.createElement("canvas");
+      c.width = PX;
+      c.height = PX;
+      const g = c.getContext("2d")!;
+      g.imageSmoothingEnabled = false;
+      g.drawImage(img, 0, 0, PX, PX);
+      const out = pixelSVG(c);
+      bossPixelCache.set(key, out);
+      bossPixelPending.delete(key);
+      resolve(out);
+    };
+    img.onerror = () => {
+      bossPixelPending.delete(key);
+      resolve("");
+    };
+    img.src = `data:image/svg+xml;utf8,${encodeURIComponent(svgSized)}`;
+  });
+  bossPixelPending.set(key, task);
+  return task;
 }
 
 /** Small ambient motif placed along the track, themed by chapter kind. */

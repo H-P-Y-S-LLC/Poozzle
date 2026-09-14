@@ -6,6 +6,7 @@
  * coplanar tiles never flicker during swaps.
  */
 import * as THREE from "three";
+import { pixelFromVector, pixelTexture, pixelGlowCanvas, quantize } from "./pixel.js";
 
 let glowTex: THREE.CanvasTexture | null = null;
 function bottomGlowTexture(): THREE.CanvasTexture {
@@ -567,21 +568,17 @@ function draw(g: CanvasRenderingContext2D, type: number, cx: number, cy: number,
 }
 
 function makeTexture(type: number): THREE.CanvasTexture {
-  const c = document.createElement("canvas");
-  c.width = TEX;
-  c.height = TEX;
-  const g = c.getContext("2d")!;
-  const cx = TEX / 2;
-  const cy = TEX / 2;
-  const r = TEX * 0.36;
+  // draw the existing vector icon into a tiny pixel grid, then upscale crisp
+  const PIX = 44;
+  const art = quantize(pixelFromVector(TEX, PIX, (g, ref) => draw(g, type, ref / 2, ref / 2, ref * 0.36)), 10, 0.4);
+  return pixelTexture(art, "", Math.round(256 / PIX));
+}
 
-  // transparent sprite (no black backing/base)
-  draw(g, type, cx, cy, r);
-
-  const tex = new THREE.CanvasTexture(c);
-  tex.colorSpace = THREE.SRGBColorSpace;
-  tex.anisotropy = 4;
-  return tex;
+/** Native-aspect pixel art canvas for HUD icons (upscaled, no glow/halo). */
+export function blockerIconCanvas(typeId: number, scale = 8): HTMLCanvasElement {
+  const PIX = 44;
+  const art = quantize(pixelFromVector(TEX, PIX, (g, ref) => draw(g, typeId, ref / 2, ref / 2, ref * 0.36)), 10, 0.4);
+  return pixelGlowCanvas(art, scale, "");
 }
 
 export function makeBlockerSprite(typeId: number): THREE.Group {

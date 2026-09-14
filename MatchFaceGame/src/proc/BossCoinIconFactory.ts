@@ -4,17 +4,20 @@
  * model; we approximate the model as a flat silhouette to stay DOM/canvas-only.
  */
 import { bossShapeParams, type BossBodyType } from "./BossShapeParams.js";
+import { pixelFromVector, pixelGlowCanvas, quantize } from "./pixel.js";
 
 const cache = new Map<string, string>();
 
 /** Draw the coin emblem onto a fresh canvas (also used as a 3D texture source). */
 export function bossCoinIconCanvas(bossId: string, size = 96): HTMLCanvasElement {
+  // draw on a small pixel grid, then upscale crisp (retro pixel look)
+  const PIX = Math.max(16, Math.round(size / 6));
+  const art = quantize(pixelFromVector(size, PIX, (g, ref) => drawCoinVector(g, bossId, ref)), 8, 0.45);
+  return pixelGlowCanvas(art, Math.max(2, Math.round(size / PIX)), "");
+}
+
+function drawCoinVector(g: CanvasRenderingContext2D, bossId: string, size: number): void {
   const p = bossShapeParams(bossId);
-  const c = document.createElement("canvas");
-  c.width = size;
-  c.height = size;
-  const g = c.getContext("2d");
-  if (!g) return c;
   const cx = size / 2;
   const cy = size / 2;
 
@@ -26,7 +29,7 @@ export function bossCoinIconCanvas(bossId: string, size = 96): HTMLCanvasElement
   g.beginPath();
   g.arc(cx, cy, size * 0.46, 0, Math.PI * 2);
   g.fill();
-  g.lineWidth = Math.max(1, size * 0.035);
+  g.lineWidth = Math.max(1, size * 0.06);
   g.strokeStyle = "#6B4E10";
   g.stroke();
 
@@ -34,7 +37,6 @@ export function bossCoinIconCanvas(bossId: string, size = 96): HTMLCanvasElement
   g.translate(cx, cy);
   drawBossSilhouette(g, p.colorPrimary, p.colorAccent, size * 0.34, p.bodyType);
   g.restore();
-  return c;
 }
 
 export function bossCoinIconDataURL(bossId: string, size = 96): string {

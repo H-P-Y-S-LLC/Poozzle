@@ -1,229 +1,184 @@
 /**
- * Flat-drawn element tiles (variant design): elements are 2D canvas sprites so
- * they read clearly as "clearable symbols", distinct from 3D blockers.
- * Silhouettes keep the shape grammar (§5.4.1); faces stay minimal (dot eyes +
- * simple mouth) to preserve the simple style.
+ * Element tiles — "glowing retro pixel" style.
+ * Drawn on a 20×20 pixel grid, upscaled with nearest-neighbour and a soft halo.
+ * Flat sprite (plane), same as before, so it stays distinct from 3D blockers.
  */
 import * as THREE from "three";
 import { TILE_PALETTE, tileColor } from "./Palette.js";
+import { pixelCanvas, pixelTexture, pixelGlowCanvas, mixHex, type Px } from "./pixel.js";
 
-const textureCache = new Map<number, THREE.CanvasTexture>();
-const TEX = 256;
+const S = 20;
+const texCache = new Map<number, THREE.CanvasTexture>();
 
-type Shape = "roundedBox" | "sphere" | "icosa" | "octa" | "cylinder" | "hexPrism" | "flattenedBlob" | string;
+type Shape = string;
 
-function shapePath(g: CanvasRenderingContext2D, shape: Shape, cx: number, cy: number, r: number): void {
-  g.beginPath();
+function inShape(shape: Shape, x: number, y: number): boolean {
+  const cx = (S - 1) / 2;
+  const cy = (S - 1) / 2;
+  const dx = (x - cx) / 1;
+  const dy = (y - cy) / 1;
+  const ax = Math.abs(dx);
+  const ay = Math.abs(dy);
   switch (shape) {
     case "roundedBox": {
-      const s = r * 0.86;
-      const k = s * 0.32;
-      g.moveTo(cx - s + k, cy - s);
-      g.arcTo(cx + s, cy - s, cx + s, cy + s, k);
-      g.arcTo(cx + s, cy + s, cx - s, cy + s, k);
-      g.arcTo(cx - s, cy + s, cx - s, cy - s, k);
-      g.arcTo(cx - s, cy - s, cx + s, cy - s, k);
-      g.closePath();
-      break;
+      // gumdrop / dome: round bottom, tapered top (clearly not a square)
+      const r = 8.4;
+      if (dy >= 0) return ax * ax + dy * dy <= r * r;
+      const taper = 1 - (-dy / r) * 0.6;
+      return ax <= r * taper && -dy <= r * 1.05;
     }
-    case "icosa":
-    case "hexPrism": {
-      for (let i = 0; i < 6; i++) {
-        const a = (Math.PI / 3) * i - Math.PI / 2;
-        const x = cx + Math.cos(a) * r;
-        const y = cy + Math.sin(a) * r;
-        i === 0 ? g.moveTo(x, y) : g.lineTo(x, y);
-      }
-      g.closePath();
-      break;
+    case "icosa": {
+      // pointy-top hexagon
+      const hx = 8.6;
+      const hy = 8;
+      return ay <= hy && ax <= hx * (1 - (ay / hy) * 0.5);
     }
-    case "octa": {
-      g.moveTo(cx, cy - r);
-      g.lineTo(cx + r * 0.82, cy);
-      g.lineTo(cx, cy + r);
-      g.lineTo(cx - r * 0.82, cy);
-      g.closePath();
-      break;
+    case "hexPrism":
+      // wide bean / oval
+      return (ax / 9.2) ** 2 + (ay / 6.8) ** 2 <= 1;
+    case "octa":
+      return ax / 8.8 + ay / 8.8 <= 1;
+    case "cylinder": {
+      // teardrop / droplet
+      const r = 8.4;
+      if (dy < 0) return ax <= r * (1 - (-dy / r) * 0.85) && -dy <= r * 1.05;
+      return dx * dx + dy * dy <= r * r;
     }
-    case "flattenedBlob": {
-      g.ellipse(cx, cy, r * 1.06, r * 0.72, 0, 0, Math.PI * 2);
-      break;
-    }
-    default: // sphere / cylinder (top view = circle)
-      g.arc(cx, cy, r, 0, Math.PI * 2);
+    case "flattenedBlob":
+      // irregular pebble (deterministic notches)
+      return (ax / 8.8) ** 2 + (ay / 6.8) ** 2 <= 1 - (((x * 7 + y * 13) % 5) === 0 ? 0.12 : 0);
+    default:
+      return dx * dx + dy * dy <= 8.8 * 8.8; // sphere
   }
 }
 
-function drawFace(g: CanvasRenderingContext2D, tileType: number, cx: number, cy: number, r: number): void {
-  const ink = "rgba(16,16,24,0.92)";
-  const eyeR = r * 0.16;
-  const eyeDX = r * 0.34;
-  const eyeY = cy - r * 0.06;
-  const mouthY = cy + r * 0.4;
+function drawBase(px: Px, tileType: number): void {
+  const col = tileColor(tileType);
+  const shape = (TILE_PALETTE[tileType]?.shape ?? "sphere") as Shape;
+  const light = mixHex(col.main, 0.35);
+  const mid = col.main;
+  const dark = col.dark;
+  const outline = mixHex(col.dark, -0.45);
 
-  const dot = (x: number): void => {
-    g.fillStyle = ink;
-    g.beginPath();
-    g.arc(x, eyeY, eyeR, 0, Math.PI * 2);
-    g.fill();
-    // tiny highlight
-    g.fillStyle = "rgba(255,255,255,0.85)";
-    g.beginPath();
-    g.arc(x - eyeR * 0.3, eyeY - eyeR * 0.35, eyeR * 0.32, 0, Math.PI * 2);
-    g.fill();
+  for (let y = 0; y < S; y++) {
+    for (let x = 0; x < S; x++) {
+      if (!inShape(shape, x, y)) continue;
+      // 1px dark outline where a neighbour is outside the shape
+      const edge =
+        !inShape(shape, x - 1, y) || !inShape(shape, x + 1, y) || !inShape(shape, x, y - 1) || !inShape(shape, x, y + 1);
+      if (edge) {
+        px(x, y, 1, 1, outline);
+        continue;
+      }
+      const t = y / (S - 1);
+      px(x, y, 1, 1, t < 0.34 ? light : t < 0.72 ? mid : dark);
+    }
+  }
+}
+
+function drawFace(px: Px, tileType: number): void {
+  const ink = "#151820";
+  const eyeL = 6;
+  const eyeR = 13;
+  const eyeY = 7;
+  const eye = (x: number, closed = false): void => {
+    if (closed) {
+      px(x - 1, eyeY + 1, 3, 1, ink);
+      return;
+    }
+    px(x, eyeY, 2, 2, ink);
+    px(x, eyeY, 1, 1, "#ffffff");
   };
-  const closedEye = (x: number): void => {
-    g.strokeStyle = ink;
-    g.lineWidth = r * 0.075;
-    g.lineCap = "round";
-    g.beginPath();
-    g.arc(x, eyeY + eyeR * 0.4, eyeR * 0.9, Math.PI * 1.15, Math.PI * 1.85);
-    g.stroke();
-  };
-  const arcMouth = (up: boolean, w: number): void => {
-    g.strokeStyle = ink;
-    g.lineWidth = r * 0.08;
-    g.lineCap = "round";
-    g.beginPath();
-    if (up) g.arc(cx, mouthY - r * 0.12, w, Math.PI * 0.15, Math.PI * 0.85);
-    else g.arc(cx, mouthY - r * 0.28, w, Math.PI * 1.15, Math.PI * 1.85);
-    g.stroke();
+  const smile = (wide: boolean): void => {
+    const w = wide ? 7 : 5;
+    const x0 = Math.round((S - w) / 2);
+    const y = 13;
+    px(x0, y, 1, 1, ink);
+    px(x0 + w - 1, y, 1, 1, ink);
+    px(x0 + 1, y + 1, w - 2, 1, ink);
+    if (wide) px(x0 + 1, y, w - 2, 1, "#ffffff"); // tooth row
   };
 
   switch (tileType) {
     case 1: // happy
-      dot(cx - eyeDX);
-      dot(cx + eyeDX);
-      arcMouth(false, r * 0.34);
+      eye(eyeL);
+      eye(eyeR);
+      smile(true);
       break;
     case 2: // surprised
-      dot(cx - eyeDX);
-      dot(cx + eyeDX);
-      g.fillStyle = ink;
-      g.beginPath();
-      g.ellipse(cx, mouthY, r * 0.14, r * 0.18, 0, 0, Math.PI * 2);
-      g.fill();
+      eye(eyeL);
+      eye(eyeR);
+      px(9, 13, 2, 2, ink);
+      px(9, 13, 1, 1, "#ffffff");
       break;
     case 3: // sleepy
-      closedEye(cx - eyeDX);
-      closedEye(cx + eyeDX);
-      g.fillStyle = ink;
-      g.beginPath();
-      g.ellipse(cx, mouthY, r * 0.08, r * 0.1, 0, 0, Math.PI * 2);
-      g.fill();
+      eye(eyeL, true);
+      eye(eyeR, true);
+      px(9, 14, 2, 1, ink);
       break;
     case 4: // angry
-      dot(cx - eyeDX);
-      dot(cx + eyeDX);
-      g.strokeStyle = ink;
-      g.lineWidth = r * 0.07;
-      g.lineCap = "round";
-      for (const sx of [-1, 1]) {
-        g.beginPath();
-        g.moveTo(cx + sx * (eyeDX - r * 0.17), eyeY - r * 0.4);
-        g.lineTo(cx + sx * (eyeDX + r * 0.17), eyeY - r * 0.26);
-        g.stroke();
-      }
-      arcMouth(true, r * 0.3);
+      eye(eyeL);
+      eye(eyeR);
+      px(eyeL, eyeY - 2, 3, 1, ink);
+      px(eyeR - 1, eyeY - 2, 3, 1, ink);
+      px(7, 14, 6, 1, ink);
+      px(7, 13, 1, 1, ink);
+      px(12, 13, 1, 1, ink);
       break;
     case 5: // wink
-      dot(cx - eyeDX);
-      closedEye(cx + eyeDX);
-      arcMouth(false, r * 0.34);
+      eye(eyeL);
+      eye(eyeR, true);
+      smile(false);
       break;
     case 6: // grin
-      dot(cx - eyeDX);
-      dot(cx + eyeDX);
-      arcMouth(false, r * 0.42);
+      eye(eyeL);
+      eye(eyeR);
+      smile(true);
       break;
     default: // mud / inert
-      closedEye(cx - eyeDX);
-      closedEye(cx + eyeDX);
-      g.strokeStyle = ink;
-      g.lineWidth = r * 0.06;
-      g.lineCap = "round";
-      g.beginPath();
-      g.moveTo(cx - r * 0.14, mouthY);
-      g.lineTo(cx + r * 0.14, mouthY);
-      g.stroke();
+      eye(eyeL, true);
+      eye(eyeR, true);
+      px(8, 14, 4, 1, ink);
       break;
   }
 }
 
-function makeTexture(tileType: number): THREE.CanvasTexture {
-  const c = document.createElement("canvas");
-  c.width = TEX;
-  c.height = TEX;
-  const g = c.getContext("2d")!;
-  const cx = TEX / 2;
-  const cy = TEX / 2;
-  const r = TEX * 0.4;
-  const col = tileColor(tileType);
-  const shape = (TILE_PALETTE[tileType]?.shape ?? "sphere") as Shape;
-
-  // soft contact shadow inside the sprite so it doesn't float
-  g.save();
-  g.shadowColor = "rgba(0,0,0,0.35)";
-  g.shadowBlur = TEX * 0.06;
-  g.shadowOffsetY = TEX * 0.025;
-  g.fillStyle = "rgba(0,0,0,0.9)";
-  shapePath(g, shape, cx, cy, r);
-  g.fill();
-  g.restore();
-
-  // body with a gentle top-lit gradient
-  const grad = g.createRadialGradient(cx - r * 0.3, cy - r * 0.35, r * 0.15, cx, cy, r * 1.15);
-  grad.addColorStop(0, lightenHex(col.main, 0.28));
-  grad.addColorStop(0.65, col.main);
-  grad.addColorStop(1, col.dark);
-  g.fillStyle = grad;
-  shapePath(g, shape, cx, cy, r);
-  g.fill();
-
-  // crisp rim
-  g.strokeStyle = col.dark;
-  g.lineWidth = TEX * 0.018;
-  shapePath(g, shape, cx, cy, r);
-  g.stroke();
-
-  drawFace(g, tileType, cx, cy, r);
-
-  const tex = new THREE.CanvasTexture(c);
-  tex.colorSpace = THREE.SRGBColorSpace;
-  tex.anisotropy = 4;
-  return tex;
+function texture(tileType: number): THREE.CanvasTexture {
+  let t = texCache.get(tileType);
+  if (t) return t;
+  const art = pixelCanvas(S, (px) => {
+    drawBase(px, tileType);
+    drawFace(px, tileType);
+  });
+  t = pixelTexture(art, "", 12);
+  texCache.set(tileType, t);
+  return t;
 }
 
-function lightenHex(hex: string, t: number): string {
-  const n = parseInt(hex.slice(1), 16);
-  const r = (n >> 16) & 255;
-  const g = (n >> 8) & 255;
-  const b = n & 255;
-  const m = (v: number) => Math.round(v + (255 - v) * t);
-  return `rgb(${m(r)},${m(g)},${m(b)})`;
+/** Native-aspect pixel art canvas for HUD icons (upscaled, no glow). */
+export function elementIconCanvas(tileType: number, scale = 8): HTMLCanvasElement {
+  const art = pixelCanvas(S, (px) => {
+    drawBase(px, tileType);
+    drawFace(px, tileType);
+  });
+  return pixelGlowCanvas(art, scale, "");
 }
 
 export function makeFaceObject(tileType: number): THREE.Group {
   const group = new THREE.Group();
-  let tex = textureCache.get(tileType);
-  if (!tex) {
-    tex = makeTexture(tileType);
-    textureCache.set(tileType, tex);
-  }
   const plane = new THREE.Mesh(
     new THREE.PlaneGeometry(1, 1),
     new THREE.MeshBasicMaterial({
-      map: tex,
+      map: texture(tileType),
       transparent: true,
       side: THREE.DoubleSide,
-      // coplanar sprites must NOT write depth or they z-fight/flicker on swap
       depthWrite: false,
       polygonOffset: true,
       polygonOffsetFactor: -2,
       polygonOffsetUnits: -2,
     })
   );
-  plane.rotation.x = -Math.PI / 2; // lie flat on the board, face up
+  plane.rotation.x = -Math.PI / 2;
   plane.position.y = 0.02;
   plane.userData.isFlatSprite = true;
   group.userData.isFlatSprite = true;

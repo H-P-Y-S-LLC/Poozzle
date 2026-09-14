@@ -68,7 +68,7 @@ export class HudView {
     }
     this.useBtn = document.createElement("button");
     this.useBtn.className = "ultimate-use";
-    this.useBtn.textContent = "大招";
+    this.useBtn.textContent = i18n.t("ultimate");
     this.useBtn.disabled = true;
     this.ultimateWrap.append(slots, this.useBtn);
     root.appendChild(this.ultimateWrap);
@@ -118,18 +118,18 @@ export class HudView {
     this.panelRoot.classList.remove("hidden");
     this.panelRoot.innerHTML = "";
     const panel = div("sheet");
-    panel.innerHTML = `<h2>${cfg.title}</h2><p class="sheet-sub">${cfg.levelLabel} · 最多携带 ${cfg.totalCap} 个道具</p>`;
+    panel.innerHTML = `<h2>${cfg.title}</h2><p class="sheet-sub">${cfg.levelLabel} · ${this.i18n.t("loadoutCap")} ${cfg.totalCap} ${this.i18n.t("loadoutPieces")}</p>`;
 
     const selected: Record<string, number> = { ...cfg.initial };
     const rows = div("loadout-list");
     const footer = div("sheet-actions");
     const countEl = document.createElement("span");
-    const startBtn = mkButton("开始", () => onStart(selected), "primary");
-    const cancelBtn = mkButton("取消", onCancel, "ghost");
+    const startBtn = mkButton(this.i18n.t("start"), () => onStart(selected), "primary");
+    const cancelBtn = mkButton(this.i18n.t("cancel"), onCancel, "ghost");
 
     const sum = () => Object.values(selected).reduce((a, b) => a + b, 0);
     const refresh = (): void => {
-      countEl.textContent = `已选 ${sum()}/${cfg.totalCap}`;
+      countEl.textContent = `${this.i18n.t("selected")} ${sum()}/${cfg.totalCap}`;
       startBtn.disabled = false;
       for (const row of Array.from(rows.children) as HTMLElement[]) {
         const id = row.dataset.item ?? "";
@@ -151,7 +151,7 @@ export class HudView {
       row.innerHTML =
         `<img src="${it.icon}" alt="" />` +
         `<span class="lo-name">${it.name}</span>` +
-        `<span class="lo-owned">拥有 ${it.owned} · 上限 ${it.cap}</span>` +
+        `<span class="lo-owned">${this.i18n.t("owned")} ${it.owned} · ${this.i18n.t("cap")} ${it.cap}</span>` +
         `<button class="lo-minus">−</button><span class="lo-val">0</span><button class="lo-plus">+</button>`;
       row.querySelector<HTMLButtonElement>(".lo-minus")?.addEventListener("click", () => {
         selected[it.id] = Math.max(0, (selected[it.id] ?? 0) - 1);
@@ -196,14 +196,14 @@ export class HudView {
         `<span class="shop-price">${p.priceLabel}</span>`;
       const buy = document.createElement("button");
       buy.className = "btn primary";
-      buy.textContent = "购买";
+      buy.textContent = this.i18n.t("buy");
       buy.disabled = !p.affordable;
       buy.addEventListener("click", () => onBuy(p.id));
       row.appendChild(buy);
       list.appendChild(row);
     }
     const actions = div("sheet-actions");
-    actions.appendChild(mkButton("关闭", onClose, "ghost"));
+    actions.appendChild(mkButton(this.i18n.t("close"), onClose, "ghost"));
     panel.append(list, actions);
     this.panelRoot.appendChild(panel);
   }
@@ -226,6 +226,7 @@ export class HudView {
       return;
     }
     this.ultimateWrap.classList.remove("hidden");
+    this.useBtn.textContent = this.i18n.t("ultimate");
     this.ultReadyState = state.ready;
     this.applyUltimateReady();
 
@@ -241,7 +242,7 @@ export class HudView {
       for (let i = 0; i < 3; i++) this.fillUltimateSlot(i, state.element);
     }
 
-    this.useBtn.title = state.ready ? "使用大招：点击选中，再点棋盘目标释放" : `充能 ${state.count}/${state.required}`;
+    this.useBtn.title = state.ready ? this.i18n.t("ultimateReady") : `${this.i18n.t("charge")} ${state.count}/${state.required}`;
   }
 
   /** Charge/fill animation running: keep the use button disabled until it ends. */
@@ -313,7 +314,7 @@ export class HudView {
       return;
     }
     this.bossCoinTray.classList.remove("hidden");
-    this.bossCoinLabel.textContent = `硬币 ${Math.max(0, state.remaining)}/${state.total}`;
+    this.bossCoinLabel.textContent = `${this.i18n.t("coins")} ${Math.max(0, state.remaining)}/${state.total}`;
     const usable = state.remaining > 0 && !this.coinBusy;
     this.bossCoinTray.classList.toggle("ready-glow", usable);
 

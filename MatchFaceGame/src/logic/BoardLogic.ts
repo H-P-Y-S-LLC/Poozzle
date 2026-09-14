@@ -1142,15 +1142,19 @@ export class BoardLogic {
     if (c.BlockerType > 0) {
       const type = c.BlockerType;
       const hits: BlockerHitEvent["hits"] = [];
+      const emptied: number[] = [];
       for (let i = 0; i < this.cells.length; i++) {
         const b = this.cells[i];
         if (b.BlockerType !== type || !b.bBlockerDestructible) continue;
         b.BlockerHP = 1; // force break regardless of HP / immunity
         hits.push(this.hitBlocker(i));
+        if (b.BlockerType === 0 && b.TileType === 0) emptied.push(i);
       }
       if (hits.length) {
         this.events.push({ type: "blockerHit", hits });
         used = true;
+        // broken blockers leave holes -> settle the board immediately
+        if (emptied.length > 0) this.resolveCascade(new Set(emptied), ClearTriggerType.UltimateTool, true);
       }
     } else if (c.TileType > 0) {
       const type = c.TileType;

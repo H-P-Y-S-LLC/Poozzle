@@ -91,6 +91,7 @@ export class GameFlow {
   private lastUltCount = 0;
   private lastUltElement = 0;
   private shopBtn: HTMLButtonElement | null = null;
+  private mapBtn: HTMLButtonElement | null = null;
   private aiming = false;
   private idleResetAt = performance.now();
   private hinting = false;
@@ -203,9 +204,10 @@ export class GameFlow {
     mapBtn.className = "btn ghost";
     mapBtn.textContent = this.i18n.t("map");
     mapBtn.addEventListener("click", () => this.openLevelSelect());
+    this.mapBtn = mapBtn;
     const shopBtn = document.createElement("button");
     shopBtn.className = "btn ghost";
-    shopBtn.textContent = "商店";
+    shopBtn.textContent = this.i18n.t("shop");
     shopBtn.addEventListener("click", () => this.openShop());
     this.shopBtn = shopBtn;
     const langBtn = document.createElement("button");
@@ -214,6 +216,10 @@ export class GameFlow {
     langBtn.addEventListener("click", () => {
       this.i18n.toggle();
       langBtn.textContent = this.i18n.lang === "en" ? "中文" : "EN";
+      shopBtn.textContent = this.i18n.t("shop");
+      mapBtn.textContent = this.i18n.t("map");
+      this.refreshBossCoin();
+      this.refreshItems();
       if (this.board) this.hud.update(this.board, this.entries[this.index]?.displayName ?? "");
     });
     const soundBtn = document.createElement("button");
@@ -334,6 +340,7 @@ export class GameFlow {
     this.hud.hideOverlay();
     this.mapView.hide();
     if (this.shopBtn) this.shopBtn.classList.add("hidden"); // shop entry is map-only
+    if (this.mapBtn) this.mapBtn.classList.remove("hidden"); // map button is in-game only
     this.endAim();
     this.lastUltCount = 0;
     this.lastUltElement = 0;
@@ -844,7 +851,7 @@ export class GameFlow {
           count: remaining,
           enabled: enabled || this.activeItem === d.id,
           icon: itemIconDataURL(d.id, 40, !enabled && this.activeItem !== d.id),
-          title: `${d.name}：本关剩余 ${remaining}`,
+          title: `${d.name} · ${this.i18n.t("itemRemaining")} ${remaining}`,
         };
       })
     );
@@ -981,6 +988,7 @@ export class GameFlow {
   private openLevelSelect(): void {
     this.hud.hidePanels();
     if (this.shopBtn) this.shopBtn.classList.remove("hidden"); // shop entry on the map page
+    if (this.mapBtn) this.mapBtn.classList.add("hidden"); // redundant on the map itself
     this.mapView.show(
       [...this.entries].sort((a, b) => a.order - b.order),
       { unlocked: new Set(this.save.unlocked), stars: this.save.stars },
@@ -1019,7 +1027,7 @@ export class GameFlow {
       .filter((d) => d.cap > 0);
     const initial = this.save.loadouts[entry.levelId] ?? {};
     this.hud.showLoadout(
-      { title: "装配道具", levelLabel: entry.displayName || entry.levelId, totalCap, items, initial },
+      { title: this.i18n.t("loadout"), levelLabel: entry.displayName || entry.levelId, totalCap, items, initial },
       (selection) => {
         this.save.loadouts[entry.levelId] = selection;
         persist(this.save);
@@ -1043,7 +1051,7 @@ export class GameFlow {
         return {
           id: p.id,
           label,
-          desc: "关卡内可使用的道具",
+          desc: this.i18n.t("itemUseHint"),
           priceLabel: `${p.currencyId === "gem" ? "◆" : "◎"} ${p.amount}`,
           icon: itemIconDataURL(p.grant.itemId, 40),
           affordable: (this.save.wallet[p.currencyId] ?? 0) >= p.amount,
@@ -1051,7 +1059,7 @@ export class GameFlow {
       });
     this.hud.showShop(
       {
-        title: "商店",
+        title: this.i18n.t("shop"),
         wallet: { coin: this.save.wallet["coin"] ?? 0, gem: this.save.wallet["gem"] ?? 0 },
         products: list,
       },

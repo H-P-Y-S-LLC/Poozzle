@@ -79,8 +79,10 @@ body {
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 12px 16px;
+  min-height: 64px;
+  padding: 10px 16px;
   border-bottom: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.02);
 }
 
 .map3d-title {
@@ -111,6 +113,8 @@ body {
   flex: 1;
   overflow-y: auto;
   position: relative;
+  padding-top: calc(14px + env(safe-area-inset-top));
+  padding-bottom: 48px;
   scrollbar-width: none;
   -ms-overflow-style: none;
   touch-action: pan-y; /* native touch scrolling keeps its own momentum */
@@ -133,6 +137,7 @@ body {
   position: relative;
   width: 100%;
 }
+
 
 .map-node-abs {
   position: absolute;
@@ -263,9 +268,9 @@ body {
 
 /* boss node with animated procedural figure */
 .map-node.boss-node {
-  width: 158px;
-  height: 158px;
-  border-radius: 30px;
+  width: 124px;
+  height: 124px;
+  border-radius: 24px;
   border: 0;
   background: transparent;
   box-shadow: none;
@@ -280,8 +285,8 @@ body {
 
 .boss-fig-wrap {
   position: relative;
-  width: 140px;
-  height: 132px;
+  width: 112px;
+  height: 106px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -291,8 +296,8 @@ body {
   position: absolute;
   left: 50%;
   top: 50%;
-  width: 250px;
-  height: 250px;
+  width: 200px;
+  height: 200px;
   transform: translate(-50%, -50%);
   pointer-events: none;
 }
@@ -440,7 +445,7 @@ canvas {
 
 .hud-boss {
   position: absolute;
-  top: 64px;
+  top: 92px;
   left: 0;
   right: 0;
   display: flex;
@@ -1261,7 +1266,7 @@ body {
 
   /* boss strip labels */
   .hud-boss {
-    top: calc(56px + env(safe-area-inset-top));
+    top: calc(122px + env(safe-area-inset-top));
   }
   .boss-hud {
     width: min(92vw, 520px);
@@ -1336,6 +1341,16 @@ body {
     height: 100vh;
     height: 100dvh;
   }
+  .map3d-header {
+    min-height: calc(48px + env(safe-area-inset-top));
+    padding: calc(4px + env(safe-area-inset-top)) 8px 4px;
+    padding-right: 190px;
+    padding-left: 150px;
+  }
+  .map3d-title {
+    font-size: 13px;
+    letter-spacing: 0.1em;
+  }
   .map-scroll {
     padding: 0 4px;
   }
@@ -1399,4 +1414,107 @@ body {
     top: calc(48px + env(safe-area-inset-top));
     bottom: auto;
   }
+}
+
+/* ───────────────────────── retro pixel-glow theme ───────────────────────── */
+
+:root {
+  --px-glow: 0 0 0 1px rgba(255, 255, 255, 0.05) inset, 0 0 12px rgba(90, 160, 255, 0.14);
+}
+
+/* subtle CRT scanlines over the whole UI */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  pointer-events: none;
+  background: repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.18) 0 1px, rgba(0, 0, 0, 0) 1px 3px);
+  opacity: 0.45;
+}
+
+/* pixel corners + glow on panels & controls */
+.btn,
+.hud-stat,
+.goal-chip,
+.ultimate-wrap,
+.item-bar,
+.bosscoin-tray,
+.hud-wallet,
+.sheet,
+.panel-root .sheet,
+.loadout-row,
+.shop-row,
+.item-btn,
+.bosscoin-coin,
+.ultimate-slot {
+  border-radius: 3px;
+}
+
+.btn,
+.hud-stat,
+.goal-chip,
+.ultimate-wrap,
+.item-bar,
+.bosscoin-tray,
+.hud-wallet {
+  box-shadow: var(--px-glow);
+}
+
+.btn:hover:not(:disabled) {
+  box-shadow: 0 0 0 1px rgba(120, 180, 255, 0.5) inset, 0 0 16px rgba(90, 160, 255, 0.35);
+}
+
+.btn.primary,
+.ultimate-use.ready {
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.18) inset, 0 0 18px rgba(90, 160, 255, 0.5);
+}
+
+/* pixel-art map nodes: squares with hard glow */
+.map-node {
+  border-radius: 4px;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.05) inset, 0 0 10px rgba(0, 0, 0, 0.5);
+}
+.map-node.boss-node {
+  border-radius: 6px;
+}
+.chapter-band {
+  border-radius: 6px;
+}
+
+/* glowing numbers / labels */
+.hud-value,
+.map-node-num,
+.map-boss-label,
+.bosscoin-uses,
+.shop-price,
+.wallet-item b {
+  text-shadow: 0 0 6px currentColor;
+}
+.map3d-title {
+  text-shadow: 0 0 10px rgba(120, 180, 255, 0.5);
+}
+
+/* pixel boss figure holder */
+.boss-fig-holder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.boss-fig-holder svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  image-rendering: pixelated;
+}
+
+/* scoreboard: a little more breathing room */
+.hud-stat {
+  padding: 8px 16px;
+  gap: 6px;
+}
+.hud-top {
+  gap: clamp(10px, 3vw, 34px);
 }

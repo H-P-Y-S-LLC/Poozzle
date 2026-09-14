@@ -5,6 +5,7 @@
  */
 import * as THREE from "three";
 import { SpecialType } from "../logic/Match3Types.js";
+import { pixelFromVector, pixelTexture } from "./pixel.js";
 
 const TEX = 256;
 const maskCache = new Map<number, THREE.CanvasTexture>();
@@ -54,26 +55,23 @@ function drawGlyph(g: CanvasRenderingContext2D, special: SpecialType, cx: number
 }
 
 function makeMask(special: SpecialType): THREE.CanvasTexture {
-  const c = document.createElement("canvas");
-  c.width = TEX;
-  c.height = TEX;
-  const g = c.getContext("2d")!;
-  const cx = TEX / 2;
-  const cy = TEX / 2;
-  const r = TEX * 0.45;
-  g.lineCap = "round";
-  g.lineJoin = "round";
-  // dark outline behind the strokes keeps the glyph readable on any board
-  g.strokeStyle = "rgba(18,20,32,0.9)";
-  g.fillStyle = "rgba(18,20,32,0.9)";
-  drawGlyph(g, special, cx, cy, r, true);
-  // crisp white glyph -> tinted by the flowing gradient (no blurred edge)
-  g.strokeStyle = "#ffffff";
-  g.fillStyle = "#ffffff";
-  drawGlyph(g, special, cx, cy, r, false);
-  const tex = new THREE.CanvasTexture(c);
-  tex.colorSpace = THREE.SRGBColorSpace;
-  return tex;
+  const PIX = 24;
+  const art = pixelFromVector(TEX, PIX, (g, ref) => {
+    const cx = ref / 2;
+    const cy = ref / 2;
+    const r = ref * 0.45;
+    g.lineCap = "round";
+    g.lineJoin = "round";
+    // dark outline behind the strokes keeps the glyph readable on any board
+    g.strokeStyle = "rgba(18,20,32,0.9)";
+    g.fillStyle = "rgba(18,20,32,0.9)";
+    drawGlyph(g, special, cx, cy, r, true);
+    // white glyph -> tinted by the flowing gradient (no blurred edge)
+    g.strokeStyle = "#ffffff";
+    g.fillStyle = "#ffffff";
+    drawGlyph(g, special, cx, cy, r, false);
+  });
+  return pixelTexture(art, "", Math.round(256 / PIX));
 }
 
 const VERT = `

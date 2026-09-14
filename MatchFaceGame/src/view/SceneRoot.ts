@@ -71,7 +71,7 @@ export class SceneRoot {
     this.boardSize = { rows, cols };
     // clear previous frame
     for (const child of [...this.boardRoot.children]) {
-      if (child.name === "floor" || child.name === "frame") this.boardRoot.remove(child);
+      if (child.name === "floor" || child.name === "frame" || child.name === "grid") this.boardRoot.remove(child);
     }
     const w = cols * cellSize;
     const d = rows * cellSize;
@@ -81,6 +81,24 @@ export class SceneRoot {
     floor.position.y = -0.3; // top surface at y = 0 so pieces rest on the board
     floor.receiveShadow = true;
     this.boardRoot.add(floor);
+
+    // interleaved checker + grid lines so the tiles read clearly
+    const grid = new THREE.Mesh(
+      new THREE.PlaneGeometry(w, d),
+      new THREE.MeshBasicMaterial({
+        map: boardGridTexture(rows, cols),
+        transparent: true,
+        depthWrite: false,
+        polygonOffset: true,
+        polygonOffsetFactor: -1,
+        polygonOffsetUnits: -1,
+      })
+    );
+    grid.name = "grid";
+    grid.rotation.x = -Math.PI / 2;
+    grid.position.y = 0.004;
+    grid.renderOrder = 0; // under the tile sprites (which start at renderOrder 1)
+    this.boardRoot.add(grid);
 
     const frameGeo = new THREE.BoxGeometry(w + 1.5, 0.25, d + 1.5);
     const frame = new THREE.Mesh(frameGeo, boardFrameMaterial());
@@ -119,6 +137,26 @@ export class SceneRoot {
       const span = (needW * 2) / aspect;
       top += span - (top - bottom);
       hw = needW;
+    }
+
+    // lock the board into a band that avoids the top HUD and bottom controls:
+    // scale the whole view up (board scales down proportionally) and centre the
+    // content inside the safe band.
+    const portrait = aspect < 1;
+    const topFrac = portrait ? 0.22 : 0.14;
+    const botFrac = portrait ? 0.2 : 0.12;
+    const bandFrac = Math.max(0.3, 1 - topFrac - botFrac);
+    const spanVert = top - bottom;
+    const H2 = spanVert / 2 / bandFrac;
+    const center = this.bossStrip / 2 - (botFrac - topFrac) * H2;
+    top = center + H2;
+    bottom = center - H2;
+    hw = ((top - bottom) / 2) * aspect;
+    if (hw < needW) {
+      hw = needW;
+      const H = needW / aspect;
+      top = center + H;
+      bottom = center - H;
     }
 
     this.camera.left = -hw;
@@ -179,4 +217,48 @@ export class SceneRoot {
     this.stop();
     this.renderer.dispose();
   }
+}
+
+// ── procedural board grid (checker + lines), sized to the board ──
+const gridCache = new Map<string, THREE.CanvasTexture>();
+function boardGridTexture(rows: number, cols: number): THREE.CanvasTexture {
+  const key = `${rows}x${cols}`;
+  const hit = gridCache.get(key);
+  if (hit) return hit;
+  const CELL = 64;
+  const c = document.createElement("canvas");
+  c.width = cols * CELL;
+  c.height = rows * CELL;
+  const g = c.getContext("2d")!;
+
+  // interleaved checker cells
+  for (let r = 0; r < rows; r++) {
+    for (let col = 0; col < cols; col++) {
+      if ((r + col) % 2 === 0) {
+        g.fillStyle = "rgba(255,255,255,0.045)";
+        g.fillRect(col * CELL, r * CELL, CELL, CELL);
+      }
+    }
+  }
+  // grid lines
+  g.strokeStyle = "rgba(255,255,255,0.075)";
+  g.lineWidth = 2;
+  for (let col = 0; col <= cols; col++) {
+    g.beginPath();
+    g.moveTo(col * CELL, 0);
+    g.lineTo(col * CELL, rows * CELL);
+    g.stroke();
+  }
+  for (let r = 0; r <= rows; r++) {
+    g.beginPath();
+    g.moveTo(0, r * CELL);
+    g.lineTo(cols * CELL, r * CELL);
+    g.stroke();
+  }
+
+  const tex = new THREE.CanvasTexture(c);
+  tex.colorSpace = THREE.SRGBColorSpace;
+  tex.anisotropy = 4;
+  gridCache.set(key, tex);
+  return tex;
 }
