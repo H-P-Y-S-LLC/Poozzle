@@ -7,17 +7,14 @@ import { bossShapeParams, type BossBodyType } from "./BossShapeParams.js";
 
 const cache = new Map<string, string>();
 
-export function bossCoinIconDataURL(bossId: string, size = 96): string {
-  const key = `${bossId}@${size}`;
-  const hit = cache.get(key);
-  if (hit) return hit;
-
+/** Draw the coin emblem onto a fresh canvas (also used as a 3D texture source). */
+export function bossCoinIconCanvas(bossId: string, size = 96): HTMLCanvasElement {
   const p = bossShapeParams(bossId);
   const c = document.createElement("canvas");
   c.width = size;
   c.height = size;
   const g = c.getContext("2d");
-  if (!g) return "";
+  if (!g) return c;
   const cx = size / 2;
   const cy = size / 2;
 
@@ -37,8 +34,14 @@ export function bossCoinIconDataURL(bossId: string, size = 96): string {
   g.translate(cx, cy);
   drawBossSilhouette(g, p.colorPrimary, p.colorAccent, size * 0.34, p.bodyType);
   g.restore();
+  return c;
+}
 
-  const url = c.toDataURL("image/png");
+export function bossCoinIconDataURL(bossId: string, size = 96): string {
+  const key = `${bossId}@${size}`;
+  const hit = cache.get(key);
+  if (hit) return hit;
+  const url = bossCoinIconCanvas(bossId, size).toDataURL("image/png");
   cache.set(key, url);
   return url;
 }

@@ -12,6 +12,8 @@ import { makeBlockerObject } from "./proc/BlockerFactory.js";
 import { generateBossModel } from "./proc/BossShapeGenerator.js";
 import { BOSS_SHAPE_PARAMS, bossShapeParams } from "./proc/BossShapeParams.js";
 import { SpecialType } from "./logic/Match3Types.js";
+import { buildItemModel } from "./proc/ItemIconFactory.js";
+import { bossCoinIconCanvas } from "./proc/BossCoinIconFactory.js";
 
 interface Item {
   group: string;
@@ -63,6 +65,28 @@ const SPECIAL_NAMES: Record<number, string> = {
   [SpecialType.ColorBomb]: "Color Bomb 彩球",
 };
 
+const ITEM_NAMES: Record<string, string> = {
+  hammer: "Hammer 锤子",
+  shuffle: "Shuffle 洗牌",
+  rocket: "Rocket 导弹",
+  glove: "Glove 手套",
+  finger: "Finger 手指",
+};
+
+/** BossCoin: gold disc with the boss emblem on the face and a dark back. */
+function buildCoinModel(bossId: string): THREE.Group {
+  const g = new THREE.Group();
+  const emblem = new THREE.CanvasTexture(bossCoinIconCanvas(bossId, 256));
+  emblem.colorSpace = THREE.SRGBColorSpace;
+  const side = new THREE.MeshStandardMaterial({ color: 0x8a6a16, metalness: 0.75, roughness: 0.3 });
+  const face = new THREE.MeshStandardMaterial({ map: emblem, metalness: 0.35, roughness: 0.4 });
+  const back = new THREE.MeshStandardMaterial({ color: 0x5c4a14, metalness: 0.6, roughness: 0.45 });
+  const coin = new THREE.Mesh(new THREE.CylinderGeometry(0.62, 0.62, 0.12, 48), [side, face, back]);
+  coin.rotation.x = Math.PI / 2;
+  g.add(coin);
+  return g;
+}
+
 function buildItems(): Item[] {
   const items: Item[] = [];
   for (let t = 1; t <= 7; t++) {
@@ -83,6 +107,20 @@ function buildItems(): Item[] {
       id: `Boss ${String(bossIndex).padStart(2, "0")} · ${id}`,
       name: p.name,
       build: () => generateBossModel(p).group,
+    });
+  }
+  for (const id of Object.keys(ITEM_NAMES)) {
+    items.push({ group: "Items 道具", id: `Item · ${id}`, name: ITEM_NAMES[id], build: () => buildItemModel(id) });
+  }
+  let coinIndex = 0;
+  for (const id of Object.keys(BOSS_SHAPE_PARAMS)) {
+    coinIndex++;
+    const p = bossShapeParams(id);
+    items.push({
+      group: "BossCoins 硬币",
+      id: `Coin ${String(coinIndex).padStart(2, "0")} · ${id}`,
+      name: `${p.name} Coin`,
+      build: () => buildCoinModel(id),
     });
   }
   return items;
