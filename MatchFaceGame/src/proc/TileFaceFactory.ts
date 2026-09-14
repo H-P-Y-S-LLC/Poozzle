@@ -76,13 +76,13 @@ function drawBase(px: Px, tileType: number): void {
   }
 }
 
-function drawFace(px: Px, tileType: number): void {
+function drawFace(px: Px, tileType: number, blink = false): void {
   const ink = "#151820";
   const eyeL = 6;
   const eyeR = 13;
   const eyeY = 7;
   const eye = (x: number, closed = false): void => {
-    if (closed) {
+    if (closed || blink) {
       px(x - 1, eyeY + 1, 3, 1, ink);
       return;
     }
@@ -143,16 +143,22 @@ function drawFace(px: Px, tileType: number): void {
   }
 }
 
-function texture(tileType: number): THREE.CanvasTexture {
-  let t = texCache.get(tileType);
+function texture(tileType: number, blink = false): THREE.CanvasTexture {
+  const key = tileType + (blink ? 1000 : 0);
+  let t = texCache.get(key);
   if (t) return t;
   const art = pixelCanvas(S, (px) => {
     drawBase(px, tileType);
-    drawFace(px, tileType);
+    drawFace(px, tileType, blink);
   });
   t = pixelTexture(art, "", 12);
-  texCache.set(tileType, t);
+  texCache.set(key, t);
   return t;
+}
+
+/** Eyes-closed frame used for the random blink animation. */
+export function elementBlinkTexture(tileType: number): THREE.CanvasTexture {
+  return texture(tileType, true);
 }
 
 /** Native-aspect pixel art canvas for HUD icons (upscaled, no glow). */
@@ -182,6 +188,14 @@ export function makeFaceObject(tileType: number): THREE.Group {
   plane.position.y = 0.02;
   plane.userData.isFlatSprite = true;
   group.userData.isFlatSprite = true;
+  group.userData.blinkMat = plane.material;
+  // random blinking state per tile
+  group.userData.blink = {
+    open: texture(tileType, false),
+    closed: elementBlinkTexture(tileType),
+    nextAt: performance.now() + 1500 + Math.random() * 5000,
+    until: 0,
+  };
   group.add(plane);
   return group;
 }

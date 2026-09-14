@@ -55,6 +55,21 @@ export class BoardView {
       }
       const pu = obj.userData.particlesUpdate as ((t: number) => void) | undefined;
       if (pu) pu(this.animT);
+      // random blink for element faces
+      const blink = obj.userData.blink as
+        | { open: THREE.Texture; closed: THREE.Texture; nextAt: number; until: number }
+        | undefined;
+      if (blink) {
+        const mat = obj.userData.blinkMat as THREE.MeshBasicMaterial | undefined;
+        if (!mat) continue;
+        const now = performance.now();
+        if (now >= blink.until && mat.map === blink.closed) mat.map = blink.open;
+        if (now >= blink.nextAt && blink.until <= now) {
+          mat.map = blink.closed;
+          blink.until = now + 130;
+          blink.nextAt = now + 1800 + Math.random() * 5200;
+        }
+      }
     }
     for (const obj of this.blockers.values()) {
       const pu = obj.userData.particlesUpdate as ((t: number) => void) | undefined;
@@ -235,6 +250,8 @@ export class BoardView {
     outer.userData.spin = inner.userData.spin === true;
     outer.userData.isFlatSprite = inner.userData.isFlatSprite === true;
     outer.userData.particlesUpdate = inner.userData.particlesUpdate;
+    outer.userData.blink = inner.userData.blink;
+    outer.userData.blinkMat = inner.userData.blinkMat;
     return outer;
   }
 
