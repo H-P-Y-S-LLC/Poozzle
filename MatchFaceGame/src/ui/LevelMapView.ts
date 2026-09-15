@@ -185,26 +185,29 @@ export class LevelMapView {
         const y = yTop + (span * (k + 0.35)) / n + (rnd(k * 11) - 0.5) * 34;
         const scale = 0.7 + rnd(k * 13) * 0.9;
         const rot = (rnd(k * 17) - 0.5) * 70;
-        const m = el("div", "chapter-motif");
+        const m = el("div", "chapter-motif pixel-motif");
+        m.classList.add(rnd(k * 23) < 0.5 ? "bfd-sway" : "bfd-float");
+        m.style.animationDelay = `${(rnd(k * 29) * 3).toFixed(2)}s`;
         m.style.left = `${leftPct}%`;
         m.style.top = `${y}px`;
         m.style.width = `${54 * scale}px`;
         m.style.height = `${48 * scale}px`;
-        m.style.transform = `translate(-50%,-50%) rotate(${rot}deg)`;
-        m.style.opacity = `${0.24 + rnd(k * 19) * 0.24}`;
-        m.innerHTML = motifSVG(t.kind, t.color);
+        m.style.transform = `translate(-50%,-50%) rotate(${rot}deg) scaleX(${rnd(k * 31) < 0.5 ? -1 : 1})`;
+        m.style.opacity = `${0.3 + rnd(k * 19) * 0.28}`;
+        m.innerHTML = motifPixelSVG(t.kind, t.color);
         track.appendChild(m);
       }
       // landmark: one bigger motif right at the chapter entry (bottom) and boss (top)
       for (const [yy, side] of [[yBot - SPACING * 0.7, 12], [yTop + SPACING * 0.7, 74]] as Array<[number, number]>) {
-        const m = el("div", "chapter-motif");
+        const m = el("div", "chapter-motif pixel-motif");
+        m.classList.add("bfd-sway");
         m.style.left = `${side}%`;
         m.style.top = `${yy}px`;
-        m.style.width = "86px";
-        m.style.height = "76px";
-        m.style.transform = `translate(-50%,-50%) rotate(${(rnd(yy) - 0.5) * 40}deg)`;
-        m.style.opacity = "0.5";
-        m.innerHTML = motifSVG(t.kind, t.color);
+        m.style.width = "92px";
+        m.style.height = "82px";
+        m.style.transform = `translate(-50%,-50%) rotate(${(rnd(yy) - 0.5) * 30}deg)`;
+        m.style.opacity = "0.55";
+        m.innerHTML = motifPixelSVG(t.kind, t.color);
         track.appendChild(m);
       }
     }
@@ -432,53 +435,6 @@ function rasterizeBossPixel(svgSized: string, key: string): Promise<string> {
   return task;
 }
 
-/** Small ambient motif placed along the track, themed by chapter kind. */
-function motifSVG(kind: string, color: string): string {
-  const parts: string[] = [];
-  switch (kind) {
-    case "web":
-      for (let i = 0; i < 4; i++) {
-        const ang = (Math.PI / 2) * (i / 3) + Math.PI * 0.5;
-        parts.push(`<line x1="32" y1="32" x2="${32 + Math.cos(ang) * 26}" y2="${32 + Math.sin(ang) * 26}" stroke="${color}" stroke-width="1.2" opacity="0.8"/>`);
-      }
-      parts.push(`<path d="M8 32 Q 32 48 56 32" fill="none" stroke="${color}" stroke-width="1.2" opacity="0.7"/>`);
-      break;
-    case "leaves":
-      for (const [x, y, rot] of [[20, 34, -25], [42, 26, 30]]) {
-        parts.push(`<g transform="translate(${x} ${y}) rotate(${rot})"><path d="M0 0 Q8 -9 17 0 Q8 9 0 0" fill="${color}" opacity="0.75"/><line x1="0" y1="0" x2="16" y2="0" stroke="#10121a" stroke-width="0.8" opacity="0.5"/></g>`);
-      }
-      break;
-    case "drops":
-      for (const [x, y, s] of [[24, 30, 1], [42, 38, 0.75]]) {
-        parts.push(`<g transform="translate(${x} ${y}) scale(${s})"><path d="M0 -10 C 6 -2 8 2 8 5 A 8 8 0 0 1 -8 5 C -8 2 -6 -2 0 -10Z" fill="${color}" opacity="0.8"/></g>`);
-      }
-      break;
-    case "crumbs":
-      for (const [x, y] of [[22, 34], [34, 26], [46, 36]]) {
-        parts.push(`<circle cx="${x}" cy="${y}" r="2.2" fill="${color}" opacity="0.8"/>`);
-      }
-      parts.push(`<path d="M14 42 Q 32 34 50 44" fill="none" stroke="${color}" stroke-width="1.2" stroke-dasharray="3 4" opacity="0.7"/>`);
-      break;
-    case "slime":
-      parts.push(`<path d="M10 34 Q 24 26 36 34 Q 46 40 56 32" fill="none" stroke="${color}" stroke-width="4" stroke-linecap="round" opacity="0.55"/>`);
-      break;
-    case "dust":
-      for (let i = 0; i < 5; i++) {
-        parts.push(`<circle cx="${14 + i * 9}" cy="${26 + ((i * 13) % 18)}" r="${1.8 + (i % 2)}" fill="${color}" opacity="0.7"/>`);
-      }
-      break;
-    default: {
-      // soil: mound + grass
-      parts.push(`<ellipse cx="32" cy="46" rx="20" ry="5" fill="${color}" opacity="0.5"/>`);
-      for (const [x, h] of [[22, 12], [30, 16], [42, 10]]) {
-        parts.push(`<path d="M${x} 44 C ${x - 3} ${44 - h * 0.6} ${x + 3} ${44 - h} ${x} ${44 - h}" fill="none" stroke="${color}" stroke-width="1.6" stroke-linecap="round" opacity="0.8"/>`);
-      }
-      break;
-    }
-  }
-  return `<svg viewBox="0 0 64 56" xmlns="http://www.w3.org/2000/svg">${parts.join("")}</svg>`;
-}
-
 /** Procedural boss figure for the map, derived from the same params as battle. */
 function bossFigureSVG(p: BossShapeParams): string {
   const primary = p.colorPrimary;
@@ -670,6 +626,181 @@ function decorKind(bossId: string, p: BossShapeParams): string {
       if (p.feature === "wings2") return "dust";
       return "soil";
   }
+}
+
+/** Build a crisp pixel-art SVG from an ASCII grid; '.' is transparent. */
+function pixelSprite(rows: string[], palette: Record<string, string>): string {
+  const h = rows.length;
+  const w = rows[0]?.length ?? 0;
+  const rects: string[] = [];
+  for (let y = 0; y < h; y++) {
+    for (let x = 0; x < w; x++) {
+      const ch = rows[y][x];
+      if (ch === "." || ch === " ") continue;
+      const fill = palette[ch];
+      if (!fill) continue;
+      rects.push(`<rect x="${x}" y="${y}" width="1" height="1" fill="${fill}"/>`);
+    }
+  }
+  return `<svg viewBox="0 0 ${w} ${h}" shape-rendering="crispEdges">${rects.join("")}</svg>`;
+}
+
+// ── pixel creatures & plants (per chapter, chosen by theme kind) ──
+const SPRITES: Record<string, string[][]> = {
+  soil: [
+    [
+      "...AAA....",
+      "..AABA....",
+      ".AAAAAA...",
+      "...LL.....",
+      "...LL.....",
+      "..LLLL....",
+      "..........",
+      "...B..B...",
+      "..B....B..",
+      ".B......B.",
+    ],
+    [
+      "..........",
+      "....A.....",
+      "...AAA....",
+      "..AA.AA...",
+      "...A.A....",
+      "....A.....",
+      "..........",
+    ],
+  ],
+  web: [
+    [
+      "..A....A..",
+      "...A..A...",
+      "..AAAAAA..",
+      ".AA.AA.AA.",
+      "AAA.AA.AAA",
+      ".AA.AA.AA.",
+      "..AAAAAA..",
+      "...A..A...",
+      "..A....A..",
+    ],
+    [
+      "A.........",
+      ".A.A.A.A..",
+      "..A.A.A...",
+      "A.A.A.A.A.",
+      "..A.A.A...",
+    ],
+  ],
+  leaves: [
+    [
+      "....A.....",
+      "...AAA....",
+      "..AALAA...",
+      ".AALLAA...",
+      "AALLAA....",
+      ".AAAA.....",
+      "..AA......",
+      "...A......",
+    ],
+    [
+      "..........",
+      "..B....B..",
+      "...B..B...",
+      "..AAAAAA..",
+      ".AA.AA.AA.",
+      "..AAAAAA..",
+      "...B..B...",
+      "..B....B..",
+    ],
+  ],
+  drops: [
+    [
+      "...A......",
+      "...A......",
+      "..AAA.....",
+      "..AAA.....",
+      "...A......",
+      "..........",
+      "...A......",
+      "...A......",
+    ],
+    [
+      "..A.......",
+      "...A......",
+      "AA.A......",
+      "...A......",
+      "..A.A.....",
+      "...A......",
+    ],
+  ],
+  dust: [
+    [
+      "A....A....",
+      ".A..A.A...",
+      "AAAAAAAA..",
+      "...BB.....",
+      "..BBBB....",
+      "...BB.....",
+      "..........",
+    ],
+    [
+      "....A.....",
+      "...AAA....",
+      "..A.A.A...",
+      "...AAA....",
+      "....A.....",
+      "..A...A...",
+    ],
+  ],
+  crumbs: [
+    [
+      "..........",
+      "..B....B..",
+      "...B..B...",
+      "..AAAAAA..",
+      "AAA.AA.AAA",
+      "..AAAAAA..",
+      "...B..B...",
+      "..B....B..",
+    ],
+    [
+      "..........",
+      "..AA......",
+      ".AAAA.....",
+      "..AA......",
+      "..........",
+      "..A.A.....",
+    ],
+  ],
+  slime: [
+    [
+      "..........",
+      "..A....A..",
+      "...A..A...",
+      ".AAAAAAAA.",
+      "..AAAAAA..",
+      "...AAAA...",
+      "..........",
+    ],
+    [
+      "...AAA....",
+      "..AABAA...",
+      "..AAAAA...",
+      "...LLL....",
+      "...LLL....",
+    ],
+  ],
+};
+
+/** Themed pixel prop for a chapter (accent + dark/light derived from the hue). */
+function motifPixelSVG(kind: string, color: string): string {
+  const set = SPRITES[kind] ?? SPRITES.soil;
+  const sprite = set[Math.floor(Math.random() * set.length)];
+  const palette: Record<string, string> = {
+    A: color,
+    B: "rgba(20,22,32,0.85)",
+    L: "rgba(255,255,255,0.55)",
+  };
+  return pixelSprite(sprite, palette);
 }
 
 function el(tag: string, cls: string): HTMLElement {

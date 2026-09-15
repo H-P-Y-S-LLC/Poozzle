@@ -1550,3 +1550,15 @@ body::after {
 .hud-top {
   gap: clamp(10px, 3vw, 34px);
 }
+
+/* pixel props along the map road */
+.chapter-motif.pixel-motif svg {
+  image-rendering: pixelated;
+  filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.45));
+}
+.chapter-motif.pixel-motif.bfd-sway {
+  animation: bfdSway 3.6s ease-in-out infinite;
+}
+.chapter-motif.pixel-motif.bfd-float {
+  animation: bfdFloat 3s ease-in-out infinite;
+}
