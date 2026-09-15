@@ -518,12 +518,12 @@ canvas {
 .goal-chip {
   display: flex;
   align-items: center;
-  gap: 6px;
-  background: var(--panel);
-  border: 1px solid var(--border);
+  gap: 9px;
+  background: none;
+  border: none;
   border-radius: 999px;
-  padding: 6px 12px;
-  font-size: 13px;
+  padding: 9px 18px;
+  font-size: 22.8px;
 }
 
 .goal-chip b {
@@ -531,18 +531,18 @@ canvas {
 }
 
 .goal-icon {
-  width: 22px;
-  height: 22px;
+  width: 39.6px;
+  height: 39.6px;
   display: block;
 }
 
 .goal-chip.goal-blocker {
-  border-color: rgba(255, 214, 10, 0.55);
+  border: 1px solid rgba(255, 214, 10, 0.55);
 }
 
 .goal-chip.goal-blocker .goal-icon {
-  width: 24px;
-  height: 24px;
+  width: 43.2px;
+  height: 43.2px;
 }
 
 .goal-count {
@@ -561,15 +561,15 @@ canvas {
 
 .collect-ghost {
   position: fixed;
-  width: 34px;
-  height: 34px;
-  margin-left: -17px;
-  margin-top: -17px;
+  left: 0;
+  top: 0;
+  width: 51px;
+  height: 51px;
   z-index: 40;
   pointer-events: none;
-  transition: transform 0.5s cubic-bezier(0.25, 0.7, 0.3, 1), opacity 0.5s ease;
-  will-change: transform, opacity;
-  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.4));
+  transform: translate(-50%, -50%);
+  will-change: transform, left, top, opacity;
+  filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.45));
 }
 
 /* ===== ultimate skill (3 charge slots + use button) ===== */
@@ -1301,7 +1301,7 @@ body {
     gap: 6px;
   }
   .goal-chip {
-    font-size: 11px;
+    font-size: 13.2px;
   }
   .ultimate-wrap {
     left: 50%;
@@ -1468,7 +1468,6 @@ body::after {
 /* pixel corners + glow on panels & controls */
 .btn,
 .hud-stat,
-.goal-chip,
 .ultimate-wrap,
 .item-bar,
 .bosscoin-tray,
@@ -1485,7 +1484,6 @@ body::after {
 
 .btn,
 .hud-stat,
-.goal-chip,
 .ultimate-wrap,
 .item-bar,
 .bosscoin-tray,

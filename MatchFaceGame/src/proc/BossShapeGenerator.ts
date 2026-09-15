@@ -61,9 +61,11 @@ export function generateBossModel(p: BossShapeParams): BossModel {
     const z = L * 0.5 - i * spacing;
     const bulge = Math.sin(t * Math.PI) * 0.35 + 0.8;
     const r = baseR * bulge * (slim ? 0.85 : 1);
-    sphere(group, [0, 0.3, z], r, primary, [
+    const bodyY = p.shell ? 0.2 : 0.3;
+    const bodyYScale = (p.bodyType === "roach" ? 0.5 : p.bodyType === "spider" ? 1 : 0.95) * (p.shell ? 0.85 : 1);
+    sphere(group, [0, bodyY, z], r, primary, [
       p.bodyType === "roach" ? 1.25 : 1,
-      p.bodyType === "roach" ? 0.5 : p.bodyType === "spider" ? 1 : 0.95,
+      bodyYScale,
       p.bodyType === "worm" || p.bodyType === "slug" ? 0.85 : 1.35,
     ]);
     if (p.feature === "segmentRings" && i > 0) {

@@ -139,7 +139,7 @@ export class HudView {
 
     const sum = () => Object.values(selected).reduce((a, b) => a + b, 0);
     const refresh = (): void => {
-      countEl.textContent = `${this.i18n.t("selected")} ${sum()}/${cfg.totalCap}`;
+      countEl.textContent = `${this.i18n.t("selected")} ${sum()}`;
       startBtn.disabled = false;
       for (const row of Array.from(rows.children) as HTMLElement[]) {
         const id = row.dataset.item ?? "";
@@ -252,7 +252,7 @@ export class HudView {
       for (let i = 0; i < 3; i++) this.fillUltimateSlot(i, state.element);
     }
 
-    this.useBtn.title = state.ready ? this.i18n.t("ultimateReady") : `${this.i18n.t("charge")} ${state.count}/${state.required}`;
+    this.useBtn.title = state.ready ? this.i18n.t("ultimateReady") : `${this.i18n.t("charge")} ${state.count}`;
   }
 
   /** Charge/fill animation running: keep the use button disabled until it ends. */
@@ -324,7 +324,7 @@ export class HudView {
       return;
     }
     this.bossCoinTray.classList.remove("hidden");
-    this.bossCoinLabel.textContent = `${this.i18n.t("coins")} ${Math.max(0, state.remaining)}/${state.total}`;
+    this.bossCoinLabel.textContent = `${this.i18n.t("coins")} ${Math.max(0, state.remaining)}`;
     const usable = state.remaining > 0 && !this.coinBusy;
     this.bossCoinTray.classList.toggle("ready-glow", usable);
 
@@ -456,6 +456,11 @@ export class HudView {
     this.loading.classList.toggle("hidden", !on);
   }
 
+  /** Force the goal chips to rebuild on the next update (level start / retry). */
+  resetGoals(): void {
+    this.goalSig = "";
+  }
+
   update(board: BoardLogic, levelLabel: string): void {
     const moves = board.remainingMoves;
     const score = board.currentScore;
@@ -491,41 +496,14 @@ export class HudView {
       this.blockerChips.clear();
       this.goalRow.innerHTML = "";
       for (const g of goals) {
-        const chip = div("goal-chip");
-        const img = document.createElement("img");
-        img.className = "goal-icon";
-        img.src = elementIconDataURL(g.tileType);
-        img.alt = `tile ${g.tileType}`;
-        const label = document.createElement("b");
-        label.className = "goal-count";
-        label.textContent = `${g.current}/${g.required}`;
-        chip.append(img, label);
+        const chip = makeGoalChip(elementIconDataURL(g.tileType), `tile ${g.tileType}`, g.required - g.current);
         this.goalRow.appendChild(chip);
         this.goalChips.set(g.tileType, chip);
       }
       for (const g of blockerGoals) {
-        const chip = div("goal-chip goal-blocker");
-        const img = document.createElement("img");
-        img.className = "goal-icon";
-        img.src = blockerIconDataURL(g.typeId);
-        img.alt = `blocker ${g.typeId}`;
-        const label = document.createElement("b");
-        label.className = "goal-count";
-        label.textContent = `${g.current}/${g.required}`;
-        chip.append(img, label);
+        const chip = makeGoalChip(blockerIconDataURL(g.typeId), `blocker ${g.typeId}`, g.required - g.current, true);
         this.goalRow.appendChild(chip);
         this.blockerChips.set(g.typeId, chip);
-      }
-    } else {
-      for (const g of goals) {
-        const chip = this.goalChips.get(g.tileType);
-        const count = chip?.querySelector(".goal-count") as HTMLElement | null;
-        if (count) count.textContent = `${g.current}/${g.required}`;
-      }
-      for (const g of blockerGoals) {
-        const chip = this.blockerChips.get(g.typeId);
-        const count = chip?.querySelector(".goal-count") as HTMLElement | null;
-        if (count) count.textContent = `${g.current}/${g.required}`;
       }
     }
 
@@ -580,15 +558,14 @@ export class HudView {
     requestAnimationFrame(tick);
   }
 
-  /** Increment a collect goal's displayed count immediately (on flight arrival). */
+  /** Decrement a collect goal's remaining count on flight arrival; hide it at 0. */
   bumpGoal(tileType: number, delta = 1): void {
-    const chip = this.goalChips.get(tileType);
-    const label = chip?.querySelector<HTMLElement>(".goal-count");
-    if (!label) return;
-    const m = /^(\d+)\/(\d+)$/.exec(label.textContent ?? "");
-    if (!m) return;
-    const cur = Math.min(parseInt(m[2], 10), parseInt(m[1], 10) + delta);
-    label.textContent = `${cur}/${m[2]}`;
+    bumpChip(this.goalChips.get(tileType), delta);
+  }
+
+  /** Decrement a blocker goal's remaining count on flight arrival; hide it at 0. */
+  bumpBlockerGoal(typeId: number, delta = 1): void {
+    bumpChip(this.blockerChips.get(typeId) ?? this.blockerChips.get(0), delta);
   }
 
   private renderBoss(board: BoardLogic): void {
@@ -723,6 +700,35 @@ function div(cls: string): HTMLElement {
   const d = document.createElement("div");
   d.className = cls;
   return d;
+}
+
+/** A goal chip showing only the remaining count (never `current/required`). */
+function makeGoalChip(icon: string, alt: string, remaining: number, blocker = false): HTMLElement {
+  const chip = div(blocker ? "goal-chip goal-blocker" : "goal-chip");
+  const img = document.createElement("img");
+  img.className = "goal-icon";
+  img.src = icon;
+  img.alt = alt;
+  const label = document.createElement("b");
+  label.className = "goal-count";
+  label.textContent = String(Math.max(0, remaining));
+  chip.append(img, label);
+  return chip;
+}
+
+/** Subtract `delta` from a goal chip's remaining number; remove the chip at 0. */
+function bumpChip(chip: HTMLElement | undefined, delta: number): void {
+  if (!chip || !chip.isConnected) return;
+  const label = chip.querySelector<HTMLElement>(".goal-count");
+  if (!label) return;
+  const cur = parseInt(label.textContent ?? "0", 10);
+  if (!Number.isFinite(cur)) return;
+  const next = cur - delta;
+  if (next <= 0) {
+    chip.remove();
+    return;
+  }
+  label.textContent = String(next);
 }
 
 function delay(ms: number): Promise<void> {

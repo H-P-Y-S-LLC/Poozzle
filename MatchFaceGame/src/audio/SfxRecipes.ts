@@ -15,6 +15,7 @@ export type SfxName =
   | "uiTap"
   | "uiNav"
   | "uiPrimary"
+  | "uiLevel"
   | "swap"
   | "swapInvalid"
   | "clear"
@@ -33,18 +34,25 @@ export type SfxName =
 const TILE_BASE: Record<number, number> = { 1: 392, 2: 440, 3: 494, 4: 523, 5: 587, 6: 659, 7: 330 };
 
 export const SFX_RECIPES: Record<SfxName, (synth: AudioSynth, opts: SfxOptions) => void> = {
-  // low, muted button ticks — three flavours so button types sound different
+  // low, muted UI ticks — one flavour per button category so they sound distinct
   uiTap: (s) => {
-    s.tone(300, 0.07, { type: "triangle", gain: 0.12, toFreq: 200 });
-    s.noise(0.04, { type: "lowpass", freq: 1400, q: 0.8, gain: 0.05 });
+    s.tone(240, 0.08, { type: "triangle", gain: 0.12, toFreq: 160 });
+    s.noise(0.04, { type: "lowpass", freq: 1100, q: 0.8, gain: 0.045 });
   },
   uiNav: (s) => {
-    s.tone(210, 0.09, { type: "sine", gain: 0.13, toFreq: 150 });
-    s.tone(420, 0.05, { type: "triangle", gain: 0.05 });
+    s.tone(165, 0.11, { type: "sine", gain: 0.14, toFreq: 118 });
+    s.tone(330, 0.05, { type: "triangle", gain: 0.05 });
   },
   uiPrimary: (s) => {
-    s.tone(180, 0.13, { type: "triangle", gain: 0.15, toFreq: 120 });
-    s.tone(270, 0.1, { type: "sine", gain: 0.08, delay: 0.02 });
+    s.tone(148, 0.16, { type: "triangle", gain: 0.16, toFreq: 96 });
+    s.tone(222, 0.12, { type: "sine", gain: 0.09, delay: 0.02 });
+  },
+  // level entrances: a deeper two-note cue distinct from plain nav/confirm
+  uiLevel: (s) => {
+    s.tone(196, 0.16, { type: "triangle", gain: 0.16, toFreq: 147 });
+    s.tone(294, 0.14, { type: "sine", gain: 0.1, delay: 0.03, toFreq: 220 });
+    s.tone(98, 0.18, { type: "sine", gain: 0.13, toFreq: 73 });
+    s.noise(0.06, { type: "lowpass", freq: 900, q: 0.7, gain: 0.04 });
   },
   select: (s) => {
     s.tone(720, 0.06, { type: "triangle", gain: 0.12, toFreq: 900 });

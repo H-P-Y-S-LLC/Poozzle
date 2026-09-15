@@ -42,6 +42,8 @@ const BOSS_COIN_TOSSES_PER_LEVEL = 3;
 const IDLE_HINT_SECONDS = 30;
 /** Starter inventory granted on first run (each item). */
 const STARTER_ITEMS = 3;
+/** Levels with an order up to this value are unlocked by default. */
+const DEFAULT_UNLOCKED_MAX_ORDER = 19;
 
 const DEFAULT_LEVEL_MAP: LevelMapConfig = {
   levelsPerChunk: 12,
@@ -139,11 +141,13 @@ export class GameFlow {
         if (!el) return;
         // these have their own dedicated sounds
         if (el.matches(".item-btn, .bosscoin-coin, .ultimate-use")) return;
-        const name = el.classList.contains("primary")
-          ? "uiPrimary"
-          : el.classList.contains("map-node") || el.closest(".hud-toolbar")
-            ? "uiNav"
-            : "uiTap";
+        const name = el.classList.contains("map-node") || el.classList.contains("map-cell")
+          ? "uiLevel"
+          : el.classList.contains("primary")
+            ? "uiPrimary"
+            : el.closest(".hud-toolbar")
+              ? "uiNav"
+              : "uiTap";
         this.audio.play(name);
       },
       true
@@ -329,6 +333,9 @@ export class GameFlow {
       // seed unlock state
       const unlocked = new Set(this.save.unlocked);
       for (const e of this.entries) if (e.bInitiallyUnlocked) unlocked.add(e.levelId);
+      for (const e of this.entries) {
+        if (e.order >= 1 && e.order <= DEFAULT_UNLOCKED_MAX_ORDER) unlocked.add(e.levelId);
+      }
       this.save.unlocked = [...unlocked];
       persist(this.save);
 
@@ -402,6 +409,7 @@ export class GameFlow {
         onBlockedSwap: (a, b) => void this.handleBlockedSwap(a, b),
         onUltimate: (c) => void this.handleUltimate(c),
       });
+      this.hud.resetGoals();
       this.hud.update(board, entry.displayName || entry.levelId);
       this.hud.setBossLevel(isBoss);
       this.setupBossCoin(board, isBoss ? bossConfig!.bossId : "");
@@ -503,21 +511,18 @@ export class GameFlow {
     if (!this.board || !this.view) return;
     const goalTypes = new Set(this.board.config.Goal.Collect.map((g) => g.TileType));
     if (goalTypes.size === 0) return;
-    let spawned = 0;
     for (const ct of cleared) {
       if (ct.special !== 0 || ct.tileType <= 0) continue;
       if (!goalTypes.has(ct.tileType)) continue;
-      if (spawned >= 8) break;
       const { row, col } = this.board.coord(ct.index);
       const start = this.view.worldToScreen(this.view.cellWorld(row, col));
       const end = this.hud.goalChipCenter(ct.tileType);
       if (!end) continue;
       const type = ct.tileType;
       this.flyGhost(elementIconDataURL(type), start, end, () => {
-        this.hud.bumpGoal(type, 1); // number rises the moment the element lands
-        this.hud.popGoal(type);
+        this.hud.popGoal(type); // pop, then the remaining count drops
+        this.hud.bumpGoal(type, 1);
       });
-      spawned++;
     }
   }
 
@@ -526,17 +531,17 @@ export class GameFlow {
     if (!this.board || !this.view) return;
     const progress = this.board.blockerProgress();
     if (progress.length === 0) return;
-    let spawned = 0;
     for (const hit of hits) {
       if (!hit.broken) continue;
-      if (spawned >= 6) break;
       const end = this.hud.blockerChipCenter(hit.blockerType);
       if (!end) continue;
       const { row, col } = this.board.coord(hit.index);
       const start = this.view.worldToScreen(this.view.cellWorld(row, col));
       const type = hit.blockerType;
-      this.flyGhost(blockerIconDataURL(type), start, end, () => this.hud.popBlockerGoal(type));
-      spawned++;
+      this.flyGhost(blockerIconDataURL(type), start, end, () => {
+        this.hud.popBlockerGoal(type);
+        this.hud.bumpBlockerGoal(type, 1);
+      });
     }
   }
 
@@ -576,6 +581,7 @@ export class GameFlow {
     for (const idx of indices.slice(0, 12)) view.bossProjectile(from, idx, color);
   }
 
+  /** Fly one collected element to its target: drop clearly out of its cell first, then arc over. */
   private flyGhost(src: string, start: { x: number; y: number }, end: { x: number; y: number }, onArrive: () => void): void {
     const img = document.createElement("img");
     img.className = "collect-ghost";
@@ -583,8 +589,19 @@ export class GameFlow {
     img.style.left = `${start.x}px`;
     img.style.top = `${start.y}px`;
     document.body.appendChild(img);
+
     const dx = end.x - start.x;
     const dy = end.y - start.y;
+    const dist = Math.hypot(dx, dy);
+    const cell = this.view?.cellPixelSize();
+    const dropY = Math.max(34, (cell?.y ?? 44) * 0.9);
+    const drop = { x: start.x + dx * 0.04 + (Math.random() - 0.5) * 18, y: start.y + dropY };
+    const c1 = { x: drop.x + dx * 0.1 + (Math.random() - 0.5) * 50, y: drop.y + 22 };
+    const c2 = { x: end.x - dx * 0.08 + (Math.random() - 0.5) * 50, y: end.y - Math.min(150, 40 + dist * 0.24) };
+    const dropMs = 150;
+    const flyMs = 450 + Math.random() * 200;
+    const total = dropMs + flyMs;
+    const startAt = performance.now();
     let finished = false;
     const done = (): void => {
       if (finished) return;
@@ -592,12 +609,37 @@ export class GameFlow {
       img.remove();
       onArrive();
     };
-    requestAnimationFrame(() => {
-      img.style.transform = `translate(${dx}px, ${dy}px) scale(0.45) rotate(180deg)`;
-      img.style.opacity = "0.15";
-    });
-    img.addEventListener("transitionend", done, { once: true });
-    window.setTimeout(done, 650);
+
+    const tick = (): void => {
+      const elapsed = performance.now() - startAt;
+      let x: number;
+      let y: number;
+      let scale: number;
+      let opacity: number;
+      if (elapsed < dropMs) {
+        const k = elapsed / dropMs;
+        const e = k * k; // accelerating fall: visibly drop out of the cell
+        x = start.x + (drop.x - start.x) * e;
+        y = start.y + (drop.y - start.y) * e;
+        scale = 1 + 0.12 * k;
+        opacity = 1;
+      } else {
+        const k = Math.min(1, (elapsed - dropMs) / flyMs);
+        const e = k * k * (3 - 2 * k); // smoothstep
+        x = cubicBezier(drop.x, c1.x, c2.x, end.x, e);
+        y = cubicBezier(drop.y, c1.y, c2.y, end.y, e);
+        scale = 1.12 - 0.77 * e;
+        opacity = 1 - 0.82 * e;
+      }
+      img.style.left = `${x}px`;
+      img.style.top = `${y}px`;
+      img.style.transform = `translate(-50%, -50%) scale(${scale}) rotate(${((elapsed) / total) * 300}deg)`;
+      img.style.opacity = String(opacity);
+      if (elapsed < total) requestAnimationFrame(tick);
+      else done();
+    };
+    requestAnimationFrame(tick);
+    window.setTimeout(done, total + 240);
   }
 
   private async handleSwap(a: { row: number; col: number }, b: { row: number; col: number }): Promise<void> {
@@ -1154,6 +1196,11 @@ export class GameFlow {
       this.save.items[it.itemId] = Math.min(stack, (this.save.items[it.itemId] ?? 0) + it.count);
     }
   }
+}
+
+function cubicBezier(p0: number, p1: number, p2: number, p3: number, t: number): number {
+  const u = 1 - t;
+  return u * u * u * p0 + 3 * u * u * t * p1 + 3 * u * t * t * p2 + t * t * t * p3;
 }
 
 function loadSave(): SaveData {

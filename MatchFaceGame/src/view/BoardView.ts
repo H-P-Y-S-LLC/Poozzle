@@ -392,11 +392,20 @@ export class BoardView {
 
   private animClear(ev: ClearBatchEvent): Promise<void> {
     const meshes: THREE.Object3D[] = [];
+    const goalTypes = new Set(this.board.config.Goal.Collect.map((g) => g.TileType));
+    const clearedByIndex = new Map(ev.clearedTiles.map((t) => [t.index, t]));
     for (const idx of ev.indices) {
       const m = this.tiles[idx];
+      const ct = clearedByIndex.get(idx);
       if (m) {
-        meshes.push(m);
-        this.burstAt(m);
+        // collect-goal elements fly to their chip (DOM ghost) instead of shattering here
+        const fliesAway = !!ct && ct.special === SpecialType.None && ct.tileType > 0 && goalTypes.has(ct.tileType);
+        if (fliesAway) {
+          this.root.remove(m);
+        } else {
+          meshes.push(m);
+          this.burstAt(m);
+        }
       }
       this.tiles[idx] = null;
     }

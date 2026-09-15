@@ -47,10 +47,10 @@ export class AudioSynth {
 
   noise(
     dur: number,
-    opts: { type?: BiquadFilterType; freq?: number; q?: number; gain?: number; decay?: number; sweepTo?: number } = {}
+    opts: { type?: BiquadFilterType; freq?: number; q?: number; gain?: number; decay?: number; sweepTo?: number; delay?: number } = {}
   ): void {
-    const { type = "lowpass", freq = 800, q = 1, gain = 0.4, decay = dur, sweepTo } = opts;
-    const t = this.ctx.currentTime;
+    const { type = "lowpass", freq = 800, q = 1, gain = 0.4, decay = dur, sweepTo, delay = 0 } = opts;
+    const t = this.ctx.currentTime + delay;
     const src = this.ctx.createBufferSource();
     src.buffer = this.ensureNoise();
     const filt = this.ctx.createBiquadFilter();
