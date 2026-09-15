@@ -3,6 +3,7 @@
     {
       "id": "hammer",
       "name": "Hammer",
+      "nameZh": "锤子",
       "stackMax": 999,
       "usableInModes": ["match3"],
       "perLevelUseLimit": 8,
@@ -11,6 +12,7 @@
     {
       "id": "shuffle",
       "name": "Shuffle",
+      "nameZh": "洗牌",
       "stackMax": 99,
       "usableInModes": ["match3"],
       "perLevelUseLimit": 5,
@@ -19,6 +21,7 @@
     {
       "id": "rocket",
       "name": "Rocket",
+      "nameZh": "火箭",
       "stackMax": 99,
       "usableInModes": ["match3"],
       "perLevelUseLimit": 5,
@@ -27,6 +30,7 @@
     {
       "id": "glove",
       "name": "Glove",
+      "nameZh": "手套",
       "stackMax": 99,
       "usableInModes": ["match3"],
       "perLevelUseLimit": 5,
@@ -35,6 +39,7 @@
     {
       "id": "finger",
       "name": "Finger",
+      "nameZh": "手指",
       "stackMax": 99,
       "usableInModes": ["match3"],
       "perLevelUseLimit": 5,

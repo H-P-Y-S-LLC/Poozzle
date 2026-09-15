@@ -263,7 +263,7 @@ export class GameFlow {
       mapBtn.textContent = this.i18n.t("map");
       this.refreshBossCoin();
       this.refreshItems();
-      if (this.board) this.hud.update(this.board, this.entries[this.index]?.displayName ?? "");
+      this.refreshLanguageChrome();
     });
     const soundBtn = document.createElement("button");
     soundBtn.className = "btn ghost active";
@@ -286,6 +286,21 @@ export class GameFlow {
     });
     bar.append(soundBtn, musicBtn, shopBtn, mapBtn, langBtn);
     this.container.appendChild(bar);
+  }
+
+  /** Re-render the on-screen chrome (home / map / HUD) after a language switch. */
+  private refreshLanguageChrome(): void {
+    if (this.homeEl) {
+      this.homeEl.remove();
+      this.homeEl = null;
+      this.showHome();
+      return;
+    }
+    if (this.mapView.visible) {
+      this.openLevelSelect();
+      return;
+    }
+    if (this.board) this.hud.update(this.board, this.entries[this.index]?.displayName ?? "");
   }
 
   async boot(): Promise<void> {
@@ -917,6 +932,11 @@ export class GameFlow {
     );
   }
 
+  /** Localized display name for an item (falls back to the English name). */
+  private localizedItemName(d: ItemDef): string {
+    return this.i18n.lang === "zh" && d.nameZh ? d.nameZh : d.name;
+  }
+
   /** Build the equipped set for a level from the saved loadout (or auto-fill). */
   private buildEquipped(levelId: string): Map<string, number> {
     const out = new Map<string, number>();
@@ -954,7 +974,7 @@ export class GameFlow {
           count: remaining,
           enabled: enabled || this.activeItem === d.id,
           icon: itemIconDataURL(d.id, 40, !enabled && this.activeItem !== d.id),
-          title: `${d.name} · ${this.i18n.t("itemRemaining")} ${remaining}`,
+          title: `${this.localizedItemName(d)} · ${this.i18n.t("itemRemaining")} ${remaining}`,
         };
       })
     );
@@ -1250,7 +1270,7 @@ export class GameFlow {
     const items = defs
       .map((d) => ({
         id: d.id,
-        name: d.name,
+        name: this.localizedItemName(d),
         icon: itemIconDataURL(d.id, 40),
         cap: limits?.perItemEquipCaps.find((c) => c.itemId === d.id)?.cap ?? 0,
         owned: this.save.items[d.id] ?? 0,
@@ -1274,7 +1294,10 @@ export class GameFlow {
       this.hud.hidePanels();
       return;
     }
-    const itemName = (id: string) => this.itemCatalog?.items.find((d) => d.id === id)?.name ?? id;
+    const itemName = (id: string) => {
+      const d = this.itemCatalog?.items.find((x) => x.id === id);
+      return d ? this.localizedItemName(d) : id;
+    };
     const list = this.products.products
       .filter((p) => p.type.toLowerCase() !== "lifepack" && p.grant.lifeAmount <= 0)
       .map((p) => {

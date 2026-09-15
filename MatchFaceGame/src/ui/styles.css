@@ -1470,6 +1470,11 @@ body {
 
 :root {
   --px-glow: 0 0 0 1px rgba(255, 255, 255, 0.05) inset, 0 0 12px rgba(90, 160, 255, 0.14);
+  --px-bevel:
+    inset 0 3px 0 rgba(255, 255, 255, 0.25),
+    inset 0 -3px 0 rgba(0, 0, 0, 0.38),
+    inset 3px 0 0 rgba(255, 255, 255, 0.07),
+    inset -3px 0 0 rgba(0, 0, 0, 0.22);
 }
 
 /* pixel corners + glow on panels & controls */
@@ -1708,4 +1713,87 @@ body.combo-flash::before {
   font-size: 20px;
   line-height: 1;
   cursor: pointer;
+}
+
+/* ───────────────────────── HD pixel-art buttons ───────────────────────── */
+.btn,
+.btn.primary,
+.btn.ghost,
+.btn.home-play {
+  --px-bevel:
+    inset 0 3px 0 rgba(255, 255, 255, 0.25),
+    inset 0 -3px 0 rgba(0, 0, 0, 0.38),
+    inset 3px 0 0 rgba(255, 255, 255, 0.07),
+    inset -3px 0 0 rgba(0, 0, 0, 0.22);
+  border-radius: 0;
+  border: 2px solid #0b0e18;
+  padding: 11px 20px;
+  font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text);
+  background: linear-gradient(180deg, #333d60, #1b2237);
+  box-shadow: var(--px-bevel);
+  filter: drop-shadow(0 4px 0 rgba(0, 0, 0, 0.5));
+  clip-path: polygon(
+    0 4px, 4px 4px, 4px 0,
+    calc(100% - 4px) 0, calc(100% - 4px) 4px, 100% 4px,
+    100% calc(100% - 4px), calc(100% - 4px) calc(100% - 4px), calc(100% - 4px) 100%,
+    4px 100%, 4px calc(100% - 4px), 0 calc(100% - 4px)
+  );
+  transition: transform 0.06s steps(2, end), filter 0.06s steps(2, end);
+}
+
+.btn:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: var(--px-bevel);
+  filter: drop-shadow(0 5px 0 rgba(0, 0, 0, 0.5));
+}
+
+.btn:active:not(:disabled) {
+  transform: translateY(3px);
+  filter: drop-shadow(0 1px 0 rgba(0, 0, 0, 0.5));
+}
+
+.btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.btn.primary,
+.btn.primary:hover:not(:disabled) {
+  background: linear-gradient(180deg, #6db6ff, #3f7fe0);
+  color: #06101f;
+}
+
+.btn.ghost {
+  background: linear-gradient(180deg, #2d3653, #1a2036);
+  color: var(--text);
+}
+
+.btn.home-play {
+  min-width: 210px;
+  padding: 14px 28px;
+  font-size: 20px;
+  animation: none;
+}
+
+.item-btn,
+.ultimate-use {
+  border-radius: 0;
+  border: 2px solid #0b0e18;
+  box-shadow: var(--px-bevel);
+  filter: drop-shadow(0 3px 0 rgba(0, 0, 0, 0.5));
+  clip-path: polygon(
+    0 3px, 3px 3px, 3px 0,
+    calc(100% - 3px) 0, calc(100% - 3px) 3px, 100% 3px,
+    100% calc(100% - 3px), calc(100% - 3px) calc(100% - 3px), calc(100% - 3px) 100%,
+    3px 100%, 3px calc(100% - 3px), 0 calc(100% - 3px)
+  );
+}
+
+.ultimate-use {
+  background: linear-gradient(180deg, #2d3653, #1a2036);
+  color: var(--text);
 }

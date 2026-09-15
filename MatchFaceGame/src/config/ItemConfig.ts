@@ -7,6 +7,7 @@ import { ciArrObj, ciBool, ciNum, ciStr, ciStrArr, type JsonObject } from "./Cas
 export interface ItemDef {
   id: string;
   name: string;
+  nameZh: string;
   stackMax: number;
   usableInModes: string[];
   perLevelUseLimit: number;
@@ -21,6 +22,7 @@ export function parseItemCatalog(json: JsonObject): ItemCatalog {
   const items = ciArrObj(json, "items").map((o): ItemDef => ({
     id: ciStr(o, "id", ""),
     name: ciStr(o, "name", ""),
+    nameZh: ciStr(o, "nameZh", ""),
     stackMax: ciNum(o, "stackMax", 99),
     usableInModes: ciStrArr(o, "usableInModes"),
     perLevelUseLimit: ciNum(o, "perLevelUseLimit", 0),
