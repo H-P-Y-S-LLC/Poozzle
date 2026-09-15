@@ -80,8 +80,8 @@ export function generateBossModel(p: BossShapeParams): BossModel {
       color: p.colorAccent,
       metalness: 0.6,
       roughness: 0.3,
-      transparent: true,
-      opacity: 0.55,
+      transparent: false,
+      opacity: 1,
       flatShading: true,
     });
     const shell = new THREE.Mesh(new THREE.SphereGeometry(baseR * 1.25, 14, 10), shellMat);

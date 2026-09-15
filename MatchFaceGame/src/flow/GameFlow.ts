@@ -130,6 +130,24 @@ export class GameFlow {
     };
     window.addEventListener("pointerdown", unlock, { once: true });
     window.addEventListener("keydown", unlock, { once: true });
+    // every UI button gets a click sound (HUD, level map, sheets, toolbars)
+    document.addEventListener(
+      "pointerdown",
+      (e) => {
+        const t = e.target as HTMLElement | null;
+        const el = t?.closest<HTMLElement>("button, .btn, .map-node, .map-cell");
+        if (!el) return;
+        // these have their own dedicated sounds
+        if (el.matches(".item-btn, .bosscoin-coin, .ultimate-use")) return;
+        const name = el.classList.contains("primary")
+          ? "uiPrimary"
+          : el.classList.contains("map-node") || el.closest(".hud-toolbar")
+            ? "uiNav"
+            : "uiTap";
+        this.audio.play(name);
+      },
+      true
+    );
   }
 
   private onFrame(dt: number): void {
@@ -367,6 +385,7 @@ export class GameFlow {
       const bossConfig = level.Boss.bEnabled ? await this.loader.resolveBoss(level.Boss.raw) : null;
       const isBoss = !!(bossConfig && bossConfig.bEnabled);
       const portrait = window.innerHeight > window.innerWidth;
+      this.music.setMode(isBoss ? "boss" : "level");
       const board = new BoardLogic(level, undefined, bossConfig);
       const usable = board.cells.map((c) => c.bUsable);
       this.scene.layoutBoard(level.Board.Rows, level.Board.Cols, 1, usable);
@@ -446,7 +465,6 @@ export class GameFlow {
         break;
       }
       case "bossHp":
-        if (e.delta < 0) this.audio.playAt("bossHit", {}, this.bossPos());
         break;
       case "bossSkill":
       case "bossPhase":
@@ -495,7 +513,10 @@ export class GameFlow {
       const end = this.hud.goalChipCenter(ct.tileType);
       if (!end) continue;
       const type = ct.tileType;
-      this.flyGhost(elementIconDataURL(type), start, end, () => this.hud.popGoal(type));
+      this.flyGhost(elementIconDataURL(type), start, end, () => {
+        this.hud.bumpGoal(type, 1); // number rises the moment the element lands
+        this.hud.popGoal(type);
+      });
       spawned++;
     }
   }
@@ -537,7 +558,10 @@ export class GameFlow {
       if (spawned >= 6) break;
       const { row, col } = board.coord(ct.index);
       const start = view.worldToScreen(view.cellWorld(row, col));
-      this.flyGhost(elementIconDataURL(ct.tileType), start, end, () => bossView.hit(1));
+      this.flyGhost(elementIconDataURL(ct.tileType), start, end, () => {
+        bossView.hit(1);
+        this.audio.play("bossHit", { pitch: 1 + Math.random() * 0.1 });
+      });
       spawned++;
     }
   }
@@ -790,8 +814,9 @@ export class GameFlow {
     try {
       const roll = board.rollBossCoin(coinProbability(cfg, skill));
       if (!roll.accepted) return;
+      this.audio.play("coinToss");
       await this.hud.playCoinToss(roll.success, cfg.animation, bossCoinIconDataURL(skill.bossId));
-      this.audio.play(roll.success ? "skill" : "swapInvalid");
+      this.audio.play(roll.success ? "coinWin" : "swapInvalid");
       const res = board.applyBossCoinResult(skill, roll.success);
       if (this.view && res.events.length) {
         await this.view.playEvents(res.events, (e) => this.onBoardEvent(e));
@@ -990,6 +1015,7 @@ export class GameFlow {
 
   private openLevelSelect(): void {
     this.hud.hidePanels();
+    this.music.setMode("map");
     if (this.shopBtn) this.shopBtn.classList.remove("hidden"); // shop entry on the map page
     if (this.mapBtn) this.mapBtn.classList.add("hidden"); // redundant on the map itself
     this.mapView.show(

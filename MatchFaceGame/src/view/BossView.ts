@@ -9,6 +9,7 @@ import type { SceneRoot } from "./SceneRoot.js";
 import type { BoardEvent } from "../logic/BoardLogic.js";
 import { generateBossModel, type BossModel } from "../proc/BossShapeGenerator.js";
 import { bossShapeParams } from "../proc/BossShapeParams.js";
+import { VfxPlayer } from "../proc/VfxPlayer.js";
 
 /** Horizontal (screen-vertical axis) turn applied to the side profile. */
 const BOSS_VIEW_YAW_DEG = 30;
@@ -28,11 +29,15 @@ export class BossView {
   private baseScale = new THREE.Vector3(1, 1, 1);
   private baseQuat = new THREE.Quaternion();
   private hitT = 0;
+  private vfx: VfxPlayer;
+  private hitColor = new THREE.Color(0xff7a6a);
   private readonly shakeAxis = new THREE.Vector3(0, 0, 1);
 
   constructor(scene: SceneRoot, bossId: string, rows: number, strip = 1.4, lowBias = 0.34) {
     this.scene = scene;
     this.model = generateBossModel(bossShapeParams(bossId));
+    this.vfx = new VfxPlayer(scene.boardRoot, scene.camera);
+    this.hitColor = new THREE.Color(bossShapeParams(bossId).colorAccent);
     this.baseZ = rows / 2 + strip * lowBias; // gap above the board (higher bias = bigger gap)
     const g = this.model.group;
     g.position.set(0, 0, -this.baseZ);
@@ -71,10 +76,16 @@ export class BossView {
     return this.model.group;
   }
 
-  /** Trigger a hit reaction (used when a weakness flies in). */
+  /** Trigger a hit reaction: flash + shake + a bright impact burst. */
   hit(strength = 1): void {
     this.flash = Math.max(this.flash, strength);
     this.hitT = Math.max(this.hitT, strength);
+    const p = this.model.group.position;
+    const at = new THREE.Vector3(p.x, 0.5, p.z + 0.2);
+    this.vfx.burst(at, this.hitColor, Math.round(30 + 20 * strength), 6.5);
+    this.vfx.burst(at, new THREE.Color(0xffffff), 12, 4.5);
+    this.vfx.shockwave(new THREE.Vector3(p.x, 0.02, p.z), this.hitColor, 3.2);
+    this.vfx.beam(at, Math.random() < 0.5, 6, this.hitColor);
   }
 
   onEvents(events: BoardEvent[]): void {
@@ -86,6 +97,7 @@ export class BossView {
   }
 
   update(dt: number): void {
+    this.vfx.update(dt);
     this.t += dt;
     const m = this.model;
     const g = m.group;

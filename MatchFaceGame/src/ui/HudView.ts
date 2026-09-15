@@ -420,11 +420,23 @@ export class HudView {
   }
 
   private spawnCoinParticles(success: boolean): void {
-    const n = 16;
+    if (success) {
+      // expanding shock ring for a clear "heads!" moment
+      const ring = div("coin-ring");
+      this.coinOverlay.appendChild(ring);
+      ring.animate(
+        [
+          { transform: "translate(-50%,-50%) scale(0.2)", opacity: 0.9 },
+          { transform: "translate(-50%,-50%) scale(3.2)", opacity: 0 },
+        ],
+        { duration: 620, easing: "ease-out", fill: "forwards" }
+      );
+    }
+    const n = success ? 34 : 16;
     for (let i = 0; i < n; i++) {
       const p = div("coin-particle");
       const a = (i / n) * Math.PI * 2 + Math.random() * 0.3;
-      const dist = 50 + Math.random() * 70;
+      const dist = (success ? 90 : 50) + Math.random() * (success ? 130 : 70);
       p.style.background = success ? (i % 2 ? "#FFD866" : "#FFB302") : "#8A8F99";
       this.coinOverlay.appendChild(p);
       p.animate(
@@ -533,6 +545,17 @@ export class HudView {
     chip.classList.remove("pop");
     void chip.offsetWidth;
     chip.classList.add("pop");
+  }
+
+  /** Increment a collect goal's displayed count immediately (on flight arrival). */
+  bumpGoal(tileType: number, delta = 1): void {
+    const chip = this.goalChips.get(tileType);
+    const label = chip?.querySelector<HTMLElement>(".goal-count");
+    if (!label) return;
+    const m = /^(\d+)\/(\d+)$/.exec(label.textContent ?? "");
+    if (!m) return;
+    const cur = Math.min(parseInt(m[2], 10), parseInt(m[1], 10) + delta);
+    label.textContent = `${cur}/${m[2]}`;
   }
 
   private renderBoss(board: BoardLogic): void {
