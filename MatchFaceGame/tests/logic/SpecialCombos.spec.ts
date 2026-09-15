@@ -139,3 +139,44 @@ describe("special block usage (§3.4.3)", () => {
     expect([...spawns.values()]).toContain(SpecialType.LineHorizontal);
   });
 });
+
+describe("special + special swap combo (§3.3.3)", () => {
+  it("two horizontal lines clear both swap rows and both swap cols", () => {
+    const level = parseLevelConfig({
+      LevelId: "combo",
+      Board: {
+        Rows: 6,
+        Cols: 6,
+        Mask: Array.from({ length: 6 }, () => "111111"),
+        BlockedTypes: [],
+        BlockerTypeDefs: [],
+        InitialSpecials: [
+          { Row: 2, Col: 2, SpecialType: "LineHorizontal" },
+          { Row: 2, Col: 3, SpecialType: "LineHorizontal" },
+        ],
+      },
+      TilePool: { TileTypes: [1, 2, 3], Weights: [1, 1, 1] },
+      Rules: { MinMatchCount: 3, bAvoidAutoCascadeAtStart: false, bEnsureAtLeastOneMove: false },
+      Goal: { MaxMoves: 20, Collect: [] },
+    });
+    const b = new BoardLogic(level, 7);
+    const used = b.usedMoves;
+    const res = b.trySwap({ row: 2, col: 2 }, { row: 2, col: 3 });
+    expect(res.accepted).toBe(true);
+    expect(res.combo).toBe(true);
+    expect(b.usedMoves).toBe(used); // combos never consume a move
+
+    const clears = res.events.filter((e) => e.type === "clear") as Array<{ indices: number[] }>;
+    const clearedIdx = new Set<number>();
+    for (const c of clears) for (const i of c.indices) clearedIdx.add(i);
+    const has = (r: number, col: number): boolean => clearedIdx.has(r * 6 + col);
+    // both swap cols are fully cleared
+    expect(has(0, 2)).toBe(true);
+    expect(has(5, 2)).toBe(true);
+    expect(has(0, 3)).toBe(true);
+    expect(has(5, 3)).toBe(true);
+    // and the swap row
+    expect(has(2, 0)).toBe(true);
+    expect(has(2, 5)).toBe(true);
+  });
+});

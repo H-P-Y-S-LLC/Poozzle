@@ -23,6 +23,7 @@ export type SfxName =
   | "specialExplode"
   | "blockerBreak"
   | "bossHit"
+  | "comboBlast"
   | "coinToss"
   | "coinWin"
   | "skill"
@@ -95,6 +96,14 @@ export const SFX_RECIPES: Record<SfxName, (synth: AudioSynth, opts: SfxOptions) 
     s.tone(150 * p, 0.3, { type: "sine", gain: 0.5, toFreq: 60 * p });
     // airy crack
     s.noise(0.14, { type: "bandpass", freq: 3600, q: 1.2, gain: 0.22, decay: 0.12 });
+  },
+  // super combo: deep boom + rising shimmer + crackle
+  comboBlast: (s) => {
+    s.tone(90, 0.6, { type: "sine", gain: 0.5, toFreq: 46 });
+    s.tone(200, 0.5, { type: "sawtooth", gain: 0.22, toFreq: 700 });
+    s.tone(700, 0.4, { type: "triangle", gain: 0.14, toFreq: 1800, delay: 0.05 });
+    s.noise(0.4, { type: "bandpass", freq: 2800, q: 0.9, gain: 0.2, decay: 0.35 });
+    s.noise(0.5, { type: "lowpass", freq: 400, gain: 0.24, decay: 0.4 });
   },
   // coin flip: metallic whoosh + tumbling clicks
   coinToss: (s) => {

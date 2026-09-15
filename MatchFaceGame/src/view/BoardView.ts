@@ -370,6 +370,26 @@ export class BoardView {
     this.syncFromBoard();
   }
 
+  /** Screen-wide celebration for a special+special super combo. */
+  comboBlast(): void {
+    const cols = this.board.cols;
+    const rows = this.board.rows;
+    const gold = new THREE.Color(0xffd166);
+    const white = new THREE.Color(0xffffff);
+    // ground shockwave + crossing beams across the whole board
+    this.vfx.shockwave(new THREE.Vector3(0, 0.02, 0), gold, Math.max(cols, rows) * 1.6);
+    this.vfx.beam(new THREE.Vector3(0, 0.4, 0), true, Math.abs(this.scene.camera.right - this.scene.camera.left) * 0.6, gold);
+    this.vfx.beam(new THREE.Vector3(0, 0.4, 0), false, Math.abs(this.scene.camera.bottom - this.scene.camera.top) * 0.6, gold);
+    // sparks all over the board
+    for (let i = 0; i < 46; i++) {
+      const r = Math.floor(Math.random() * rows);
+      const c = Math.floor(Math.random() * cols);
+      const p = this.cellWorld(r, c);
+      p.y = 0.4 + Math.random() * 0.7;
+      this.vfx.burst(p, i % 3 === 0 ? white : gold, 7 + Math.floor(Math.random() * 6), 3.5 + Math.random() * 4);
+    }
+  }
+
   private animClear(ev: ClearBatchEvent): Promise<void> {
     const meshes: THREE.Object3D[] = [];
     for (const idx of ev.indices) {

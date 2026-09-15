@@ -613,6 +613,12 @@ export class GameFlow {
       // swap animation first; invalid swaps bounce back, then (only if accepted) resolve
       await this.view.animateSwap(a, b, res.accepted);
       if (res.accepted) {
+        if (res.combo) {
+          this.audio.play("comboBlast");
+          this.view.comboBlast();
+          document.body.classList.add("combo-flash");
+          window.setTimeout(() => document.body.classList.remove("combo-flash"), 280);
+        }
         await this.view.playEvents(res.events, (e) => this.onBoardEvent(e));
         this.bossView?.onEvents(res.events);
       }
@@ -723,7 +729,11 @@ export class GameFlow {
       this.hud.showSettlement(
         { victory: snap.victory, score: snap.score, stars: snap.stars, reason },
         () => void this.startLevel(this.index),
-        () => void this.startLevel(Math.min(this.entries.length - 1, this.index + 1)),
+        () => {
+          // next level is only reachable after clearing the current one
+          if (!snap.victory) return;
+          void this.startLevel(Math.min(this.entries.length - 1, this.index + 1));
+        },
         () => this.openLevelSelect()
       );
     if (this.celebrating) {

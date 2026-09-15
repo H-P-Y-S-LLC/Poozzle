@@ -817,13 +817,16 @@ export class BoardLogic {
         targetTileType = other.TileType;
         this.clearColor(clear, other.TileType);
       } else {
-        const cc = this.coord(colorIdx);
-        this.clearRow(clear, cc.row);
-        this.clearCol(clear, cc.col);
+        // ColorBomb + special: clear both swap rows and both swap cols (§3.3.3)
+        this.clearRow(clear, a.row);
+        this.clearRow(clear, b.row);
+        this.clearCol(clear, a.col);
+        this.clearCol(clear, b.col);
       }
       return { clear, suppress, targetTileType };
     }
     if (anySpecial) {
+      // any special + any special: 5x5-ish rect around the swap + both rows + both cols
       this.clearRect(
         clear,
         Math.max(0, Math.min(a.row, b.row) - 1),
@@ -832,7 +835,9 @@ export class BoardLogic {
         Math.min(this.cols - 1, Math.max(a.col, b.col) + 1)
       );
       this.clearRow(clear, a.row);
+      this.clearRow(clear, b.row);
       this.clearCol(clear, a.col);
+      this.clearCol(clear, b.col);
       return { clear, suppress, targetTileType };
     }
     return null;

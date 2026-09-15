@@ -45,6 +45,9 @@ export class HudView {
   private goalChips = new Map<number, HTMLElement>();
   private blockerChips = new Map<number, HTMLElement>();
   private goalSig = "";
+  private lastScore: number | null = null;
+  private lastMoves: number | null = null;
+  private lastLevelLabel = "";
 
   constructor(root: HTMLElement, i18n: I18n) {
     this.i18n = i18n;
@@ -455,12 +458,26 @@ export class HudView {
 
   update(board: BoardLogic, levelLabel: string): void {
     const moves = board.remainingMoves;
+    const score = board.currentScore;
+    const prevScore = this.lastScore;
+    const prevMoves = this.lastMoves;
+    const prevLabel = this.lastLevelLabel;
+    this.lastScore = score;
+    this.lastMoves = moves;
+    this.lastLevelLabel = levelLabel;
+
     this.topBar.innerHTML = "";
-    this.topBar.append(
-      stat(this.i18n.t("level"), levelLabel),
-      stat(this.i18n.t("score"), String(board.currentScore)),
-      stat(this.i18n.t("moves"), moves >= 999 ? "∞" : String(moves))
-    );
+    const levelStat = stat(this.i18n.t("level"), levelLabel);
+    const scoreStat = stat(this.i18n.t("score"), String(score));
+    const movesStat = stat(this.i18n.t("moves"), moves >= 999 ? "∞" : String(moves));
+    this.topBar.append(levelStat, scoreStat, movesStat);
+
+    // animate value changes (count-up + pop)
+    if (prevLabel !== "" && prevLabel !== levelLabel) bumpValue(levelStat);
+    if (prevScore !== null && prevScore !== score) this.countUp(scoreStat, prevScore, score);
+    if (prevMoves !== null && prevMoves !== moves && moves < 999 && prevMoves < 999) {
+      this.countUp(movesStat, prevMoves, moves);
+    }
 
     const goals = board.collectProgress();
     const blockerGoals = board.blockerProgress();
@@ -545,6 +562,22 @@ export class HudView {
     chip.classList.remove("pop");
     void chip.offsetWidth;
     chip.classList.add("pop");
+  }
+
+  /** Animate a stat's number from `from` to `to` (count-up/down) with a pop. */
+  private countUp(statEl: HTMLElement, from: number, to: number): void {
+    const el = statEl.querySelector<HTMLElement>(".hud-value");
+    if (!el) return;
+    bumpValue(statEl);
+    const start = performance.now();
+    const dur = 280;
+    const tick = (): void => {
+      const k = Math.min(1, (performance.now() - start) / dur);
+      const ease = 1 - Math.pow(1 - k, 3);
+      el.textContent = String(Math.round(from + (to - from) * ease));
+      if (k < 1) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
   }
 
   /** Increment a collect goal's displayed count immediately (on flight arrival). */
@@ -640,11 +673,10 @@ export class HudView {
     const score = document.createElement("p");
     score.textContent = `${this.i18n.t("score")}: ${info.score}`;
     const buttons = div("settle-buttons");
-    buttons.append(
-      mkButton(this.i18n.t("retry"), onRetry, "ghost"),
-      mkButton(this.i18n.t("next"), onNext, "primary"),
-      mkButton(this.i18n.t("map"), onMap, "ghost")
-    );
+    buttons.append(mkButton(this.i18n.t("retry"), onRetry, "ghost"));
+    // only a clear unlocks the next level
+    if (info.victory) buttons.append(mkButton(this.i18n.t("next"), onNext, "primary"));
+    buttons.append(mkButton(this.i18n.t("map"), onMap, "ghost"));
     panel.append(title, stars, score, buttons);
     this.overlay.appendChild(panel);
   }
@@ -679,6 +711,12 @@ export class HudView {
     this.overlay.classList.add("hidden");
     this.overlay.innerHTML = "";
   }
+}
+
+function bumpValue(statEl: HTMLElement): void {
+  statEl.classList.remove("bump");
+  void statEl.offsetWidth;
+  statEl.classList.add("bump");
 }
 
 function div(cls: string): HTMLElement {

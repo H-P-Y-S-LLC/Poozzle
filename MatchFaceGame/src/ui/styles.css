@@ -1562,3 +1562,35 @@ body::after {
 .chapter-motif.pixel-motif.bfd-float {
   animation: bfdFloat 3s ease-in-out infinite;
 }
+
+/* super combo: full-screen flash */
+body.combo-flash::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 190;
+  pointer-events: none;
+  background: radial-gradient(circle at 50% 45%, rgba(255, 232, 150, 0.85), rgba(255, 180, 60, 0.35) 40%, rgba(255, 180, 60, 0) 75%);
+  animation: comboFlash 0.28s ease-out forwards;
+}
+@keyframes comboFlash {
+  0% { opacity: 0; }
+  25% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+/* gold scoreboard numbers */
+.hud-stat .hud-value {
+  color: var(--gold);
+  text-shadow: 0 0 8px rgba(255, 214, 10, 0.55), 0 0 2px rgba(120, 80, 0, 0.8);
+}
+
+/* scoreboard value change pop */
+.hud-stat.bump .hud-value {
+  animation: statBump 0.28s ease-out;
+}
+@keyframes statBump {
+  0% { transform: scale(1); color: inherit; }
+  35% { transform: scale(1.28); color: #ffe9a8; }
+  100% { transform: scale(1); color: inherit; }
+}
