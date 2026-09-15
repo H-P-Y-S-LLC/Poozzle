@@ -53,7 +53,7 @@ export class VfxPlayer {
   private cursor = 0;
   private rnd = new Prng(0xc0ffee);
   private camera: THREE.Camera;
-  private fx: Array<{ mesh: THREE.Mesh; mat: THREE.MeshBasicMaterial; life: number; max: number; kind: "beam" | "ring"; axis?: "x" | "z"; to: number }> = [];
+  private fx: Array<{ mesh: THREE.Mesh; mat: THREE.MeshBasicMaterial; life: number; max: number; kind: "beam" | "ring"; axis?: "x" | "z"; to: number; base?: number }> = [];
 
   constructor(parent: THREE.Object3D, camera: THREE.Camera) {
     this.camera = camera;
@@ -130,25 +130,32 @@ export class VfxPlayer {
 
   /** Expanding energy beam across a full row (horizontal) or column. */
   beam(position: THREE.Vector3, horizontal: boolean, length: number, color: THREE.Color): void {
-    const geo = new THREE.BoxGeometry(1, 0.12, 0.2);
-    const mat = new THREE.MeshBasicMaterial({
-      color,
-      transparent: true,
-      opacity: 0.9,
-      blending: THREE.AdditiveBlending,
-      depthWrite: false,
-    });
-    const mesh = new THREE.Mesh(geo, mat);
-    mesh.renderOrder = 100001;
-    mesh.position.copy(position);
-    mesh.position.y = 0.34;
-    if (horizontal) mesh.scale.set(0.02, 1, 1);
-    else {
-      mesh.rotation.y = Math.PI / 2;
-      mesh.scale.set(0.02, 1, 1);
+    // two layers: a wide soft halo + a bright thin core, stretched across the screen
+    const layers: Array<{ w: number; h: number; opacity: number }> = [
+      { w: 0.06, h: 0.42, opacity: 0.35 },
+      { w: 0.05, h: 0.16, opacity: 0.95 },
+    ];
+    for (const layer of layers) {
+      const geo = new THREE.BoxGeometry(1, 0.12, 0.2);
+      const mat = new THREE.MeshBasicMaterial({
+        color,
+        transparent: true,
+        opacity: layer.opacity,
+        blending: THREE.AdditiveBlending,
+        depthWrite: false,
+      });
+      const mesh = new THREE.Mesh(geo, mat);
+      mesh.renderOrder = 100001;
+      mesh.position.copy(position);
+      mesh.position.y = 0.34;
+      if (horizontal) mesh.scale.set(0.02, layer.h, layer.w);
+      else {
+        mesh.rotation.y = Math.PI / 2;
+        mesh.scale.set(0.02, layer.h, layer.w);
+      }
+      this.points.parent?.add(mesh);
+      this.fx.push({ mesh, mat, life: 0.34, max: 0.34, kind: "beam", axis: horizontal ? "x" : "z", to: length, base: layer.opacity });
     }
-    this.points.parent?.add(mesh);
-    this.fx.push({ mesh, mat, life: 0.3, max: 0.3, kind: "beam", axis: horizontal ? "x" : "z", to: length });
   }
 
   /** Expanding shockwave ring (bomb / colorbomb). */
@@ -274,10 +281,10 @@ export class VfxPlayer {
       if (f.kind === "beam") {
         const grow = Math.min(1, k * 3.5);
         f.mesh.scale.x = Math.max(0.02, f.to * grow);
-        f.mat.opacity = 0.95 * (1 - k * k);
+        f.mat.opacity = (f.base ?? 0.95) * (1 - k * k);
       } else {
         f.mesh.scale.setScalar(0.4 + k * f.to);
-        f.mat.opacity = 0.9 * (1 - k);
+        f.mat.opacity = (f.base ?? 0.9) * (1 - k);
       }
       keep.push(f);
     }

@@ -532,10 +532,14 @@ export class BoardView {
     const { row, col } = this.board.coord(index);
     const pos = this.cellWorld(row, col);
     const hexToColor = (h: string): THREE.Color => new THREE.Color(parseInt(h.slice(1), 16));
+    // beams run across the whole visible screen, not just the board
+    const cam = this.scene.camera;
+    const viewW = (cam.right - cam.left) * 1.15;
+    const viewH = (cam.bottom - cam.top) * 1.15; // top<bottom in screen terms
     if (special === SpecialType.LineHorizontal) {
-      this.vfx.beam(pos, true, this.board.cols * CELL, hexToColor(SPECIAL_COLORS.lineHorizontal));
+      this.vfx.beam(pos, true, Math.abs(viewW), hexToColor(SPECIAL_COLORS.lineHorizontal));
     } else if (special === SpecialType.LineVertical) {
-      this.vfx.beam(pos, false, this.board.rows * CELL, hexToColor(SPECIAL_COLORS.lineVertical));
+      this.vfx.beam(pos, false, Math.abs(viewH), hexToColor(SPECIAL_COLORS.lineVertical));
     } else if (special === SpecialType.Bomb3x3) {
       const c = hexToColor(SPECIAL_COLORS.bomb);
       this.vfx.shockwave(pos, c, 2.2);

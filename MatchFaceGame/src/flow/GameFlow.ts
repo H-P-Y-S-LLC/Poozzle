@@ -366,11 +366,13 @@ export class GameFlow {
       const level = await this.loader.loadLevel(entry.configFile);
       const bossConfig = level.Boss.bEnabled ? await this.loader.resolveBoss(level.Boss.raw) : null;
       const isBoss = !!(bossConfig && bossConfig.bEnabled);
-      this.scene.layoutBoard(level.Board.Rows, level.Board.Cols);
-      this.scene.setBossStrip(isBoss ? 3.8 : 0);
+      const portrait = window.innerHeight > window.innerWidth;
       const board = new BoardLogic(level, undefined, bossConfig);
+      const usable = board.cells.map((c) => c.bUsable);
+      this.scene.layoutBoard(level.Board.Rows, level.Board.Cols, 1, usable);
+      this.scene.setBossStrip(isBoss ? (portrait ? 2.6 : 2.2) : 0);
       const view = new BoardView(this.scene, board);
-      this.bossView = isBoss ? new BossView(this.scene, bossConfig!.bossId, level.Board.Rows, 2.0) : null;
+      this.bossView = isBoss ? new BossView(this.scene, bossConfig!.bossId, level.Board.Rows, portrait ? 4.3 : 2.8, portrait ? 0.34 : 0.52) : null;
       this.board = board;
       this.view = view;
       this.controller = new BoardController(this.scene, view, board, {
@@ -382,6 +384,7 @@ export class GameFlow {
         onUltimate: (c) => void this.handleUltimate(c),
       });
       this.hud.update(board, entry.displayName || entry.levelId);
+      this.hud.setBossLevel(isBoss);
       this.setupBossCoin(board, isBoss ? bossConfig!.bossId : "");
       this.refreshItems();
       log.info(

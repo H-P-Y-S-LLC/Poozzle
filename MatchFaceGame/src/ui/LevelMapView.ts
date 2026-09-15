@@ -364,14 +364,26 @@ export class LevelMapView {
     scroller.addEventListener("pointerup", endDrag);
     scroller.addEventListener("pointercancel", endDrag);
 
-    // auto-scroll so the current/latest level is centered
-    if (currentEl) {
+    if (currentEl && !(currentEl as HTMLElement).classList.contains("boss-node")) {
       (currentEl as HTMLElement).classList.add("current");
-      const target = currentEl as HTMLElement;
-      requestAnimationFrame(() => {
-        scroller.scrollTop = Math.max(0, target.offsetTop - scroller.clientHeight / 2);
-      });
     }
+
+    // vertical placement: centre the whole map when it fits the viewport,
+    // otherwise centre the current level
+    requestAnimationFrame(() => {
+      const viewH = scroller.clientHeight;
+      const contentH = track.scrollHeight;
+      if (contentH < viewH - 8) {
+        const pad = Math.round((viewH - contentH) / 2);
+        track.style.paddingTop = `${pad}px`;
+        scroller.scrollTop = 0;
+        return;
+      }
+      if (currentEl) {
+        const target = currentEl as HTMLElement;
+        scroller.scrollTop = Math.max(0, target.offsetTop + target.offsetHeight / 2 - viewH / 2);
+      }
+    });
   }
 }
 

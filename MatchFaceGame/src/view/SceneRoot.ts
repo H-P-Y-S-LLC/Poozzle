@@ -4,7 +4,7 @@
  */
 import * as THREE from "three";
 import { TweenManager } from "../core/Tween.js";
-import { boardFrameMaterial, floorMaterial } from "../proc/MaterialFactory.js";
+
 
 export class SceneRoot {
   readonly renderer: THREE.WebGLRenderer;
@@ -67,7 +67,7 @@ export class SceneRoot {
   }
 
   /** Rebuild floor/frame for the given board dimensions and fit the camera. */
-  layoutBoard(rows: number, cols: number, cellSize = 1): void {
+  layoutBoard(rows: number, cols: number, cellSize = 1, usable?: boolean[]): void {
     this.boardSize = { rows, cols };
     // clear previous frame
     for (const child of [...this.boardRoot.children]) {
@@ -76,17 +76,19 @@ export class SceneRoot {
     const w = cols * cellSize;
     const d = rows * cellSize;
 
-    const floor = new THREE.Mesh(new THREE.BoxGeometry(w + 1, 0.6, d + 1), floorMaterial());
+    // no solid board background: only the usable cells carry the grid pattern
+    const floor = new THREE.Mesh(
+      new THREE.BoxGeometry(w + 1, 0.6, d + 1),
+      new THREE.MeshBasicMaterial({ transparent: true, opacity: 0, depthWrite: false })
+    );
     floor.name = "floor";
-    floor.position.y = -0.3; // top surface at y = 0 so pieces rest on the board
-    floor.receiveShadow = true;
+    floor.position.y = -0.3;
     this.boardRoot.add(floor);
 
-    // interleaved checker + grid lines so the tiles read clearly
     const grid = new THREE.Mesh(
       new THREE.PlaneGeometry(w, d),
       new THREE.MeshBasicMaterial({
-        map: boardGridTexture(rows, cols),
+        map: boardGridTexture(rows, cols, usable),
         transparent: true,
         depthWrite: false,
         polygonOffset: true,
@@ -101,10 +103,9 @@ export class SceneRoot {
     this.boardRoot.add(grid);
 
     const frameGeo = new THREE.BoxGeometry(w + 1.5, 0.25, d + 1.5);
-    const frame = new THREE.Mesh(frameGeo, boardFrameMaterial());
+    const frame = new THREE.Mesh(frameGeo, new THREE.MeshBasicMaterial({ transparent: true, opacity: 0, depthWrite: false }));
     frame.name = "frame";
     frame.position.y = -0.9;
-    frame.receiveShadow = true;
     this.boardRoot.add(frame);
 
     this.fitCamera(w, d);
@@ -118,46 +119,27 @@ export class SceneRoot {
 
   private fitCamera(w: number, d: number): void {
     const aspect = (this.container.clientWidth || window.innerWidth) / (this.container.clientHeight || window.innerHeight);
-    const marginX = 1.35;
-    const marginY = 1.5; // extra room for HUD bars top/bottom
-    const baseHalfH = (d / 2) * marginY;
-    const needW = (w / 2) * marginX;
-
-    // cover the board horizontally + vertically at the viewport aspect
-    let halfW = needW;
-    let halfH = baseHalfH;
-    if (halfW / halfH < aspect) halfW = halfH * aspect;
-    else halfH = halfW / aspect;
-
-    // asymmetric frustum: extra space at the top for the boss strip
-    let top = halfH + this.bossStrip;
-    let bottom = -halfH;
-    let hw = ((top - bottom) / 2) * aspect;
-    if (hw < needW) {
-      const span = (needW * 2) / aspect;
-      top += span - (top - bottom);
-      hw = needW;
-    }
-
-    // lock the board into a band that avoids the top HUD and bottom controls:
-    // scale the whole view up (board scales down proportionally) and centre the
-    // content inside the safe band.
     const portrait = aspect < 1;
-    const topFrac = portrait ? 0.22 : 0.14;
-    const botFrac = portrait ? 0.2 : 0.12;
+    // safe band: leave room for the top HUD (wallet/stats/goals/boss) and the
+    // bottom cluster (ultimate/items/toolbar)
+    const topFrac = portrait ? 0.27 : 0.2;
+    const botFrac = portrait ? 0.14 : 0.14;
     const bandFrac = Math.max(0.3, 1 - topFrac - botFrac);
-    const spanVert = top - bottom;
-    const H2 = spanVert / 2 / bandFrac;
-    const center = this.bossStrip / 2 - (botFrac - topFrac) * H2;
-    top = center + H2;
-    bottom = center - H2;
-    hw = ((top - bottom) / 2) * aspect;
-    if (hw < needW) {
-      hw = needW;
-      const H = needW / aspect;
-      top = center + H;
-      bottom = center - H;
-    }
+
+    // largest board that fits BOTH the viewport width and the safe band height;
+    // only shrink (zoom out) when the height band cannot hold it.
+    // keep ~10% horizontal margin so the board never touches the screen edges.
+    const widthFill = 0.9;
+    const contentH = d + this.bossStrip + 0.4;
+    const Hw = w / 2 / (widthFill * aspect);
+    const Hh = contentH / 2 / bandFrac;
+    const H = Math.max(Hw, Hh);
+    // portrait: nudge the board slightly upward for a better vertical balance
+    const lift = portrait ? 0.05 * (2 * H) : 0;
+    const center = this.bossStrip / 2 - (botFrac - topFrac) * H - lift;
+    const top = center + H;
+    const bottom = center - H;
+    const hw = H * aspect;
 
     this.camera.left = -hw;
     this.camera.right = hw;
@@ -221,8 +203,8 @@ export class SceneRoot {
 
 // ── procedural board grid (checker + lines), sized to the board ──
 const gridCache = new Map<string, THREE.CanvasTexture>();
-function boardGridTexture(rows: number, cols: number): THREE.CanvasTexture {
-  const key = `${rows}x${cols}`;
+function boardGridTexture(rows: number, cols: number, usable?: boolean[]): THREE.CanvasTexture {
+  const key = `${rows}x${cols}:${usable ? usable.map((u) => (u ? 1 : 0)).join("") : "all"}`;
   const hit = gridCache.get(key);
   if (hit) return hit;
   const CELL = 64;
@@ -230,30 +212,52 @@ function boardGridTexture(rows: number, cols: number): THREE.CanvasTexture {
   c.width = cols * CELL;
   c.height = rows * CELL;
   const g = c.getContext("2d")!;
+  const ok = (r: number, col: number): boolean =>
+    r >= 0 && r < rows && col >= 0 && col < cols && (!usable || usable[r * cols + col] === true);
 
-  // interleaved checker cells
+  // interleaved checker cells (only where a tile can actually sit)
   for (let r = 0; r < rows; r++) {
     for (let col = 0; col < cols; col++) {
+      if (!ok(r, col)) continue;
       if ((r + col) % 2 === 0) {
         g.fillStyle = "rgba(255,255,255,0.045)";
         g.fillRect(col * CELL, r * CELL, CELL, CELL);
       }
     }
   }
-  // grid lines
+  // grid lines: only along edges shared between usable cells
   g.strokeStyle = "rgba(255,255,255,0.075)";
   g.lineWidth = 2;
-  for (let col = 0; col <= cols; col++) {
-    g.beginPath();
-    g.moveTo(col * CELL, 0);
-    g.lineTo(col * CELL, rows * CELL);
-    g.stroke();
-  }
-  for (let r = 0; r <= rows; r++) {
-    g.beginPath();
-    g.moveTo(0, r * CELL);
-    g.lineTo(cols * CELL, r * CELL);
-    g.stroke();
+  for (let r = 0; r < rows; r++) {
+    for (let col = 0; col < cols; col++) {
+      if (!ok(r, col)) continue;
+      const x = col * CELL;
+      const y = r * CELL;
+      if (!ok(r, col - 1)) {
+        g.beginPath();
+        g.moveTo(x, y);
+        g.lineTo(x, y + CELL);
+        g.stroke();
+      }
+      if (!ok(r, col + 1)) {
+        g.beginPath();
+        g.moveTo(x + CELL, y);
+        g.lineTo(x + CELL, y + CELL);
+        g.stroke();
+      }
+      if (!ok(r - 1, col)) {
+        g.beginPath();
+        g.moveTo(x, y);
+        g.lineTo(x + CELL, y);
+        g.stroke();
+      }
+      if (!ok(r + 1, col)) {
+        g.beginPath();
+        g.moveTo(x, y + CELL);
+        g.lineTo(x + CELL, y + CELL);
+        g.stroke();
+      }
+    }
   }
 
   const tex = new THREE.CanvasTexture(c);

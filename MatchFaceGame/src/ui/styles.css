@@ -432,7 +432,8 @@ canvas {
 
 .hud-goals {
   position: absolute;
-  bottom: 14px;
+  top: 86px;
+  bottom: auto;
   left: 0;
   right: 0;
   display: flex;
@@ -445,7 +446,7 @@ canvas {
 
 .hud-boss {
   position: absolute;
-  top: 92px;
+  top: 104px;
   left: 0;
   right: 0;
   display: flex;
@@ -487,16 +488,17 @@ canvas {
 
 .boss-weak {
   display: flex;
-  gap: 10px;
-  justify-content: center;
+  gap: 14px;
+  justify-content: flex-start;
+  padding-left: 14px;
   margin-top: 6px;
 }
 
 .weak-chip {
   display: inline-flex;
   align-items: center;
-  gap: 4px;
-  font-size: 11px;
+  gap: 6px;
+  font-size: 15px;
   color: var(--dim);
 }
 
@@ -508,8 +510,8 @@ canvas {
 }
 
 .weak-chip .weak-icon {
-  width: 20px;
-  height: 20px;
+  width: 28px;
+  height: 28px;
   display: block;
 }
 
@@ -1256,6 +1258,9 @@ body {
   .hud-toolbar {
     top: calc(8px + env(safe-area-inset-top));
     right: 8px;
+    left: auto;
+    bottom: auto;
+    transform: none;
     gap: 6px;
   }
   .hud-toolbar .btn {
@@ -1266,7 +1271,11 @@ body {
 
   /* boss strip labels */
   .hud-boss {
-    top: calc(122px + env(safe-area-inset-top));
+    top: calc(134px + env(safe-area-inset-top));
+  }
+  /* boss levels: goals drop below the boss bar */
+  .hud-layer.boss-level .hud-goals {
+    top: calc(220px + env(safe-area-inset-top));
   }
   .boss-hud {
     width: min(92vw, 520px);
@@ -1274,7 +1283,8 @@ body {
 
   /* bottom cluster: keep item bar / coins / ultimate / goals from colliding */
   .hud-goals {
-    bottom: calc(10px + env(safe-area-inset-bottom));
+    top: calc(132px + env(safe-area-inset-top));
+    bottom: auto;
     padding: 0 6px;
     gap: 6px;
   }
@@ -1282,10 +1292,17 @@ body {
     font-size: 11px;
   }
   .ultimate-wrap {
-    right: 8px;
-    bottom: calc(64px + env(safe-area-inset-bottom));
+    left: 50%;
+    right: auto;
+    transform: translateX(-50%);
+    bottom: calc(8px + env(safe-area-inset-bottom));
     padding: 6px;
     gap: 6px;
+  }
+  /* when the item bar is present, stack the ultimate above it;
+     with no carried items the ultimate drops into the item bar's slot */
+  .hud-layer.has-items .ultimate-wrap {
+    bottom: calc(74px + env(safe-area-inset-bottom));
   }
   .ultimate-slot {
     width: 34px;
@@ -1314,8 +1331,9 @@ body {
     gap: 6px;
   }
   .item-bar {
-    left: 8px;
-    bottom: calc(64px + env(safe-area-inset-bottom));
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: calc(8px + env(safe-area-inset-bottom));
     padding: 6px;
     gap: 6px;
   }
@@ -1401,7 +1419,8 @@ body {
 /* short landscape phones: pull bottom cluster up less aggressively */
 @media (max-height: 460px) and (orientation: landscape) {
   .hud-goals {
-    bottom: calc(6px + env(safe-area-inset-bottom));
+    top: calc(64px + env(safe-area-inset-top));
+    bottom: auto;
   }
   .ultimate-wrap {
     bottom: calc(46px + env(safe-area-inset-bottom));

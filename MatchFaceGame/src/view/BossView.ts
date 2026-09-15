@@ -30,10 +30,10 @@ export class BossView {
   private hitT = 0;
   private readonly shakeAxis = new THREE.Vector3(0, 0, 1);
 
-  constructor(scene: SceneRoot, bossId: string, rows: number, strip = 1.4) {
+  constructor(scene: SceneRoot, bossId: string, rows: number, strip = 1.4, lowBias = 0.34) {
     this.scene = scene;
     this.model = generateBossModel(bossShapeParams(bossId));
-    this.baseZ = rows / 2 + strip;
+    this.baseZ = rows / 2 + strip * lowBias; // gap above the board (higher bias = bigger gap)
     const g = this.model.group;
     g.position.set(0, 0, -this.baseZ);
 

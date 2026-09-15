@@ -20,6 +20,7 @@ export interface SettlementInfo {
 export class HudView {
   private i18n: I18n;
   private overlayRoot: HTMLElement;
+  private hudRoot: HTMLElement;
   private topBar: HTMLElement;
   private bossRow: HTMLElement;
   private goalRow: HTMLElement;
@@ -48,6 +49,7 @@ export class HudView {
   constructor(root: HTMLElement, i18n: I18n) {
     this.i18n = i18n;
     this.overlayRoot = root;
+    this.hudRoot = root;
 
     this.topBar = div("hud-top");
     this.bossRow = div("hud-boss");
@@ -92,6 +94,11 @@ export class HudView {
 
     this.panelRoot = div("panel-root hidden");
     root.appendChild(this.panelRoot);
+  }
+
+  /** Toggle the boss-level layout class (mobile: boss bar hugs the scoreboard). */
+  setBossLevel(on: boolean): void {
+    this.hudRoot.classList.toggle("boss-level", on);
   }
 
   /** Top-left currency wallet (coin / gem / lives). */
@@ -337,9 +344,11 @@ export class HudView {
   updateItems(items: Array<{ id: string; count: number; enabled: boolean; icon: string; title: string }>): void {
     if (items.length === 0) {
       this.itemBar.classList.add("hidden");
+      this.hudRoot.classList.remove("has-items");
       return;
     }
     this.itemBar.classList.remove("hidden");
+    this.hudRoot.classList.add("has-items");
     const sig = items.map((i) => `${i.id}:${i.count}:${i.enabled ? 1 : 0}`).join("|");
     if (this.itemBar.dataset.sig === sig) return;
     this.itemBar.dataset.sig = sig;
@@ -532,8 +541,6 @@ export class HudView {
     if (!boss) return;
     const pct = Math.max(0, Math.min(100, (boss.currentHp / boss.maxHp) * 100));
     const wrap = div("boss-hud");
-    const label = div("boss-bar-label");
-    label.textContent = `BOSS  ${boss.currentHp} / ${boss.maxHp}`;
     const bar = div("boss-bar");
     const fill = div("boss-bar-fill");
     fill.style.width = `${pct}%`;
@@ -551,7 +558,7 @@ export class HudView {
       chip.append(img, txt);
       weak.appendChild(chip);
     }
-    wrap.append(label, bar, weak);
+    wrap.append(bar, weak);
     this.bossRow.appendChild(wrap);
   }
 
