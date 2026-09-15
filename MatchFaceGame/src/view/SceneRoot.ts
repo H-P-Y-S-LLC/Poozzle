@@ -28,12 +28,15 @@ export class SceneRoot {
   private ambientParticleBase: Float32Array | null = null;
   private ambientGlows: Array<{ mesh: THREE.Mesh; base: number; phase: number; speed: number }> = [];
   private ambientTime = 0;
+  private resizeObserver: ResizeObserver | null = null;
 
   constructor(container: HTMLElement) {
     this.container = container;
     this.renderer = new THREE.WebGLRenderer({ antialias: true, powerPreference: "high-performance" });
     this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    this.renderer.setSize(container.clientWidth || window.innerWidth, container.clientHeight || window.innerHeight);
+    // updateStyle=false: the canvas size is driven by CSS (full-bleed), we only
+    // set the drawing buffer. Standalone iOS draws a wrong height otherwise.
+    this.renderer.setSize(container.clientWidth || window.innerWidth, container.clientHeight || window.innerHeight, false);
     this.renderer.shadowMap.enabled = true;
     this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
     this.renderer.outputColorSpace = THREE.SRGBColorSpace;
@@ -50,6 +53,11 @@ export class SceneRoot {
     this.scene.add(this.boardRoot);
 
     window.addEventListener("resize", () => this.onResize());
+    window.addEventListener("orientationchange", () => this.onResize());
+    if (typeof ResizeObserver !== "undefined") {
+      this.resizeObserver = new ResizeObserver(() => this.onResize());
+      this.resizeObserver.observe(container);
+    }
   }
 
   private setupLights(): void {
@@ -320,7 +328,7 @@ export class SceneRoot {
   onResize(): void {
     const w = this.container.clientWidth || window.innerWidth;
     const h = this.container.clientHeight || window.innerHeight;
-    this.renderer.setSize(w, h);
+    this.renderer.setSize(w, h, false);
     this.fitCamera(this.boardSize.cols, this.boardSize.rows);
   }
 

@@ -107,16 +107,21 @@ export class HudView {
   /** Top-left currency wallet (coin / gem / lives). */
   updateWallet(state: { coin: number; gem: number; lives?: number }): void {
     this.walletEl.classList.remove("hidden");
-    const lives = state.lives === undefined ? "" : `<span class="wallet-item"><b>♥</b>${state.lives}</span>`;
+    const lives = state.lives === undefined ? "" : `<span class="wallet-item wallet-lives"><b>♥</b>${state.lives}</span>`;
     this.walletEl.innerHTML =
-      `<span class="wallet-item"><b>◎</b>${state.coin}</span>` +
-      `<span class="wallet-item"><b>◆</b>${state.gem}</span>` +
+      `<span class="wallet-item wallet-coin"><b>◎</b>${state.coin}</span>` +
+      `<span class="wallet-item wallet-gem"><b>◆</b>${state.gem}</span>` +
       lives;
   }
 
   hidePanels(): void {
     this.panelRoot.classList.add("hidden");
     this.panelRoot.innerHTML = "";
+  }
+
+  /** Show/hide the currency wallet (hidden on the home screen). */
+  setWalletVisible(on: boolean): void {
+    this.walletEl.classList.toggle("hidden", !on);
   }
 
   /** Pre-level loadout picker. */

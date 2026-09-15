@@ -20,11 +20,26 @@ const i18n = new I18n();
 const hud = new HudView(uiRoot, i18n);
 const flow = new GameFlow(gameRoot, new ConfigLoader(), i18n, hud, uiRoot);
 
-// Enable "add to home screen" / standalone fullscreen on mobile browsers.
-if (import.meta.env.PROD && "serviceWorker" in navigator) {
-  window.addEventListener("load", () => {
-    navigator.serviceWorker.register("./sw.js").catch(() => undefined);
-  });
+// Standalone full-screen setup. iOS must NOT see a <link rel="manifest">:
+// with a manifest iOS follows its display mode and ignores black-translucent
+// (opaque status bar, viewport clipped by ~59px). Inject it only for non-iOS.
+function isIosDevice(): boolean {
+  const ua = navigator.userAgent || "";
+  return /iPad|iPhone|iPod/.test(ua) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+}
+
+if (import.meta.env.PROD) {
+  if (!isIosDevice()) {
+    const link = document.createElement("link");
+    link.rel = "manifest";
+    link.href = "./manifest.webmanifest";
+    document.head.appendChild(link);
+  }
+  if ("serviceWorker" in navigator) {
+    window.addEventListener("load", () => {
+      navigator.serviceWorker.register("./sw.js").catch(() => undefined);
+    });
+  }
 }
 
 // Debug/testing handle (used by automated smoke tests).

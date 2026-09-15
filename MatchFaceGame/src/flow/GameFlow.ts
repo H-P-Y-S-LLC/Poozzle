@@ -397,6 +397,9 @@ export class GameFlow {
     this.index = index;
     this.save.lastPlayed = entry.levelId;
     persist(this.save);
+    document.body.classList.add("in-level");
+    document.body.classList.remove("map-open");
+    this.hud.setWalletVisible(true);
     this.hud.setLoading(true);
     this.hud.hideOverlay();
     this.mapView.hide();
@@ -1111,6 +1114,8 @@ export class GameFlow {
   /** Landing screen shown before the level map; PLAY enters the map. */
   private showHome(): void {
     if (this.homeEl) return;
+    document.body.classList.remove("map-open", "in-level");
+    this.hud.setWalletVisible(false);
     this.music.setMode("map");
     this.shopBtn?.classList.add("hidden");
     this.mapBtn?.classList.add("hidden");
@@ -1229,7 +1234,10 @@ export class GameFlow {
 
   private openLevelSelect(): void {
     this.hud.hidePanels();
+    this.hud.setWalletVisible(true);
     this.music.setMode("map");
+    document.body.classList.add("map-open");
+    document.body.classList.remove("in-level");
     if (this.shopBtn) this.shopBtn.classList.remove("hidden"); // shop entry on the map page
     if (this.mapBtn) this.mapBtn.classList.add("hidden"); // redundant on the map itself
     this.mapView.show(
