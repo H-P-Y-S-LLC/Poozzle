@@ -45,10 +45,21 @@ if (import.meta.env.PROD) {
 // Debug/testing handle (used by automated smoke tests).
 (window as unknown as Record<string, unknown>).__mf = { flow };
 
-flow.boot().catch((err: unknown) => {
-  const box = document.createElement("div");
-  box.className = "hud-loading";
-  box.textContent = `Failed to start: ${(err as Error).message}`;
-  uiRoot.appendChild(box);
-  console.error(err);
-});
+function hideBootSplash(): void {
+  const splash = document.getElementById("boot-splash");
+  if (!splash) return;
+  splash.classList.add("hide");
+  window.setTimeout(() => splash.remove(), 400);
+}
+
+flow
+  .boot()
+  .then(hideBootSplash)
+  .catch((err: unknown) => {
+    hideBootSplash();
+    const box = document.createElement("div");
+    box.className = "hud-loading";
+    box.textContent = `Failed to start: ${(err as Error).message}`;
+    uiRoot.appendChild(box);
+    console.error(err);
+  });
