@@ -2103,6 +2103,12 @@ export class BoardLogic {
   private evaluateFinishState(): void {
     if (this.levelFinished) return;
     if (this.boss) this.boss.processTurn(this.usedMoves, this.events);
+    // The boss turn tick (freeze expiring) and skills can leave auto-eliminable
+    // elements behind: unfrozen tiles may form a match. Resolve them before we
+    // evaluate the outcome so the direct elimination actually happens.
+    if (this.computeMatches().matched.size > 0) {
+      this.resolveCascade(null, ClearTriggerType.NormalMatch, false);
+    }
     const blockers = this.applyTurnBlockers();
     if (blockers.changed) this.events.push({ type: "refresh" });
     if (blockers.escaped) {
