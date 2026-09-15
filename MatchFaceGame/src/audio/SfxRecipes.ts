@@ -16,6 +16,7 @@ export type SfxName =
   | "uiNav"
   | "uiPrimary"
   | "uiLevel"
+  | "goalAbsorb"
   | "swap"
   | "swapInvalid"
   | "clear"
@@ -56,6 +57,13 @@ export const SFX_RECIPES: Record<SfxName, (synth: AudioSynth, opts: SfxOptions) 
   },
   select: (s) => {
     s.tone(720, 0.06, { type: "triangle", gain: 0.12, toFreq: 900 });
+  },
+  // a flying element is absorbed by its goal chip: soft low "gulp" + whoosh
+  goalAbsorb: (s, o) => {
+    const p = o.pitch ?? 1;
+    s.tone(300 * p, 0.12, { type: "triangle", gain: 0.15, toFreq: 150 * p });
+    s.tone(110 * p, 0.14, { type: "sine", gain: 0.14, toFreq: 64 * p, delay: 0.015 });
+    s.noise(0.07, { type: "bandpass", freq: 850, q: 0.7, gain: 0.06 });
   },
   swap: (s) => {
     s.tone(520, 0.08, { type: "triangle", gain: 0.16, toFreq: 700 });

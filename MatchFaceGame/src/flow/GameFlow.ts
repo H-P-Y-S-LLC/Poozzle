@@ -44,6 +44,8 @@ const IDLE_HINT_SECONDS = 30;
 const STARTER_ITEMS = 3;
 /** Levels with an order up to this value are unlocked by default. */
 const DEFAULT_UNLOCKED_MAX_ORDER = 19;
+/** localStorage flag: the "add to home screen" hint has been dismissed for good. */
+const INSTALL_HINT_KEY = "matchface.installHintDismissed";
 
 const DEFAULT_LEVEL_MAP: LevelMapConfig = {
   levelsPerChunk: 12,
@@ -75,7 +77,10 @@ export class GameFlow {
   private loader: ConfigLoader;
   private i18n: I18n;
   private hud: HudView;
+  private uiRoot: HTMLElement;
   private scene: SceneRoot;
+  private homeEl: HTMLElement | null = null;
+  private installPrompt: (() => void) | null = null;
 
   private entries: ManifestEntry[] = [];
   private save: SaveData = loadSave();
@@ -118,6 +123,7 @@ export class GameFlow {
     this.loader = loader;
     this.i18n = i18n;
     this.hud = hud;
+    this.uiRoot = uiRoot;
     this.mapView = new LevelMapView(uiRoot, i18n, this.levelMapCfg);
     this.scene = new SceneRoot(container);
     this.scene.setFrameCallback((dt) => this.onFrame(dt));
@@ -132,6 +138,21 @@ export class GameFlow {
     };
     window.addEventListener("pointerdown", unlock, { once: true });
     window.addEventListener("keydown", unlock, { once: true });
+    window.addEventListener("beforeinstallprompt", (e) => {
+      e.preventDefault();
+      const ev = e as Event & { prompt?: () => Promise<void> };
+      this.installPrompt = () => void ev.prompt?.();
+    });
+    window.addEventListener("appinstalled", () => {
+      localStorage.setItem(INSTALL_HINT_KEY, "1");
+      this.homeEl?.querySelector(".home-install")?.remove();
+    });
+    window.matchMedia?.("(display-mode: standalone)").addEventListener?.("change", (ev) => {
+      if (ev.matches) {
+        localStorage.setItem(INSTALL_HINT_KEY, "1");
+        this.homeEl?.querySelector(".home-install")?.remove();
+      }
+    });
     // every UI button gets a click sound (HUD, level map, sheets, toolbars)
     document.addEventListener(
       "pointerdown",
@@ -344,8 +365,8 @@ export class GameFlow {
       if (requestedIndex >= 0) {
         await this.startLevel(requestedIndex);
       } else {
-        // level map is the home screen; the player picks a level from there
-        this.openLevelSelect();
+        // home screen first; the level map opens after the player taps PLAY
+        this.showHome();
       }
     } catch (err) {
       log.error("boot failed", err);
@@ -520,6 +541,7 @@ export class GameFlow {
       if (!end) continue;
       const type = ct.tileType;
       this.flyGhost(elementIconDataURL(type), start, end, () => {
+        this.audio.play("goalAbsorb", { pitch: 0.95 + Math.random() * 0.12 });
         this.hud.popGoal(type); // pop, then the remaining count drops
         this.hud.bumpGoal(type, 1);
       });
@@ -539,6 +561,7 @@ export class GameFlow {
       const start = this.view.worldToScreen(this.view.cellWorld(row, col));
       const type = hit.blockerType;
       this.flyGhost(blockerIconDataURL(type), start, end, () => {
+        this.audio.play("goalAbsorb", { pitch: 0.8 + Math.random() * 0.1 });
         this.hud.popBlockerGoal(type);
         this.hud.bumpBlockerGoal(type, 1);
       });
@@ -1065,6 +1088,125 @@ export class GameFlow {
     this.save.unlocked = [...unlocked];
   }
 
+  /** Landing screen shown before the level map; PLAY enters the map. */
+  private showHome(): void {
+    if (this.homeEl) return;
+    this.music.setMode("map");
+    this.shopBtn?.classList.add("hidden");
+    this.mapBtn?.classList.add("hidden");
+
+    const root = document.createElement("div");
+    root.className = "home-overlay";
+
+    const card = document.createElement("div");
+    card.className = "home-card";
+
+    const icon = document.createElement("img");
+    icon.className = "home-icon";
+    icon.src = "./icon-192.png";
+    icon.alt = "MatchFace";
+    icon.addEventListener("error", () => (icon.style.display = "none"));
+
+    const title = document.createElement("h1");
+    title.className = "home-title";
+    title.textContent = "MatchFace";
+
+    const tagline = document.createElement("p");
+    tagline.className = "home-tagline";
+    tagline.textContent = this.i18n.t("homeTagline");
+
+    const play = document.createElement("button");
+    play.className = "btn primary home-play";
+    play.textContent = this.i18n.t("play");
+    play.addEventListener("click", () => this.enterGame());
+
+    card.append(icon, title, tagline, play);
+    const hint = this.buildInstallHint();
+    if (hint) card.appendChild(hint);
+
+    root.appendChild(card);
+    this.uiRoot.appendChild(root);
+    this.homeEl = root;
+  }
+
+  /** True when launched from an installed home-screen app (so the hint is pointless). */
+  private isStandalone(): boolean {
+    if (typeof window.matchMedia === "function") {
+      if (window.matchMedia("(display-mode: standalone)").matches) return true;
+      if (window.matchMedia("(display-mode: fullscreen)").matches) return true;
+    }
+    return (navigator as unknown as { standalone?: boolean }).standalone === true;
+  }
+
+  /** Mobile-only "add to home screen" hint; null on desktop / standalone / dismissed. */
+  private addToHomeInfo(): { ios: boolean; android: boolean } | null {
+    if (this.isStandalone() || localStorage.getItem(INSTALL_HINT_KEY) === "1") return null;
+    const ua = navigator.userAgent || "";
+    const ios = /iPad|iPhone|iPod/.test(ua) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+    const android = /Android/i.test(ua);
+    if (!ios && !android) return null;
+    return { ios, android };
+  }
+
+  /** Dismissible "add to home screen" hint (remembered via localStorage). */
+  private buildInstallHint(): HTMLElement | null {
+    const a2hs = this.addToHomeInfo();
+    if (!a2hs) return null;
+
+    const hint = document.createElement("div");
+    hint.className = "home-install";
+
+    const strong = document.createElement("b");
+    strong.textContent = this.i18n.t("installTitle");
+
+    const text = document.createElement("p");
+    text.textContent = this.i18n.t("installHint");
+
+    const steps = document.createElement("p");
+    steps.className = "home-install-steps";
+    steps.textContent = a2hs.ios ? this.i18n.t("installIos") : this.i18n.t("installAndroid");
+
+    const actions = document.createElement("div");
+    actions.className = "home-install-actions";
+
+    if (a2hs.android && this.installPrompt) {
+      const add = document.createElement("button");
+      add.className = "btn primary";
+      add.textContent = this.i18n.t("addToHome");
+      add.addEventListener("click", () => {
+        this.installPrompt?.();
+        hint.remove();
+      });
+      actions.appendChild(add);
+    }
+
+    const never = document.createElement("button");
+    never.className = "btn ghost";
+    never.textContent = this.i18n.t("dontShowAgain");
+    never.addEventListener("click", () => {
+      localStorage.setItem(INSTALL_HINT_KEY, "1");
+      hint.remove();
+    });
+    actions.appendChild(never);
+
+    const close = document.createElement("button");
+    close.className = "home-install-close";
+    close.setAttribute("aria-label", this.i18n.t("close"));
+    close.textContent = "×";
+    close.addEventListener("click", () => hint.remove());
+
+    hint.append(close, strong, text, steps, actions);
+    return hint;
+  }
+
+  private enterGame(): void {
+    if (this.homeEl) {
+      this.homeEl.remove();
+      this.homeEl = null;
+    }
+    this.openLevelSelect();
+  }
+
   private openLevelSelect(): void {
     this.hud.hidePanels();
     this.music.setMode("map");
@@ -1077,8 +1219,16 @@ export class GameFlow {
       (e) => {
         const i = this.entries.indexOf(e);
         if (i >= 0) this.openLoadout(e);
-      }
+      },
+      () => this.goHome()
     );
+  }
+
+  /** Return to the landing screen from the level map. */
+  private goHome(): void {
+    this.mapView.hide();
+    this.hud.hidePanels();
+    this.showHome();
   }
 
   // ───────────────────────────── loadout / shop / rewards ─────────────────────────────

@@ -20,6 +20,13 @@ const i18n = new I18n();
 const hud = new HudView(uiRoot, i18n);
 const flow = new GameFlow(gameRoot, new ConfigLoader(), i18n, hud, uiRoot);
 
+// Enable "add to home screen" / standalone fullscreen on mobile browsers.
+if (import.meta.env.PROD && "serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("./sw.js").catch(() => undefined);
+  });
+}
+
 // Debug/testing handle (used by automated smoke tests).
 (window as unknown as Record<string, unknown>).__mf = { flow };
 

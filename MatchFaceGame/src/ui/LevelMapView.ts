@@ -54,7 +54,8 @@ export class LevelMapView {
     entries: ManifestEntry[],
     save: MapSaveState,
     meta: Map<string, LevelBossMeta>,
-    onPick: (entry: ManifestEntry) => void
+    onPick: (entry: ManifestEntry) => void,
+    onHome: () => void
   ): void {
     this.layer.classList.remove("hidden");
     this.layer.innerHTML = "";
@@ -284,6 +285,12 @@ export class LevelMapView {
     scroller.appendChild(track);
     panel.appendChild(scroller);
     this.layer.appendChild(panel);
+
+    const back = document.createElement("button");
+    back.className = "btn ghost map-home-btn";
+    back.textContent = `‹ ${this.i18n.t("home")}`;
+    back.addEventListener("click", onHome);
+    this.layer.appendChild(back);
 
     // Drag-to-scroll:
     //  - touch: left to the browser (native momentum + acceleration + damping)
